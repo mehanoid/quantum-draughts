@@ -1,6 +1,11 @@
 {
   "name": "quantum_draughts",
   "private": true,
+  "scripts": {
+    "start": "npm run webpack & npm run rails",
+    "rails": "bin/rails s",
+    "webpack": "bin/webpack-dev-server"
+  },
   "dependencies": {
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.25.0",
