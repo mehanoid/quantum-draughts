@@ -6,12 +6,12 @@
 
 import Vue from 'vue'
 import App from './app.vue'
-import store from './store'
+import initStore from './store'
 
 document.addEventListener('turbolinks:load', () => {
   const app = new Vue({
     el: '#gameplay',
-    store,
+    store: initStore(),
     render: h => h(App)
   })
 })

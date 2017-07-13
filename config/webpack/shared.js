@@ -2,6 +2,7 @@
 
 /* eslint global-require: 0 */
 /* eslint import/no-dynamic-require: 0 */
+const { shared: sharedConfig } = require('./app-config.js')
 
 const webpack = require('webpack')
 const { basename, dirname, join, relative, resolve } = require('path')
@@ -35,14 +36,14 @@ module.exports = {
     rules: sync(join(loadersDir, '*.js')).map(loader => require(loader))
   },
 
-  plugins: [
+  plugins: sharedConfig.plugins.concat([
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
     new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
     new ManifestPlugin({
       publicPath: output.publicPath,
       writeToFileEmit: true
     })
-  ],
+  ]),
 
   resolve: {
     extensions: settings.extensions,
