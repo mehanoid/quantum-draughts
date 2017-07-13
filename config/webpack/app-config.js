@@ -7,11 +7,11 @@ module.exports = {
   //   ]
   // },
   //
-  // development: {
-  //   output: {
-  //     // ... Custom output path
-  //   }
-  // },
+  development: {
+    plugins: [
+      new webpack.HotModuleReplacementPlugin()
+    ]
+  },
   shared: {
     plugins: [
       new webpack.ProvidePlugin({

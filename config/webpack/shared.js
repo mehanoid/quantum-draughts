@@ -38,7 +38,7 @@ module.exports = {
 
   plugins: sharedConfig.plugins.concat([
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
-    new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
+    new ExtractTextPlugin({filename: '[name]-[hash].css', disable: env.NODE_ENV !== 'production'}),
     new ManifestPlugin({
       publicPath: output.publicPath,
       writeToFileEmit: true

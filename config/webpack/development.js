@@ -2,6 +2,7 @@
 
 const merge = require('webpack-merge')
 const sharedConfig = require('./shared.js')
+const {development: devConfig} = require('./app-config')
 const { settings, output } = require('./configuration.js')
 
 module.exports = merge(sharedConfig, {
@@ -16,6 +17,7 @@ module.exports = merge(sharedConfig, {
   },
 
   devServer: {
+    hot: true,
     clientLogLevel: 'none',
     https: settings.dev_server.https,
     host: settings.dev_server.host,
@@ -28,5 +30,7 @@ module.exports = merge(sharedConfig, {
     watchOptions: {
       ignored: /node_modules/
     }
-  }
+  },
+
+  plugins: devConfig.plugins,
 })
