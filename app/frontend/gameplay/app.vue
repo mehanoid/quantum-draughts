@@ -1,14 +1,13 @@
-<template>
-  <div id="app">
-    <p>{{ message }}</p>
-  </div>
+<template lang="pug">
+  div#app
+    p {{ message }}
 </template>
 
 <script>
 export default {
   data: function () {
     return {
-      message: "Hello Vue!"
+      message: "Let the Game Begin"
     }
   }
 }

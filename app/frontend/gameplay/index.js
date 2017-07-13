@@ -6,10 +6,12 @@
 
 import Vue from 'vue'
 import App from './app.vue'
+import store from './store'
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.appendChild(document.createElement('hello'))
-  const app = new Vue(App).$mount('hello')
-
-  console.log(app)
+document.addEventListener('turbolinks:load', () => {
+  const app = new Vue({
+    el: '#gameplay',
+    store,
+    render: h => h(App)
+  })
 })
