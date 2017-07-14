@@ -9,6 +9,11 @@ export default function initStore() {
     state: {
       boards: (new InitBoards(gon.match.boards).getBoards())
     },
+    getters: {
+      currentBoard(state){
+        return state.boards[0]
+      }
+    },
     mutations: {}
   })
 }

@@ -1,12 +1,12 @@
 <template lang="pug">
   div#app
     p {{ message }}
-    Board(v-for="board in boards", :board="board")
+    Board(:board="currentBoard")
 </template>
 
 <script>
-  import Board from './components/board'
-  import {mapState} from 'vuex'
+  import Board from './components/board/'
+  import {mapGetters, mapState} from 'vuex'
 
   export default {
     data: function () {
@@ -14,7 +14,10 @@
         message: "Let the Game Begin"
       }
     },
-    computed: mapState(['boards']),
+    computed: {
+      ...mapState(['boards']),
+      ...mapGetters(['currentBoard']),
+    },
     components: {
       Board
     }

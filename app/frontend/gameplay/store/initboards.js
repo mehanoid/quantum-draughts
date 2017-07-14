@@ -13,11 +13,20 @@ export default class InitBoards {
           const columnChar = addToChar('A', columnIndex)
           return {
             column: columnChar,
-            number: rowNumber,
-            object: boardData[columnChar + rowNumber]
+            row: rowNumber,
+            draught: this.draughtType(boardData[columnChar + rowNumber])
           }
         })
       })
     })
+  }
+
+  draughtType(char){
+    switch(char){
+      case 'w':
+        return 'white'
+      case 'b':
+        return 'black'
+    }
   }
 }

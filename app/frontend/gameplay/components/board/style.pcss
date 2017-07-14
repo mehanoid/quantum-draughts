@@ -1,0 +1,26 @@
+.board {
+  border-collapse: collapse;
+}
+
+.cell {
+  border: 1px solid black;
+  size: 45px;
+  text-align: center;
+  padding: 0;
+}
+
+.draught {
+  display: inline-block;
+  size: 25px;
+  border-radius: 20px;
+  border: 1px solid #cbcbcb;
+  vertical-align: middle;
+
+  &.white {
+    background: #ffe090;
+  }
+
+  &.black {
+    background: #713002;
+  }
+}
