@@ -7,7 +7,7 @@ export default class InitBoards {
 
   getBoards() {
     return this.data.map((boardData) => {
-      return _.range(8).map((rowIndex) => {
+      return _.range(8).reverse().map((rowIndex) => {
         const rowNumber = rowIndex + 1
         return _.range(8).map((columnIndex) => {
           const columnChar = addToChar('A', columnIndex)

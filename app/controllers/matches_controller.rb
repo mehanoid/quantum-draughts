@@ -25,7 +25,8 @@ class MatchesController < ApplicationController
   # POST /matches
   # POST /matches.json
   def create
-    @match = Match.new(match_params)
+    @match = Match.new
+    @match.init_boards
 
     respond_to do |format|
       if @match.save
