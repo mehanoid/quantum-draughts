@@ -2,40 +2,13 @@
   border-collapse: collapse;
 }
 
-.row {
-  &:nth-child(odd) {
-    
-    & .cell:nth-child(even){
-      background: #75806f;
-    }
-  }
-
-  &:nth-child(even) {
-
-    & .cell:nth-child(odd){
-      background: #75806f;
-    }
-  }
-}
-
 .cell {
   border: 1px solid black;
   size: 55px;
   text-align: center;
   padding: 0;
-}
 
-.draught {
-  display: inline-block;
-  size: 40px;
-  border-radius: 20px;
-  vertical-align: middle;
-
-  &.white {
-	background: #ffe090;
-  }
-
-  &.black {
-	background: #713002;
+  &.playable {
+    background: #75806f;
   }
 }
