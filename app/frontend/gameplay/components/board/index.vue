@@ -23,7 +23,7 @@
 
 <script>
   import {mapActions} from "vuex"
-  import Draught from "./draught/"
+  import Draught from "./draught"
 
   export default {
     data: function () {
@@ -41,4 +41,19 @@
   }
 </script>
 
-<style src="./style.pcss" scoped></style>
+<style lang="postcss" scoped>
+  .board {
+    border-collapse: collapse;
+  }
+
+  .cell {
+    border: 1px solid black;
+    size: 55px;
+    text-align: center;
+    padding: 0;
+
+    &.playable {
+      background: #75806f;
+    }
+  }
+</style>

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import Board from './components/board/'
+  import Board from './board/'
   import {mapGetters, mapState} from 'vuex'
 
   export default {
@@ -25,7 +25,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
   p {
     font-size: 2em;
     text-align: center;
