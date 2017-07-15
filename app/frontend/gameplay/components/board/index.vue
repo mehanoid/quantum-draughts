@@ -3,10 +3,10 @@
     tr
       th
       th(v-for="cell in board[0]") {{ cell.column }}
-    tr(v-for="row in board")
+    tr.row(v-for="row in board")
       th {{ row[0].row }}
       td.cell(v-for="cell in row")
-        .draught(v-if="cell.draught", :class="cell.draught")
+        .draught(v-if="cell.draught", :class="cell.draught.color")
       th {{ row[0].row }}
     tr
       th
@@ -20,7 +20,7 @@
       return {}
     },
     props: {
-      board: Object
+      board: Array
     }
   }
 </script>

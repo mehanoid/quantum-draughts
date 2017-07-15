@@ -1,7 +1,8 @@
 <template lang="pug">
   div#app
     p {{ message }}
-    Board(:board="currentBoard")
+    .board-wrap
+      Board(:board="currentBoard")
 </template>
 
 <script>
@@ -28,5 +29,9 @@
   p {
     font-size: 2em;
     text-align: center;
+  }
+  .board-wrap{
+    display: flex;
+    justify-content: center;
   }
 </style>
