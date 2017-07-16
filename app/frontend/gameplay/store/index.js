@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-Vue.use(Vuex)
-
 import InitBoards from './initboards'
+import serverApi from "../server_api"
+
+Vue.use(Vuex)
 
 export default function initStore() {
   return new Vuex.Store({
@@ -34,11 +35,13 @@ export default function initStore() {
       }
     },
     actions: {
-      move({commit, getters}, to){
-        if(!getters.selectedCell || !to.playable){
+      async move({commit, getters}, to) {
+        if (!getters.selectedCell || !to.playable) {
           return
         }
-        commit('move', {from: getters.selectedCell, to})
+        const from = getters.selectedCell
+        await serverApi.move(gon.match.id, {from, to})
+        commit('move', {from, to})
       }
     }
   })
