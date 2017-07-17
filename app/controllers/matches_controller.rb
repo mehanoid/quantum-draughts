@@ -1,5 +1,5 @@
 class MatchesController < ApplicationController
-  before_action :set_match, only: [:show, :edit, :update, :destroy]
+  before_action :set_match, only: [:show, :edit, :update, :destroy, :move]
 
   # GET /matches
   # GET /matches.json
@@ -64,6 +64,8 @@ class MatchesController < ApplicationController
   end
 
   def move
+    game = Game::Game.new(@match)
+    game.move! params[:moves]
     head :ok
   end
 

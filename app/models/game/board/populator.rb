@@ -8,8 +8,8 @@ module Game
     end
 
     def populate!
-      playable_cells(rows.first(3)).each {|cell| cell.draught = create_draught(:black)}
-      playable_cells(rows.last(3)).each {|cell| cell.draught = create_draught(:white)}
+      playable_cells(rows.first(3)).each {|cell| cell.draught = create_draught(:white)}
+      playable_cells(rows.last(3)).each {|cell| cell.draught = create_draught(:black)}
     end
 
     private
