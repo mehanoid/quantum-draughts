@@ -15,6 +15,14 @@ class Game::Draught
     }
   end
 
+  def black?
+    color == :black
+  end
+
+  def white?
+    color == :white
+  end
+
   private
 
   def expand_color(color)

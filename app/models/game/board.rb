@@ -44,6 +44,11 @@ module Game
       rows.flatten
     end
 
+    # @return [Array<Game::Board::Draught>]
+    def draughts
+      cells.map(&:draught).compact
+    end
+
     def as_json(*args)
       cells.reject(&:empty?).map do |cell|
         [cell.name, cell.draught]
