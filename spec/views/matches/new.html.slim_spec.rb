@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "matches/new", type: :view do
+RSpec.describe 'matches/new', type: :view do
   before(:each) do
     assign(:match, Match.new(
-      :boards => ""
+      :boards => ''
     ))
   end
 
-  it "renders new match form" do
+  it 'renders new match form' do
     render
 
-    assert_select "form[action=?][method=?]", matches_path, "post" do
+    assert_select 'form[action=?][method=?]', matches_path, 'post' do
 
-      assert_select "input[name=?]", "match[boards]"
+      assert_select 'input[name=?]', 'match[boards]'
     end
   end
 end

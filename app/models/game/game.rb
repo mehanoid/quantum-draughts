@@ -4,6 +4,7 @@ module Game
   class Game
     attr_accessor :board
 
+    # @param [Match] match
     def initialize(match)
       @match = match
       @board = Board.new(match.boards.first)

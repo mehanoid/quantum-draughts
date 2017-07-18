@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Game::Move, type: :model do
@@ -9,7 +11,7 @@ RSpec.describe Game::Move, type: :model do
     end
 
     it 'moves C3:D4' do
-      Game::Move.new(board, ['C3', 'D4']).perform!
+      Game::Move.new(board, %w[C3 D4]).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . ● . ● . ● . ●
@@ -25,7 +27,7 @@ RSpec.describe Game::Move, type: :model do
 
     it 'raises error on invalid move' do
       expect {
-        Game::Move.new(board, ['C3', 'E5']).perform!
+        Game::Move.new(board, %w[C3 E5]).perform!
       }.to raise_error Game::Move::InvalidMove
     end
   end

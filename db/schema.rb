@@ -13,12 +13,12 @@
 ActiveRecord::Schema.define(version: 20170713173051) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "matches", force: :cascade do |t|
-    t.jsonb "boards"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'matches', force: :cascade do |t|
+    t.jsonb 'boards'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
 end

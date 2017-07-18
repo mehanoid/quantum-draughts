@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe "matches/show", type: :view do
+RSpec.describe 'matches/show', type: :view do
   before(:each) do
     @match = assign(:match, Match.create!(
-      :boards => ""
+      :boards => ''
     ))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(//)
   end

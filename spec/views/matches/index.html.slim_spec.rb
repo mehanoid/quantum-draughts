@@ -1,19 +1,19 @@
 require 'rails_helper'
 
-RSpec.describe "matches/index", type: :view do
+RSpec.describe 'matches/index', type: :view do
   before(:each) do
     assign(:matches, [
       Match.create!(
-        :boards => ""
+        :boards => ''
       ),
       Match.create!(
-        :boards => ""
+        :boards => ''
       )
     ])
   end
 
-  it "renders a list of matches" do
+  it 'renders a list of matches' do
     render
-    assert_select "tr>td", :text => "".to_s, :count => 2
+    assert_select 'tr>td', :text => ''.to_s, :count => 2
   end
 end

@@ -38,7 +38,7 @@
       background: #ffe090;
 
       &.selected {
-        box-shadow: 0px 0px 15px 10px rgb(248, 255, 119);
+        box-shadow: 0 0 15px 10px rgb(248, 255, 119);
       }
     }
 
@@ -46,7 +46,7 @@
       background: #713002;
 
       &.selected {
-        box-shadow: 0px 0px 15px 10px #de9040;
+        box-shadow: 0 0 15px 10px #de9040;
       }
     }
   }
