@@ -7,7 +7,7 @@ module Game
       @board = Board.new(match.boards.first)
     end
 
-    def move!(params)
+    def move(params)
       Move.new(@board, params).perform!
       save!
     end
