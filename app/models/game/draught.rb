@@ -11,7 +11,7 @@ class Game::Draught
   def as_json(*args)
     {
         id: id,
-        c: color.to_s.first
+        c: short_color
     }
   end
 
@@ -21,6 +21,10 @@ class Game::Draught
 
   def white?
     color == :white
+  end
+
+  def short_color
+    color.to_s.first
   end
 
   private

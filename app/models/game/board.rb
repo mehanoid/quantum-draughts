@@ -54,5 +54,9 @@ module Game
         [cell.name, cell.draught]
       end.to_h
     end
+
+    def to_s
+      StringFormat.new(self).to_string
+    end
   end
 end
