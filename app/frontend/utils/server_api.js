@@ -1,8 +1,8 @@
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content
 
 export default {
-  fetch(url, {body, ...options} = {}){
-    return fetch(url, {
+  async fetch(url, {body, ...options} = {}) {
+    const response = await fetch(url, {
       ...options,
       body: body && JSON.stringify(body),
       headers: {
@@ -12,5 +12,12 @@ export default {
       },
       credentials: 'same-origin'
     })
+    if (response.status >= 200 && response.status < 300) {
+      const json = await response.json()
+      return {json, response}
+    }
+    else{
+      throw new Error(response.statusText)
+    }
   }
 }

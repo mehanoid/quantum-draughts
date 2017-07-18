@@ -1,3 +1,5 @@
+// Converting boards from server response format to state format
+
 import {addToChar} from '../utils'
 
 class InitBoard {
@@ -40,16 +42,6 @@ class InitBoard {
   }
 }
 
-
-export default class InitBoards {
-  constructor(data) {
-    this.data = data
-  }
-
-  getBoards() {
-    const boardData =  this.data.map((boardData) => {
-      return new InitBoard(boardData).getBoard()
-    })
-    return boardData
-  }
+export default function convertBoards(data) {
+  return data.map((boardData) => new InitBoard(boardData).getBoard())
 }

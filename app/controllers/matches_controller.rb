@@ -66,7 +66,7 @@ class MatchesController < ApplicationController
   def move
     game = Game::Game.new(@match)
     game.move! params[:moves]
-    head :ok
+    render json: {match: @match.as_json}
   end
 
   private

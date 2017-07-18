@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import InitBoards from './initboards'
+import convertBoards from './convert_boards'
 import serverApi from "../server_api"
 
 Vue.use(Vuex)
@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default function initStore() {
   return new Vuex.Store({
     state: {
-      boards: (new InitBoards(gon.match.boards).getBoards()),
+      boards: convertBoards(gon.match.boards),
       selectedDraughtId: null
     },
     getters: {
@@ -30,8 +30,12 @@ export default function initStore() {
         state.selectedDraughtId = draught.id
       },
       move(state, {from, to}){
-        [to.draught, from.draught] = [from.draught, to.draught]
+        to.draught = from.draught
+        from.draught = null
         state.selectedDraughtId = null
+      },
+      updateBoards(state, boardsData) {
+        state.boards = convertBoards(boardsData)
       }
     },
     actions: {
@@ -40,8 +44,9 @@ export default function initStore() {
           return
         }
         const from = getters.selectedCell
-        await serverApi.move(gon.match.id, {from, to})
         commit('move', {from, to})
+        const {json: responseJson} = await serverApi.move(gon.match.id, {from, to})
+        commit('updateBoards', responseJson.match.boards)
       }
     }
   })
