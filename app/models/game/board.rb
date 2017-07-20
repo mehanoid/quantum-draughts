@@ -9,9 +9,9 @@ module Game
         ('A'..'H').map.with_index do |column_char, column_index|
           draught_data = data[column_char + row_number.to_s]
           draught =
-              if draught_data
-                Draught.new id: draught_data['id'], color: draught_data['c']
-              end
+            if draught_data
+              Draught.new id: draught_data['id'], color: draught_data['c']
+            end
           Cell.new(column: column_char,
                    row: row_number,
                    playable: (row_number + column_index).odd?,
@@ -56,7 +56,14 @@ module Game
     end
 
     def to_s
-      StringFormat.new(self).to_string
+      StringExport.new(self).to_string
+    end
+
+    class << self
+      # @return [Game::Board]
+      def from_s(string)
+        Game::Board::StringImport.new(string).import
+      end
     end
   end
 end

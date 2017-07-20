@@ -36,7 +36,7 @@ class Game::Draught
       when 'w'
         :white
       else
-        color
+        color.to_sym
     end
   end
 end
