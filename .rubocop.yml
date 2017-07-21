@@ -1,8 +1,17 @@
 AllCops:
   TargetRubyVersion: 2.4
   TargetRailsVersion: 5.1
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'node_modules/**/*'
+    - 'bin/*'
 
 Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*'
+
+Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 

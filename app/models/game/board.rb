@@ -49,7 +49,7 @@ module Game
       cells.map(&:draught).compact
     end
 
-    def as_json(*args)
+    def as_json(*)
       cells.reject(&:empty?).map do |cell|
         [cell.name, cell.draught]
       end.to_h
@@ -62,7 +62,7 @@ module Game
     class << self
       # @return [Game::Board]
       def from_s(string)
-        Game::Board::StringImport.new(string).import
+        ::Game::Board::StringImport.new(string).import
       end
     end
   end

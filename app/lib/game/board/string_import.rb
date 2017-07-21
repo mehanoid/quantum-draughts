@@ -53,7 +53,7 @@ module Game
       def create_draught(**opts)
         @id ||= 0
         @id += 1
-        Game::Draught.new(id: @id, **opts)
+        ::Game::Draught.new(id: @id, **opts)
       end
     end
   end

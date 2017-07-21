@@ -26,7 +26,6 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe MatchesController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # Match. As you add validations to Match, be sure to
   # adjust the attributes here as well.
@@ -54,7 +53,7 @@ RSpec.describe MatchesController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       match = Match.create! valid_attributes
-      get :show, params: {id: match.to_param}, session: valid_session
+      get :show, params: { id: match.to_param }, session: valid_session
       expect(response).to be_success
     end
   end
@@ -69,7 +68,7 @@ RSpec.describe MatchesController, type: :controller do
   describe 'GET #edit' do
     it 'returns a success response' do
       match = Match.create! valid_attributes
-      get :edit, params: {id: match.to_param}, session: valid_session
+      get :edit, params: { id: match.to_param }, session: valid_session
       expect(response).to be_success
     end
   end
@@ -78,19 +77,19 @@ RSpec.describe MatchesController, type: :controller do
     context 'with valid params' do
       it 'creates a new Match' do
         expect {
-          post :create, params: {match: valid_attributes}, session: valid_session
+          post :create, params: { match: valid_attributes }, session: valid_session
         }.to change(Match, :count).by(1)
       end
 
       it 'redirects to the created match' do
-        post :create, params: {match: valid_attributes}, session: valid_session
+        post :create, params: { match: valid_attributes }, session: valid_session
         expect(response).to redirect_to(Match.last)
       end
     end
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {match: invalid_attributes}, session: valid_session
+        post :create, params: { match: invalid_attributes }, session: valid_session
         expect(response).to be_success
       end
     end
@@ -104,14 +103,14 @@ RSpec.describe MatchesController, type: :controller do
 
       it 'updates the requested match' do
         match = Match.create! valid_attributes
-        put :update, params: {id: match.to_param, match: new_attributes}, session: valid_session
+        put :update, params: { id: match.to_param, match: new_attributes }, session: valid_session
         match.reload
         skip('Add assertions for updated state')
       end
 
       it 'redirects to the match' do
         match = Match.create! valid_attributes
-        put :update, params: {id: match.to_param, match: valid_attributes}, session: valid_session
+        put :update, params: { id: match.to_param, match: valid_attributes }, session: valid_session
         expect(response).to redirect_to(match)
       end
     end
@@ -119,7 +118,7 @@ RSpec.describe MatchesController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         match = Match.create! valid_attributes
-        put :update, params: {id: match.to_param, match: invalid_attributes}, session: valid_session
+        put :update, params: { id: match.to_param, match: invalid_attributes }, session: valid_session
         expect(response).to be_success
       end
     end
@@ -129,15 +128,46 @@ RSpec.describe MatchesController, type: :controller do
     it 'destroys the requested match' do
       match = Match.create! valid_attributes
       expect {
-        delete :destroy, params: {id: match.to_param}, session: valid_session
+        delete :destroy, params: { id: match.to_param }, session: valid_session
       }.to change(Match, :count).by(-1)
     end
 
     it 'redirects to the matches list' do
       match = Match.create! valid_attributes
-      delete :destroy, params: {id: match.to_param}, session: valid_session
+      delete :destroy, params: { id: match.to_param }, session: valid_session
       expect(response).to redirect_to(matches_url)
     end
   end
 
+  describe 'POST #move' do
+    let(:match) { Match.create.init_boards }
+
+    context 'with valid move' do
+      let(:params) { { id: match.to_param, moves: %w[C3 D4] } }
+
+      it 'updates the requested match' do
+        expect {
+          post :move, params: params, session: valid_session
+        }.to change { match.reload.boards }
+      end
+
+      it 'respond with match json' do
+        post :move, params: params, session: valid_session
+        cell_data = JSON.parse(response.body)['match']['boards'].first['D4']
+        expect(cell_data).to have_key 'id'
+        expect(cell_data['c']).to eq 'w'
+      end
+    end
+
+
+    context 'with invalid move' do
+      let(:params) { { id: match.to_param, moves: %w[C3 E5] } }
+
+      it 'does not change match' do
+        expect {
+          post :move, params: params, session: valid_session
+        }.not_to change { match.reload.boards }
+      end
+    end
+  end
 end

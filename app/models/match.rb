@@ -6,5 +6,6 @@ class Match < ApplicationRecord
     board.populate!
     self.boards = [board].map(&:as_json)
     save
+    self
   end
 end
