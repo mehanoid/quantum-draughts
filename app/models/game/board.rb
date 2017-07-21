@@ -49,6 +49,19 @@ module Game
       cells.map(&:draught).compact
     end
 
+    # Returns an array of cells lying on the same diagonal as the specified two
+    # @return [Array<Game::Board::Cell>]
+    def diagonal_through_cells(cell1, cell2)
+      raise ArgumentError unless cell1.same_diagonal?(cell2)
+      cells.select { |c| c.same_diagonal?(cell1) && c.same_diagonal?(cell2) }
+    end
+
+    # @return [Array<Game::Board::Cell>]
+    def cells_between(cell1, cell2)
+      raise ArgumentError unless cell1.same_diagonal?(cell2)
+      cells.select { |c| c.between?(cell1, cell2) }
+    end
+
     def as_json(*)
       cells.reject(&:empty?).map do |cell|
         [cell.name, cell.draught]

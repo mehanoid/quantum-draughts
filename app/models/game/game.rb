@@ -18,7 +18,5 @@ module Game
     def save!
       @match.update! boards: [board].map(&:as_json)
     end
-
-    private
   end
 end

@@ -17,3 +17,6 @@ Lint/AmbiguousBlockAssociation:
 
 Metrics/BlockLength:
   Enabled: false
+
+Metrics/LineLength:
+  Max: 120

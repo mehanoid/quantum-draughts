@@ -37,4 +37,28 @@ RSpec.describe Game::Board, type: :model do
       BOARD
     end
   end
+
+  describe '#diagonal_through_cells' do
+    it 'returns cells on the same diagonal from bottom-left' do
+      diagonal = subject.diagonal_through_cells(subject.cell_at('E1'), subject.cell_at('G3'))
+      expect(diagonal.map(&:name)).to eq %w[E1 F2 G3 H4]
+    end
+
+    it 'returns cells on the same diagonal from bottom-right' do
+      diagonal = subject.diagonal_through_cells(subject.cell_at('C1'), subject.cell_at('A3'))
+      expect(diagonal.map(&:name)).to eq %w[C1 B2 A3]
+    end
+  end
+
+  describe '#cells_between' do
+    it 'returns cells between the specified from bottom-left' do
+      diagonal = subject.cells_between(subject.cell_at('E1'), subject.cell_at('G3'))
+      expect(diagonal.map(&:name)).to eq %w[F2]
+    end
+
+    it 'returns cells on the same diagonal from bottom-right' do
+      diagonal = subject.cells_between(subject.cell_at('C1'), subject.cell_at('A3'))
+      expect(diagonal.map(&:name)).to eq %w[B2]
+    end
+  end
 end

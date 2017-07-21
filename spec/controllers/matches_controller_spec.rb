@@ -159,7 +159,6 @@ RSpec.describe MatchesController, type: :controller do
       end
     end
 
-
     context 'with invalid move' do
       let(:params) { { id: match.to_param, moves: %w[C3 E5] } }
 
