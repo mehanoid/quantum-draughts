@@ -38,6 +38,7 @@ module Game
       if beaten_cells.present?
         #   TODO
         raise InvalidMove, 'invalid beating' unless valid_beaten_cells_order?
+        raise InvalidMove, 'can not beat draught of the same color' unless valid_beaten_draughts_color?
       else
         raise InvalidMove, 'cells are not adjacent' unless from_cell.adjacent?(to_cell)
       end
@@ -51,6 +52,10 @@ module Game
       cells_between.each_with_index.all? do |cell, index|
         (index.even? && cell.occupied?) || (index.odd? && cell.empty?)
       end
+    end
+
+    def valid_beaten_draughts_color?
+      beaten_cells.none? { |c| c.draught.color == from_cell.draught.color }
     end
 
     def beaten_cells

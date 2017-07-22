@@ -73,6 +73,27 @@ RSpec.describe Game::Move, type: :model do
     end
   end
 
+  context 'two draughts of the same color' do
+    let(:board) do
+      Game::Board.from_s(<<~BOARD)
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . ○ . . . . .
+        . ○ . . . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'does not beat draught of the same color' do
+      expect {
+        Game::Move.new(board, %w[B2 D4]).perform!
+      }.to raise_error Game::Move::InvalidMove
+    end
+  end
+
   context 'surrounded draught' do
     let(:board) do
       Game::Board.from_s(<<~BOARD)
