@@ -27,6 +27,11 @@ module Game
       !draught
     end
 
+    # @return [Boolean]
+    def occupied?
+      !empty?
+    end
+
     # Returns array of to integers: columns diff and rows diff
     # @param [Game::Board::Cell] cell
     # @return [Array<Integer>]

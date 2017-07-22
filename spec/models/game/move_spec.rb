@@ -146,5 +146,11 @@ RSpec.describe Game::Move, type: :model do
         ● . . . . . . .
       BOARD
     end
+
+    it 'does not beat with too long move' do
+      expect {
+        Game::Move.new(board, %w[C3 F6]).perform!
+      }.to raise_error Game::Move::InvalidMove, 'invalid beating'
+    end
   end
 end
