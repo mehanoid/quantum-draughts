@@ -5,43 +5,16 @@
     "start": "bin/webpack-dev-server & bin/rails s"
   },
   "dependencies": {
-    "autoprefixer": "^7.1.2",
-    "babel-core": "^6.25.0",
-    "babel-loader": "7.x",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-polyfill": "^6.23.0",
-    "babel-preset-env": "^1.6.0",
-    "coffee-loader": "^0.7.3",
-    "coffee-script": "^1.12.6",
-    "compression-webpack-plugin": "^0.4.0",
-    "css-loader": "^0.28.4",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^0.11.2",
-    "glob": "^7.1.2",
-    "js-yaml": "^3.9.0",
-    "lodash": "^4.17.4",
-    "path-complete-extname": "^0.1.0",
-    "postcss-cssnext": "^3.0.2",
-    "postcss-loader": "^2.0.6",
+    "@rails/webpacker": "3.5",
+    "lodash": "^4.17.10",
     "postcss-short": "^4.1.0",
-    "postcss-smart-import": "^0.7.5",
-    "pug": "^2.0.0-rc.2",
-    "rails-erb-loader": "^5.0.2",
-    "resolve-url-loader": "^2.1.0",
-    "style-loader": "^0.18.2",
-    "vue": "^2.3.4",
-    "vue-loader": "^13.0.1",
-    "vue-template-compiler": "^2.3.4",
-    "vue-turbolinks": "^1.0.2",
-    "vuex": "^2.3.1",
-    "webpack": "^3.3.0",
-    "webpack-manifest-plugin": "^1.1.2",
-    "webpack-merge": "^4.1.0",
-    "yarn": "^0.27.5"
+    "pug": "^2.0.3",
+    "vue": "^2.5.16",
+    "vue-loader": "14.2.2",
+    "vue-template-compiler": "^2.5.16",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "webpack-dev-server": "^2.5.1"
+    "webpack-dev-server": "2.11.2"
   }
 }
