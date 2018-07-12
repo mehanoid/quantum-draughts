@@ -10,7 +10,7 @@ RSpec.describe Game::Move, type: :model do
     end
 
     it 'moves C3:D4' do
-      Game::Move.new(board, %w[C3 D4]).perform!
+      Game::Move.new(board, %w[C3 D4], :white).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . ● . ● . ● . ●
@@ -26,8 +26,14 @@ RSpec.describe Game::Move, type: :model do
 
     it 'raises error on too long move' do
       expect {
-        Game::Move.new(board, %w[C3 E5]).perform!
-      }.to raise_error Game::Move::InvalidMove
+        Game::Move.new(board, %w[C3 E5], :white).perform!
+      }.to raise_error Game::Move::InvalidMove, /not adjacent/
+    end
+
+    it 'raises error if draught belongs to other player' do
+      expect {
+        Game::Move.new(board, %w[C3 E5], :black).perform!
+      }.to raise_error Game::Move::InvalidMove, "other player's turn"
     end
   end
 
@@ -46,7 +52,7 @@ RSpec.describe Game::Move, type: :model do
     end
 
     it 'moves to free cell' do
-      Game::Move.new(board, %w[B2 A3]).perform!
+      Game::Move.new(board, %w[B2 A3], :white).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -62,14 +68,14 @@ RSpec.describe Game::Move, type: :model do
 
     it 'does not move to occupied cell' do
       expect {
-        Game::Move.new(board, %w[B2 C3]).perform!
-      }.to raise_error Game::Move::InvalidMove
+        Game::Move.new(board, %w[B2 C3], :white).perform!
+      }.to raise_error Game::Move::InvalidMove, /occupied/
     end
 
     it 'does not move from empty cell' do
       expect {
-        Game::Move.new(board, %w[A3 B4]).perform!
-      }.to raise_error Game::Move::InvalidMove
+        Game::Move.new(board, %w[A3 B4], :white).perform!
+      }.to raise_error Game::Move::InvalidMove, /empty/
     end
   end
 
@@ -89,8 +95,8 @@ RSpec.describe Game::Move, type: :model do
 
     it 'does not beat draught of the same color' do
       expect {
-        Game::Move.new(board, %w[B2 D4]).perform!
-      }.to raise_error Game::Move::InvalidMove
+        Game::Move.new(board, %w[B2 D4], :white).perform!
+      }.to raise_error Game::Move::InvalidMove, 'can not beat draught of the same color'
     end
   end
 
@@ -109,7 +115,7 @@ RSpec.describe Game::Move, type: :model do
     end
 
     it 'beats draught if jump over it to top-right' do
-      Game::Move.new(board, %w[C3 E5]).perform!
+      Game::Move.new(board, %w[C3 E5], :black).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -124,7 +130,7 @@ RSpec.describe Game::Move, type: :model do
     end
 
     it 'beats draught if jump over it to top-left' do
-      Game::Move.new(board, %w[C3 A5]).perform!
+      Game::Move.new(board, %w[C3 A5], :black).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -139,7 +145,7 @@ RSpec.describe Game::Move, type: :model do
     end
 
     it 'beats draught if jump over it to top-right' do
-      Game::Move.new(board, %w[C3 E1]).perform!
+      Game::Move.new(board, %w[C3 E1], :black).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -154,7 +160,7 @@ RSpec.describe Game::Move, type: :model do
     end
 
     it 'beats draught if jump over it to top-right' do
-      Game::Move.new(board, %w[C3 A1]).perform!
+      Game::Move.new(board, %w[C3 A1], :black).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -170,7 +176,7 @@ RSpec.describe Game::Move, type: :model do
 
     it 'does not beat with too long move' do
       expect {
-        Game::Move.new(board, %w[C3 F6]).perform!
+        Game::Move.new(board, %w[C3 F6], :black).perform!
       }.to raise_error Game::Move::InvalidMove, 'invalid beating'
     end
   end

@@ -22,7 +22,7 @@
       }
     },
     methods: {
-      ...mapMutations(['selectDraught']),
+      ...mapActions(['selectDraught']),
     },
   }
 </script>

@@ -3,16 +3,17 @@
 module Game
   class Move
     class InvalidMove < StandardError; end
-    attr_accessor :from_cell, :to_cell
+    attr_accessor :from_cell, :to_cell, :current_player
 
     # @param [Game::Board] board
-    # @param [Array] params
-    def initialize(board, params)
+    # @param [Array<String>] move_cells
+    def initialize(board, move_cells, current_player = nil)
       @board = board
-      @params = params
+      @params = move_cells
       from, to = @params
       @from_cell = @board.cell_at(from)
       @to_cell = @board.cell_at(to)
+      @current_player = current_player
     end
 
     def perform!
@@ -32,6 +33,7 @@ module Game
 
     def validate!
       raise InvalidMove, 'source is empty' unless from_cell.occupied?
+      raise InvalidMove, "other player's turn" unless current_player == from_cell.draught.color
       raise InvalidMove, 'destination is not playable' unless to_cell.playable
       raise InvalidMove, 'destination is occupied' unless to_cell.empty?
       raise InvalidMove, 'cells are not on the same diagonal' unless from_cell.same_diagonal?(to_cell)

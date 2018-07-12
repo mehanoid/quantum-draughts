@@ -64,7 +64,7 @@ module Game
 
     def as_json(*)
       cells.reject(&:empty?).map do |cell|
-        [cell.name, cell.draught]
+        [cell.name, cell.draught.as_json]
       end.to_h
     end
 

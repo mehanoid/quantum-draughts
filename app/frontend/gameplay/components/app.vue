@@ -1,6 +1,9 @@
 <template lang="pug">
   div#app
-    p {{ message }}
+    .current-player-message(
+      :class="currentPlayer"
+    )
+      | {{ currentPlayerMessage }}
     .board-wrap
       Board(:board="currentBoard")
 </template>
@@ -12,12 +15,14 @@
   export default {
     data: function () {
       return {
-        message: "Let the Game Begin"
       }
     },
     computed: {
-      ...mapState(['boards']),
+      ...mapState(['boards', 'currentPlayer']),
       ...mapGetters(['currentBoard']),
+      currentPlayerMessage(){
+        return `${_.capitalize(this.currentPlayer)}'s turn`
+      }
     },
     components: {
       Board
@@ -26,9 +31,20 @@
 </script>
 
 <style lang="postcss" scoped>
-  p {
+  .current-player-message {
     font-size: 2em;
     text-align: center;
+    width: 200px;
+    padding: 10px;
+    margin: 0 auto;
+
+    &.white {
+      color: #ffe090;
+    }
+
+    &.black {
+      color: #713002;
+    }
   }
   .board-wrap{
     display: flex;

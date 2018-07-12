@@ -11,12 +11,18 @@ module Game
     end
 
     def move(params)
-      Move.new(board, params).perform!
+      Move.new(board, params, @match.current_player.to_sym).perform!
       save!
     end
 
-    def save!
-      @match.update! boards: [board].map(&:as_json)
-    end
+    private
+
+      def next_player
+        @match.current_player == 'white' ? 'black' : 'white'
+      end
+
+      def save!
+        @match.update! boards: [board].map(&:as_json), current_player: next_player
+      end
   end
 end
