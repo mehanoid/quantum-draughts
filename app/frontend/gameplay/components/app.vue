@@ -34,12 +34,11 @@
   .current-player-message {
     font-size: 2em;
     text-align: center;
-    width: 200px;
-    padding: 10px;
-    margin: 0 auto;
+    font-weight: bold;
 
     &.white {
       color: #ffe090;
+      text-stroke: 1 #878787;
     }
 
     &.black {

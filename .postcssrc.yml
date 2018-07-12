@@ -2,3 +2,4 @@ plugins:
   postcss-import: {}
   postcss-cssnext: {}
   postcss-short: {}
+  postcss-text-stroke: {}
