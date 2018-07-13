@@ -4,10 +4,16 @@
     :class="[draught.color, {selectable: selectable, selected: selected}]",
     @click.stop="selectDraught(cell)"
   )
+    PieChart(
+      :percent="draught.probability"
+      :stroke-width="10"
+      :color="chartColor"
+    )
 </template>
 
 <script>
   import {mapActions} from "vuex"
+  import PieChart from './PieChart'
 
   export default {
     data: function () {
@@ -25,11 +31,15 @@
       },
       selected() {
         return this.$store.state.selectedDraughtId === this.draught.id
+      },
+      chartColor(){
+        return this.draught.color === 'white' ? '#ffe090' : '#713002'
       }
     },
     methods: {
       ...mapActions(['selectDraught']),
     },
+    components: {PieChart}
   }
 </script>
 

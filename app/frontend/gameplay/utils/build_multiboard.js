@@ -3,19 +3,19 @@
 export default function(boards) {
   const flattenBoards = boards.map(board => _.flattenDeep(board))
   const multicells = _.zip(...flattenBoards).map(cellsGroup => {
-    return reduceMultiCell(cellsGroup)
+    return reduceMultiCell(cellsGroup, boards.length)
   })
   return _.chunk(multicells, 8)
 }
 
-function reduceMultiCell(cellsGroup) {
+function reduceMultiCell(cellsGroup, boardsCount) {
   const multicell = cellsGroup.reduce(multiCellReducer)
 
   if (multicell.draught) {
     // count the number of checker appearances on all boards,
     // based on this, calculate the probabilities
     const draughtCount = cellsGroup.filter(cell => cell.draught).length
-    const probability = draughtCount / 2
+    const probability = Math.round(100 * draughtCount / boardsCount)
 
     return {
       ...multicell,
