@@ -1,4 +1,4 @@
-import convertBoards from './convert_boards'
+import convertBoards from '../utils/convert_boards'
 
 export default {
   setSelectedDraughtId(state, draughtId) {

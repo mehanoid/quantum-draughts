@@ -5,7 +5,7 @@
     )
       | {{ currentPlayerMessage }}
     .board-wrap
-      GameBoard(:board="currentBoard")
+      GameBoard(:board="multiBoard")
 </template>
 
 <script>
@@ -19,7 +19,7 @@
     },
     computed: {
       ...mapState(['boards', 'currentPlayer']),
-      ...mapGetters(['currentBoard']),
+      ...mapGetters(['multiBoard']),
       currentPlayerMessage(){
         return `${_.capitalize(this.currentPlayer)}'s turn`
       }

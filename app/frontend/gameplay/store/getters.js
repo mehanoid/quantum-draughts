@@ -1,16 +1,17 @@
 import cellUtils from '../utils/cell'
+import buildMultiboard from '../utils/build_multiboard'
 
 export default {
-  currentBoard(state) {
-    return state.boards[0]
+  multiBoard(state) {
+    return buildMultiboard(state.boards)
   },
 
-  currentCells(state, getters) {
-    return _.flattenDeep(getters.currentBoard)
+  multiCells(state, getters) {
+    return _.flattenDeep(getters.multiBoard)
   },
 
   cellById: (state, getters) => id => {
-    return getters.currentCells.find(c => c.draught && c.draught.id === id)
+    return getters.multiCells.find(c => c.draught && c.draught.id === id)
   },
 
   selectedCell(state, getters) {
@@ -18,10 +19,10 @@ export default {
   },
 
   possibleMovesCells(state, getters) {
-    return getters.currentCells.filter((cell) => state.possibleMoves.includes(cellUtils.name(cell)))
+    return getters.multiCells.filter((cell) => state.possibleMoves.includes(cellUtils.name(cell)))
   },
 
   selectedMovesCells(state, getters) {
-    return state.selectedMoves.map(move => getters.currentCells.find(cell => move === cellUtils.name(cell) ))
+    return state.selectedMoves.map(move => getters.multiCells.find(cell => move === cellUtils.name(cell) ))
   }
 }

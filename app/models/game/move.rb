@@ -23,6 +23,7 @@ module Game
       beaten_cells.each do |c|
         c.draught = nil
       end
+      @board
     end
 
     def valid?

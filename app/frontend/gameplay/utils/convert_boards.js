@@ -1,6 +1,6 @@
 // Converting boards from server response format to state format
 
-import {addToChar} from '../utils/string'
+import {addToChar} from './string'
 
 class InitBoard {
   constructor(boardData) {

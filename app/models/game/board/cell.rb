@@ -9,10 +9,14 @@ module Game
     # @param [Boolean] playable
     # @param [Game::Draught] draught
     def initialize(column:, row:, playable:, draught: nil)
-      self.column = column
-      self.row = row
-      self.playable = playable
-      self.draught = draught
+      @column = column
+      @row = row
+      @playable = playable
+      @draught = draught
+    end
+
+    def initialize_dup(source)
+      @draught = @draught.dup
     end
 
     # @return [String] string identifying the cell, e.g. "A4"

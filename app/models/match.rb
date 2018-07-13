@@ -10,4 +10,9 @@ class Match < ApplicationRecord
     save
     self
   end
+
+  def collapse_boards!
+    self.boards = boards.first(1)
+    save
+  end
 end

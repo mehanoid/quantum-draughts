@@ -20,6 +20,10 @@ module Game
       end
     end
 
+    def initialize_dup(source)
+      @rows = @rows.deep_dup
+    end
+
     def populate!
       Populator.new(self).populate!
       self

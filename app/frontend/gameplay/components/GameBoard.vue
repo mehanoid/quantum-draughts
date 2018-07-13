@@ -16,7 +16,6 @@
 </template>
 
 <script>
-  import {mapGetters, mapActions} from "vuex"
   import GameBoardCell from "./GameBoardCell"
 
   export default {

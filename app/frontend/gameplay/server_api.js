@@ -8,12 +8,9 @@ export default {
     })
   },
 
-  matchMove(matchId, {from, to}) {
+  matchMove(matchId, moves) {
     return axios.post(`/matches/${matchId}/move`, {
-      moves: [
-        cellsUtils.name(from),
-        cellsUtils.name(to),
-      ]
+      moves
     })
   }
 }

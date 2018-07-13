@@ -28,10 +28,11 @@ export default {
       return
     }
     const from = getters.selectedCell
+    const moves = getters.selectedMovesCells.map(to => [cellUtils.name(from), cellUtils.name(to)])
     commit('move', {from, to})
     commit('setPossibleMoves', [])
     commit('cleanSelectedMoves')
-    const {data: response} = await serverApi.matchMove(state.matchId, {from, to})
+    const {data: response} = await serverApi.matchMove(state.matchId, moves)
     commit('updateBoards', response.match.boards)
     commit('setCurrentPlayer', response.match.current_player)
   }
