@@ -11,7 +11,7 @@ export default {
   },
 
   async move({commit, getters, state}, to) {
-    if (!getters.selectedCell || !to.playable) {
+    if (!getters.selectedCell || !getters.possibleMovesCells.includes(to)) {
       return
     }
     const from = getters.selectedCell

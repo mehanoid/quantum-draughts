@@ -61,6 +61,7 @@
 
     &.possible-move {
       background: green;
+      cursor: pointer;
     }
   }
 </style>

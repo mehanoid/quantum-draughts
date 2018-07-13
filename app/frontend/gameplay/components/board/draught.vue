@@ -1,7 +1,7 @@
 <template lang="pug">
   .draught(
     v-if="draught",
-    :class="[draught.color, {selected: selected}]",
+    :class="[draught.color, {selectable: selectable, selected: selected}]",
     @click.stop="selectDraught(cell)"
   )
 </template>
@@ -20,6 +20,9 @@
       draught() {
         return this.cell.draught
       },
+      selectable() {
+        return this.$store.state.currentPlayer === this.draught.color
+      },
       selected() {
         return this.$store.state.selectedDraughtId === this.draught.id
       }
@@ -36,6 +39,10 @@
     size: 40px;
     border-radius: 20px;
     vertical-align: middle;
+
+    &.selectable {
+      cursor: pointer;
+    }
 
     &.white {
       background: #ffe090;
