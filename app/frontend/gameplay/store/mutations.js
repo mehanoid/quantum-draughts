@@ -21,5 +21,13 @@ export default {
 
   setPossibleMoves(state, cells) {
     state.possibleMoves = cells
+  },
+
+  cleanSelectedMoves(state) {
+    state.selectedMoves = []
+  },
+
+  addSelectedMove(state, cell) {
+    state.selectedMoves.push(cell)
   }
 }

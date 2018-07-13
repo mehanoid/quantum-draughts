@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './components/app.vue'
+import App from './components/App.vue'
 import initStore from './store'
 
 document.addEventListener('turbolinks:load', () => {

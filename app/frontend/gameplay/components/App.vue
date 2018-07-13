@@ -5,11 +5,11 @@
     )
       | {{ currentPlayerMessage }}
     .board-wrap
-      Board(:board="currentBoard")
+      GameBoard(:board="currentBoard")
 </template>
 
 <script>
-  import Board from './board/'
+  import GameBoard from './GameBoard'
   import {mapGetters, mapState} from 'vuex'
 
   export default {
@@ -25,7 +25,7 @@
       }
     },
     components: {
-      Board
+      GameBoard
     }
   }
 </script>

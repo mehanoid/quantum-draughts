@@ -7,5 +7,6 @@ export default () => {
     boards: convertBoards(gon.match.boards),
     selectedDraughtId: null,
     possibleMoves: [],
+    selectedMoves: []
   }
 }

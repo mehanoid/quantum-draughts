@@ -19,5 +19,9 @@ export default {
 
   possibleMovesCells(state, getters) {
     return getters.currentCells.filter((cell) => state.possibleMoves.includes(cellUtils.name(cell)))
+  },
+
+  selectedMovesCells(state, getters) {
+    return state.selectedMoves.map(move => getters.currentCells.find(cell => move === cellUtils.name(cell) ))
   }
 }
