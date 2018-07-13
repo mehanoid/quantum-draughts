@@ -8,4 +8,5 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'babel-polyfill'
+import '../setup'
 import '../gameplay'

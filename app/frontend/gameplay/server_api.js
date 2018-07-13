@@ -1,15 +1,19 @@
-import serverApi from 'utils/server_api'
+import axios from 'axios'
+import cellsUtils from './utils/cell'
 
 export default {
-  move(match_id, {from, to}){
-    return serverApi.fetch(`/matches/${match_id}/move`, {
-      method: 'post',
-      body: {
-        moves: [
-          `${from.column}${from.row}`,
-          `${to.column}${to.row}`
-        ]
-      },
+  matchPossibleMoves(matchId, from) {
+    return axios.get(`/matches/${matchId}/possible_moves`, {
+      params: {from: cellsUtils.name(from)}
+    })
+  },
+
+  matchMove(matchId, {from, to}) {
+    return axios.post(`/matches/${matchId}/move`, {
+      moves: [
+        cellsUtils.name(from),
+        cellsUtils.name(to),
+      ]
     })
   }
 }

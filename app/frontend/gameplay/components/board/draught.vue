@@ -2,22 +2,25 @@
   .draught(
     v-if="draught",
     :class="[draught.color, {selected: selected}]",
-    @click.stop="selectDraught(draught)"
+    @click.stop="selectDraught(cell)"
   )
 </template>
 
 <script>
-  import {mapActions, mapMutations} from "vuex"
+  import {mapActions} from "vuex"
 
   export default {
     data: function () {
       return {}
     },
     props: {
-      draught: Object
+      cell: Object
     },
     computed: {
-      selected(){
+      draught() {
+        return this.cell.draught
+      },
+      selected() {
         return this.$store.state.selectedDraughtId === this.draught.id
       }
     },

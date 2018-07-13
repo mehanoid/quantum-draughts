@@ -1,6 +1,6 @@
 AllCops:
-  TargetRubyVersion: 2.4
-  TargetRailsVersion: 5.1
+  TargetRubyVersion: 2.5.1
+  TargetRailsVersion: 5.2
   Exclude:
     - 'db/schema.rb'
     - 'db/migrate/*'
@@ -20,3 +20,6 @@ Metrics/BlockLength:
 
 Metrics/LineLength:
   Max: 120
+
+Layout/IndentationConsistency:
+  EnforcedStyle: rails

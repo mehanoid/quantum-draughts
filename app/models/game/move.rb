@@ -26,7 +26,8 @@ module Game
     end
 
     def valid?
-      validate && true
+      validate!
+      true
     rescue InvalidMove
       false
     end

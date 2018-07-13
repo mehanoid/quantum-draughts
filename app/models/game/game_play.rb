@@ -10,6 +10,12 @@ module Game
       @board = Board.new(match.boards.first)
     end
 
+    def possible_moves(cell_name)
+      board.cells.select do |cell|
+        Move.new(board, [cell_name, cell.name], @match.current_player.to_sym).valid?
+      end
+    end
+
     def move(params)
       Move.new(board, params, @match.current_player.to_sym).perform!
       save!

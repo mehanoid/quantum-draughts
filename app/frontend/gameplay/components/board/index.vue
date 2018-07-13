@@ -7,12 +7,12 @@
       th {{ row[0].row }}
       td.cell(
         v-for="cell in row",
-        :class="{playable: cell.playable}",
+        :class="{playable: cell.playable, 'possible-move': possibleMovesCells.includes(cell)}",
         @click="move(cell)"
       )
         Draught(
           v-if="cell.draught",
-          :draught="cell.draught",
+          :cell="cell",
         )
       th {{ row[0].row }}
     tr
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import {mapActions} from "vuex"
+  import {mapGetters, mapActions} from "vuex"
   import Draught from "./draught"
 
   export default {
@@ -31,6 +31,9 @@
     },
     props: {
       board: Array
+    },
+    computed: {
+      ...mapGetters(['possibleMovesCells']),
     },
     methods: {
       ...mapActions(['move'])
@@ -54,6 +57,10 @@
 
     &.playable {
       background: #75806f;
+    }
+
+    &.possible-move {
+      background: green;
     }
   }
 </style>

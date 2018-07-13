@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@rails/webpacker": "3.5",
+    "axios": "^0.18.0",
     "lodash": "^4.17.10",
     "postcss-short": "^4.1.0",
     "postcss-text-stroke": "^0.0.4",
