@@ -53,7 +53,7 @@ class MatchesController < ApplicationController
 
   def possible_moves
     game = Game::GamePlay.new(get_match)
-    render json: {cells: game.possible_moves(params[:from]).map(&:name)}
+    render json: {cells: game.possible_moves(params[:from])}
   end
 
   def move

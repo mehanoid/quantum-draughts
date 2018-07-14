@@ -10,12 +10,16 @@ export default {
     return _.flattenDeep(getters.multiBoard)
   },
 
-  cellById: (state, getters) => id => {
+  cellByDraughtId: (state, getters) => id => {
     return getters.multiCells.find(c => c.draught && c.draught.id === id)
   },
 
+	cellByName: (state, getters) => name => {
+  	return getters.multiCells.find(c => c.name === name)
+	},
+
   selectedCell(state, getters) {
-    return getters.cellById(state.selectedDraughtId)
+    return getters.cellByName(state.selectedCellName)
   },
 
   possibleMovesCells(state, getters) {

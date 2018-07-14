@@ -1,7 +1,7 @@
 <template lang="pug">
   .draught(
     v-if="draught",
-    :class="[draught.color, {selectable: selectable, selected: selected}]",
+    :class="classNames",
     @click.stop="selectDraught(cell)"
   )
     PieChart(
@@ -23,13 +23,25 @@
       cell: Object
     },
     computed: {
+      classNames() {
+        return [this.draught.color,
+          {
+            selectable: this.selectable,
+            highlighted: this.isSelectedDraught,
+            selected: this.isSelectedCell,
+          }
+        ]
+      },
       draught() {
         return this.cell.draught
       },
       selectable() {
         return this.$store.state.currentPlayer === this.draught.color
       },
-      selected() {
+      isSelectedCell() {
+        return this.$store.state.selectedCellName === this.cell.name
+      },
+      isSelectedDraught() {
         return this.$store.state.selectedDraughtId === this.draught.id
       },
       chartColor(){
@@ -57,6 +69,10 @@
     &.white {
       background: #ffe090;
 
+      &.highlighted {
+        box-shadow: 0 0 15px 10px rgb(252, 255, 199);
+      }
+
       &.selected {
         box-shadow: 0 0 15px 10px rgb(248, 255, 119);
       }
@@ -64,6 +80,10 @@
 
     &.black {
       background: #713002;
+
+      &.highlighted {
+        box-shadow: 0 0 15px 10px #deb58d;
+      }
 
       &.selected {
         box-shadow: 0 0 15px 10px #de9040;

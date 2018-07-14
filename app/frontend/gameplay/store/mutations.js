@@ -1,8 +1,9 @@
 import convertBoards from '../utils/convert_boards'
 
 export default {
-  setSelectedDraughtId(state, draughtId) {
-    state.selectedDraughtId = draughtId
+  setSelectedDraught(state, cell) {
+		state.selectedCellName = cell.name
+    state.selectedDraughtId = cell.draught.id
   },
 
   move(state, {from, to}) {

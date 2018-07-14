@@ -5,7 +5,7 @@ export default {
   async selectDraught({commit, state}, cell) {
     const draught = cell.draught
     if (draught.color === state.currentPlayer) {
-      commit('setSelectedDraughtId', draught.id)
+			commit('setSelectedDraught', cell)
       commit('cleanSelectedMoves')
       const {data: response} = await serverApi.matchPossibleMoves(state.matchId, cell)
       commit('setPossibleMoves', response.cells)

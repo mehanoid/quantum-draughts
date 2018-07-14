@@ -16,6 +16,7 @@ class InitBoard {
           playable: (rowIndex + columnIndex) % 2 === 0,
           column: columnChar,
           row: rowNumber,
+					name: `${columnChar}${rowNumber}`,
           draught: this.draughtAt(rowNumber, columnChar)
         }
       })
