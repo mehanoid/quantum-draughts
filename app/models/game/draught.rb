@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Game::Draught
+  include Dry::Equalizer(:id, :color)
+
   attr_accessor :id, :color
 
   def initialize(id:, color:)

@@ -3,6 +3,8 @@
 module Game
   class Board
     class Cell
+      include Dry::Equalizer(:column, :row, :draught)
+
       attr_accessor :column, :row, :playable, :draught
 
       # @param [String] column

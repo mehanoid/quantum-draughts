@@ -2,12 +2,20 @@
 
 module Game
   class Board
-    attr_reader :rows
+    include Dry::Equalizer(:rows)
 
-    def initialize(data = {'cells' => {}})
+    attr_reader :rows
+    attr_accessor :weight
+
+    def initialize(data = {})
+      data = data.with_indifferent_access
+
+      @weight = data[:weight] || 1
+      cells = data[:cells] || {}
+
       @rows = 1.upto(8).map do |row_number|
         ('A'..'H').map.with_index do |column_char, column_index|
-          draught_data = data.with_indifferent_access['cells'][column_char + row_number.to_s]
+          draught_data = cells[column_char + row_number.to_s]
           draught =
             if draught_data
               Draught.new id: draught_data['id'], color: draught_data['c']
@@ -68,9 +76,10 @@ module Game
 
     def as_json(*)
       {
-        'cells' => cells.reject(&:empty?).map do |cell|
+        cells: cells.reject(&:empty?).map do |cell|
           [cell.name, cell.draught.as_json]
-        end.to_h
+        end.to_h,
+        weight: weight,
       }
     end
 

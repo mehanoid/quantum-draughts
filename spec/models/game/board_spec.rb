@@ -61,4 +61,24 @@ RSpec.describe Game::Board, type: :model do
       expect(diagonal.map(&:name)).to eq %w[B2]
     end
   end
+
+  describe '#==' do
+    context 'different boards' do
+      let(:board1) { Game::Board.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
+      let(:board2) { Game::Board.new({ cells: { 'A1' => { c: 'w', id: 2 } } }) }
+
+      it 'is not equal' do
+        expect(board1).not_to eq board2
+      end
+    end
+
+    context 'same boards' do
+      let(:board1) { Game::Board.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
+      let(:board2) { Game::Board.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
+
+      it 'is equal' do
+        expect(board1).to eq board2
+      end
+    end
+  end
 end

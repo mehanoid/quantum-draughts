@@ -23,7 +23,7 @@ export default {
   },
 
   possibleMovesCells(state, getters) {
-    return getters.multiCells.filter((cell) => state.possibleMoves.includes(cellUtils.name(cell)))
+    return getters.multiCells.filter(cell => state.possibleMoves.includes(cellUtils.name(cell)))
   },
 
   selectedMovesCells(state, getters) {
