@@ -44,7 +44,7 @@ RSpec.describe MatchesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      match = Match.create! valid_attributes
+      match = Match.create.init_boards
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -52,7 +52,7 @@ RSpec.describe MatchesController, type: :controller do
 
   describe 'GET #show' do
     it 'returns a success response' do
-      match = Match.create! valid_attributes
+      match = Match.create.init_boards
       get :show, params: { id: match.to_param }, session: valid_session
       expect(response).to be_successful
     end
@@ -126,14 +126,14 @@ RSpec.describe MatchesController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'destroys the requested match' do
-      match = Match.create! valid_attributes
+      match = Match.create!
       expect {
         delete :destroy, params: { id: match.to_param }, session: valid_session
       }.to change(Match, :count).by(-1)
     end
 
     it 'redirects to the matches list' do
-      match = Match.create! valid_attributes
+      match = Match.create!
       delete :destroy, params: { id: match.to_param }, session: valid_session
       expect(response).to redirect_to(matches_url)
     end
@@ -143,28 +143,28 @@ RSpec.describe MatchesController, type: :controller do
     let(:match) { Match.create.init_boards }
 
     context 'with valid move' do
-      let(:params) { { id: match.to_param, moves: %w[C3 D4] } }
+      let(:params) { { id: match.to_param, moves: [%w[C3 D4]] } }
 
       it 'updates the requested match' do
         expect {
-          post :move, params: params, session: valid_session
+          post :move, params: params, session: valid_session, as: :json
         }.to change { match.reload.boards }
       end
 
       it 'respond with match json' do
-        post :move, params: params, session: valid_session
-        cell_data = JSON.parse(response.body)['match']['boards'].first['D4']
+        post :move, params: params, session: valid_session, as: :json
+        cell_data = JSON.parse(response.body)['match']['boards'].first['cells']['D4']
         expect(cell_data).to have_key 'id'
         expect(cell_data['c']).to eq 'w'
       end
     end
 
     context 'with invalid move' do
-      let(:params) { { id: match.to_param, moves: %w[C3 E5] } }
+      let(:params) { { id: match.to_param, moves: [%w[C3 E5]] } }
 
       it 'does not change match' do
         expect {
-          post :move, params: params, session: valid_session
+          post :move, params: params, session: valid_session, as: :json
         }.not_to change { match.reload.boards }
       end
     end

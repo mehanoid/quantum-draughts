@@ -4,10 +4,10 @@ module Game
   class Board
     attr_reader :rows
 
-    def initialize(data = {})
+    def initialize(data = {'cells' => {}})
       @rows = 1.upto(8).map do |row_number|
         ('A'..'H').map.with_index do |column_char, column_index|
-          draught_data = data[column_char + row_number.to_s]
+          draught_data = data['cells'][column_char + row_number.to_s]
           draught =
             if draught_data
               Draught.new id: draught_data['id'], color: draught_data['c']
@@ -67,9 +67,11 @@ module Game
     end
 
     def as_json(*)
-      cells.reject(&:empty?).map do |cell|
-        [cell.name, cell.draught.as_json]
-      end.to_h
+      {
+        'cells' => cells.reject(&:empty?).map do |cell|
+          [cell.name, cell.draught.as_json]
+        end.to_h
+      }
     end
 
     def to_s

@@ -23,7 +23,7 @@ class InitBoard {
   }
 
   draughtAt(row, column) {
-    const draught = this.boardData[column + row]
+    const draught = this.boardData['cells'][column + row]
     if (draught){
       return {
         id: draught.id,
