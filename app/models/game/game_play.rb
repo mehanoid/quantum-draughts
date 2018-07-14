@@ -36,6 +36,8 @@ module Game
         end
       end
 
+      new_boards = BoardsCollapse.new(new_boards).perform
+
       @match.update! boards: new_boards.map(&:as_json), current_player: next_player
     end
 
