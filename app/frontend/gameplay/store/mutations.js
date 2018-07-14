@@ -9,7 +9,6 @@ export default {
   move(state, {from, to}) {
     to.draught = from.draught
     from.draught = null
-    state.selectedDraughtId = null
   },
 
   updateBoards(state, boardsData) {
@@ -24,9 +23,11 @@ export default {
     state.possibleMoves = cells
   },
 
-  cleanSelectedMoves(state) {
-    state.selectedMoves = []
-  },
+	cleanSelections(state) {
+		state.selectedMoves = []
+		state.selectedCellName = null
+		state.selectedDraughtId = null
+	},
 
   addSelectedMove(state, cell) {
     state.selectedMoves.push(cell)

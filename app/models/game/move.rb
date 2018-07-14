@@ -2,8 +2,7 @@
 
 module Game
   class Move
-    class InvalidMove < StandardError; end
-    attr_accessor :from_cell, :to_cell, :current_player
+    attr_accessor :from_cell, :to_cell, :current_player, :board
 
     # @param [Game::Board] board
     # @param [Array<String>] move_cells

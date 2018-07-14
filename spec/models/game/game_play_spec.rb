@@ -10,7 +10,7 @@ RSpec.describe Game::Move, type: :model do
 
     describe 'possible moves' do
       it 'return array of resulting cells' do
-        expect(game_play.possible_moves('C3').map(&:name)).to match_array ['B4', 'D4']
+        expect(game_play.possible_moves('C3')).to match_array ['B4', 'D4']
       end
     end
   end

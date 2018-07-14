@@ -60,7 +60,7 @@ class MatchesController < ApplicationController
     game = Game::GamePlay.new(get_match)
     game.move params[:moves]
     render json: {match: get_match.as_json}
-  rescue Game::Move::InvalidMove
+  rescue Game::InvalidMove
     render json: {match: get_match.as_json, error: 'Invalid move'}
   end
 

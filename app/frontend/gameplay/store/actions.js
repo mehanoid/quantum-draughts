@@ -5,8 +5,8 @@ export default {
   async selectDraught({commit, state}, cell) {
     const draught = cell.draught
     if (draught.color === state.currentPlayer) {
+			commit('cleanSelections')
 			commit('setSelectedDraught', cell)
-      commit('cleanSelectedMoves')
       const {data: response} = await serverApi.matchPossibleMoves(state.matchId, cell)
       commit('setPossibleMoves', response.cells)
     }
@@ -31,7 +31,7 @@ export default {
     const moves = getters.selectedMovesCells.map(to => [cellUtils.name(from), cellUtils.name(to)])
     commit('move', {from, to})
     commit('setPossibleMoves', [])
-    commit('cleanSelectedMoves')
+    commit('cleanSelections')
     const {data: response} = await serverApi.matchMove(state.matchId, moves)
     commit('updateBoards', response.match.boards)
     commit('setCurrentPlayer', response.match.current_player)

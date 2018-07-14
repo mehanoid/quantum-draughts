@@ -6,8 +6,8 @@ module Game
 
     # @param [Match] match
     def initialize(match)
-      @match = match
-      @boards = match.boards.map {|board| Board.new(board)}
+      @match  = match
+      @boards = match.boards.map { |board| Board.new(board) }
     end
 
     def possible_moves(cell_name)
@@ -18,12 +18,24 @@ module Game
       end.map(&:name).uniq
     end
 
-    def move(moves)
-      new_boards = moves.flat_map do |move|
+    def move(moves_params)
+      move_groups = moves_params.map do |move_params|
         boards.map do |board|
-          Move.new(board.dup, move, @match.current_player.to_sym).perform!
+          Move.new(board.dup, move_params, @match.current_player.to_sym)
         end
       end
+
+      # each move group should contain at least one valid move
+      raise InvalidMove unless move_groups.all? { |moves_group| moves_group.any?(&:valid?) }
+
+      new_boards = move_groups.flatten.map do |move|
+        if move.valid?
+          move.perform!
+        else
+          move.board
+        end
+      end
+
       @match.update! boards: new_boards.map(&:as_json), current_player: next_player
     end
 
