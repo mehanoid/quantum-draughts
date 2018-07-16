@@ -56,6 +56,14 @@ module Game
       rows.flatten
     end
 
+    def playable_cells
+      cells.select(&:playable)
+    end
+
+    def occupied_cells
+      playable_cells.select(&:occupied?)
+    end
+
     # @return [Array<Game::Board::Draught>]
     def draughts
       cells.map(&:draught).compact

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Game
-  class Move
+  class DraughtMoveStep
     attr_accessor :from_cell, :to_cell, :current_player, :board
 
     # @param [Game::Board] board
@@ -26,24 +26,28 @@ module Game
     end
 
     def valid?
-      validate!
-      true
-    rescue InvalidMove
-      false
+      error.blank?
+    end
+
+    def beat?
+      beaten_cells.present?
     end
 
     def validate!
-      raise InvalidMove, 'source is empty' unless from_cell.occupied?
-      raise InvalidMove, "other player's turn" unless current_player == from_cell.draught.color
-      raise InvalidMove, 'destination is not playable' unless to_cell.playable
-      raise InvalidMove, 'destination is occupied' unless to_cell.empty?
-      raise InvalidMove, 'cells are not on the same diagonal' unless from_cell.same_diagonal?(to_cell)
+      raise InvalidMove, error unless valid?
+    end
+
+    def error
+      return 'source is empty' unless from_cell.occupied?
+      return "other player's turn" unless current_player == from_cell.draught.color
+      return 'destination is not playable' unless to_cell.playable
+      return 'destination is occupied' unless to_cell.empty?
+      return 'cells are not on the same diagonal' unless from_cell.same_diagonal?(to_cell)
       if beaten_cells.present?
-        #   TODO
-        raise InvalidMove, 'invalid beating' unless valid_beaten_cells_order?
-        raise InvalidMove, 'can not beat draught of the same color' unless valid_beaten_draughts_color?
+        return 'invalid beating' unless valid_beaten_cells_order?
+        return 'can not beat draught of the same color' unless valid_beaten_draughts_color?
       else
-        raise InvalidMove, 'cells are not adjacent' unless from_cell.adjacent?(to_cell)
+        return 'cells are not adjacent' unless from_cell.adjacent?(to_cell)
       end
     end
 

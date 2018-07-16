@@ -44,6 +44,7 @@ gem 'slim-rails'
 # utils
 gem 'gon'
 gem 'dry-equalizer'
+gem 'memery'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

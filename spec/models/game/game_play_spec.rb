@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::Move, type: :model do
+RSpec.describe Game::DraughtMoveStep, type: :model do
   context 'populated board' do
     let(:match) {Match.new.init_boards}
     let(:game_play) {Game::GamePlay.new(match)}
