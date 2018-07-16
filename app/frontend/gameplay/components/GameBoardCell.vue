@@ -53,6 +53,10 @@
     &.possible-move {
       background: green;
       cursor: pointer;
+
+      &:hover {
+        background: yellow;
+      }
     }
 
     &.selected-move {
