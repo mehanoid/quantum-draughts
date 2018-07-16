@@ -31,5 +31,9 @@ export default {
 
   addSelectedMove(state, cell) {
     state.selectedMoves.push(cell)
-  }
+  },
+
+  setSelectedMoves(state, moves) {
+  	state.selectedMoves = moves
+	}
 }

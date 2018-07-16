@@ -14,8 +14,13 @@ export default {
 
   selectMove({commit, getters, state, dispatch}, cell) {
     if (getters.possibleMovesCells.includes(cell)) {
-      const cellName = cellUtils.name(cell)
-      commit('addSelectedMove', cellName)
+			if (state.possibleMoves.length <= 2) {
+				commit('setSelectedMoves', state.possibleMoves)
+			}
+			else {
+				const cellName = cellUtils.name(cell)
+				commit('addSelectedMove', cellName)
+			}
 
       if (state.selectedMoves.length >= 2 || state.selectedMoves.length >= state.possibleMoves.length) {
         dispatch('move', getters.selectedMovesCells[0])
