@@ -37,6 +37,78 @@ RSpec.describe Game::DraughtMoveStep, type: :model do
     end
   end
 
+  context 'white draught' do
+    let(:board) do
+      Game::Board.from_s(<<~BOARD)
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . ○ . . . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'moves forward' do
+      Game::DraughtMoveStep.new(board, %w[B2 C3], :white).perform!
+
+      expect(board.to_s).to eq <<~BOARD
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . ○ . . . . .
+        . . . . . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'does not move back' do
+      expect {
+        Game::DraughtMoveStep.new(board, %w[B2 A1], :white).perform!
+      }.to raise_error Game::InvalidMove, /back/
+    end
+  end
+
+  context 'black draught' do
+    let(:board) do
+      Game::Board.from_s(<<~BOARD)
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . ● . . . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'moves forward' do
+      Game::DraughtMoveStep.new(board, %w[B2 A1], :black).perform!
+
+      expect(board.to_s).to eq <<~BOARD
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        ● . . . . . . .
+      BOARD
+    end
+
+    it 'does not move back' do
+      expect {
+        Game::DraughtMoveStep.new(board, %w[B2 C3], :black).perform!
+      }.to raise_error Game::InvalidMove, /back/
+    end
+  end
+
   context 'two draughts' do
     let(:board) do
       Game::Board.from_s(<<~BOARD)
@@ -47,21 +119,6 @@ RSpec.describe Game::DraughtMoveStep, type: :model do
         . . . . . . . .
         . . ● . . . . .
         . ○ . . . . . .
-        . . . . . . . .
-      BOARD
-    end
-
-    it 'moves to free cell' do
-      Game::DraughtMoveStep.new(board, %w[B2 A3], :white).perform!
-
-      expect(board.to_s).to eq <<~BOARD
-        . . . . . . . .
-        . . . . . . . .
-        . . . . . . . .
-        . . . . . . . .
-        . . . . . . . .
-        ○ . ● . . . . .
-        . . . . . . . .
         . . . . . . . .
       BOARD
     end

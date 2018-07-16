@@ -43,11 +43,21 @@ module Game
       return 'destination is not playable' unless to_cell.playable
       return 'destination is occupied' unless to_cell.empty?
       return 'cells are not on the same diagonal' unless from_cell.same_diagonal?(to_cell)
+      return 'can not move back' unless valid_direction?
       if beaten_cells.present?
         return 'invalid beating' unless valid_beaten_cells_order?
         return 'can not beat draught of the same color' unless valid_beaten_draughts_color?
       else
         return 'cells are not adjacent' unless from_cell.adjacent?(to_cell)
+      end
+    end
+
+    def valid_direction?
+      return true if beat?
+      if from_cell.draught.color == :white
+        to_cell.row_number > from_cell.row_number
+      else
+        to_cell.row_number < from_cell.row_number
       end
     end
 
