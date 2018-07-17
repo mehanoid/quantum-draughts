@@ -77,9 +77,9 @@ module Game
         from_cell = board.cell_at(move_cells.first)
         klass     =
           if from_cell.draught&.king?
-            KingMoveStep
+            Game::KingMoveStep
           else
-            DraughtMoveStep
+            Game::DraughtMoveStep
           end
         klass.new(board, move_cells, current_player)
       end

@@ -8,7 +8,9 @@
       :percent="draught.probability"
       :stroke-width="10"
       :color="chartColor"
+      :label="label"
     )
+    .king-label(v-if="draught.king") ♔
 </template>
 
 <script>
@@ -58,6 +60,7 @@
 <style lang="postcss" scoped>
   .draught {
     display: inline-block;
+    position: relative;
     size: 40px;
     border-radius: 20px;
     vertical-align: middle;
@@ -88,6 +91,15 @@
       &.selected {
         box-shadow: 0 0 15px 10px #de9040;
       }
+    }
+
+    & .king-label {
+      position: absolute 0;
+      size: 100%;
+      font-size: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 </style>
