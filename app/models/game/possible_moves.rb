@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Game
-  class DraughtPossibleMoves
+  class PossibleMoves
     include Memery
 
     attr_reader :board, :cell_name, :current_player

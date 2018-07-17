@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Game
-  class DraughtMove
+  class Move
     include Memery
 
     attr_accessor :from_cell, :to_cell, :current_player, :board
@@ -38,7 +38,7 @@ module Game
       end
 
       memoize def beat_move_steps
-        DraughtPossibleMoves.new(board, @params.first, current_player).all_beat_move_steps
+        PossibleMoves.new(board, @params.first, current_player).all_beat_move_steps
       end
   end
 end

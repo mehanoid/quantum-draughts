@@ -12,14 +12,14 @@ module Game
 
     def possible_moves(cell_name)
       boards.flat_map do |board|
-        DraughtPossibleMoves.new(board, cell_name, @match.current_player.to_sym).possible_moves
+        PossibleMoves.new(board, cell_name, @match.current_player.to_sym).possible_moves
       end.uniq
     end
 
     def move(moves_params)
       move_groups = moves_params.map do |move_params|
         boards.map do |board|
-          DraughtMove.new(board, move_params, @match.current_player.to_sym)
+          Move.new(board, move_params, @match.current_player.to_sym)
         end
       end
 
