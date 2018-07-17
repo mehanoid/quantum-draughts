@@ -15,4 +15,11 @@ class Match < ApplicationRecord
     self.boards = boards.first(1)
     save
   end
+
+  def to_s
+    boards.map do |b|
+      board = Game::Board.new(b)
+      "#{board.weight}\n#{board}\n"
+    end
+  end
 end
