@@ -27,7 +27,7 @@ RSpec.describe Game::DraughtMoveStep, type: :model do
     it 'raises error on too long move' do
       expect {
         Game::DraughtMoveStep.new(board, %w[C3 E5], :white).perform!
-      }.to raise_error Game::InvalidMove, /only one step/
+      }.to raise_error Game::InvalidMove, /invalid move distance/
     end
 
     it 'raises error if draught belongs to other player' do

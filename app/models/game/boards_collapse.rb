@@ -18,16 +18,16 @@ module Game
 
       def resolve_conflicts_on_cell(boards, cell_name)
         boards_cells = boards.map { |b| b.cell_at(cell_name) }
-        draught_ids  = get_draught_ids(boards_cells)
-        if too_many_draughts?(draught_ids)
-          reject_conflicts_with_draught(boards, draught_ids.sample, cell_name)
+        draughts     = get_draughts(boards_cells)
+        if too_many_draughts?(draughts)
+          reject_conflicts_with_draught(boards, draughts.sample, cell_name)
         else
           boards
         end
       end
 
-      def get_draught_ids(cells)
-        cells.reject(&:empty?).map { |cell| cell.draught.id }
+      def get_draughts(cells)
+        cells.map(&:draught).compact
       end
 
       def too_many_draughts?(draughts)
@@ -35,12 +35,12 @@ module Game
       end
 
       # reject all boards that has any draught on that cell that is not our sample draught
-      def reject_conflicts_with_draught(boards, draught_id, cell_name)
-        boards.reject { |board| cell_conflicts_with?(board.cell_at(cell_name), draught_id) }
+      def reject_conflicts_with_draught(boards, draught, cell_name)
+        boards.reject { |board| cell_conflicts_with?(board.cell_at(cell_name), draught) }
       end
 
-      def cell_conflicts_with?(cell, draught_id)
-        !cell.empty? && cell.draught.id == draught_id
+      def cell_conflicts_with?(cell, draught)
+        !cell.empty? && cell.draught != draught
       end
   end
 end
