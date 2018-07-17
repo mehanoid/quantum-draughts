@@ -25,7 +25,7 @@ module Game
 
     memoize def possible_move_steps
       board.playable_cells.map do |cell|
-        DraughtMoveStep.new(board, [cell_name, cell.name], current_player)
+        MoveStep.build(board, [cell_name, cell.name], current_player)
       end.select(&:valid?)
     end
 

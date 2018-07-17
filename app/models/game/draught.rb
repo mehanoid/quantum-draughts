@@ -1,19 +1,21 @@
 # frozen_string_literal: true
 
 class Game::Draught
-  include Dry::Equalizer(:id, :color)
+  include Dry::Equalizer(:id, :color, :king)
 
-  attr_accessor :id, :color
+  attr_reader :id, :color, :king
 
-  def initialize(id:, color:)
-    self.id = id
-    self.color = expand_color(color)
+  def initialize(id:, color:, king: false)
+    @id    = id
+    @color = expand_color(color)
+    @king  = king
   end
 
   def as_json(*args)
     {
-        id: id,
-        c: short_color
+      id: id,
+      c:  short_color,
+      k: king
     }
   end
 
@@ -25,20 +27,26 @@ class Game::Draught
     color == :white
   end
 
+  alias king? king
+
   def short_color
     color.to_s.first
   end
 
+  def becomes_king
+    self.class.new(id: id, color: color, king: true)
+  end
+
   private
 
-  def expand_color(color)
-    case color
+    def expand_color(color)
+      case color
       when 'b'
         :black
       when 'w'
         :white
       else
         color.to_sym
+      end
     end
-  end
 end

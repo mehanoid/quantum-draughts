@@ -27,7 +27,7 @@ RSpec.describe Game::DraughtMoveStep, type: :model do
     it 'raises error on too long move' do
       expect {
         Game::DraughtMoveStep.new(board, %w[C3 E5], :white).perform!
-      }.to raise_error Game::InvalidMove, /not adjacent/
+      }.to raise_error Game::InvalidMove, /only one step/
     end
 
     it 'raises error if draught belongs to other player' do
@@ -81,14 +81,14 @@ RSpec.describe Game::DraughtMoveStep, type: :model do
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
+        . . ● . . . . .
         . . . . . . . .
-        . ● . . . . . .
         . . . . . . . .
       BOARD
     end
 
     it 'moves forward' do
-      Game::DraughtMoveStep.new(board, %w[B2 A1], :black).perform!
+      Game::DraughtMoveStep.new(board, %w[C3 B2], :black).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -97,14 +97,14 @@ RSpec.describe Game::DraughtMoveStep, type: :model do
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
+        . ● . . . . . .
         . . . . . . . .
-        ● . . . . . . .
       BOARD
     end
 
     it 'does not move back' do
       expect {
-        Game::DraughtMoveStep.new(board, %w[B2 C3], :black).perform!
+        Game::DraughtMoveStep.new(board, %w[C3 D4], :black).perform!
       }.to raise_error Game::InvalidMove, /back/
     end
   end
@@ -164,77 +164,122 @@ RSpec.describe Game::DraughtMoveStep, type: :model do
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
-        . ○ . ○ . . . .
-        . . ● . . . . .
-        . ○ . ○ . . . .
+        . ● . ● . . . .
+        . . ○ . . . . .
+        . ● . ● . . . .
         . . . . . . . .
       BOARD
     end
 
     it 'beats draught if jump over it to top-right' do
-      Game::DraughtMoveStep.new(board, %w[C3 E5], :black).perform!
+      Game::DraughtMoveStep.new(board, %w[C3 E5], :white).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
-        . . . . ● . . .
-        . ○ . . . . . .
+        . . . . ○ . . .
+        . ● . . . . . .
         . . . . . . . .
-        . ○ . ○ . . . .
+        . ● . ● . . . .
         . . . . . . . .
       BOARD
     end
 
     it 'beats draught if jump over it to top-left' do
-      Game::DraughtMoveStep.new(board, %w[C3 A5], :black).perform!
+      Game::DraughtMoveStep.new(board, %w[C3 A5], :white).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
-        ● . . . . . . .
-        . . . ○ . . . .
+        ○ . . . . . . .
+        . . . ● . . . .
         . . . . . . . .
-        . ○ . ○ . . . .
+        . ● . ● . . . .
         . . . . . . . .
       BOARD
     end
 
     it 'beats draught if jump over it to top-right' do
-      Game::DraughtMoveStep.new(board, %w[C3 E1], :black).perform!
+      Game::DraughtMoveStep.new(board, %w[C3 E1], :white).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
-        . ○ . ○ . . . .
+        . ● . ● . . . .
         . . . . . . . .
-        . ○ . . . . . .
-        . . . . ● . . .
+        . ● . . . . . .
+        . . . . ○ . . .
       BOARD
     end
 
     it 'beats draught if jump over it to top-right' do
-      Game::DraughtMoveStep.new(board, %w[C3 A1], :black).perform!
+      Game::DraughtMoveStep.new(board, %w[C3 A1], :white).perform!
 
       expect(board.to_s).to eq <<~BOARD
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
-        . ○ . ○ . . . .
+        . ● . ● . . . .
         . . . . . . . .
-        . . . ○ . . . .
-        ● . . . . . . .
+        . . . ● . . . .
+        ○ . . . . . . .
       BOARD
     end
 
     it 'does not beat with too long move' do
       expect {
-        Game::DraughtMoveStep.new(board, %w[C3 F6], :black).perform!
+        Game::DraughtMoveStep.new(board, %w[C3 F6], :white).perform!
       }.to raise_error Game::InvalidMove, 'invalid beating'
+    end
+  end
+
+  context 'near edge line' do
+    let(:board) do
+      Game::Board.from_s(<<~BOARD)
+        . . . . . . . .
+        . . ○ . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . ● . . . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'becomes white king' do
+      Game::DraughtMoveStep.new(board, %w[C7 B8], :white).perform!
+
+      expect(board.to_s).to eq <<~BOARD
+        . □ . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . ● . . . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'becomes black king' do
+      Game::DraughtMoveStep.new(board, %w[B2 C1], :black).perform!
+
+      expect(board.to_s).to eq <<~BOARD
+        . . . . . . . .
+        . . ○ . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . ■ . . . . .
+      BOARD
     end
   end
 end

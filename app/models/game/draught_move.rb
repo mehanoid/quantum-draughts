@@ -34,7 +34,7 @@ module Game
     private
 
       memoize def move_step
-        DraughtMoveStep.new(board.dup, @params, current_player)
+        MoveStep.build(board.dup, @params, current_player)
       end
 
       memoize def beat_move_steps

@@ -19,7 +19,7 @@ module Game
     def move(moves_params)
       move_groups = moves_params.map do |move_params|
         boards.map do |board|
-          DraughtMoveStep.new(board.dup, move_params, @match.current_player.to_sym)
+          DraughtMove.new(board, move_params, @match.current_player.to_sym)
         end
       end
 

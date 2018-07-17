@@ -18,10 +18,6 @@ module Game
         @draught = draught
       end
 
-      def initialize_dup(source)
-        @draught = @draught.dup
-      end
-
       # @return [String] string identifying the cell, e.g. "A4"
       def name
         column + row.to_s

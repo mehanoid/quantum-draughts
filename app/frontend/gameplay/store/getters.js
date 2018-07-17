@@ -10,10 +10,6 @@ export default {
     return _.flattenDeep(getters.multiBoard)
   },
 
-  cellByDraughtId: (state, getters) => id => {
-    return getters.multiCells.find(c => c.draught && c.draught.id === id)
-  },
-
 	cellByName: (state, getters) => name => {
   	return getters.multiCells.find(c => c.name === name)
 	},

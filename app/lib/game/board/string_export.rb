@@ -27,9 +27,17 @@ class Game::Board::StringExport
 
   def draught_char(draught)
     if draught.white?
-      '○'
+      if draught.king?
+        '□'
+      else
+        '○'
+      end
     else
-      '●'
+      if draught.king?
+        '■'
+      else
+        '●'
+      end
     end
   end
 end

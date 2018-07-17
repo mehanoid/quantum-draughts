@@ -8,9 +8,9 @@ module Game
     #     . ● . ● . ● . ●
     #     ● . ● . ● . ● .
     #     . ● . ● . ● . ●
-    #     . . . . . . . .
-    #     . . . . . . . .
-    #     ○ . ○ . ○ . ○ .
+    #     . . . . . ◎ ■ .
+    #     . . ◉ ◎ . ⍟ . .
+    #     ○ . ○ . ○ ◙ ○ .
     #     . ○ . ○ . ○ . ○
     #     ○ . ○ . ○ . ○ .
     #   BOARD
@@ -47,6 +47,10 @@ module Game
           create_draught(color: :white)
         when '●'
           create_draught(color: :black)
+        when '□'
+          create_draught(color: :white, king: true)
+        when '■'
+          create_draught(color: :black, king: true)
         end
       end
 

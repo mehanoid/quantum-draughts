@@ -18,7 +18,7 @@ module Game
           draught_data = cells[column_char + row_number.to_s]
           draught =
             if draught_data
-              Draught.new id: draught_data['id'], color: draught_data['c']
+              Draught.new id: draught_data['id'], color: draught_data['c'], king: draught_data['k']
             end
           Cell.new(column: column_char,
                    row: row_number,

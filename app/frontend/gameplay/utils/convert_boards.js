@@ -37,6 +37,7 @@ class InitBoard {
         id: draught.id,
         color: InitBoard.expandColor(draught.c),
 				weight: this.boardData.weight,
+				king: draught.k
       }
     }
   }
