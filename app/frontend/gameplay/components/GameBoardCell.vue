@@ -55,7 +55,7 @@
       cursor: pointer;
 
       &:hover {
-        background: yellow;
+        background: #fdff8e;
       }
     }
 

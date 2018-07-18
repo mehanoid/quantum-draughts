@@ -6,7 +6,7 @@ class MatchesController < ApplicationController
   end
 
   def show
-    gon.match = get_match.as_json
+    gon.match = MatchSerializer.new(get_match).as_json
   end
 
   def new
@@ -51,27 +51,23 @@ class MatchesController < ApplicationController
     end
   end
 
-  def possible_moves
-    game = Game::GamePlay.new(get_match)
-    render json: {cells: game.possible_moves(params[:from])}
-  end
-
   def move
     game = Game::GamePlay.new(get_match)
     game.move params[:moves]
-    render json: {match: get_match.as_json}
+    render json: { match: MatchSerializer.new(get_match).as_json }
   rescue Game::InvalidMove
-    render json: {match: get_match.as_json, error: 'Invalid move'}
+    render json: { match: MatchSerializer.new(get_match).as_json, error: 'Invalid move' }
   end
 
   private
+
     helper_method def get_match
       @get_match ||= Match.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
-      param = params.require(:match).permit(:boards)
+      param  = params.require(:match).permit(:boards)
       boards = JSON.parse param[:boards]
       param.merge(boards: boards)
     end

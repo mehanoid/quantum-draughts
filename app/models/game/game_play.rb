@@ -7,7 +7,7 @@ module Game
     # @param [Match] match
     def initialize(match)
       @match  = match
-      @boards = match.boards.map { |board| Board.new(board) }
+      @boards = match.board_instances
     end
 
     def possible_moves(cell_name)

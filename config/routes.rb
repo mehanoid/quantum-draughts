@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   root to: 'matches#index'
   resources :matches do
     member do
-      get :possible_moves
       post :move
     end
   end

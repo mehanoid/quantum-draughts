@@ -8,7 +8,6 @@
       :percent="draught.probability"
       :stroke-width="10"
       :color="chartColor"
-      :label="label"
     )
     .king-label(v-if="draught.king") ♔
 </template>
@@ -31,6 +30,7 @@
             selectable: this.selectable,
             highlighted: this.isSelectedDraught,
             selected: this.isSelectedCell,
+            'can-beat': this.canBeat,
           }
         ]
       },
@@ -48,6 +48,9 @@
       },
       chartColor(){
         return this.draught.color === 'white' ? '#ffe090' : '#713002'
+      },
+      canBeat(){
+        return this.$store.getters.canBeat(this.cell.name)
       }
     },
     methods: {
@@ -67,6 +70,10 @@
 
     &.selectable {
       cursor: pointer;
+    }
+
+    &.can-beat {
+      box-shadow: 0 0 15px 10px rgb(255, 48, 48);
     }
 
     &.white {

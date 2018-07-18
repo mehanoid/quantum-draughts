@@ -7,7 +7,7 @@ export default () => {
     boards: convertBoards(gon.match.boards),
 		selectedCellName: null,
     selectedDraughtId: null,
-    possibleMoves: [],
+		allPossibleMoves: gon.match.possible_moves,
     selectedMoves: []
   }
 }

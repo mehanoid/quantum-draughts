@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Match < ApplicationRecord
-  enum current_player: {white: 0, black: 1}
+  enum current_player: { white: 0, black: 1 }
 
   def init_boards
     board = Game::Board.new
@@ -11,15 +11,13 @@ class Match < ApplicationRecord
     self
   end
 
-  def collapse_boards!
-    self.boards = boards.first(1)
-    save
+  def board_instances
+    boards.map { |b| Game::Board.new(b) }
   end
 
   def to_s
-    boards.map do |b|
-      board = Game::Board.new(b)
-      "#{board.weight}\n#{board}\n"
+    board_instances.map do |b|
+      "#{b.weight}\n#{b}\n"
     end
   end
 end

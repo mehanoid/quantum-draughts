@@ -7,26 +7,30 @@ export default {
     if (draught.color === state.currentPlayer) {
 			commit('cleanSelections')
 			commit('setSelectedDraught', cell)
-      const {data: response} = await serverApi.matchPossibleMoves(state.matchId, cell)
-      commit('setPossibleMoves', response.cells)
     }
   },
 
-  selectMove({commit, getters, state, dispatch}, cell) {
-    if (getters.possibleMovesCells.includes(cell)) {
-			if (state.possibleMoves.length <= 2) {
-				commit('setSelectedMoves', state.possibleMoves)
+	selectMove({commit, getters, state, dispatch}, cell) {
+		if (getters.possibleMovesCells.includes(cell)) {
+			const cellName = cellUtils.name(cell)
+
+			if (state.selectedMoves.includes(cellName)) {
+				commit('removeSelectedMove', cellName)
 			}
 			else {
-				const cellName = cellUtils.name(cell)
-				commit('addSelectedMove', cellName)
-			}
+				if (getters.currentPossibleMoves.length <= 2) {
+					commit('setSelectedMoves', getters.currentPossibleMoves)
+				}
+				else {
+					commit('addSelectedMove', cellName)
+				}
 
-      if (state.selectedMoves.length >= 2 || state.selectedMoves.length >= state.possibleMoves.length) {
-        dispatch('move', getters.selectedMovesCells[0])
-      }
-    }
-  },
+				if (state.selectedMoves.length >= 2 || state.selectedMoves.length >= getters.currentPossibleMoves.length) {
+					dispatch('move', cell)
+				}
+			}
+		}
+	},
 
   async move({commit, getters, state}, to) {
     if (!getters.selectedCell || !getters.possibleMovesCells.includes(to)) {
@@ -38,7 +42,6 @@ export default {
     commit('setPossibleMoves', [])
     commit('cleanSelections')
     const {data: response} = await serverApi.matchMove(state.matchId, moves)
-    commit('updateBoards', response.match.boards)
-    commit('setCurrentPlayer', response.match.current_player)
+    commit('updateMatch', response.match)
   }
 }

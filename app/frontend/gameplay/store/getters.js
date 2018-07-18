@@ -18,8 +18,16 @@ export default {
     return getters.cellByName(state.selectedCellName)
   },
 
+	canBeat: (state) => cell => {
+  	return state.allPossibleMoves.some(move => move.beat && move.cells[0] === cell)
+	},
+
+	currentPossibleMoves(state) {
+		return state.allPossibleMoves.filter(pm => pm.cells[0] === state.selectedCellName).map(pm => pm.cells[1])
+	},
+
   possibleMovesCells(state, getters) {
-    return getters.multiCells.filter(cell => state.possibleMoves.includes(cellUtils.name(cell)))
+    return getters.multiCells.filter(cell => getters.currentPossibleMoves.includes(cellUtils.name(cell)))
   },
 
   selectedMovesCells(state, getters) {

@@ -11,13 +11,11 @@ export default {
     from.draught = null
   },
 
-  updateBoards(state, boardsData) {
-    state.boards = convertBoards(boardsData)
-  },
-
-  setCurrentPlayer(state, player) {
-    state.currentPlayer = player
-  },
+	updateMatch(state, match){
+  	state.boards = convertBoards(match.boards)
+		state.currentPlayer = match.current_player
+		state.allPossibleMoves = match.possible_moves
+	},
 
   setPossibleMoves(state, cells) {
     state.possibleMoves = cells
@@ -32,6 +30,10 @@ export default {
   addSelectedMove(state, cell) {
     state.selectedMoves.push(cell)
   },
+
+	removeSelectedMove(state, cell) {
+  	state.selectedMoves = state.selectedMoves.filter(move => move !== cell)
+	},
 
   setSelectedMoves(state, moves) {
   	state.selectedMoves = moves
