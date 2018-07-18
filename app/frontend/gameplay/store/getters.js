@@ -26,10 +26,6 @@ export default {
 		return state.allPossibleMoves.filter(pm => pm.cells[0] === state.selectedCellName).map(pm => pm.cells[1])
 	},
 
-  possibleMovesCells(state, getters) {
-    return getters.multiCells.filter(cell => getters.currentPossibleMoves.includes(cellUtils.name(cell)))
-  },
-
   selectedMovesCells(state, getters) {
     return state.selectedMoves.map(move => getters.multiCells.find(cell => move === cellUtils.name(cell) ))
   }

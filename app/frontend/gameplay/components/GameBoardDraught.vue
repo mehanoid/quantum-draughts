@@ -27,7 +27,6 @@
       classNames() {
         return [this.draught.color,
           {
-            selectable: this.selectable,
             highlighted: this.isSelectedDraught,
             selected: this.isSelectedCell,
             'can-beat': this.canBeat,
@@ -67,10 +66,7 @@
     size: 40px;
     border-radius: 20px;
     vertical-align: middle;
-
-    &.selectable {
-      cursor: pointer;
-    }
+    cursor: pointer;
 
     &.can-beat {
       box-shadow: 0 0 15px 10px rgb(255, 48, 48);

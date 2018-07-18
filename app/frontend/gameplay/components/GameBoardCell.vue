@@ -21,11 +21,11 @@
       cell: Object
     },
     computed: {
-      ...mapGetters(['possibleMovesCells', 'selectedMovesCells']),
+      ...mapGetters(['currentPossibleMoves', 'selectedMovesCells']),
       classNames() {
         return {
           playable: this.cell.playable,
-          'possible-move': this.possibleMovesCells.includes(this.cell),
+          'possible-move': this.currentPossibleMoves.includes(this.cell.name),
           'selected-move': this.selectedMovesCells.includes(this.cell)
         }
       }

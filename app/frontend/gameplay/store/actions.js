@@ -3,15 +3,17 @@ import cellUtils from '../utils/cell'
 
 export default {
   async selectDraught({commit, state}, cell) {
-    const draught = cell.draught
-    if (draught.color === state.currentPlayer) {
+		if (state.selectedCellName === cell.name) {
+			commit('cleanSelections')
+		}
+		else {
 			commit('cleanSelections')
 			commit('setSelectedDraught', cell)
-    }
+		}
   },
 
 	selectMove({commit, getters, state, dispatch}, cell) {
-		if (getters.possibleMovesCells.includes(cell)) {
+		if (getters.currentPossibleMoves.includes(cell.name)) {
 			const cellName = cellUtils.name(cell)
 
 			if (state.selectedMoves.includes(cellName)) {
@@ -33,7 +35,7 @@ export default {
 	},
 
   async move({commit, getters, state}, to) {
-    if (!getters.selectedCell || !getters.possibleMovesCells.includes(to)) {
+    if (!getters.selectedCell || !getters.currentPossibleMoves.includes(to.name)) {
       return
     }
     const from = getters.selectedCell
