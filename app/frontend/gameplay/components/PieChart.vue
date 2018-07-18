@@ -36,7 +36,7 @@
         return `${-c} ${-c} ${w} ${w}`
       },
       circle: function () {
-        return this._ratio % 1 === 0
+        return this.percent === 100
       },
       _ratio: function () {
         return this.percent / 100

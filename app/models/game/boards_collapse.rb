@@ -27,6 +27,7 @@ module Game
       end
 
       def get_draughts(cells)
+        # TODO: select draught considering it's weight
         cells.map(&:draught).compact
       end
 
