@@ -79,6 +79,10 @@
       &.selected {
         box-shadow: 0 0 15px 10px rgb(248, 255, 119);
       }
+
+      & .king-label {
+        color: #713002;
+      }
     }
 
     &.black {
@@ -90,6 +94,10 @@
 
       &.selected {
         box-shadow: 0 0 15px 10px #de9040;
+      }
+
+      & .king-label {
+        color: #ffe090;
       }
     }
 
