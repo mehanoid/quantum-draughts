@@ -16,9 +16,9 @@ module Game
         @boards.first.cells.map(&:name)
       end
 
+      # @return [Game::Board] boards
       def resolve_conflicts_on_cell(boards, cell_name)
-        boards_cells = boards.map { |b| b.cell_at(cell_name) }
-        draughts     = get_draughts(boards_cells)
+        draughts = get_draughts_at_cell(boards, cell_name)
         if too_many_draughts?(draughts)
           reject_conflicts_with_draught(boards, draughts.sample, cell_name)
         else
@@ -26,16 +26,23 @@ module Game
         end
       end
 
-      def get_draughts(cells)
-        # TODO: select draught considering it's weight
-        cells.map(&:draught).compact
+      # multiply single draughts by the probability weight of the board so that we can pick
+      # sample draught from the resulting array with correct probability
+      # @return [Array<Game::Draught>]
+      def get_draughts_at_cell(boards, cell_name)
+        boards.flat_map do |b|
+          draught = b.cell_at(cell_name).draught
+          [draught] * b.weight if draught
+        end.compact
       end
 
+      # check if there are different draughts on one cell
       def too_many_draughts?(draughts)
         draughts.uniq.many?
       end
 
-      # reject all boards that has any draught on that cell that is not our sample draught
+      # reject all boards that has any draught on that cell other than our sample draught
+      # @return [Game::Board] boards
       def reject_conflicts_with_draught(boards, draught, cell_name)
         boards.reject { |board| cell_conflicts_with?(board.cell_at(cell_name), draught) }
       end
