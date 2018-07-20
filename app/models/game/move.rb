@@ -38,7 +38,7 @@ module Game
       end
 
       memoize def should_beat?
-        PossibleMoves.new(board, @params.first, current_player).any_can_beat?
+        PossibleMoves.new(board, @params.first, current_player).should_beat?
       end
   end
 end

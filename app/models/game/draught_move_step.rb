@@ -23,10 +23,7 @@ module Game
     # so that the draught can jump over them
     def valid_beaten_cells_order?
       cells_between = @board.cells_between(from_cell, to_cell)
-      return false unless cells_between.first.occupied? && cells_between.last.occupied?
-      cells_between.each_with_index.all? do |cell, index|
-        (index.even? && cell.occupied?) || (index.odd? && cell.empty?)
-      end
+      cells_between.one? && cells_between.first.occupied?
     end
 
     def valid_move_distance?

@@ -18,7 +18,7 @@ module Game
     end
 
     def all_possible_moves
-      if any_can_beat?
+      if should_beat?
         all_beat_move_steps
       else
         all_possible_move_steps
@@ -44,8 +44,8 @@ module Game
       self.class.all_beat_move_steps(boards, current_player)
     end
 
-    memoize def any_can_beat?
-      self.class.any_can_beat?(boards, current_player)
+    memoize def should_beat?
+      self.class.should_beat?(boards, current_player)
     end
 
     class << self
@@ -53,8 +53,10 @@ module Game
         all_possible_move_steps(boards, player).select(&:beat?)
       end
 
-      def any_can_beat?(boards, player)
-        all_possible_move_steps(boards, player).any?(&:beat?)
+      def should_beat?(boards, player)
+        boards.any? do |board|
+          Game::PossibleMoves.should_beat?(board, player)
+        end
       end
 
       def all_possible_move_steps(boards, player)
@@ -67,7 +69,7 @@ module Game
     private
 
       def valid_move?(move_step)
-        move_step.valid? && (any_can_beat?.blank? || move_step.beat?)
+        move_step.valid? && (should_beat?.blank? || move_step.beat?)
       end
   end
 end

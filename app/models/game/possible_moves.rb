@@ -8,15 +8,24 @@ module Game
 
     # @param [Game::Board] board
     # @param [Array<String>] move_cells
-    def initialize(board, cell_name, current_player)
+    def initialize(board, cell_name, current_player, should_beat: nil)
       @board          = board
       @cell_name      = cell_name
       @current_player = current_player
+      @should_beat = should_beat
     end
 
     # @return [Array<String>]
     def possible_moves
-      possible_move_steps.select(&method(:valid_move?)).map { |step| step.to_cell.name }
+      valid_move_steps.map { |step| step.to_cell.name }
+    end
+
+    def possible_move_chains
+      valid_move_steps.flat_map { |step| possible_next_steps(step) }
+    end
+
+    def possible_move_chains_cell_names
+      possible_move_chains.map { |chain| chain.map { |m| m.to_cell.name } }
     end
 
     memoize def beat_move_steps
@@ -29,8 +38,38 @@ module Game
       end.select(&:valid?)
     end
 
-    memoize def any_can_beat?
-      self.class.any_can_beat?(board, current_player)
+    memoize def valid_move_steps
+      possible_move_steps.select(&method(:valid_move?))
+    end
+
+    def possible_next_steps(move_step)
+      next_steps_groups =
+        if should_beat?
+          possible_next_moves_obj = self.class.new(
+            move_step.perform,
+            move_step.to_cell.name,
+            current_player,
+            should_beat: true
+          )
+          possible_next_moves_obj.valid_move_steps.flat_map do |next_step|
+            possible_next_moves_obj.possible_next_steps(next_step)
+          end
+        else
+          []
+        end
+      # {
+      #   step: move_step,
+      #   next_steps_groups: next_steps_groups,
+      # }
+      if next_steps_groups.present?
+        next_steps_groups.map { |next_steps_group| [move_step, *next_steps_group] }
+      else
+        [[move_step]]
+      end
+    end
+
+    memoize def should_beat?
+      @should_beat || self.class.should_beat?(board, current_player)
     end
 
     class << self
@@ -38,7 +77,7 @@ module Game
         all_possible_move_steps(board, player).select(&:beat?)
       end
 
-      def any_can_beat?(board, player)
+      def should_beat?(board, player)
         all_possible_move_steps(board, player).any?(&:beat?)
       end
 
@@ -53,7 +92,7 @@ module Game
     private
 
       def valid_move?(move_step)
-        move_step.valid? && (!any_can_beat? || move_step.beat?)
+        move_step.valid? && (!should_beat? || move_step.beat?)
       end
   end
 end

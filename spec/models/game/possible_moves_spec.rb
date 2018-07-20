@@ -40,4 +40,26 @@ RSpec.describe Game::PossibleMoves, type: :model do
       end
     end
   end
+
+  context 'draught can beat multiple times' do
+    let(:board) do
+      Game::Board.from_s(<<~BOARD)
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . ● . ● . . .
+        . . . . . . . .
+        . . ● . . . . .
+        . ○ . . . . ○ .
+        . . . . . . . .
+      BOARD
+    end
+
+    describe 'possible_move_chains' do
+      it 'should beat with chained move' do
+        chain_cells = Game::PossibleMoves.new(board, 'B2', :white).possible_move_chains_cell_names
+        expect(chain_cells).to match_array [%w[D4 B6], %w[D4 F6]]
+      end
+    end
+  end
 end
