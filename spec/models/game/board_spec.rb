@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe Game::Board, type: :model do
   subject { Game::Board.new }
 
-  it 'has 64 cells' do
-    expect(subject.cells.size).to eq 64
+  it 'has 32 playable_cells' do
+    expect(subject.playable_cells.size).to eq 32
   end
 
   describe '::populated' do
@@ -33,6 +33,15 @@ RSpec.describe Game::Board, type: :model do
         . ○ . ○ . ○ . ○
         ○ . ○ . ○ . ○ .
       BOARD
+    end
+  end
+
+  describe '#cell_at' do
+    it 'returns cell instance' do
+      expect(subject.cell_at('A1').name).to eq 'A1'
+      expect(subject.cell_at('A7').name).to eq 'A7'
+      expect(subject.cell_at('F4').name).to eq 'F4'
+      expect(subject.cell_at('H8').name).to eq 'H8'
     end
   end
 
