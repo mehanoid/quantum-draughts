@@ -17,13 +17,10 @@ export default {
 		state.allPossibleMoves = match.possible_moves
 	},
 
-  setPossibleMoves(state, cells) {
-    state.possibleMoves = cells
-  },
-
 	cleanSelections(state) {
 		state.selectedMoves = []
 		state.selectedCellName = null
+		state.currentMove = []
 		state.selectedDraughtId = null
 	},
 
@@ -37,5 +34,14 @@ export default {
 
   setSelectedMoves(state, moves) {
   	state.selectedMoves = moves
+	},
+
+	addToCurrentMove(state, cell) {
+		state.currentMove.push(cell)
+	},
+
+	selectCurrentMove(state) {
+		state.selectedMoves.push(state.currentMove)
+		state.currentMove = []
 	}
 }

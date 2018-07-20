@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import {mapGetters, mapActions} from "vuex"
+  import {mapState, mapGetters, mapActions} from "vuex"
   import GameBoardDraught from "./GameBoardDraught"
 
   export default {
@@ -21,12 +21,15 @@
       cell: Object
     },
     computed: {
-      ...mapGetters(['currentPossibleMoves', 'selectedMovesCells']),
+      ...mapState(['currentMove']),
+      ...mapGetters(['currentPossibleMovesCellNames', 'currentPossibleSteps', 'selectedMovesCells']),
       classNames() {
         return {
           playable: this.cell.playable,
-          'possible-move': this.currentPossibleMoves.includes(this.cell.name),
-          'selected-move': this.selectedMovesCells.includes(this.cell)
+          'possible-moves': this.currentPossibleMovesCellNames.includes(this.cell.name),
+          'possible-move-step': this.currentPossibleSteps.includes(this.cell.name),
+          'current-move': this.currentMove.includes(this.cell.name),
+          'selected-move': this.selectedMovesCells.includes(this.cell),
         }
       }
     },
@@ -50,7 +53,15 @@
       background: #75806f;
     }
 
-    &.possible-move {
+    &.possible-moves {
+      background: #56804f;
+    }
+
+    &.selected-move {
+      background: yellow;
+    }
+
+    &.possible-move-step {
       background: green;
       cursor: pointer;
 
@@ -59,8 +70,8 @@
       }
     }
 
-    &.selected-move {
-      background: yellow;
+    &.current-move {
+      background: #00ffd6;
     }
   }
 </style>

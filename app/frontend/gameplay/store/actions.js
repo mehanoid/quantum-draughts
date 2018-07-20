@@ -13,35 +13,27 @@ export default {
   },
 
 	selectMove({commit, getters, state, dispatch}, cell) {
-		if (getters.currentPossibleMoves.includes(cell.name)) {
+		if (getters.currentPossibleSteps.includes(cell.name)) {
 			const cellName = cellUtils.name(cell)
+			commit('addToCurrentMove', cellName)
 
-			if (state.selectedMoves.includes(cellName)) {
-				commit('removeSelectedMove', cellName)
+			if (!getters.currentPossibleSteps.length) {
+				commit('selectCurrentMove')
 			}
-			else {
-				if (getters.currentPossibleMoves.length <= 2) {
-					commit('setSelectedMoves', getters.currentPossibleMoves)
-				}
-				else {
-					commit('addSelectedMove', cellName)
-				}
 
-				if (state.selectedMoves.length >= 2 || state.selectedMoves.length >= getters.currentPossibleMoves.length) {
-					dispatch('move', cell)
-				}
+			if (state.selectedMoves.length >= 2 || !getters.currentPossibleMoves.length){
+				dispatch('move', cell)
 			}
 		}
 	},
 
   async move({commit, getters, state}, to) {
-    if (!getters.selectedCell || !getters.currentPossibleMoves.includes(to.name)) {
+    if (!getters.selectedCell) {
       return
     }
     const from = getters.selectedCell
-    const moves = getters.selectedMovesCells.map(to => [cellUtils.name(from), cellUtils.name(to)])
+    const moves = state.selectedMoves.map(moveCells => [cellUtils.name(from), ...moveCells])
     commit('move', {from, to})
-    commit('setPossibleMoves', [])
     commit('cleanSelections')
     const {data: response} = await serverApi.matchMove(state.matchId, moves)
     commit('updateMatch', response.match)

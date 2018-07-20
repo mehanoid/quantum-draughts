@@ -22,11 +22,38 @@ export default {
   	return state.allPossibleMoves.some(move => move.beat && move.cells[0] === cell)
 	},
 
-	currentPossibleMoves(state) {
-		return state.allPossibleMoves.filter(pm => pm.cells[0] === state.selectedCellName).map(pm => pm.cells[1])
+	currentMoveStepCellName(state) {
+  	return _.last(state.currentMove) || state.selectedCellName
 	},
 
-  selectedMovesCells(state, getters) {
-    return state.selectedMoves.map(move => getters.multiCells.find(cell => move === cellUtils.name(cell) ))
+	currentPossibleMoves(state) {
+		return state.allPossibleMoves.filter(pm =>
+			!state.selectedMoves.some(sm => _.isEqual(sm, _.drop(pm.cells)))
+		)
+	},
+
+	currentPossibleMovesCellNames(state, getters) {
+		return _(getters.currentPossibleMoves)
+				.filter(pm => pm.cells[0] === state.selectedCellName)
+				.map(pm => _.drop(pm.cells))
+				.flatten()
+				.uniq()
+				.value()
+	},
+
+	currentPossibleSteps(state, getters) {
+		const stepIndex = state.currentMove.length
+		return _.compact(
+			getters.currentPossibleMoves
+				.filter(pm => pm.cells[stepIndex] === getters.currentMoveStepCellName)
+				.map(pm => pm.cells[stepIndex + 1])
+		)
+	},
+
+	selectedMovesCells(state, getters) {
+  	const cellsNames = _.flatten(state.selectedMoves)
+		return cellsNames.map(move_cell =>
+			getters.multiCells.find(cell => move_cell === cellUtils.name(cell))
+		)
   }
 }

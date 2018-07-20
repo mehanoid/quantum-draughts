@@ -8,6 +8,7 @@ export default () => {
 		selectedCellName: null,
     selectedDraughtId: null,
 		allPossibleMoves: gon.match.possible_moves,
-    selectedMoves: []
+    selectedMoves: [],
+		currentMove: []
   }
 }
