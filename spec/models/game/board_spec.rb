@@ -9,10 +9,8 @@ RSpec.describe Game::Board, type: :model do
     expect(subject.cells.size).to eq 64
   end
 
-  describe '#populate!' do
-    before do
-      subject.populate!
-    end
+  describe '::populated' do
+    subject { Game::Board.populated }
 
     it 'has 12 white draughts' do
       draughts = subject.draughts.select(&:black?)

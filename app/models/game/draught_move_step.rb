@@ -4,17 +4,17 @@ module Game
   class DraughtMoveStep < MoveStep
     attr_accessor :from_cell, :to_cell, :current_player, :board
 
-    def perform!
-      result = super
+    def attributes_for_update
       if becomes_king?
-        to_cell.draught = to_cell.draught.becomes_king
+        super.merge to_cell.name => draught.becomes_king
+      else
+        super
       end
-      result
     end
 
     def valid_direction?
       return true if beat?
-      if from_cell.draught.color == :white
+      if draught.color == :white
         to_cell.row_number > from_cell.row_number
       else
         to_cell.row_number < from_cell.row_number
@@ -36,8 +36,6 @@ module Game
     end
 
     def becomes_king?
-      draught = to_cell.draught
-
       draught.color == :white && to_cell.row_number == 8 ||
         draught.color == :black && to_cell.row_number == 1
     end

@@ -26,7 +26,7 @@ module Game
 
       new_boards = move_groups.flatten.map do |move|
         if move.valid?
-          move.perform!
+          move.perform
         else
           move.board
         end

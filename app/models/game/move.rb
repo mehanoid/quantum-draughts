@@ -17,10 +17,10 @@ module Game
       @current_player = current_player
     end
 
-    def perform!
+    def perform
       validate!
 
-      move_step.perform!
+      move_step.perform
     end
 
     def valid?
@@ -34,7 +34,7 @@ module Game
     private
 
       memoize def move_step
-        MoveStep.build(board.dup, @params, current_player)
+        MoveStep.build(board, @params, current_player)
       end
 
       memoize def beat_move_steps

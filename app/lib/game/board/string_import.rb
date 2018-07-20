@@ -8,9 +8,9 @@ module Game
     #     . ● . ● . ● . ●
     #     ● . ● . ● . ● .
     #     . ● . ● . ● . ●
-    #     . . . . . ◎ ■ .
-    #     . . ◉ ◎ . ⍟ . .
-    #     ○ . ○ . ○ ◙ ○ .
+    #     . . . . . . . .
+    #     . . . . . . . .
+    #     ○ . ○ . ○ . ○ .
     #     . ○ . ○ . ○ . ○
     #     ○ . ○ . ○ . ○ .
     #   BOARD
@@ -25,10 +25,10 @@ module Game
 
       # @return [Game::Board]
       def import
-        board_cells.zip(cells_chars) do |cell, char|
-          cell.draught = build_draught(char)
-        end
-        board
+        cells_hash = board_cells.zip(cells_chars).map do |cell, char|
+          [cell.name, build_draught(char)]
+        end.to_h
+        board.update(cells_hash)
       end
 
       private

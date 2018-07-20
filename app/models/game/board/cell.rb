@@ -5,7 +5,7 @@ module Game
     class Cell
       include Dry::Equalizer(:column, :row, :draught)
 
-      attr_accessor :column, :row, :playable, :draught
+      attr_reader :column, :row, :playable, :draught
 
       # @param [String] column
       # @param [Integer] row
@@ -24,6 +24,10 @@ module Game
       end
 
       alias row_number row
+
+      def update(draught: nil)
+        self.class.new(column: column, row: row, playable: playable, draught: draught)
+      end
 
       # @return [Boolean]
       def empty?

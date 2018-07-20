@@ -4,10 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Game::PossibleMoves, type: :model do
   context 'populated board' do
-    let(:board) { Game::Board.new }
-    before do
-      board.populate!
-    end
+    let(:board) { Game::Board.populated }
 
     describe 'possible moves' do
       it 'return array of resulting cells' do

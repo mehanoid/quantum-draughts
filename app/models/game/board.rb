@@ -2,58 +2,59 @@
 
 module Game
   class Board
-    include Dry::Equalizer(:rows)
+    include Dry::Equalizer(:cells)
 
-    attr_reader :rows
+    CELLS_PER_ROW = 8
+
+    attr_reader :cells
     attr_accessor :weight
 
     def initialize(data = {})
       data = data.with_indifferent_access
 
       @weight = data[:weight] || 1
-      cells = data[:cells] || {}
+      cells   = data[:cells] || {}
 
-      @rows = 1.upto(8).map do |row_number|
+      @cells = 1.upto(CELLS_PER_ROW).flat_map do |row_number|
         ('A'..'H').map.with_index do |column_char, column_index|
           draught_data = cells[column_char + row_number.to_s]
-          draught =
+          draught      =
             if draught_data
               Draught.new id: draught_data['id'], color: draught_data['c'], king: draught_data['k']
             end
-          Cell.new(column: column_char,
-                   row: row_number,
+          Cell.new(column:   column_char,
+                   row:      row_number,
                    playable: (row_number + column_index).odd?,
-                   draught: draught)
+                   draught:  draught)
         end
-      end
+      end.freeze
     end
 
-    def initialize_dup(source)
-      @rows = @rows.deep_dup
-    end
+    # def populate!
+    #   @cells = self.class.from_s(<<~BOARD).cells
+    #     . ● . ● . ● . ●
+    #     ● . ● . ● . ● .
+    #     . ● . ● . ● . ●
+    #     . . . . . . . .
+    #     . . . . . . . .
+    #     ○ . ○ . ○ . ○ .
+    #     . ○ . ○ . ○ . ○
+    #     ○ . ○ . ○ . ○ .
+    #   BOARD
+    #   self
+    # end
 
-    def populate!
-      Populator.new(self).populate!
-      self
-    end
-
-    # @param [String] column column name or cell index
-    # @param [Integer, nil] row row number or nil
+    # @param [Array] args column name or cell index, row number or nil
     # @return [Game::Board::Cell]
     # @example
     #   cell_at('A4')
     #   cell_at('A', 4)
-    def cell_at(column, row=nil)
-      unless row.present?
-        column, row = column.chars
-        row = row.to_i
-      end
-      rows[row - 1][column.ord - 'A'.ord]
+    def cell_at(*args)
+      cells[self.class.cell_index(*args)]
     end
 
-    # @return [Array<Game::Board::Cell>]
-    def cells
-      rows.flatten
+    def rows
+      cells.each_slice(CELLS_PER_ROW).to_a
     end
 
     def playable_cells
@@ -82,9 +83,14 @@ module Game
       cells.select { |c| c.between?(cell1, cell2) }
     end
 
+    def update(update_params)
+      new_board = dup
+      new_board.update! update_params
+    end
+
     def as_json(*)
       {
-        cells: cells.reject(&:empty?).map do |cell|
+        cells:  cells.reject(&:empty?).map do |cell|
           [cell.name, cell.draught.as_json]
         end.to_h,
         weight: weight,
@@ -100,6 +106,44 @@ module Game
       def from_s(string)
         ::Game::Board::StringImport.new(string).import
       end
+
+      # @param [String] column column name or cell index
+      # @param [Integer, nil] row row number or nil
+      # @return [Integer] internal using cell index in cells array
+      # @example
+      #   cell_index('A4')
+      #   cell_index('A', 4)
+      def cell_index(column, row = nil)
+        unless row.present?
+          column, row = column.chars
+          row         = row.to_i
+        end
+        CELLS_PER_ROW * (row - 1) + (column.ord - 'A'.ord)
+      end
+
+      def populated
+        from_s(<<~BOARD)
+          . ● . ● . ● . ●
+          ● . ● . ● . ● .
+          . ● . ● . ● . ●
+          . . . . . . . .
+          . . . . . . . .
+          ○ . ○ . ○ . ○ .
+          . ○ . ○ . ○ . ○
+          ○ . ○ . ○ . ○ .
+        BOARD
+      end
     end
+
+    protected
+
+      def update!(update_params)
+        @cells = cells.dup
+        update_params.each do |cell_name, draught|
+          cells[self.class.cell_index(cell_name)] = cell_at(cell_name).update(draught: draught)
+        end
+        @cells.freeze
+        self
+      end
   end
 end

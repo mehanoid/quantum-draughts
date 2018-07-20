@@ -2,7 +2,7 @@
 
 module Game
   class MoveStep
-    attr_accessor :from_cell, :to_cell, :current_player, :board
+    attr_reader :from_cell, :to_cell, :current_player, :board
 
     # @param [Game::Board] board
     # @param [Array<String>] move_cells
@@ -15,14 +15,19 @@ module Game
       @current_player = current_player
     end
 
-    def perform!
+    def perform
       validate!
 
-      from_cell.draught, to_cell.draught = to_cell.draught, from_cell.draught
-      beaten_cells.each do |c|
-        c.draught = nil
-      end
-      @board
+      board.update attributes_for_update
+    end
+
+    def attributes_for_update
+      {
+        from_cell.name => nil,
+        to_cell.name   => draught,
+      }.merge(beaten_cells.map do |c|
+        [c.name, nil]
+      end.to_h)
     end
 
     def valid?
@@ -39,7 +44,7 @@ module Game
 
     def error
       return 'source is empty' unless from_cell.occupied?
-      return "other player's turn" unless current_player == from_cell.draught.color
+      return "other player's turn" unless current_player == draught.color
       return 'destination is not playable' unless to_cell.playable
       return 'destination is occupied' unless to_cell.empty?
       return 'cells are not on the same diagonal' unless from_cell.same_diagonal?(to_cell)
@@ -52,12 +57,16 @@ module Game
       end
     end
 
+    def draught
+      from_cell.draught
+    end
+
     def beaten_cells
       @board.cells_between(from_cell, to_cell).select(&:occupied?)
     end
 
     def valid_beaten_draughts_color?
-      beaten_cells.none? { |c| c.draught.color == from_cell.draught.color }
+      beaten_cells.none? { |c| c.draught.color == draught.color }
     end
 
     def valid_direction?

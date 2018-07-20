@@ -3,7 +3,7 @@ h1 Listing matches
 table
   thead
     tr
-      th Boards
+      th id
       th
       th
       th
@@ -11,7 +11,7 @@ table
   tbody
     - @matches.each do |match|
       tr
-        td = match.boards
+        td = match.id
         td = link_to 'Show', match
         td = link_to 'Edit', edit_match_path(match)
         td = link_to 'Destroy', match, data: { confirm: 'Are you sure?' }, method: :delete
