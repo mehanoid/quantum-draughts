@@ -57,10 +57,6 @@ module Game
         else
           []
         end
-      # {
-      #   step: move_step,
-      #   next_steps_groups: next_steps_groups,
-      # }
       if next_steps_groups.present?
         next_steps_groups.map { |next_steps_group| [move_step, *next_steps_group] }
       else
@@ -85,6 +81,13 @@ module Game
         from_cells = board.occupied_cells.select { |c| c.draught.color == player }
         from_cells.flat_map do |cell|
           new(board, cell.name, player).possible_move_steps
+        end
+      end
+
+      def all_possible_move_chains(board, player)
+        from_cells = board.occupied_cells.select { |c| c.draught.color == player }
+        from_cells.flat_map do |cell|
+          new(board, cell.name, player).possible_move_chains
         end
       end
     end

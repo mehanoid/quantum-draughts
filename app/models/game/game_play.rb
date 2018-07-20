@@ -10,10 +10,6 @@ module Game
       @boards = match.board_instances
     end
 
-    def possible_moves(cell_name)
-      PossibleQuantumMoves.new(boards, cell_name, @match.current_player.to_sym).possible_moves
-    end
-
     def move(moves_params)
       move_groups = moves_params.map do |move_params|
         boards.map do |board|
