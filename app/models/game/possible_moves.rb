@@ -29,13 +29,17 @@ module Game
       end.select(&:valid?)
     end
 
-    memoize def all_beat_move_steps
-      self.class.all_beat_move_steps(board, current_player)
+    memoize def any_can_beat?
+      self.class.any_can_beat?(board, current_player)
     end
 
     class << self
       def all_beat_move_steps(board, player)
         all_possible_move_steps(board, player).select(&:beat?)
+      end
+
+      def any_can_beat?(board, player)
+        all_possible_move_steps(board, player).any?(&:beat?)
       end
 
       def all_possible_move_steps(board, player)
@@ -49,7 +53,7 @@ module Game
     private
 
       def valid_move?(move_step)
-        move_step.valid? && (all_beat_move_steps.blank? || move_step.beat?)
+        move_step.valid? && (!any_can_beat? || move_step.beat?)
       end
   end
 end

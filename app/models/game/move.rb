@@ -24,7 +24,7 @@ module Game
     end
 
     def valid?
-      move_step.valid? && (beat_move_steps.blank? || move_step.beat?)
+      move_step.valid? && (!should_beat? || move_step.beat?)
     end
 
     def validate!
@@ -37,8 +37,8 @@ module Game
         MoveStep.build(board, @params, current_player)
       end
 
-      memoize def beat_move_steps
-        PossibleMoves.new(board, @params.first, current_player).all_beat_move_steps
+      memoize def should_beat?
+        PossibleMoves.new(board, @params.first, current_player).any_can_beat?
       end
   end
 end

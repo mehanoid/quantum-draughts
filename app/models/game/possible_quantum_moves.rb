@@ -6,8 +6,6 @@ module Game
 
     attr_reader :boards, :cell_name, :current_player
 
-    # @param [Game::Board] board
-    # @param [Array<String>] move_cells
     def initialize(boards, cell_name, current_player)
       @boards         = boards
       @cell_name      = cell_name
@@ -20,14 +18,14 @@ module Game
     end
 
     def all_possible_moves
-      if all_beat_move_steps.present?
+      if any_can_beat?
         all_beat_move_steps
       else
         all_possible_move_steps
       end.map do |step|
         {
           beat: step.beat?,
-          cells: [step.from_cell.name, step.to_cell.name]
+          cells: [step.from_cell.name, step.to_cell.name],
         }
       end.uniq
     end
@@ -46,9 +44,17 @@ module Game
       self.class.all_beat_move_steps(boards, current_player)
     end
 
+    memoize def any_can_beat?
+      self.class.any_can_beat?(boards, current_player)
+    end
+
     class << self
       def all_beat_move_steps(boards, player)
         all_possible_move_steps(boards, player).select(&:beat?)
+      end
+
+      def any_can_beat?(boards, player)
+        all_possible_move_steps(boards, player).any?(&:beat?)
       end
 
       def all_possible_move_steps(boards, player)
@@ -61,7 +67,7 @@ module Game
     private
 
       def valid_move?(move_step)
-        move_step.valid? && (all_beat_move_steps.blank? || move_step.beat?)
+        move_step.valid? && (any_can_beat?.blank? || move_step.beat?)
       end
   end
 end
