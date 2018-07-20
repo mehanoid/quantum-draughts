@@ -7,9 +7,9 @@ module Game
     end
 
     def perform
-      boards_weights = calc_boards_weights(@boards)
-      boards_weights = reduce_boards_weights(boards_weights)
-      make_board_list(boards_weights)
+      calc_boards_weights(@boards)
+        .yield_self(&method(:reduce_boards_weights))
+        .yield_self(&method(:make_board_list))
     end
 
     private
