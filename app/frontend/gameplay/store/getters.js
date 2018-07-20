@@ -28,17 +28,14 @@ export default {
 
 	currentPossibleMoves(state) {
 		return state.allPossibleMoves.filter(pm =>
+			pm.cells[0] === state.selectedCellName &&
 			!state.selectedMoves.some(sm => _.isEqual(sm, _.drop(pm.cells)))
 		)
 	},
 
 	currentPossibleMovesCellNames(state, getters) {
 		return _(getters.currentPossibleMoves)
-				.filter(pm => pm.cells[0] === state.selectedCellName)
-				.map(pm => _.drop(pm.cells))
-				.flatten()
-				.uniq()
-				.value()
+				.map(pm => _.drop(pm.cells)).flatten().uniq().value()
 	},
 
 	currentPossibleSteps(state, getters) {

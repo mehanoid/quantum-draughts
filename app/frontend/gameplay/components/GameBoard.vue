@@ -6,8 +6,9 @@
     tr.row(v-for="row in board")
       th {{ row[0].row }}
       GameBoardCell(
-        v-for="cell in row",
+        v-for="cell in row"
         :cell="cell"
+        :key="cell.name"
       )
       th {{ row[0].row }}
     tr

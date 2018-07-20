@@ -1,7 +1,7 @@
 <template lang="pug">
   .draught(
-    v-if="draught",
-    :class="classNames",
+    v-if="draught"
+    :class="classNames"
     @click.stop="selectDraught(cell)"
   )
     PieChart(

@@ -1,11 +1,11 @@
 <template lang="pug">
   td.cell(
-    :class="classNames",
+    :class="classNames"
     @click="selectMove(cell)"
   )
     GameBoardDraught(
-      v-if="cell.draught",
-      :cell="cell",
+      v-if="cell.draught"
+      :cell="cell"
     )
 </template>
 
