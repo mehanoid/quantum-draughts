@@ -1,6 +1,13 @@
 import cellUtils from '../utils/cell'
 import buildMultiboard from '../utils/build_multiboard'
 
+// returns a string equal for moves that differ only in the length of the last step
+const moveBaseSignature = (move) => {
+	const lastStep = _.takeRight(move, 2)
+	const direction = cellUtils.diff(...lastStep).map(n => n > 0 ? '+' : '-').join('')
+	return [_.dropRight(move), direction].join('')
+}
+
 export default {
   multiBoard(state) {
     return buildMultiboard(state.boards)
@@ -26,10 +33,15 @@ export default {
   	return _.last(state.currentMove) || state.selectedCellName
 	},
 
-	currentPossibleMoves(state) {
+	selectedMovesBaseSignatures(state) {
+  	return state.selectedMoves.map(moveBaseSignature)
+	},
+
+	currentPossibleMoves(state, getters) {
 		return state.allPossibleMoves.filter(pm =>
 			pm.cells[0] === state.selectedCellName &&
-			!state.selectedMoves.some(sm => _.isEqual(sm, pm.cells))
+			!state.selectedMoves.some(sm => _.isEqual(sm, pm.cells)) &&
+			!getters.selectedMovesBaseSignatures.includes(moveBaseSignature(pm.cells))
 		).map(pm => pm.cells)
 	},
 
@@ -50,11 +62,4 @@ export default {
 	selectedMovesCellNames(state) {
   	return _.uniq(_.flatten(state.selectedMoves.map(_.drop)))
   },
-
-	selectedMovesCells(state, getters) {
-  	const cellsNames = _.flatten(state.selectedMoves)
-		return cellsNames.map(move_cell =>
-			getters.multiCells.find(cell => move_cell === cellUtils.name(cell))
-		)
-  }
 }

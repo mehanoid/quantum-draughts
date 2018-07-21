@@ -17,7 +17,9 @@ export default {
 	selectMove({commit, getters, state, dispatch}, cell) {
 		if (getters.currentPossibleSteps.includes(cell.name)) {
 			if (!state.selectedMoves.length && getters.currentPossibleMoves.length <= MAX_MOVES_COUNT) {
-				commit('setSelectedMoves', getters.currentPossibleMoves)
+				while (getters.currentPossibleMoves.length) {
+					commit('addSelectedMove', getters.currentPossibleMoves[0])
+				}
 			}
 			else {
 				const cellName = cellUtils.name(cell)

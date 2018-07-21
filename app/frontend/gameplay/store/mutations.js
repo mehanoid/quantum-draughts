@@ -23,8 +23,8 @@ export default {
 		state.currentMove.push(cell)
 	},
 
-	setSelectedMoves(state, moves) {
-		state.selectedMoves = moves
+	addSelectedMove(state, move) {
+  	state.selectedMoves.push(move)
 	},
 
 	selectCurrentMove(state) {
