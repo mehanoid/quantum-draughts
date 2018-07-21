@@ -4,6 +4,51 @@ require 'rails_helper'
 
 RSpec.describe Game::Move, type: :model do
 
+  context 'man draughts' do
+    let(:board) do
+      Game::Board.from_s(<<~BOARD)
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . ● . . . . . .
+        . . . . . . . .
+        . . . ○ . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'moves one step right' do
+      new_board = Game::Move.new(board, %w[D2 E3], :white).perform
+
+      expect(new_board.to_s).to eq <<~BOARD
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . ● . . . . . .
+        . . . . ○ . . .
+        . . . . . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'moves one step towards black draught' do
+      new_board = Game::Move.new(board, %w[D2 C3], :white).perform
+
+      expect(new_board.to_s).to eq <<~BOARD
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . ● . . . . . .
+        . . ○ . . . . .
+        . . . . . . . .
+        . . . . . . . .
+      BOARD
+    end
+  end
+
   context 'king' do
     context 'zigzag beats' do
       let(:board) do
