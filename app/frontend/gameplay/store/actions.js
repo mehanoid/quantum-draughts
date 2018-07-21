@@ -1,8 +1,10 @@
 import serverApi from '../server_api'
 import cellUtils from '../utils/cell'
 
+const MAX_MOVES_COUNT = 2
+
 export default {
-  async selectDraught({commit, state}, cell) {
+	selectDraught({commit, state}, cell) {
 		if (state.selectedCellName === cell.name) {
 			commit('cleanSelections')
 		}
@@ -10,32 +12,35 @@ export default {
 			commit('cleanSelections')
 			commit('setSelectedDraught', cell)
 		}
-  },
+	},
 
 	selectMove({commit, getters, state, dispatch}, cell) {
 		if (getters.currentPossibleSteps.includes(cell.name)) {
-			const cellName = cellUtils.name(cell)
-			commit('addToCurrentMove', cellName)
+			if (!state.selectedMoves.length && getters.currentPossibleMoves.length <= MAX_MOVES_COUNT) {
+				commit('setSelectedMoves', getters.currentPossibleMoves)
+			}
+			else {
+				const cellName = cellUtils.name(cell)
+				commit('addToCurrentMove', cellName)
 
-			if (!getters.currentPossibleSteps.length) {
-				commit('selectCurrentMove')
+				if (!getters.currentPossibleSteps.length) {
+					commit('selectCurrentMove')
+				}
 			}
 
-			if (state.selectedMoves.length >= 2 || !getters.currentPossibleMoves.length){
-				dispatch('move', cell)
+			if (state.selectedMoves.length >= MAX_MOVES_COUNT || !getters.currentPossibleMoves.length) {
+				dispatch('move')
 			}
 		}
 	},
 
-  async move({commit, getters, state}, to) {
-    if (!getters.selectedCell) {
-      return
-    }
-    const from = getters.selectedCell
-    const moves = state.selectedMoves.map(moveCells => [cellUtils.name(from), ...moveCells])
-    commit('move', {from, to})
-    commit('cleanSelections')
-    const {data: response} = await serverApi.matchMove(state.matchId, moves)
-    commit('updateMatch', response.match)
-  }
+	async move({commit, getters, state}) {
+		if (!state.selectedMoves.length) {
+			return
+		}
+		const promise = serverApi.matchMove(state.matchId, state.selectedMoves)
+		commit('cleanSelections')
+		const {data: response} = await promise
+		commit('updateMatch', response.match)
+	}
 }

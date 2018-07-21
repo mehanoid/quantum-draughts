@@ -29,23 +29,27 @@ export default {
 	currentPossibleMoves(state) {
 		return state.allPossibleMoves.filter(pm =>
 			pm.cells[0] === state.selectedCellName &&
-			!state.selectedMoves.some(sm => _.isEqual(sm, _.drop(pm.cells)))
-		)
+			!state.selectedMoves.some(sm => _.isEqual(sm, pm.cells))
+		).map(pm => pm.cells)
 	},
 
 	currentPossibleMovesCellNames(state, getters) {
 		return _(getters.currentPossibleMoves)
-				.map(pm => _.drop(pm.cells)).flatten().uniq().value()
+				.map(pm => _.drop(pm)).flatten().uniq().value()
 	},
 
 	currentPossibleSteps(state, getters) {
 		const stepIndex = state.currentMove.length
 		return _.compact(
 			getters.currentPossibleMoves
-				.filter(pm => pm.cells[stepIndex] === getters.currentMoveStepCellName)
-				.map(pm => pm.cells[stepIndex + 1])
+				.filter(pm => pm[stepIndex] === getters.currentMoveStepCellName)
+				.map(pm => pm[stepIndex + 1])
 		)
 	},
+
+	selectedMovesCellNames(state) {
+  	return _.uniq(_.flatten(state.selectedMoves.map(_.drop)))
+  },
 
 	selectedMovesCells(state, getters) {
   	const cellsNames = _.flatten(state.selectedMoves)

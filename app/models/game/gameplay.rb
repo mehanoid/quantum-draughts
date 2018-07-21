@@ -10,15 +10,22 @@ module Game
       @boards = match.board_instances
     end
 
-    def move(moves_params)
-      move_groups = moves_params.map do |move_params|
+    def move(quantum_move_params)
+      move_groups = quantum_move_params.map do |move_params|
         boards.map do |board|
           Move.new(board, move_params, @match.current_player.to_sym)
         end
       end
 
+      unless move_groups.any?
+        # TODO: check for minimum two moves if they are available
+        raise InvalidMove, 'too few moves'
+      end
+
       # each move group should contain at least one valid move
-      raise InvalidMove unless move_groups.all? { |moves_group| moves_group.any?(&:valid?) }
+      unless move_groups.all? { |moves_group| moves_group.any?(&:valid?) }
+        raise InvalidMove, 'one if the moves is invalid'
+      end
 
       new_boards = move_groups.flatten.map do |move|
         if move.valid?

@@ -22,14 +22,14 @@
     },
     computed: {
       ...mapState(['currentMove']),
-      ...mapGetters(['currentPossibleMovesCellNames', 'currentPossibleSteps', 'selectedMovesCells']),
+      ...mapGetters(['currentPossibleMovesCellNames', 'currentPossibleSteps', 'selectedMovesCellNames']),
       classNames() {
         return {
           playable: this.cell.playable,
           'possible-moves': this.currentPossibleMovesCellNames.includes(this.cell.name),
           'possible-move-step': this.currentPossibleSteps.includes(this.cell.name),
           'current-move': this.currentMove.includes(this.cell.name),
-          'selected-move': this.selectedMovesCells.includes(this.cell),
+          'selected-move': this.selectedMovesCellNames.includes(this.cell.name),
         }
       }
     },
