@@ -42,5 +42,8 @@ export default {
 		commit('cleanSelections')
 		const {data: response} = await promise
 		commit('updateMatch', response.match)
+		if (response.error) {
+			alert(response.error)
+		}
 	}
 }
