@@ -94,6 +94,37 @@ RSpec.describe Game::Move, type: :model do
     end
   end
 
+
+  context 'two draughts can beat' do
+    let(:board) do
+      Game::Board.from_s(<<~BOARD)
+        . . . . . . . .
+        . . . . . . . .
+        . . . ● . . . .
+        . . . . ○ . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . ● . . . .
+        . . ○ . . . . .
+      BOARD
+    end
+
+    it 'does not prevent second draught to move' do
+      new_board = Game::Move.new(board, %w[E5 C7], :white).perform
+
+      expect(new_board.to_s).to eq <<~BOARD
+        . . . . . . . .
+        . . ○ . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . ● . . . .
+        . . ○ . . . . .
+      BOARD
+    end
+  end
+
   context 'king' do
     context 'zigzag beats' do
       let(:board) do
