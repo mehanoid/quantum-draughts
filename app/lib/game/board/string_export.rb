@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Game::Board::StringExport
-  attr_accessor :board
+  attr_reader :board
 
   def initialize(board)
     @board = board

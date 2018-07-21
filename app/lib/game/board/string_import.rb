@@ -15,7 +15,7 @@ module Game
     #     ○ . ○ . ○ . ○ .
     #   BOARD
     class StringImport
-      attr_accessor :board
+      attr_reader :board
 
       # @param string [String]
       def initialize(string)

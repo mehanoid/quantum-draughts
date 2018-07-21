@@ -2,7 +2,7 @@
 
 module Game
   class Gameplay
-    attr_accessor :boards
+    attr_reader :boards
 
     # @param match [Match]
     def initialize(match)

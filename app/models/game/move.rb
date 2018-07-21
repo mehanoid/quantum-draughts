@@ -5,7 +5,7 @@ module Game
   class Move
     include Memery
 
-    attr_accessor :current_player, :board, :move_cells
+    attr_reader :current_player, :board, :move_cells, :error
 
     # @param board [Game::Board] initial board
     # @param move_cells [Array<String>]
@@ -17,7 +17,7 @@ module Game
 
     # @return [Game::Board] transformed board
     def perform
-      result || raise(@error)
+      result || raise(error)
     end
 
     memoize def valid?
