@@ -49,6 +49,51 @@ RSpec.describe Game::Move, type: :model do
     end
   end
 
+  context 'man becoming king' do
+    let(:board) do
+      Game::Board.from_s(<<~BOARD)
+        . . . . . . . .
+        . . ● . ● . ● .
+        . . . ○ . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . ● . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'beats to left' do
+      new_board = Game::Move.new(board, %w[D6 B8], :white).perform
+
+      expect(new_board.to_s).to eq <<~BOARD
+        . □ . . . . . .
+        . . . . ● . ● .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . ● . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'continues beating after becoming king' do
+      new_board = Game::Move.new(board, %w[D6 F8 H6 C1], :white).perform
+
+      expect(new_board.to_s).to eq <<~BOARD
+        . . . . . . . .
+        . . ● . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . □ . . . . .
+      BOARD
+    end
+  end
+
   context 'king' do
     context 'zigzag beats' do
       let(:board) do
