@@ -44,7 +44,7 @@ module Game
     #   self
     # end
 
-    # @param [Array] args column name or cell index, row number or nil
+    # @param args [Array] column name or cell index, row number or nil
     # @return [Game::Board::Cell]
     # @example
     #   cell_at('A4')
@@ -107,8 +107,8 @@ module Game
         ::Game::Board::StringImport.new(string).import
       end
 
-      # @param [String] column column name or cell index
-      # @param [Integer, nil] row row number or nil
+      # @param column [String] column name or cell index
+      # @param row [Integer, nil] row number or nil
       # @return [Integer] internal using cell index in cells array
       # @example
       #   cell_index('A4')

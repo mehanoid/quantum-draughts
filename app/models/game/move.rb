@@ -1,19 +1,21 @@
 # frozen_string_literal: true
 
 module Game
+  # successively performs all MoveStep's, transforming board
   class Move
     include Memery
 
     attr_accessor :current_player, :board, :move_cells
 
-    # @param [Game::Board] board
-    # @param [Array<String>] move_cells
+    # @param board [Game::Board] initial board
+    # @param move_cells [Array<String>]
     def initialize(board, move_cells, current_player = nil)
       @board          = board
       @move_cells     = move_cells
       @current_player = current_player
     end
 
+    # @return [Game::Board] transformed board
     def perform
       result || raise(@error)
     end

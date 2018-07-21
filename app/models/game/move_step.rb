@@ -4,8 +4,8 @@ module Game
   class MoveStep
     attr_reader :from_cell, :to_cell, :current_player, :board
 
-    # @param [Game::Board] board
-    # @param [Array<String>] move_cells
+    # @param board [Game::Board]
+    # @param move_cells [Array<String>]
     def initialize(board, move_cells, current_player = nil)
       @board          = board
       @params         = move_cells

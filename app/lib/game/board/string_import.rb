@@ -17,7 +17,7 @@ module Game
     class StringImport
       attr_accessor :board
 
-      # @param [String] string
+      # @param string [String]
       def initialize(string)
         @string = string
         @board = Board.new

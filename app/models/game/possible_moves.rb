@@ -6,8 +6,8 @@ module Game
 
     attr_reader :board, :cell_name, :current_player
 
-    # @param [Game::Board] board
-    # @param [Array<String>] move_cells
+    # @param board [Game::Board]
+    # @param move_cells [Array<String>]
     def initialize(board, cell_name, current_player, should_beat: nil)
       @board          = board
       @cell_name      = cell_name

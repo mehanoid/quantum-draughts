@@ -4,7 +4,7 @@ module Game
   class Gameplay
     attr_accessor :boards
 
-    # @param [Match] match
+    # @param match [Match]
     def initialize(match)
       @match  = match
       @boards = match.board_instances

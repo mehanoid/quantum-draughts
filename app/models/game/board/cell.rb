@@ -7,10 +7,10 @@ module Game
 
       attr_reader :column, :row, :playable, :draught
 
-      # @param [String] column
-      # @param [Integer] row
-      # @param [Boolean] playable
-      # @param [Game::Draught] draught
+      # @param column [String]
+      # @param row [Integer]
+      # @param playable [Boolean]
+      # @param draught [Game::Draught]
       def initialize(column:, row:, playable:, draught: nil)
         @column = column
         @row = row
@@ -40,13 +40,13 @@ module Game
       end
 
       # Returns array of to integers: columns diff and rows diff
-      # @param [Game::Board::Cell] cell
+      # @param cell [Game::Board::Cell]
       # @return [Array<Integer>]
       def position_diff(cell)
         [column_number - cell.column_number, row_number - cell.row_number]
       end
 
-      # @param [Game::Board::Cell] cell
+      # @param cell [Game::Board::Cell]
       # @return [Boolean]
       def adjacent?(cell)
         position_diff(cell).all? { |d| d.abs <= 1 }
