@@ -52,7 +52,7 @@ class MatchesController < ApplicationController
   end
 
   def move
-    game = Game::GamePlay.new(get_match)
+    game = Game::Gameplay.new(get_match)
     game.move params[:moves]
     render json: { match: MatchSerializer.new(get_match).as_json }
   rescue Game::InvalidMove

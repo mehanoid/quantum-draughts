@@ -4,41 +4,50 @@ module Game
   class Move
     include Memery
 
-    attr_accessor :from_cell, :to_cell, :current_player, :board
+    attr_accessor :current_player, :board, :move_cells
 
     # @param [Game::Board] board
     # @param [Array<String>] move_cells
     def initialize(board, move_cells, current_player = nil)
       @board          = board
-      @params         = move_cells
-      from, to        = @params
-      @from_cell      = @board.cell_at(from)
-      @to_cell        = @board.cell_at(to)
+      @move_cells     = move_cells
       @current_player = current_player
     end
 
     def perform
-      validate!
-
-      move_step.perform
+      result || raise(InvalidMove)
     end
 
-    def valid?
-      move_step.valid? && (!should_beat? || move_step.beat?)
-    end
-
-    def validate!
-      raise InvalidMove, error unless valid?
+    memoize def valid?
+      result.present?
     end
 
     private
 
-      memoize def move_step
-        MoveStep.build(board, @params, current_player)
+      memoize def result
+        result_board = move_cells.each_cons(2).reduce(board, &method(:perform_step))
+        validate_final_state!(result_board)
+        result_board
+      rescue InvalidMove
+        nil
       end
 
-      memoize def should_beat?
-        PossibleMoves.new(board, @params.first, current_player).should_beat?
+      def perform_step(board, step_cells)
+        step = MoveStep.build(board, step_cells, current_player)
+        validate_step!(step)
+        step.perform
+      end
+
+      def validate_step!(step)
+        raise InvalidMove unless !should_beat? || step.beat?
+      end
+
+      def validate_final_state!(board)
+        raise InvalidMove if should_beat?(board)
+      end
+
+      memoize def should_beat?(board_ = board)
+        PossibleMoves.new(board_, move_cells.first, current_player).should_beat?
       end
   end
 end

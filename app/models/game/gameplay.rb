@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Game
-  class GamePlay
+  class Gameplay
     attr_accessor :boards
 
     # @param [Match] match

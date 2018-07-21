@@ -220,36 +220,6 @@ RSpec.describe Game::KingMoveStep, type: :model do
     end
   end
 
-  context 'multiple beats at once' do
-    let(:board) do
-      Game::Board.from_s(<<~BOARD)
-        . . . . . . . □
-        . . . . . . ● .
-        . . . . . . . .
-        . . . . ● . . .
-        . . . . . . . .
-        . . . . . . . .
-        . ● . . . . . .
-        . . . . . . . .
-      BOARD
-    end
-
-    it 'beats all of them' do
-      new_board = Game::KingMoveStep.new(board, %w[H8 A1], :white).perform
-
-      expect(new_board.to_s).to eq <<~BOARD
-        . . . . . . . .
-        . . . . . . . .
-        . . . . . . . .
-        . . . . . . . .
-        . . . . . . . .
-        . . . . . . . .
-        . . . . . . . .
-        □ . . . . . . .
-      BOARD
-    end
-  end
-
   context 'draughts on adjacent cells' do
     let(:board) do
       Game::Board.from_s(<<~BOARD)
