@@ -28,7 +28,7 @@ module Game
 
       memoize def result
         result_board = move_cells.each_cons(2).reduce(board, &method(:perform_step))
-        validate_final_state!(result_board)
+        validate_final_state!(result_board, move_cells.last)
         result_board
       rescue InvalidMove => e
         @error = e
@@ -45,12 +45,12 @@ module Game
         raise InvalidMove, 'move step should beat' unless !should_beat? || step.beat?
       end
 
-      def validate_final_state!(board)
-        raise InvalidMove, 'can not stop if can beat' if should_beat? && should_beat?(board)
+      def validate_final_state!(board, cell)
+        raise InvalidMove, 'can not stop if can beat' if should_beat? && PossibleMoves.new(board, cell, current_player).can_beat?
       end
 
-      memoize def should_beat?(board_ = board)
-        PossibleMoves.new(board_, move_cells.first, current_player).should_beat?
+      memoize def should_beat?
+        PossibleMoves.new(board, move_cells.first, current_player).any_can_beat?
       end
   end
 end

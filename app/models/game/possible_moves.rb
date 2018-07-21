@@ -28,6 +28,10 @@ module Game
       possible_move_chains.map { |chain| chain.map { |m| m.to_cell.name } }
     end
 
+    def can_beat?
+      possible_move_steps.any?(&:beat?)
+    end
+
     memoize def beat_move_steps
       possible_move_steps.select(&:beat?)
     end
@@ -44,7 +48,7 @@ module Game
 
     def possible_next_steps(move_step)
       next_steps_groups =
-        if should_beat?
+        if any_can_beat?
           possible_next_moves_obj = self.class.new(
             move_step.perform,
             move_step.to_cell.name,
@@ -64,8 +68,8 @@ module Game
       end
     end
 
-    memoize def should_beat?
-      @should_beat || self.class.should_beat?(board, current_player)
+    memoize def any_can_beat?
+      @should_beat || self.class.any_can_beat?(board, current_player)
     end
 
     class << self
@@ -73,7 +77,7 @@ module Game
         all_possible_move_steps(board, player).select(&:beat?)
       end
 
-      def should_beat?(board, player)
+      def any_can_beat?(board, player)
         all_possible_move_steps(board, player).any?(&:beat?)
       end
 
@@ -95,7 +99,7 @@ module Game
     private
 
       def valid_move?(move_step)
-        move_step.valid? && (!should_beat? || move_step.beat?)
+        move_step.valid? && (!any_can_beat? || move_step.beat?)
       end
   end
 end
