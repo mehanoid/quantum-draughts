@@ -34,7 +34,7 @@ module Game
         all_possible_move_steps
       end.map do |step|
         {
-          beat: step.beat?,
+          beat:  step.beat?,
           cells: [step.from_cell.name, step.to_cell.name],
         }
       end.uniq
@@ -92,7 +92,18 @@ module Game
             cells: [chain.first.from_cell.name, *chain.map { |step| step.to_cell.name }],
           }
         end.uniq
+          .yield_self(&method(:reject_included_in_other_moves))
       end
+
+      private
+
+        def reject_included_in_other_moves(moves)
+          moves.reduce(moves, &method(:reject_moves_included_in))
+        end
+
+        def reject_moves_included_in(moves, move)
+          moves.reject { |m| !m.equal?(move) && move[:cells].take(m[:cells].length) == m[:cells] }
+        end
     end
 
     private
