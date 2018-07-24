@@ -1,4 +1,5 @@
 import cellUtils from '../utils/cell'
+import boardUtils from '../utils/board'
 import buildMultiboard from '../utils/build_multiboard'
 
 // returns a string equal for moves that differ only in the length of the last step
@@ -9,32 +10,69 @@ const moveBaseSignature = (move) => {
 }
 
 export default {
-  multiBoard(state) {
-    return buildMultiboard(state.boards)
-  },
-
-  multiCells(state, getters) {
-    return _.flattenDeep(getters.multiBoard)
-  },
-
-	cellByName: (state, getters) => name => {
-  	return getters.multiCells.find(c => c.name === name)
+	multiBoard(state) {
+		return buildMultiboard(state.boards)
 	},
 
-  selectedCell(state, getters) {
-    return getters.cellByName(state.selectedCellName)
-  },
+	boardsWithSelectedDraught(state) {
+		if (!state.selectedCellName) {
+			return []
+		}
+		return state.boards.filter(board => {
+			return boardUtils.cellByName(board, state.selectedCellName).draught
+		})
+	},
+
+	multiCells(state, getters) {
+		return _.flattenDeep(getters.multiBoard)
+	},
+
+	occupiedCells(state, getters) {
+		return getters.multiCells.filter(c => c.draught)
+	},
+
+	cellByName: (state, getters) => name => {
+		return getters.multiCells.find(c => c.name === name)
+	},
+
+	selectedCell(state, getters) {
+		return getters.cellByName(state.selectedCellName)
+	},
 
 	canBeat: (state) => cell => {
-  	return state.allPossibleMoves.some(move => move.beat && move.cells[0] === cell)
+		return state.allPossibleMoves.some(move => move.beat && move.cells[0] === cell)
+	},
+
+	entanglementInfo(state, getters) {
+		if (!state.selectedDraughtId) {
+			return []
+		}
+		const totalWeight = _.sumBy(getters.boardsWithSelectedDraught, board => board.weight)
+		const info = getters.occupiedCells.filter(c => c.draught.id !== state.selectedDraughtId && c.draught.probability < 100)
+			.map((multiCell) => {
+				const draughtWeight = _(getters.boardsWithSelectedDraught).map(board => {
+					const cell = boardUtils.cellByName(board, multiCell.name)
+					return cell.draught ? board.weight : 0
+				}).sum()
+
+				const probability = Math.round(100 * draughtWeight / totalWeight)
+
+				if (multiCell.draught.probability !== probability) {
+					return {
+						cellName: multiCell.name,
+						probability
+					}
+				}
+			})
+		return _.compact(info)
 	},
 
 	currentMoveStepCellName(state) {
-  	return _.last(state.currentMove) || state.selectedCellName
+		return _.last(state.currentMove) || state.selectedCellName
 	},
 
 	selectedMovesBaseSignatures(state) {
-  	return state.selectedMoves.map(moveBaseSignature)
+		return state.selectedMoves.map(moveBaseSignature)
 	},
 
 	currentPossibleMoves(state, getters) {
@@ -47,7 +85,7 @@ export default {
 
 	currentPossibleMovesCellNames(state, getters) {
 		return _(getters.currentPossibleMoves)
-				.map(pm => _.drop(pm)).flatten().uniq().value()
+			.map(pm => _.drop(pm)).flatten().uniq().value()
 	},
 
 	currentPossibleSteps(state, getters) {
@@ -60,6 +98,6 @@ export default {
 	},
 
 	selectedMovesCellNames(state) {
-  	return _.uniq(_.flatten(state.selectedMoves.map(_.drop)))
-  },
+		return _.uniq(_.flatten(state.selectedMoves.map(_.drop)))
+	},
 }
