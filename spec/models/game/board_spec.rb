@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::Board, type: :model do
+RSpec.describe Game::Board do
   subject { Game::Board.new }
 
   it 'has 32 playable_cells' do

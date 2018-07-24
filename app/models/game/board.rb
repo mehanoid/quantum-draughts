@@ -24,7 +24,6 @@ module Game
             end
           Cell.new(column:   column_char,
                    row:      row_number,
-                   playable: (row_number + column_index).odd?,
                    draught:  draught)
         end
       end.freeze

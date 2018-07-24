@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::BoardsCompact, type: :model do
+RSpec.describe Game::BoardsCompact do
   def init_boards(data)
     data.map { |d| Game::Board.new(d) }
   end

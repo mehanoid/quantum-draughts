@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::PossibleMoves, type: :model do
+RSpec.describe Game::PossibleMoves do
   context 'populated board' do
     let(:board) { Game::Board.populated }
 

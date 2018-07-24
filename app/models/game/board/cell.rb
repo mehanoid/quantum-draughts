@@ -11,10 +11,10 @@ module Game
       # @param row [Integer]
       # @param playable [Boolean]
       # @param draught [Game::Draught]
-      def initialize(column:, row:, playable:, draught: nil)
+      def initialize(column:, row:, draught: nil)
         @column = column
         @row = row
-        @playable = playable
+        @playable = (column_number + row_number).even?
         @draught = draught
       end
 
@@ -26,7 +26,7 @@ module Game
       alias row_number row
 
       def update(draught: nil)
-        self.class.new(column: column, row: row, playable: playable, draught: draught)
+        self.class.new(column: column, row: row, draught: draught)
       end
 
       # @return [Boolean]

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::Move, type: :model do
+RSpec.describe Game::Move do
 
   context 'man draughts' do
     let(:board) do

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::DraughtMoveStep, type: :model do
+RSpec.describe Game::DraughtMoveStep do
   context 'populated board' do
     let(:board) { Game::Board.populated }
 

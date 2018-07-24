@@ -2,8 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::KingMoveStep, type: :model do
-
+RSpec.describe Game::KingMoveStep do
   context 'white king' do
     let(:board) do
       Game::Board.from_s(<<~BOARD)

@@ -34,11 +34,11 @@ module Game
       private
 
       def board_cells
-        @board.rows.reverse.flatten
+        @board.rows.flatten
       end
 
       def cells_chars
-        @string.remove(/\s/).chars
+        @string.lines.reverse.join.remove(/\s/).chars
       end
 
       def build_draught(char)
