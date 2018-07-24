@@ -10,7 +10,12 @@ module Game
       end
 
       def boards
-
+        initial_board = Board.new
+        boards_attributes.map.with_index do |board_attributes, index|
+          board        = initial_board.update(board_attributes)
+          board.weight = boards_json['weights'][index]
+          board
+        end
       end
 
       private
@@ -20,22 +25,28 @@ module Game
         end
 
         def boards_attributes
-          initial_attributes = [{}] * boards_count
+          attributes = Array.new(boards_count) { {} }
 
-          boards_json.draughts.each do |draught_data|
-            draught = Draught.new(
-              id: draught_data['id'],
-              color: draught_color(draught_data['id']),
-              king: draught_data['king']),
-
-            cell = Cell.new(draught_data['cell'])
+          boards_json['draughts'].each do |draught_data|
+            draught = build_draught(draught_data)
+            draught_data['boards'].each do |board_index|
+              attributes[board_index][draught_data['cell']] = draught
+            end
           end
+          attributes
+        end
+
+        def build_draught(data)
+          Draught.new(
+            id:    data['id'],
+            color: draught_color(data['id']),
+            king:  data['king'],
+          )
         end
 
         def draught_color(id)
-          id < 12 ? :white : :black
+          id <= 12 ? :white : :black
         end
-
     end
   end
 end

@@ -69,6 +69,10 @@ RSpec.describe Game::Board do
     end
   end
 
+  describe 'update' do
+    pending
+  end
+
   describe '#==' do
     context 'different boards' do
       let(:board1) { Game::Board.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
