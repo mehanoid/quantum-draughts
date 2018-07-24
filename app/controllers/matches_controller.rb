@@ -31,18 +31,6 @@ class MatchesController < ApplicationController
     end
   end
 
-  def update
-    respond_to do |format|
-      if get_match.update(match_params)
-        format.html { redirect_to @match, notice: 'Match was successfully updated.' }
-        format.json { render :show, status: :ok, location: @match }
-      else
-        format.html { render :edit }
-        format.json { render json: get_match.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def destroy
     get_match.destroy
     respond_to do |format|

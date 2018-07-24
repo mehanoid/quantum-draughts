@@ -5,13 +5,13 @@ class Match < ApplicationRecord
 
   def init_boards
     board = Game::Board.populated
-    self.boards = [board].map(&:as_json)
+    self.boards = Game::Board::JsonExport.new([board]).as_json
     save
     self
   end
 
   def board_instances
-    boards.map { |b| Game::Board.new(b) }
+    Game::Board::JsonImport.new(boards).boards
   end
 
   def to_s

@@ -38,7 +38,7 @@ module Game
       new_boards = BoardsCollapse.new(new_boards).perform
       new_boards = BoardsCompact.new(new_boards).perform
 
-      @match.update! boards: new_boards.map(&:as_json), current_player: next_player
+      @match.update! boards: Game::Board::JsonExport.new(new_boards).as_json, current_player: next_player
     end
 
     private

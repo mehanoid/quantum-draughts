@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   root to: 'matches#index'
-  resources :matches do
+  resources :matches, except: %i[update] do
     member do
       post :move
     end
