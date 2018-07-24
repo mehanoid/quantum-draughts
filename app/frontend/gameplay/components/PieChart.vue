@@ -1,6 +1,6 @@
 <template lang="pug">
   svg(:viewBox='viewBox')
-    circle(cx='0', cy='0', r='1', stroke='#75806f', :stroke-width='strokeWidth / 5', opacity="0.5")
+    circle(cx='0', cy='0', r='1', :stroke='background', :stroke-width='strokeWidth / 5', opacity="0.5")
     path(v-if='!circle', :d='path', :stroke='color', :stroke-width='strokeWidth / 5', :opacity='opacity')
     circle(v-if='circle', cx='0', cy='0', r='1', :stroke='color', :stroke-width='strokeWidth / 5', :opacity='opacity')
 </template>
@@ -20,6 +20,10 @@
       color: {
         type: String,
         default: '#40a070'
+      },
+      background: {
+        type: String,
+        default: '#75806f'
       },
       opacity: {
         type: Number,

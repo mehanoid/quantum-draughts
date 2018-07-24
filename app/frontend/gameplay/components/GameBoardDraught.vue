@@ -9,11 +9,18 @@
       :stroke-width="10"
       :color="chartColor"
     )
+    PieChart.entanglement(
+      v-if="entanglementProbability !== undefined"
+      :percent="entanglementProbability"
+      :stroke-width="1"
+      color="#6f00ac"
+      background="#e9d2ff"
+    )
     .king-label(v-if="draught.king") ♔
 </template>
 
 <script>
-  import {mapActions} from "vuex"
+  import {mapGetters, mapActions} from "vuex"
   import PieChart from './PieChart'
 
   export default {
@@ -24,6 +31,7 @@
       cell: Object
     },
     computed: {
+      ...mapGetters(['entanglementInfo']),
       classNames() {
         return [this.draught.color,
           {
@@ -50,6 +58,10 @@
       },
       canBeat(){
         return this.$store.getters.canBeat(this.cell.name)
+      },
+      entanglementProbability() {
+        const info = this.entanglementInfo.find(i => i.cellName === this.cell.name)
+        return info && info.probability
       }
     },
     methods: {
@@ -111,6 +123,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    & .entanglement {
+      position: absolute 0;
     }
   }
 </style>
