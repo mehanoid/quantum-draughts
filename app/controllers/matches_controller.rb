@@ -13,9 +13,6 @@ class MatchesController < ApplicationController
     @match = Match.new
   end
 
-  def edit
-  end
-
   def create
     @match = Match.new
     @match.init_boards
@@ -41,7 +38,7 @@ class MatchesController < ApplicationController
 
   def move
     game = Game::Gameplay.new(get_match)
-    game.move params[:moves]
+    get_match.update! game.move params[:moves]
     render json: { match: MatchSerializer.new(get_match).as_json }
   rescue Game::InvalidMove => e
     render json: { match: MatchSerializer.new(get_match).as_json, error: "Invalid move: #{e.message}" }
