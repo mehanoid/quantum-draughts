@@ -1,6 +1,7 @@
 import cellUtils from '../utils/cell'
 import boardUtils from '../utils/board'
 import buildMultiboard from '../utils/build_multiboard'
+import convertBoards from '../utils/convert_boards'
 
 // returns a string equal for moves that differ only in the length of the last step
 const moveBaseSignature = (move) => {
@@ -10,15 +11,19 @@ const moveBaseSignature = (move) => {
 }
 
 export default {
-	multiBoard(state) {
-		return buildMultiboard(state.boards)
+	boards(state) {
+		return convertBoards(state.match.boards)
 	},
 
-	boardsWithSelectedDraught(state) {
+	multiBoard(state, getters) {
+		return buildMultiboard(getters.boards)
+	},
+
+	boardsWithSelectedDraught(state, getters) {
 		if (!state.selectedCellName) {
 			return []
 		}
-		return state.boards.filter(board => {
+		return getters.boards.filter(board => {
 			return boardUtils.cellByName(board, state.selectedCellName).draught
 		})
 	},
@@ -40,7 +45,7 @@ export default {
 	},
 
 	canBeat: (state) => cell => {
-		return state.allPossibleMoves.some(move => move.beat && move.cells[0] === cell)
+		return state.match.possible_moves.some(move => move.beat && move.cells[0] === cell)
 	},
 
 	entanglementInfo(state, getters) {
@@ -76,7 +81,7 @@ export default {
 	},
 
 	currentPossibleMoves(state, getters) {
-		return state.allPossibleMoves.filter(pm =>
+		return state.match.possible_moves.filter(pm =>
 			pm.cells[0] === state.selectedCellName &&
 			!state.selectedMoves.some(sm => _.isEqual(sm, pm.cells)) &&
 			!getters.selectedMovesBaseSignatures.includes(moveBaseSignature(pm.cells))

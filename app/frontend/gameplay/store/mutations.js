@@ -1,5 +1,3 @@
-import convertBoards from '../utils/convert_boards'
-
 export default {
   setSelectedDraught(state, cell) {
 		state.selectedCellName = cell.name
@@ -7,9 +5,7 @@ export default {
   },
 
 	updateMatch(state, match){
-  	state.boards = convertBoards(match.boards)
-		state.currentPlayer = match.current_player
-		state.allPossibleMoves = match.possible_moves
+		state.match = match
 	},
 
 	cleanSelections(state) {

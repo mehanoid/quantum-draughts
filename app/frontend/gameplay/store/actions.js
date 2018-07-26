@@ -40,7 +40,7 @@ export default {
 		if (!state.selectedMoves.length) {
 			return
 		}
-		const promise = serverApi.matchMove(state.matchId, state.selectedMoves)
+		const promise = serverApi.matchMove(state.match.id, state.selectedMoves)
 		commit('cleanSelections')
 		const {data: response} = await promise
 		commit('updateMatch', response.match)

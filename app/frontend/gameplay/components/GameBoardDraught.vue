@@ -45,7 +45,7 @@
         return this.cell.draught
       },
       selectable() {
-        return this.$store.state.currentPlayer === this.draught.color
+        return this.$store.state.match.current_player === this.draught.color
       },
       isSelectedCell() {
         return this.$store.state.selectedCellName === this.cell.name

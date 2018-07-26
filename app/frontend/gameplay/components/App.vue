@@ -1,31 +1,29 @@
 <template lang="pug">
   div#app
     .current-player-message(
-      :class="currentPlayer"
+      :class="match.current_player"
     )
       | {{ currentPlayerMessage }}
     .board-wrap
       GameBoard(:board="multiBoard")
+    MatchHistory
 </template>
 
 <script>
   import GameBoard from './GameBoard'
+  import MatchHistory from './MatchHistory'
   import {mapGetters, mapState} from 'vuex'
 
   export default {
-    data: function () {
-      return {
-      }
-    },
     computed: {
-      ...mapState(['boards', 'currentPlayer']),
+      ...mapState(['boards', 'match']),
       ...mapGetters(['multiBoard']),
       currentPlayerMessage(){
-        return `${_.capitalize(this.currentPlayer)}'s turn`
+        return `${_.capitalize(this.match.current_player)}'s turn`
       }
     },
     components: {
-      GameBoard
+      GameBoard, MatchHistory
     }
   }
 </script>
