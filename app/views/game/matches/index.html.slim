@@ -6,16 +6,14 @@ table
       th id
       th
       th
-      th
 
   tbody
     - @matches.each do |match|
       tr
         td = match.id
         td = link_to 'Show', match
-        td = link_to 'Edit', edit_match_path(match)
         td = link_to 'Destroy', match, data: { confirm: 'Are you sure?' }, method: :delete
 
 br
 
-= link_to 'New Match', new_match_path
+= link_to 'New Match', new_game_match_path

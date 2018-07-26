@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default {
   matchMove(matchId, moves) {
-    return axios.post(`/matches/${matchId}/move`, {
+    return axios.post(`/game/matches/${matchId}/move`, {
       moves
     })
   }
