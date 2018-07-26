@@ -2,15 +2,15 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::Board do
-  subject { Game::Board.new }
+RSpec.describe Game::Gameplay::Board do
+  subject { described_class.new }
 
   it 'has 32 playable_cells' do
     expect(subject.playable_cells.size).to eq 32
   end
 
   describe '::populated' do
-    subject { Game::Board.populated }
+    subject { described_class.populated }
 
     it 'has 12 white draughts' do
       draughts = subject.draughts.select(&:black?)
@@ -75,8 +75,8 @@ RSpec.describe Game::Board do
 
   describe '#==' do
     context 'different boards' do
-      let(:board1) { Game::Board.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
-      let(:board2) { Game::Board.new({ cells: { 'A1' => { c: 'w', id: 2 } } }) }
+      let(:board1) { described_class.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
+      let(:board2) { described_class.new({ cells: { 'A1' => { c: 'w', id: 2 } } }) }
 
       it 'is not equal' do
         expect(board1).not_to eq board2
@@ -84,8 +84,8 @@ RSpec.describe Game::Board do
     end
 
     context 'same boards' do
-      let(:board1) { Game::Board.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
-      let(:board2) { Game::Board.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
+      let(:board1) { described_class.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
+      let(:board2) { described_class.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
 
       it 'is equal' do
         expect(board1).to eq board2

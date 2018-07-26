@@ -29,10 +29,11 @@ module Game
     end
 
     def move
-      game = Game::Gameplay.new(match.current_turn)
-      match.match_turns.create! game.move params[:moves]
-      render json: { match: MatchSerializer.new(match).as_json }
-    rescue Game::InvalidMove => e
+      match.with_lock do
+        match.match_turns.create! Gameplay.move match.current_turn, params[:moves]
+        render json: { match: MatchSerializer.new(match).as_json }
+      end
+    rescue Gameplay::InvalidMove => e
       render json: { match: MatchSerializer.new(match).as_json, error: "Invalid move: #{e.message}" }
     end
 

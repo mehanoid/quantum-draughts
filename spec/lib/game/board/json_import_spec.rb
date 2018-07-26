@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::Board::JsonImport do
+RSpec.describe Game::Gameplay::Board::JsonImport do
   let(:json) {
     {
       weights:  [1, 4],
@@ -14,14 +14,14 @@ RSpec.describe Game::Board::JsonImport do
   }
 
   it 'sets boards weights' do
-    boards = Game::Board::JsonImport.new(json).boards
+    boards = described_class.new(json).boards
 
     expect(boards.first.weight).to eq 1
     expect(boards.last.weight).to eq 4
   end
 
   it 'sets boards data' do
-    boards = Game::Board::JsonImport.new(json).boards
+    boards = described_class.new(json).boards
     expect(boards.map(&:to_s)).to match_array [<<~BOARD, <<~BOARD2]
       . . . . . . . .
       . . . . . . . .

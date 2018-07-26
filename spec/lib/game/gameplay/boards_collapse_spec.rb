@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::BoardsCollapse do
+RSpec.describe Game::Gameplay::BoardsCollapse do
   def init_boards(data)
-    data.map { |d| Game::Board.new(d) }
+    data.map { |d| Game::Gameplay::Board.new(d) }
   end
 
   context 'all conflicting boards' do
@@ -18,7 +18,7 @@ RSpec.describe Game::BoardsCollapse do
     }
 
     it 'keeps one of two boards' do
-      result = Game::BoardsCollapse.new(boards).perform
+      result = described_class.new(boards).perform
       expect(result.length).to eq 1
     end
   end
@@ -34,7 +34,7 @@ RSpec.describe Game::BoardsCollapse do
     }
 
     it 'keeps both boards' do
-      result = Game::BoardsCollapse.new(boards).perform
+      result = described_class.new(boards).perform
       expect(result.length).to eq 2
     end
   end
@@ -50,7 +50,7 @@ RSpec.describe Game::BoardsCollapse do
     }
 
     it 'keeps both boards' do
-      result = Game::BoardsCollapse.new(boards).perform
+      result = described_class.new(boards).perform
       expect(result.length).to eq 2
     end
   end

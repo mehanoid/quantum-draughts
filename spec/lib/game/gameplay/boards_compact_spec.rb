@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::BoardsCompact do
+RSpec.describe Game::Gameplay::BoardsCompact do
   def init_boards(data)
-    data.map { |d| Game::Board.new(d) }
+    data.map { |d| Game::Gameplay::Board.new(d) }
   end
 
   context 'different boards' do
@@ -18,7 +18,7 @@ RSpec.describe Game::BoardsCompact do
     }
 
     it 'keeps both boards' do
-      result = Game::BoardsCompact.new(boards).perform
+      result = described_class.new(boards).perform
       expect(result.length).to eq 2
     end
   end
@@ -34,7 +34,7 @@ RSpec.describe Game::BoardsCompact do
     }
 
     it 'keeps one of boards' do
-      result = Game::BoardsCompact.new(boards).perform
+      result = described_class.new(boards).perform
       expect(result.length).to eq 1
     end
   end

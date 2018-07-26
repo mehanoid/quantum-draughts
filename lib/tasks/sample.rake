@@ -2,7 +2,7 @@
 
 namespace :sample do
   task boards: :environment do
-    Match.last.update boards: [Game::Board.from_s(<<~BOARD)], current_player: :white
+    Match.last.update boards: [Game::Gameplay::Board.from_s(<<~BOARD)], current_player: :white
       . . . . . . . .
       . . . . ● . . .
       . . . . . . . .

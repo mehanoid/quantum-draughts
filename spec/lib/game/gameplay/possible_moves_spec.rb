@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::PossibleMoves do
+RSpec.describe Game::Gameplay::PossibleMoves do
   context 'populated board' do
-    let(:board) { Game::Board.populated }
+    let(:board) { Game::Gameplay::Board.populated }
 
     describe 'possible moves' do
       it 'return array of resulting cells' do
-        possible_moves = Game::PossibleMoves.new(board, 'C3', :white).possible_moves
+        possible_moves = described_class.new(board, 'C3', :white).possible_moves
         expect(possible_moves).to match_array ['B4', 'D4']
       end
     end
@@ -16,7 +16,7 @@ RSpec.describe Game::PossibleMoves do
 
   context 'draught can beat' do
     let(:board) do
-      Game::Board.from_s(<<~BOARD)
+      Game::Gameplay::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -30,12 +30,12 @@ RSpec.describe Game::PossibleMoves do
 
     describe 'possible moves' do
       it 'should beat' do
-        possible_moves = Game::PossibleMoves.new(board, 'B2', :white).possible_moves
+        possible_moves = described_class.new(board, 'B2', :white).possible_moves
         expect(possible_moves).to match_array ['D4']
       end
 
       it 'can not move if another draught can beat' do
-        possible_moves = Game::PossibleMoves.new(board, 'G2', :white).possible_moves
+        possible_moves = described_class.new(board, 'G2', :white).possible_moves
         expect(possible_moves).to be_empty
       end
     end
@@ -43,7 +43,7 @@ RSpec.describe Game::PossibleMoves do
 
   context 'draught can beat multiple times' do
     let(:board) do
-      Game::Board.from_s(<<~BOARD)
+      Game::Gameplay::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -57,7 +57,7 @@ RSpec.describe Game::PossibleMoves do
 
     describe 'possible_move_chains' do
       it 'should beat with chained move' do
-        chain_cells = Game::PossibleMoves.new(board, 'B2', :white).possible_move_chains_cell_names
+        chain_cells = described_class.new(board, 'B2', :white).possible_move_chains_cell_names
         expect(chain_cells).to match_array [%w[D4 B6], %w[D4 F6]]
       end
     end

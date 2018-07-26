@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::Move do
+RSpec.describe Game::Gameplay::Move do
 
   context 'man draughts' do
     let(:board) do
-      Game::Board.from_s(<<~BOARD)
+      Game::Gameplay::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -19,7 +19,7 @@ RSpec.describe Game::Move do
     end
 
     it 'moves one step right' do
-      new_board = Game::Move.new(board, %w[D2 E3], :white).perform
+      new_board = described_class.new(board, %w[D2 E3], :white).perform
 
       expect(new_board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -34,7 +34,7 @@ RSpec.describe Game::Move do
     end
 
     it 'moves one step towards black draught' do
-      new_board = Game::Move.new(board, %w[D2 C3], :white).perform
+      new_board = described_class.new(board, %w[D2 C3], :white).perform
 
       expect(new_board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -51,7 +51,7 @@ RSpec.describe Game::Move do
 
   context 'man becoming king' do
     let(:board) do
-      Game::Board.from_s(<<~BOARD)
+      Game::Gameplay::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . ● . ● . ● .
         . . . ○ . . . .
@@ -64,7 +64,7 @@ RSpec.describe Game::Move do
     end
 
     it 'beats to left' do
-      new_board = Game::Move.new(board, %w[D6 B8], :white).perform
+      new_board = described_class.new(board, %w[D6 B8], :white).perform
 
       expect(new_board.to_s).to eq <<~BOARD
         . □ . . . . . .
@@ -79,7 +79,7 @@ RSpec.describe Game::Move do
     end
 
     it 'continues beating after becoming king' do
-      new_board = Game::Move.new(board, %w[D6 F8 H6 C1], :white).perform
+      new_board = described_class.new(board, %w[D6 F8 H6 C1], :white).perform
 
       expect(new_board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -97,7 +97,7 @@ RSpec.describe Game::Move do
 
   context 'two draughts can beat' do
     let(:board) do
-      Game::Board.from_s(<<~BOARD)
+      Game::Gameplay::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . ● . . . .
@@ -110,7 +110,7 @@ RSpec.describe Game::Move do
     end
 
     it 'does not prevent second draught to move' do
-      new_board = Game::Move.new(board, %w[E5 C7], :white).perform
+      new_board = described_class.new(board, %w[E5 C7], :white).perform
 
       expect(new_board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -128,7 +128,7 @@ RSpec.describe Game::Move do
   context 'king' do
     context 'zigzag beats' do
       let(:board) do
-        Game::Board.from_s(<<~BOARD)
+        Game::Gameplay::Board.from_s(<<~BOARD)
           . . . . . . . □
           . . . . . . ● .
           . . . . . . . .
@@ -141,7 +141,7 @@ RSpec.describe Game::Move do
       end
 
       it 'beats all of them' do
-        new_board = Game::Move.new(board, %w[H8 F6 C3 E1], :white).perform
+        new_board = described_class.new(board, %w[H8 F6 C3 E1], :white).perform
 
         expect(new_board.to_s).to eq <<~BOARD
           . . . . . . . .
@@ -157,8 +157,8 @@ RSpec.describe Game::Move do
 
       it 'can not stop after first beating' do
         expect {
-          Game::Move.new(board, %w[H8 F6], :white).perform
-        }.to raise_error Game::InvalidMove
+          described_class.new(board, %w[H8 F6], :white).perform
+        }.to raise_error Game::Gameplay::InvalidMove
       end
     end
   end

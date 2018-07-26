@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Game
-  class Board
-    class Cell
+  module Gameplay
+    class BoardCell
       include Dry::Equalizer(:column, :row, :draught)
 
       attr_reader :column, :row, :playable, :draught
@@ -10,12 +10,12 @@ module Game
       # @param column [String]
       # @param row [Integer]
       # @param playable [Boolean]
-      # @param draught [Game::Draught]
+      # @param draught [Game::Gameplay::Draught]
       def initialize(column:, row:, draught: nil)
-        @column = column
-        @row = row
+        @column   = column
+        @row      = row
         @playable = (column_number + row_number).even?
-        @draught = draught
+        @draught  = draught
       end
 
       # @return [String] string identifying the cell, e.g. "A4"
@@ -40,13 +40,13 @@ module Game
       end
 
       # Returns array of to integers: columns diff and rows diff
-      # @param cell [Game::Board::Cell]
+      # @param cell [Game::Gameplay::BoardCell]
       # @return [Array<Integer>]
       def position_diff(cell)
         [column_number - cell.column_number, row_number - cell.row_number]
       end
 
-      # @param cell [Game::Board::Cell]
+      # @param cell [Game::Gameplay::BoardCell]
       # @return [Boolean]
       def adjacent?(cell)
         position_diff(cell).all? { |d| d.abs <= 1 }
