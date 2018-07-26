@@ -2,23 +2,29 @@
 
 module Game
   class Match < ApplicationRecord
-    enum current_player: { white: 0, black: 1 }
 
-    def init_boards
-      board       = Game::Board.populated
-      self.boards = Game::Board::JsonExport.new([board]).as_json
-      save
-      self
+    has_many :match_turns, dependent: :destroy
+
+    def current_turn
+      match_turns.last
+    end
+
+    def current_player
+      current_turn.player
     end
 
     def board_instances
-      Game::Board::JsonImport.new(boards).boards
+      current_turn.board_instances
+    end
+
+    def self.create_initial_match
+      match = create!
+      match.match_turns.build.init_boards
+      match
     end
 
     def to_s
-      board_instances.map do |b|
-        "#{b.weight}\n#{b}\n"
-      end
+      current_turn.to_s
     end
   end
 end

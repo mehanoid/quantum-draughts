@@ -2,20 +2,22 @@
 
 module Game
   class Gameplay
-    attr_reader :boards, :match
+    include Memery
 
-    # @param match [Match]
-    def initialize(match)
-      @match  = match
-      @boards = match.board_instances
+    attr_reader :boards, :match_turn
+
+    # @param match_turn [Game::MatchTurn]
+    def initialize(match_turn)
+      @match_turn = match_turn
+      @boards     = match_turn.board_instances
     end
 
     def move(quantum_move_params)
       {
-        boards:         Game::Board::JsonExport.new(new_boards(quantum_move_params)).as_json,
-        current_player: next_player,
-        # turn_number:    next_turn,
-        # last_move:      quantum_move_params,
+        boards:      Game::Board::JsonExport.new(new_boards(quantum_move_params)).as_json,
+        player:      next_player,
+        turn_number: next_turn,
+        last_move:   last_move(quantum_move_params),
       }
     end
 
@@ -28,10 +30,21 @@ module Game
           .yield_self(&method(:compact_boards))
       end
 
-      def build_moves(quantum_move_params)
+      def last_move(quantum_move_params)
+        beat = build_moves(quantum_move_params).find(&:valid?).beat?
+
+        quantum_move_params.map do |cells|
+          {
+            beat: beat,
+            cells: cells,
+          }
+        end
+      end
+
+      memoize def build_moves(quantum_move_params)
         move_groups = quantum_move_params.map do |move_params|
           boards.map do |board|
-            Move.new(board, move_params, match.current_player.to_sym)
+            Move.new(board, move_params, match_turn.player.to_sym)
           end
         end
 
@@ -66,11 +79,11 @@ module Game
       end
 
       def next_turn
-        match.current_player == 'white' ? match.turn_number : match.turn_number + 1
+        match_turn.player == 'white' ? match_turn.turn_number : match_turn.turn_number + 1
       end
 
       def next_player
-        match.current_player == 'white' ? 'black' : 'white'
+        match_turn.player == 'white' ? 'black' : 'white'
       end
   end
 end

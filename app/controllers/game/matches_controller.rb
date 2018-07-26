@@ -7,7 +7,7 @@ module Game
     end
 
     def show
-      gon.match = MatchSerializer.new(get_match).as_json
+      gon.match = MatchSerializer.new(match).as_json
     end
 
     def new
@@ -15,40 +15,31 @@ module Game
     end
 
     def create
-      @match = Match.new
-      @match.init_boards
+      @match = Match.create_initial_match
 
-      respond_to do |format|
-        if @match.save
-          format.html { redirect_to @match, notice: 'Match was successfully created.' }
-          format.json { render :show, status: :created, location: @match }
-        else
-          format.html { render :new }
-          format.json { render json: @match.errors, status: :unprocessable_entity }
-        end
-      end
+      redirect_to @match, notice: 'Match was successfully created.'
     end
 
     def destroy
-      get_match.destroy
+      match.destroy
       respond_to do |format|
-        format.html { redirect_to matches_url, notice: 'Match was successfully destroyed.' }
+        format.html { redirect_to game_matches_url, notice: 'Match was successfully destroyed.' }
         format.json { head :no_content }
       end
     end
 
     def move
-      game = Game::Gameplay.new(get_match)
-      get_match.update! game.move params[:moves]
-      render json: { match: MatchSerializer.new(get_match).as_json }
+      game = Game::Gameplay.new(match.current_turn)
+      match.match_turns.create! game.move params[:moves]
+      render json: { match: MatchSerializer.new(match).as_json }
     rescue Game::InvalidMove => e
-      render json: { match: MatchSerializer.new(get_match).as_json, error: "Invalid move: #{e.message}" }
+      render json: { match: MatchSerializer.new(match).as_json, error: "Invalid move: #{e.message}" }
     end
 
     private
 
-      helper_method def get_match
-        @get_match ||= Match.find(params[:id])
+      helper_method def match
+        @match ||= Match.find(params[:id])
       end
 
       # Never trust parameters from the scary internet, only allow the white list through.

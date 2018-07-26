@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_26_095303) do
+ActiveRecord::Schema.define(version: 2018_07_26_100930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "game_match_turns", force: :cascade do |t|
+    t.bigint "match_id"
+    t.integer "turn_number", default: 1, null: false
+    t.integer "player", default: 0, null: false
+    t.jsonb "last_move"
+    t.jsonb "boards", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_game_match_turns_on_match_id"
+  end
 
   create_table "game_matches", force: :cascade do |t|
     t.jsonb "boards"

@@ -24,6 +24,10 @@ module Game
       result.present?
     end
 
+    def beat?
+      should_beat?
+    end
+
     private
 
       memoize def result

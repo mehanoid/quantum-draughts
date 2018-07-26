@@ -44,7 +44,7 @@ RSpec.describe Game::MatchesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      match = Game::Match.create.init_boards
+      match = Game::Match.create_initial_match
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -52,7 +52,7 @@ RSpec.describe Game::MatchesController, type: :controller do
 
   describe 'GET #show' do
     it 'returns a success response' do
-      match = Game::Match.create.init_boards
+      match = Game::Match.create_initial_match
       get :show, params: { id: match.to_param }, session: valid_session
       expect(response).to be_successful
     end
@@ -135,12 +135,12 @@ RSpec.describe Game::MatchesController, type: :controller do
     it 'redirects to the matches list' do
       match = Game::Match.create!
       delete :destroy, params: { id: match.to_param }, session: valid_session
-      expect(response).to redirect_to(matches_url)
+      expect(response).to redirect_to(game_matches_url)
     end
   end
 
   describe 'POST #move' do
-    let(:match) { Game::Match.create.init_boards }
+    let(:match) { Game::Match.create_initial_match }
 
     context 'with valid move' do
       let(:params) { { id: match.to_param, moves: [%w[C3 D4]] } }
@@ -148,7 +148,7 @@ RSpec.describe Game::MatchesController, type: :controller do
       it 'updates the requested match' do
         expect {
           post :move, params: params, session: valid_session, as: :json
-        }.to change { match.reload.boards }
+        }.to change { match.current_turn.reload.boards }
       end
 
       it 'respond with match json' do
@@ -165,7 +165,7 @@ RSpec.describe Game::MatchesController, type: :controller do
       it 'does not change match' do
         expect {
           post :move, params: params, session: valid_session, as: :json
-        }.not_to change { match.reload.boards }
+        }.not_to change { match.current_turn.reload.boards }
       end
     end
   end
