@@ -30,7 +30,9 @@ module Game
 
     def move
       match.with_lock do
-        match.match_turns.create! Gameplay.move match.current_turn, params[:moves]
+        result = Gameplay.move match.current_turn, params[:moves]
+        match.current_turn.update move: result[:move]
+        match.match_turns.create! result[:next_turn]
         render json: { match: MatchSerializer.new(match).as_json }
       end
     rescue Gameplay::InvalidMove => e

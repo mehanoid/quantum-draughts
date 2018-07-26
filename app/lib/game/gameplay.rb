@@ -7,10 +7,12 @@ module Game
         move = Game::Gameplay::QuantumMove.new(match_turn.board_instances, moves_params, match_turn.player.to_sym)
 
         {
-          boards:      Game::Gameplay::Board::JsonExport.new(move.perform).as_json,
-          player:      next_player(match_turn),
-          turn_number: next_turn(match_turn),
-          last_move:   last_move(move, moves_params),
+          next_turn: {
+            boards:      Game::Gameplay::Board::JsonExport.new(move.perform).as_json,
+            player:      next_player(match_turn),
+            turn_number: next_turn(match_turn),
+          },
+          move:      last_move(move, moves_params),
         }
       end
 

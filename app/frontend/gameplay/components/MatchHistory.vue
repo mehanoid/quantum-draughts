@@ -4,7 +4,7 @@
     table
       tr(v-for="matchTurn in match.match_turns")
         td {{matchTurn.turn_number}}
-        td {{matchTurn.last_move}}
+        td {{matchTurn.move}}
 </template>
 
 <script>

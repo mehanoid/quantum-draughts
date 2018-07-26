@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_26_130747) do
+ActiveRecord::Schema.define(version: 2018_07_26_171808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2018_07_26_130747) do
     t.bigint "match_id"
     t.integer "turn_number", default: 1, null: false
     t.integer "player", default: 0, null: false
-    t.jsonb "last_move"
+    t.jsonb "move"
     t.jsonb "boards", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
