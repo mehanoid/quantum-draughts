@@ -19,27 +19,36 @@ module Game
 
         # @return [Game::Gameplay::Board] boards
         def resolve_conflicts_on_cell(boards, cell_name)
-          draughts = get_draughts_at_cell(boards, cell_name)
-          if too_many_draughts?(draughts)
-            reject_conflicts_with_draught(boards, draughts.sample, cell_name)
+          weighted_draughts = get_weighted_draughts_at_cell(boards, cell_name)
+          if too_many_draughts?(weighted_draughts)
+            reject_conflicts_with_draught(boards, weighted_draught_sample(weighted_draughts), cell_name)
           else
             boards
           end
         end
 
-        # multiply single draughts by the probability weight of the board so that we can pick
-        # sample draught from the resulting array with correct probability
-        # @return [Array<Game::Draught>]
-        def get_draughts_at_cell(boards, cell_name)
+        # hash of all draughts at cell with weight of board
+        # @return [Array<Hash>]
+        def get_weighted_draughts_at_cell(boards, cell_name)
           boards.flat_map do |b|
             draught = b.cell_at(cell_name).draught
-            [draught] * b.weight if draught
+            { draught: draught, weight: b.weight } if draught
           end.compact
         end
 
         # check if there are different draughts on one cell
-        def too_many_draughts?(draughts)
-          draughts.uniq.many?
+        def too_many_draughts?(weighted_draughts)
+          weighted_draughts.map { |d| d[:draught] }.uniq.many?
+        end
+
+        # pick sample draught from the array by it's weight
+        # @return [Game::Gameplay::Draught]
+        def weighted_draught_sample(weighted_draughts)
+          Pickup.new(
+            weighted_draughts,
+            key_func:    ->(d) { d[:draught] },
+            weight_func: ->(d) { d[:weight] },
+          ).pick
         end
 
         # reject all boards that has any draught on that cell other than our sample draught
@@ -48,6 +57,7 @@ module Game
           boards.reject { |board| cell_conflicts_with?(board.cell_at(cell_name), draught) }
         end
 
+        # true if there is any other draught on the specific cell
         def cell_conflicts_with?(cell, draught)
           !cell.empty? && cell.draught != draught
         end
