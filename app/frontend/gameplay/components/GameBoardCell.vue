@@ -1,7 +1,7 @@
 <template lang="pug">
   td.cell(
     :class="classNames"
-    @click="selectMove(cell)"
+    @click="selectCell(cell)"
   )
     GameBoardDraught(
       v-if="cell.draught"
@@ -34,7 +34,7 @@
       }
     },
     methods: {
-      ...mapActions(['selectMove', 'move'])
+      ...mapActions(['selectCell']),
     },
     components: {
       GameBoardDraught

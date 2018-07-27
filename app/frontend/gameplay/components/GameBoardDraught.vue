@@ -2,7 +2,6 @@
   .draught(
     v-if="draught"
     :class="classNames"
-    @click.stop="selectDraught(cell)"
   )
     PieChart(
       :percent="draught.probability"
@@ -20,7 +19,7 @@
 </template>
 
 <script>
-  import {mapGetters, mapActions} from "vuex"
+  import {mapGetters} from "vuex"
   import PieChart from './PieChart'
 
   export default {
@@ -63,9 +62,6 @@
         const info = this.entanglementInfo.find(i => i.cellName === this.cell.name)
         return info && info.probability
       }
-    },
-    methods: {
-      ...mapActions(['selectDraught']),
     },
     components: {PieChart}
   }

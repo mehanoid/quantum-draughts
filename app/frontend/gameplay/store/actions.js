@@ -4,14 +4,23 @@ import cellUtils from '../utils/cell'
 const MAX_MOVES_COUNT = 2
 
 export default {
-	selectDraught({commit, state}, cell) {
-		if (state.selectedCellName === cell.name) {
-			commit('cleanSelections')
+	selectCell({commit, state, getters, dispatch}, cell) {
+		if (!state.selectedCellName) {
+			dispatch('selectDraught', cell)
 		}
 		else {
-			commit('cleanSelections')
-			commit('setSelectedDraught', cell)
+			if (!getters.currentPossibleSteps.includes(cell.name)) {
+				commit('cleanSelections')
+			}
+			else {
+				dispatch('selectMove', cell)
+			}
 		}
+	},
+
+	selectDraught({commit, state}, cell) {
+		commit('cleanSelections')
+		commit('setSelectedDraught', cell)
 	},
 
 	selectMove({commit, getters, state, dispatch}, cell) {
