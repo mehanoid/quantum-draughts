@@ -1,4 +1,4 @@
-import serverApi from '../server_api'
+import serverApi from '../serverApi'
 import cellUtils from '../utils/cell'
 
 const MAX_MOVES_COUNT = 2

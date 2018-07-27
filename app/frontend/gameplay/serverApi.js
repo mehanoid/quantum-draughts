@@ -5,5 +5,8 @@ export default {
     return axios.post(`/game/matches/${matchId}/move`, {
       moves
     })
-  }
+  },
+	matchTurnGet(id) {
+  	return axios.get(`/game/match_turns/${id}`)
+	}
 }

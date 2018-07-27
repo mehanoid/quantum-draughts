@@ -1,6 +1,6 @@
 import cellUtils from '../utils/cell'
 import boardUtils from '../utils/board'
-import buildMultiboard from '../utils/build_multiboard'
+import buildMultiboard from '../utils/buildMultiboard'
 import convertBoards from '../utils/convert_boards'
 
 // returns a string equal for moves that differ only in the length of the last step
@@ -11,8 +11,10 @@ const moveBaseSignature = (move) => {
 }
 
 export default {
-	boards(state) {
-		return convertBoards(state.match.boards)
+	boards(state, getters) {
+		const source = getters['history/selectedMatchTurn'] || state.match
+		// const source = state.match
+		return convertBoards(source.boards)
 	},
 
 	multiBoard(state, getters) {
@@ -44,8 +46,12 @@ export default {
 		return getters.cellByName(state.selectedCellName)
 	},
 
-	canBeat: (state) => cell => {
-		return state.match.possible_moves.some(move => move.beat && move.cells[0] === cell)
+	anyCanMove(state) {
+		return !state.history.selectedMatchTurnId
+	},
+
+	canBeat: (state, getters) => cell => {
+		return getters.anyCanMove && state.match.possible_moves.some(move => move.beat && move.cells[0] === cell)
 	},
 
 	entanglementInfo(state, getters) {
@@ -81,6 +87,9 @@ export default {
 	},
 
 	currentPossibleMoves(state, getters) {
+		if (!getters.anyCanMove) {
+			return []
+		}
 		return state.match.possible_moves.filter(pm =>
 			pm.cells[0] === state.selectedCellName &&
 			!state.selectedMoves.some(sm => _.isEqual(sm, pm.cells)) &&

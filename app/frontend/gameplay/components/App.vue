@@ -4,9 +4,9 @@
       :class="match.current_player"
     )
       | {{ currentPlayerMessage }}
-    .board-wrap
+    .app-layout
       GameBoard(:board="multiBoard")
-    MatchHistory
+      MatchHistory
 </template>
 
 <script>
@@ -43,8 +43,12 @@
       color: #713002;
     }
   }
-  .board-wrap{
+  .app-layout{
     display: flex;
     justify-content: center;
+  }
+
+  .board {
+    margin-right: 40px
   }
 </style>

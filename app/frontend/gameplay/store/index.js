@@ -4,6 +4,7 @@ import state from './state'
 import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
+import history from './modules/history'
 
 Vue.use(Vuex)
 
@@ -11,10 +12,11 @@ let store;
 
 export default function initStore() {
   store = new Vuex.Store({
-    state: state(),
+    state: state,
     getters,
     mutations,
     actions,
+		modules: {history},
 		strict: process.env.NODE_ENV !== 'production'
   })
   return store

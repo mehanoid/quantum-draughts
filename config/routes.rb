@@ -9,5 +9,6 @@ Rails.application.routes.draw do
         post :move
       end
     end
+    resources :match_turns, only: %i[show]
   end
 end
