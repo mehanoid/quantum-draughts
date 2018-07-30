@@ -33,10 +33,11 @@ module Game
         result = Gameplay.move match.current_turn, params[:moves]
         match.current_turn.update move: result[:move]
         match.match_turns.create! result[:next_turn]
-        render json: { match: MatchSerializer.new(match).as_json }
+        MatchChannel.broadcast_to(match, MatchSerializer.new(match).as_json)
+        render json: { status: :ok }
       end
     rescue Gameplay::InvalidMove => e
-      render json: { match: MatchSerializer.new(match).as_json, error: "Invalid move: #{e.message}" }
+      render json: { status: :error, error: "Invalid move: #{e.message}" }
     end
 
     private

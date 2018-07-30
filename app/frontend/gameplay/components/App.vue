@@ -22,6 +22,12 @@
         return `${_.capitalize(this.match.current_player)}'s turn`
       }
     },
+    created() {
+      this.matchesChannel = this.$cable.channels.match.subscribe(this.match.id)
+    },
+    beforeDestroy() {
+      this.matchesChannel.unsubscribe()
+    },
     components: {
       GameBoard, MatchHistory
     }

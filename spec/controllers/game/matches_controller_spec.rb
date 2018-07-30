@@ -151,11 +151,10 @@ RSpec.describe Game::MatchesController, type: :controller do
         }.to change { match.current_turn.reload.boards }
       end
 
-      it 'respond with match json' do
-        post :move, params: params, session: valid_session, as: :json
-        cell_data = JSON.parse(response.body)['match']['boards'].first['cells']['D4']
-        expect(cell_data).to have_key 'id'
-        expect(cell_data['c']).to eq 'w'
+      it 'sends match data to clients' do
+        expect {
+          post :move, params: params, session: valid_session, as: :json
+        }.to have_broadcasted_to(match).from_channel(Game::MatchChannel)
       end
     end
 
