@@ -30,20 +30,6 @@ module Game
         end.freeze
       end
 
-      # def populate!
-      #   @cells = self.class.from_s(<<~BOARD).cells
-      #     . ● . ● . ● . ●
-      #     ● . ● . ● . ● .
-      #     . ● . ● . ● . ●
-      #     . . . . . . . .
-      #     . . . . . . . .
-      #     ○ . ○ . ○ . ○ .
-      #     . ○ . ○ . ○ . ○
-      #     ○ . ○ . ○ . ○ .
-      #   BOARD
-      #   self
-      # end
-
       # @param args [Array] column name or cell index, row number or nil
       # @return [Game::Gameplay::BoardCell]
       # @example
