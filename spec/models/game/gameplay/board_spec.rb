@@ -75,8 +75,8 @@ RSpec.describe Game::Gameplay::Board do
 
   describe '#==' do
     context 'different boards' do
-      let(:board1) { described_class.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
-      let(:board2) { described_class.new({ cells: { 'A1' => { c: 'w', id: 2 } } }) }
+      let(:board1) { described_class.new(cells: { 'A1' => { c: 'w', id: 1 } }) }
+      let(:board2) { described_class.new(cells: { 'A1' => { c: 'w', id: 2 } }) }
 
       it 'is not equal' do
         expect(board1).not_to eq board2
@@ -84,8 +84,8 @@ RSpec.describe Game::Gameplay::Board do
     end
 
     context 'same boards' do
-      let(:board1) { described_class.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
-      let(:board2) { described_class.new({ cells: { 'A1' => { c: 'w', id: 1 } } }) }
+      let(:board1) { described_class.new(cells: { 'A1' => { c: 'w', id: 1 } }) }
+      let(:board2) { described_class.new(cells: { 'A1' => { c: 'w', id: 1 } }) }
 
       it 'is equal' do
         expect(board1).to eq board2

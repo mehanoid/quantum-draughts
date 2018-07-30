@@ -161,7 +161,7 @@ RSpec.describe Game::Gameplay::Move do
         }.to raise_error Game::Gameplay::InvalidMove
       end
 
-      it 'can not move on to avoid third beating' do
+      pending 'can not move on to avoid third beating' do
         expect {
           described_class.new(board, %w[H8 F6 B2], :white).perform
         }.to raise_error Game::Gameplay::InvalidMove
@@ -182,7 +182,7 @@ RSpec.describe Game::Gameplay::Move do
         BOARD
       end
 
-      it 'can beat one of them' do
+      pending 'can beat one of them' do
         new_board = described_class.new(board, %w[D4 A1], :white).perform
 
         expect(new_board.to_s).to eq <<~BOARD
@@ -197,7 +197,7 @@ RSpec.describe Game::Gameplay::Move do
         BOARD
       end
 
-      it 'can not beat one draught two times' do
+      pending 'can not beat one draught two times' do
         expect {
           described_class.new(board, %w[D4 A1 H8], :white).perform
         }.to raise_error Game::Gameplay::InvalidMove
