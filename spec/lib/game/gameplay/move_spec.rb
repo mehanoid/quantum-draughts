@@ -160,9 +160,15 @@ RSpec.describe Game::Gameplay::Move do
           described_class.new(board, %w[H8 F6], :white).perform
         }.to raise_error Game::Gameplay::InvalidMove
       end
+
+      it 'can not move on to avoid third beating' do
+        expect {
+          described_class.new(board, %w[H8 F6 B2], :white).perform
+        }.to raise_error Game::Gameplay::InvalidMove
+      end
     end
 
-    context 'king can beat in opposite directions' do
+    context 'can beat in opposite directions' do
       let(:board) do
         Game::Gameplay::Board.from_s(<<~BOARD)
           . . . . . . . .
