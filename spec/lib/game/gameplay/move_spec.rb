@@ -161,5 +161,41 @@ RSpec.describe Game::Gameplay::Move do
         }.to raise_error Game::Gameplay::InvalidMove
       end
     end
+
+    context 'king can beat in opposite directions' do
+      let(:board) do
+        Game::Gameplay::Board.from_s(<<~BOARD)
+          . . . . . . . .
+          . . . . . . ● .
+          . . . . . . . .
+          . . . . . . . .
+          . . . □ . . . .
+          . . . . . . . .
+          . ● . . . . . .
+          . . . . . . . .
+        BOARD
+      end
+
+      it 'can beat one of them' do
+        new_board = described_class.new(board, %w[D4 A1], :white).perform
+
+        expect(new_board.to_s).to eq <<~BOARD
+          . . . . . . . .
+          . . . . . . ● .
+          . . . . . . . .
+          . . . . . . . .
+          . . . . . . . .
+          . . . . . . . .
+          . . . . . . . .
+          □ . . . . . . .
+        BOARD
+      end
+
+      it 'can not beat one draught two times' do
+        expect {
+          described_class.new(board, %w[D4 A1 H8], :white).perform
+        }.to raise_error Game::Gameplay::InvalidMove
+      end
+    end
   end
 end

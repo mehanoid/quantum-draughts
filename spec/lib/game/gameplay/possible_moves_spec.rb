@@ -62,4 +62,26 @@ RSpec.describe Game::Gameplay::PossibleMoves do
       end
     end
   end
+
+  context 'king can beat in opposite directions' do
+    let(:board) do
+      Game::Gameplay::Board.from_s(<<~BOARD)
+        . . . . . . . .
+        . . . . . . ● .
+        . . . . . . . .
+        . . . . . . . .
+        . . . □ . . . .
+        . . . . . . . .
+        . ● . . . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    describe 'possible_move_chains' do
+      it 'can beat one of the draughts' do
+        chain_cells = described_class.new(board, 'D4', :white).possible_move_chains_cell_names
+        expect(chain_cells).to match_array [%w[A1], %w[H8]]
+      end
+    end
+  end
 end
