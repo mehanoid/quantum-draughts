@@ -51,11 +51,11 @@ module Game
         end
 
         def validate_final_state!(board, cell)
-          raise InvalidMove, 'can not stop if can beat' if should_beat? && PossibleMoves.new(board, cell, current_player).can_beat?
+          raise InvalidMove, 'can not stop if can beat' if should_beat? && MovesCalculator.new(board, cell, current_player).can_beat?
         end
 
         memoize def should_beat?
-          PossibleMoves.new(board, move_cells.first, current_player).any_can_beat?
+          MovesCalculator.new(board, move_cells.first, current_player).any_can_beat?
         end
     end
   end

@@ -2,7 +2,7 @@
 
 module Game
   module Gameplay
-    class PossibleMoves
+    class MovesCalculator
       include Memery
 
       attr_reader :board, :cell_name, :current_player

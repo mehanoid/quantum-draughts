@@ -2,7 +2,7 @@
 
 module Game
   module Gameplay
-    class PossibleQuantumMoves
+    class QuantumMovesCalculator
       include Memery
 
       attr_reader :boards, :cell_name, :current_player
@@ -20,7 +20,7 @@ module Game
 
       def possible_move_chains
         boards.flat_map do |board|
-          PossibleMoves.new(board, cell_name, current_player).possible_move_chains
+          MovesCalculator.new(board, cell_name, current_player).possible_move_chains
         end.select { |chain| valid_move?(chain.first) }
       end
 
@@ -43,7 +43,7 @@ module Game
 
       memoize def possible_move_steps
         boards.flat_map do |board|
-          PossibleMoves.new(board, cell_name, current_player).possible_move_steps
+          MovesCalculator.new(board, cell_name, current_player).possible_move_steps
         end
       end
 
@@ -66,19 +66,19 @@ module Game
 
         def any_can_beat?(boards, player)
           boards.any? do |board|
-            Game::Gameplay::PossibleMoves.any_can_beat?(board, player)
+            Game::Gameplay::MovesCalculator.any_can_beat?(board, player)
           end
         end
 
         def all_possible_move_steps(boards, player)
           boards.flat_map do |board|
-            Game::Gameplay::PossibleMoves.all_possible_move_steps(board, player)
+            Game::Gameplay::MovesCalculator.all_possible_move_steps(board, player)
           end
         end
 
         def all_possible_move_chains(boards, player)
           boards.flat_map do |board|
-            Game::Gameplay::PossibleMoves.all_possible_move_chains(board, player)
+            Game::Gameplay::MovesCalculator.all_possible_move_chains(board, player)
           end
         end
 

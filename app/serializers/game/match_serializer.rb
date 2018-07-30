@@ -15,7 +15,7 @@ module Game
     end
 
     def possible_moves
-      Gameplay::PossibleQuantumMoves.valid_possible_move_chains(object.board_instances, object.current_player.to_sym)
+      Gameplay::QuantumMovesCalculator.valid_possible_move_chains(object.board_instances, object.current_player.to_sym)
     end
   end
 end

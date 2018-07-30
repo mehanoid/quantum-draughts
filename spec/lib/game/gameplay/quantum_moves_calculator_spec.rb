@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::Gameplay::PossibleQuantumMoves do
+RSpec.describe Game::Gameplay::QuantumMovesCalculator do
   context 'populated board' do
     let(:board) do
       Game::Gameplay::Board.from_s(<<~BOARD)
