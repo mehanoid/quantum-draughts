@@ -234,7 +234,6 @@ RSpec.describe Game::Gameplay::KingMoveStep do
     end
 
     it 'can not beat them' do
-
       expect {
         described_class.new(board, %w[H8 E5], :white).perform
       }.to raise_error /invalid beating/

@@ -2,7 +2,7 @@
 
 module Game
   module Gameplay
-    class InvalidMove < StandardError;
+    class InvalidMove < StandardError
     end
   end
 end

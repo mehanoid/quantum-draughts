@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Game::MatchChannel < ApplicationCable::Channel
   def subscribed
     match = Game::Match.find(params[:id])

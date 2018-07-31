@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Game
   class MatchTurn < ApplicationRecord
     enum player: { white: 0, black: 1 }

@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Game::Gameplay::QuantumMove do
-
   context 'one draught' do
     let(:board) do
       Game::Gameplay::Board.from_s(<<~BOARD)

@@ -2,7 +2,6 @@
 
 module Game
   class Match < ApplicationRecord
-
     has_many :match_turns, dependent: :destroy
 
     def current_turn

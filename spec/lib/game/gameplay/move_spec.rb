@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Game::Gameplay::Move do
-
   context 'man draughts' do
     let(:board) do
       Game::Gameplay::Board.from_s(<<~BOARD)
@@ -93,7 +92,6 @@ RSpec.describe Game::Gameplay::Move do
       BOARD
     end
   end
-
 
   context 'two draughts can beat' do
     let(:board) do

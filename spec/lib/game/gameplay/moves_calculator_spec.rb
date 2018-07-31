@@ -9,7 +9,7 @@ RSpec.describe Game::Gameplay::MovesCalculator do
     describe 'possible moves' do
       it 'return array of resulting cells' do
         possible_moves = described_class.new(board, 'C3', :white).possible_moves
-        expect(possible_moves).to match_array ['B4', 'D4']
+        expect(possible_moves).to match_array %w[B4 D4]
       end
     end
   end

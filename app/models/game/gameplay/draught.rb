@@ -13,11 +13,11 @@ module Game
         @king  = king
       end
 
-      def as_json(*args)
+      def as_json(*_args)
         {
           id: id,
           c:  short_color,
-          k:  king
+          k:  king,
         }
       end
 

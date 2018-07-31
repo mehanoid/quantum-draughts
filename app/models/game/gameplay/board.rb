@@ -17,15 +17,13 @@ module Game
         cells   = data[:cells] || {}
 
         @cells = 1.upto(CELLS_PER_ROW).flat_map do |row_number|
-          ('A'..'H').map.with_index do |column_char, column_index|
+          ('A'..'H').map do |column_char|
             draught_data = cells[column_char + row_number.to_s]
             draught      =
-              if draught_data
-                Draught.new id: draught_data['id'], color: draught_data['c'], king: draught_data['k']
-              end
+              (Draught.new id: draught_data['id'], color: draught_data['c'], king: draught_data['k'] if draught_data)
             BoardCell.new(column:  column_char,
-                     row:     row_number,
-                     draught: draught)
+                          row:     row_number,
+                          draught: draught)
           end
         end.freeze
       end
