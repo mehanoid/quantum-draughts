@@ -16,34 +16,34 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import MatchHistoryItem from './MatchHistoryItem'
+import {mapState} from 'vuex'
+import MatchHistoryItem from './MatchHistoryItem'
 
-  export default {
-    computed: {
-      ...mapState(['match']),
-      turnGroups() {
-        return _.reverse(_.chunk(this.match.match_turns, 2))
-      }
-    },
-    components: {
-      MatchHistoryItem
+export default {
+  components: {
+    MatchHistoryItem
+  },
+  computed: {
+    ...mapState(['match']),
+    turnGroups() {
+      return _.reverse(_.chunk(this.match.match_turns, 2))
     }
   }
+}
 </script>
 
 <style lang="postcss" scoped>
-  .table-wrap {
-    overflow-y: auto;
-    max-height: 300px;
-  }
+.table-wrap {
+  overflow-y: auto;
+  max-height: 300px;
+}
 
-  .table {
-    border-collapse: collapse;
+.table {
+  border-collapse: collapse;
 
-    & th, & td {
-      border: 1px solid black;
-      padding: 5px;
-    }
+  & th, & td {
+    border: 1px solid black;
+    padding: 5px;
   }
+}
 </style>

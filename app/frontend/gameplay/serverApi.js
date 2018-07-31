@@ -6,7 +6,7 @@ export default {
       moves
     })
   },
-	matchTurnGet(id) {
-  	return axios.get(`/game/match_turns/${id}`)
-	}
+  matchTurnGet(id) {
+    return axios.get(`/game/match_turns/${id}`)
+  }
 }

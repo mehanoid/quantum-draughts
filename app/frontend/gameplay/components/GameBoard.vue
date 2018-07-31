@@ -17,23 +17,26 @@
 </template>
 
 <script>
-  import GameBoardCell from "./GameBoardCell"
+import GameBoardCell from './GameBoardCell'
 
-  export default {
-    data: function () {
-      return {}
-    },
-    props: {
-      board: Array
-    },
-    components: {
-      GameBoardCell
+export default {
+  components: {
+    GameBoardCell
+  },
+  props: {
+    board: {
+      type: Array,
+      required: true
     }
-  }
+  },
+  data: function () {
+    return {}
+  },
+}
 </script>
 
 <style lang="postcss" scoped>
-  .board {
-    border-collapse: collapse;
-  }
+.board {
+  border-collapse: collapse;
+}
 </style>

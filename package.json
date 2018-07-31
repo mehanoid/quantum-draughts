@@ -17,6 +17,8 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "eslint": "^5.2.0",
+    "eslint-plugin-vue": "^5.0.0-beta.1",
     "webpack-dev-server": "2.11.2"
   }
 }

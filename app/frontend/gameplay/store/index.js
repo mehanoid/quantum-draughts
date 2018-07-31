@@ -8,7 +8,7 @@ import history from './modules/history'
 
 Vue.use(Vuex)
 
-let store;
+let store
 
 export default function initStore() {
   store = new Vuex.Store({
@@ -16,8 +16,8 @@ export default function initStore() {
     getters,
     mutations,
     actions,
-		modules: {history},
-		strict: process.env.NODE_ENV !== 'production'
+    modules: {history},
+    strict: process.env.NODE_ENV !== 'production'
   })
   return store
 }
