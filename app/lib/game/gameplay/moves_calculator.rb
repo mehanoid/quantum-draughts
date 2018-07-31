@@ -8,7 +8,9 @@ module Game
       attr_reader :board, :cell_name, :current_player
 
       # @param board [Game::Gameplay::Board]
-      # @param move_cells [Array<String>]
+      # @param cell_name [String]
+      # @param current_player [Symbol]
+      # @param should_beat [Boolean]
       def initialize(board, cell_name, current_player, should_beat: nil)
         @board          = board
         @cell_name      = cell_name

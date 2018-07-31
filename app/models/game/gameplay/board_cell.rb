@@ -9,7 +9,6 @@ module Game
 
       # @param column [String]
       # @param row [Integer]
-      # @param playable [Boolean]
       # @param draught [Game::Gameplay::Draught]
       def initialize(column:, row:, draught: nil)
         @column   = column
