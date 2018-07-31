@@ -42,8 +42,10 @@ export default {
       type: String,
       required: true
     },
-    // eslint-disable-next-line vue/require-default-prop
-    backgroundColor: String,
+    backgroundColor: {
+      type: String,
+      default: null
+    },
     backgroundOpacity: {
       type: Number,
       default: 0.5

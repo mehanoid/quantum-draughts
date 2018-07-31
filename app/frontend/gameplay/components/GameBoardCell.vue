@@ -48,7 +48,8 @@ export default {
 <style lang="postcss" scoped>
 .cell {
   border: 1px solid black;
-  size: 55px;
+  width: 55px;
+  height: 55px;
   text-align: center;
   padding: 0;
 

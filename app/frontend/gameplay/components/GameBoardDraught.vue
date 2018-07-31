@@ -73,13 +73,25 @@ export default {
   .draught {
     display: inline-block;
     position: relative;
-    size: 40px;
+    width: 40px;
+    height: 40px;
     border-radius: 20px;
     vertical-align: middle;
     cursor: pointer;
 
     &.can-beat {
       box-shadow: 0 0 15px 10px rgb(255, 48, 48);
+    }
+
+    & .king-label {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      font-size: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     &.white {
@@ -110,17 +122,10 @@ export default {
       }
     }
 
-    & .king-label {
-      position: absolute 0;
-      size: 100%;
-      font-size: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     & .entanglement {
-      position: absolute 0;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 </style>

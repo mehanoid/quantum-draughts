@@ -41,7 +41,8 @@ export default {
 .table {
   border-collapse: collapse;
 
-  & th, & td {
+  & th,
+  & td {
     border: 1px solid black;
     padding: 5px;
   }

@@ -56,6 +56,6 @@ export default {
 }
 
 .board {
-  margin-right: 40px
+  margin-right: 40px;
 }
 </style>
