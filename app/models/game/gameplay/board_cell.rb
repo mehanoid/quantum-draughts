@@ -65,6 +65,10 @@ module Game
           (row.between?(cell1.row, cell2.row) || row.between?(cell2.row, cell1.row))
       end
 
+      def same_direction?(to_cell1, to_cell2)
+        to_cell1.between?(self, to_cell2) || to_cell2.between?(self, to_cell1)
+      end
+
       # @return [Integer]
       def column_number
         column.ord - 'A'.ord + 1

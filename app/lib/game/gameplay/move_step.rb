@@ -3,6 +3,7 @@
 module Game
   module Gameplay
     class MoveStep
+      include Memery
       attr_reader :from_cell, :to_cell, :prev_beaten_cells, :current_player, :board
 
       class << self
@@ -12,7 +13,7 @@ module Game
             if from_cell.draught&.king?
               Game::Gameplay::KingMoveStep
             else
-              Game::Gameplay::DraughtMoveStep
+              Game::Gameplay::ManMoveStep
             end
           klass.new(board, move_cells, current_player, prev_beaten_cells: prev_beaten_cells)
         end
@@ -30,7 +31,7 @@ module Game
         @current_player    = current_player
       end
 
-      def perform
+      memoize def perform
         validate!
 
         board.update attributes_for_update

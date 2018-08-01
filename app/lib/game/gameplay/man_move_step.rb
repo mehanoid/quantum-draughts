@@ -2,7 +2,7 @@
 
 module Game
   module Gameplay
-    class DraughtMoveStep < MoveStep
+    class ManMoveStep < MoveStep
 
       private
 

@@ -159,7 +159,7 @@ RSpec.describe Game::Gameplay::Move do
         }.to raise_error Game::Gameplay::InvalidMove
       end
 
-      pending 'can not move on to avoid third beating' do
+      it 'can not move on to avoid third beating' do
         expect {
           described_class.new(board, %w[H8 F6 B2], :white).perform
         }.to raise_error Game::Gameplay::InvalidMove

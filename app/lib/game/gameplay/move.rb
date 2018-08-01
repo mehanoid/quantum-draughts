@@ -32,31 +32,71 @@ module Game
       private
 
         memoize def result
-          result_board, beaten_cells = move_cells.each_cons(2).reduce([board, []], &method(:perform_step))
-          validate_final_state!(result_board, beaten_cells, move_cells.last)
-          result_board
+          move_steps.each(&method(:validate_step!))
+          validate_final_state!
+          last_step.perform
         rescue InvalidMove => e
           @error = e
           nil
         end
 
-        def perform_step((board, prev_beaten_cells), step_cells)
-          step = MoveStep.build(board, step_cells, current_player, prev_beaten_cells: prev_beaten_cells)
-          validate_step!(step)
-          [step.perform, step.beaten_cells]
+        def validate_final_state!
+          raise InvalidMove, 'can not stop if can beat' if should_beat? && next_moves_calculators.any?(&:can_beat?)
+        end
+
+        def next_moves_calculators
+          [next_moves_calculator(last_step), *alternative_last_steps.map(&method(:next_moves_calculator))]
+        end
+
+        # @return [Game::Gameplay::MoveStep]
+        def last_step
+          move_steps.last
+        end
+
+        def alternative_last_steps
+          moves_calculator(last_step).valid_move_steps.select(&method(:same_direction_as_last_step?))
+        end
+
+        def same_direction_as_last_step?(step)
+          last_step.from_cell.same_direction?(step.to_cell, last_step.to_cell)
+        end
+
+        # @return [Array<Game::Gameplay::MoveStep>]
+        memoize def move_steps
+          move_cells.each_cons(2).reduce([], &method(:add_step))
+        end
+
+        # @return [Array<Game::Gameplay::MoveStep>]
+        def add_step(steps, step_cells)
+          prev_step = steps.last
+          step = MoveStep.build(
+            prev_step&.perform || board,
+            step_cells,
+            current_player,
+            prev_beaten_cells: (prev_step&.beaten_cells || [])
+          )
+          [*steps, step]
         end
 
         def validate_step!(step)
           raise InvalidMove, 'move step should beat' unless !should_beat? || step.beat?
         end
 
-        def validate_final_state!(board, beaten_cells, cell)
-          moves_calculator = MovesCalculator.new(board, cell, current_player, prev_beaten_cells: beaten_cells)
-          raise InvalidMove, 'can not stop if can beat' if should_beat? && moves_calculator.can_beat?
+        def moves_calculator(step)
+          MovesCalculator.new(step.board, step.from_cell.name, current_player)
+        end
+
+        def next_moves_calculator(step)
+          MovesCalculator.new(
+            step.perform,
+            step.to_cell.name,
+            current_player,
+            prev_beaten_cells: step.beaten_cells
+          )
         end
 
         memoize def should_beat?
-          MovesCalculator.new(board, move_cells.first, current_player).any_can_beat?
+          moves_calculator(move_steps.first).any_can_beat?
         end
     end
   end
