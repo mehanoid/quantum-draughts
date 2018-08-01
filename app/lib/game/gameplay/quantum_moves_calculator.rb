@@ -87,23 +87,41 @@ module Game
             all_possible_move_chains(boards, player).select { |chain| chain.first.beat? }
           else
             all_possible_move_chains(boards, player)
-          end.map do |chain|
+          end.yield_self(&method(:reject_included_in_other_moves))
+            .map do |chain|
             {
               beat:  chain.first.beat?,
-              cells: [chain.first.from_cell.name, *chain.map { |step| step.to_cell.name }],
+              cells: chain_cells(chain),
             }
           end.uniq
-            .yield_self(&method(:reject_included_in_other_moves))
         end
 
         private
 
-          def reject_included_in_other_moves(moves)
-            moves.reduce(moves, &method(:reject_moves_included_in))
+          def chain_cells(chain)
+            [chain.first.from_cell.name, *chain.map { |step| step.to_cell.name }]
           end
 
-          def reject_moves_included_in(moves, move)
-            moves.reject { |m| !m.equal?(move) && move[:cells].take(m[:cells].length) == m[:cells] }
+          def reject_included_in_other_moves(chains)
+            chains.reduce(chains, &method(:reject_moves_included_in))
+          end
+
+          def reject_moves_included_in(chains, chain)
+            cells = chain_cells(chain)
+            beaten_cells = chain.last.beaten_cells
+            chains.reject do |ch|
+              !ch.equal?(chain) && (cells_include_chain?(cells, ch) || beaten_cells_include_chain?(beaten_cells, ch))
+            end
+          end
+
+          def cells_include_chain?(cells, chain)
+            cells.first(chain.length) == chain_cells(chain)
+          end
+
+          def beaten_cells_include_chain?(beaten_cells, chain)
+            chain_beaten_cells = chain.last.beaten_cells
+            beaten_cells.length > chain_beaten_cells.length &&
+              beaten_cells.first(chain_beaten_cells.length) == chain_beaten_cells
           end
       end
 

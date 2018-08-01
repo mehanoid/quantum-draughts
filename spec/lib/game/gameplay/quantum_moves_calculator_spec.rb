@@ -53,9 +53,9 @@ RSpec.describe Game::Gameplay::QuantumMovesCalculator do
       BOARD2
     end
 
-    pending 'can not stop after beating first draught' do
+    it 'can not stop after beating first draught' do
       chains = described_class.valid_possible_move_chains(boards, :white)
-      expect(chains).to eq(beat: true, cells: %w[D2 F4 B8])
+      expect(chains).to eq([beat: true, cells: %w[D2 F4 B8]])
     end
   end
 end
