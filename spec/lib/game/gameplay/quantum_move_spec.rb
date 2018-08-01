@@ -103,9 +103,9 @@ RSpec.describe Game::Gameplay::QuantumMove do
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
+        . . . . . □ . .
         . . . . . . . .
-        . . . . ● . . .
-        . . . □ . . . .
+        . . . . . . . .
         . . . . . . . .
       BOARD2
     end

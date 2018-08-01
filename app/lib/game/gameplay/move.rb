@@ -21,6 +21,11 @@ module Game
         result || raise(error)
       end
 
+      def perform_partial
+        last_valid_step = valid_steps.last
+        last_valid_step&.perform || board
+      end
+
       memoize def valid?
         result.present?
       end
@@ -46,6 +51,10 @@ module Game
 
         def validate_final_state!
           raise InvalidMove, 'can not stop if can beat' unless valid_final_state?
+        end
+
+        def valid_steps
+          move_steps.take_while { |s| s.valid? && valid_step?(s) }
         end
 
         def next_moves_calculators
@@ -83,7 +92,11 @@ module Game
         end
 
         def validate_step!(step)
-          raise InvalidMove, 'move step should beat' unless !should_beat? || step.beat?
+          raise InvalidMove, 'move step should beat' unless valid_step?(step)
+        end
+
+        def valid_step?(step)
+          !should_beat? || step.beat?
         end
 
         def moves_calculator(step)

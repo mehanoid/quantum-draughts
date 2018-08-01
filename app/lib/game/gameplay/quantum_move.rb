@@ -64,7 +64,7 @@ module Game
             if move.valid?
               move.perform
             else
-              move.board
+              move.perform_partial
             end
           end
         end
