@@ -29,6 +29,10 @@ module Game
         should_beat?
       end
 
+      def valid_final_state?
+        !should_beat? || next_moves_calculators.none?(&:can_beat?)
+      end
+
       private
 
         memoize def result
@@ -41,7 +45,7 @@ module Game
         end
 
         def validate_final_state!
-          raise InvalidMove, 'can not stop if can beat' if should_beat? && next_moves_calculators.any?(&:can_beat?)
+          raise InvalidMove, 'can not stop if can beat' unless valid_final_state?
         end
 
         def next_moves_calculators

@@ -110,7 +110,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
       BOARD2
     end
 
-    pending 'can not stop after beating first draught' do
+    it 'can not stop after beating first draught' do
       expect {
         described_class.new(boards, [%w[D2 F4]], :white).perform
       }.to raise_error Game::Gameplay::InvalidMove
