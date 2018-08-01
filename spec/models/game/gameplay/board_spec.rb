@@ -69,8 +69,47 @@ RSpec.describe Game::Gameplay::Board do
     end
   end
 
-  describe 'update' do
-    pending
+  describe '#update' do
+    it 'removes draught at position' do
+      board = Game::Gameplay::Board.from_s(<<~BOARD)
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . ○ . . . . . .
+        . . . . . . . .
+      BOARD
+
+      new_board = board.update('B2' => nil)
+
+      expect(new_board.to_s).to eq <<~BOARD
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+      BOARD
+    end
+
+    it 'adds draught at position' do
+      new_board = subject.update('A1' => Game::Gameplay::Draught.new(id: 1, color: :white))
+
+      expect(new_board.to_s).to eq <<~BOARD
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        ○ . . . . . . .
+      BOARD
+    end
   end
 
   describe '#==' do
