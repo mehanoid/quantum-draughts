@@ -15,6 +15,7 @@ module Game
       end
 
       def perform
+        validate_moves_params!
         build_moves(moves_params)
           .yield_self(&method(:perform_moves))
           .yield_self(&method(:collapse_boards))
@@ -27,13 +28,22 @@ module Game
 
       private
 
-        memoize def build_moves(moves_params)
+        def validate_moves_params!
+          raise InvalidMove, 'moves should start with one cell' if moves_params.map(&:first).uniq.many?
+        end
+
+        def build_moves(moves_params)
           move_groups = moves_params.map do |move_params|
             boards.map do |board|
               Move.new(board, move_params, current_player)
             end
           end
 
+          validate_move_groups!(move_groups)
+          move_groups.flatten
+        end
+
+        def validate_move_groups!(move_groups)
           unless move_groups.any?
             # TODO: check for minimum two moves if they are available
             raise InvalidMove, 'too few moves'
@@ -43,7 +53,6 @@ module Game
           unless move_groups.all? { |moves_group| moves_group.any?(&:valid?) }
             raise InvalidMove, 'one if the moves is invalid'
           end
-          move_groups.flatten
         end
 
         def perform_moves(moves)

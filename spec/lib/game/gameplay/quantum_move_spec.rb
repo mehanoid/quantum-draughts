@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Game::Gameplay::QuantumMove do
-  context 'one draught' do
+  context 'with one draught' do
     let(:board) do
       Game::Gameplay::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -42,7 +42,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
     end
   end
 
-  context 'two draughts' do
+  context 'with two draughts' do
     let(:board) do
       Game::Gameplay::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -56,14 +56,14 @@ RSpec.describe Game::Gameplay::QuantumMove do
       BOARD
     end
 
-    pending 'can not move both draughts at once' do
+    it 'can not move both draughts at once' do
       expect {
         described_class.new([board], [%w[D2 E3], %w[F2 E3]], :white).perform
       }.to raise_error Game::Gameplay::InvalidMove
     end
   end
 
-  context 'king can beat one draught on both boards, and another only on one board' do
+  context 'when king can beat one draught on both boards, and another only on one board' do
     let(:boards) do
       [<<~BOARD, <<~BOARD2].map { |b| Game::Gameplay::Board.from_s(b) }
         . . . . . . . .
