@@ -180,7 +180,7 @@ RSpec.describe Game::Gameplay::Move do
         BOARD
       end
 
-      pending 'can beat one of them' do
+      it 'can beat one of them' do
         new_board = described_class.new(board, %w[D4 A1], :white).perform
 
         expect(new_board.to_s).to eq <<~BOARD
@@ -195,7 +195,7 @@ RSpec.describe Game::Gameplay::Move do
         BOARD
       end
 
-      pending 'can not beat one draught two times' do
+      it 'can not beat one draught two times' do
         expect {
           described_class.new(board, %w[D4 A1 H8], :white).perform
         }.to raise_error Game::Gameplay::InvalidMove

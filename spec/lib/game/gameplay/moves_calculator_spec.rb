@@ -78,7 +78,7 @@ RSpec.describe Game::Gameplay::MovesCalculator do
     end
 
     describe 'possible_move_chains' do
-      pending 'can beat one of the draughts' do
+      it 'can beat one of the draughts' do
         chain_cells = described_class.new(board, 'D4', :white).possible_move_chains_cell_names
         expect(chain_cells).to match_array [%w[A1], %w[H8]]
       end

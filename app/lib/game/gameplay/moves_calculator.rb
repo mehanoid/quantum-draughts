@@ -5,17 +5,18 @@ module Game
     class MovesCalculator
       include Memery
 
-      attr_reader :board, :cell_name, :current_player
+      attr_reader :board, :cell_name, :current_player, :prev_beaten_cells
 
       # @param board [Game::Gameplay::Board]
       # @param cell_name [String]
       # @param current_player [Symbol]
       # @param should_beat [Boolean]
-      def initialize(board, cell_name, current_player, should_beat: nil)
+      def initialize(board, cell_name, current_player, should_beat: nil, prev_beaten_cells: [])
         @board          = board
         @cell_name      = cell_name
         @current_player = current_player
         @should_beat    = should_beat
+        @prev_beaten_cells = prev_beaten_cells
       end
 
       # @return [Array<String>]
@@ -41,7 +42,7 @@ module Game
 
       memoize def possible_move_steps
         board.playable_cells.map do |cell|
-          MoveStep.build(board, [cell_name, cell.name], current_player)
+          MoveStep.build(board, [cell_name, cell.name], current_player, prev_beaten_cells: prev_beaten_cells)
         end.select(&:valid?)
       end
 
@@ -56,7 +57,8 @@ module Game
               move_step.perform,
               move_step.to_cell.name,
               current_player,
-              should_beat: true
+              should_beat: true,
+              prev_beaten_cells: move_step.beaten_cells
             )
             possible_next_moves_obj.valid_move_steps.flat_map do |next_step|
               possible_next_moves_obj.possible_next_steps(next_step)
