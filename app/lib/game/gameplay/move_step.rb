@@ -31,10 +31,9 @@ module Game
         @current_player    = current_player
       end
 
-      memoize def perform
+      def perform
         validate!
-
-        board.update attributes_for_update
+        result
       end
 
       def valid?
@@ -74,6 +73,10 @@ module Game
       end
 
       private
+
+        memoize def result
+          board.update attributes_for_update
+        end
 
         def attributes_for_update
           {
