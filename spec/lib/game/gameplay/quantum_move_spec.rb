@@ -117,6 +117,60 @@ RSpec.describe Game::Gameplay::QuantumMove do
     end
   end
 
+  context 'when draught can beat two draughts on one board but can not beat and stop on another' do
+    let(:boards) do
+      [<<~BOARD, <<~BOARD2].map { |b| Game::Gameplay::Board.from_s(b) }
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . ● . . .
+        . . . . . . . .
+        . . . . ● . . .
+        . . . ○ . . . .
+        . . . . . . . .
+      BOARD
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . ● . ● .
+        . . . ○ . . . .
+        . . . . . . . .
+      BOARD2
+    end
+
+    it 'beats both draughts on first board and does not move on second board' do
+      new_boards = described_class.new(boards, [%w[D2 F4 D6]], :white).perform
+
+      expect(new_boards).to match_multiboard [<<~BOARD, <<~BOARD2]
+        . . . . . . . .
+        . . . . . . . .
+        . . . ○ . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+      BOARD
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        . . . . ● . ● .
+        . . . ○ . . . .
+        . . . . . . . .
+      BOARD2
+    end
+
+    it 'can not stop after beating first draught' do
+      expect {
+        described_class.new(boards, [%w[D2 F4]], :white).perform
+      }.to raise_error Game::Gameplay::InvalidMove
+    end
+  end
+
   context 'when can beat two draughts on first board and no one on another' do
     let(:boards) do
       [<<~BOARD, <<~BOARD2].map { |b| Game::Gameplay::Board.from_s(b) }

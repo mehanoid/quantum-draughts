@@ -23,19 +23,28 @@ module Game
       end
 
       def perform_while_valid
-        valid_steps.last&.perform || board
+        raise InvalidMove unless can_partial_perform?
+        if valid_steps.last && valid_final_state?(valid_steps.last)
+          valid_steps.last.perform
+        else
+          board
+        end
       end
 
       memoize def valid?
-        result.present? && move_steps.length == move_cells.length - 1
+        result.present? && valid_steps.length == move_cells.length - 1
+      end
+
+      def can_partial_perform?
+        valid_final_state? || valid_steps.length < move_cells.length - 1
       end
 
       def beat?
         should_beat?
       end
 
-      def valid_final_state?
-        !should_beat? || next_moves_calculators.none?(&:can_beat?)
+      def valid_final_state?(step = last_step)
+        !should_beat? || step && next_moves_calculators(step).none?(&:can_beat?)
       end
 
       private
@@ -50,11 +59,11 @@ module Game
         end
 
         def validate_final_state!
-          raise InvalidMove, 'can not stop if can beat' unless valid_final_state?
+          raise InvalidMove, 'can not stop if can beat' unless valid_final_state?(last_step)
         end
 
-        def next_moves_calculators
-          [next_moves_calculator(last_step), *alternative_last_steps.map(&method(:next_moves_calculator))]
+        def next_moves_calculators(step)
+          [next_moves_calculator(step), *alternative_steps(step).map(&method(:next_moves_calculator))]
         end
 
         # @return [Game::Gameplay::MoveStep]
@@ -62,16 +71,16 @@ module Game
           move_steps.last
         end
 
-        def alternative_last_steps
-          moves_calculator(last_step).valid_move_steps.select(&method(:same_direction_as_last_step?))
+        def alternative_steps(step)
+          moves_calculator(step).valid_move_steps.select { |s| same_direction_as_step?(step, s) }
         end
 
-        def same_direction_as_last_step?(step)
-          last_step.from_cell.same_direction?(step.to_cell, last_step.to_cell)
+        def same_direction_as_step?(step1, step2)
+          step1.from_cell.same_direction?(step1.to_cell, step2.to_cell)
         end
 
         def valid_steps
-          move_steps.take_while { |s| valid_step?(s) }
+          move_steps.take_while(&method(:valid_step?))
         end
 
         # @return [Array<Game::Gameplay::MoveStep>]

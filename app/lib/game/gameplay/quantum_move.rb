@@ -54,7 +54,7 @@ module Game
             raise InvalidMove, 'one if the moves is invalid'
           end
 
-          unless move_groups.flatten.all?(&:valid_final_state?)
+          unless move_groups.flatten.all?(&:can_partial_perform?)
             raise InvalidMove, 'can not stop if can beat'
           end
         end
