@@ -64,7 +64,7 @@ module Game
             if move.valid?
               move.perform
             else
-              move.perform_partial
+              move.perform_while_valid
             end
           end
         end

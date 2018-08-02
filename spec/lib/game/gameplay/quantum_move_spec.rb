@@ -89,7 +89,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
     it 'beats both draughts on first board' do
       new_boards = described_class.new(boards, [%w[D2 F4 D6]], :white).perform
 
-      expect(new_boards.map(&:to_s)).to match_array [<<~BOARD, <<~BOARD2]
+      expect(new_boards).to match_multiboard [<<~BOARD, <<~BOARD2]
         . . . . . . . .
         . . . . . . . .
         . . . □ . . . .
@@ -143,7 +143,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
     it 'beats both draughts on first board' do
       new_boards = described_class.new(boards, [%w[D2 F4 D6]], :white).perform
 
-      expect(new_boards.map(&:to_s)).to match_array [<<~BOARD, <<~BOARD2]
+      expect(new_boards).to match_multiboard [<<~BOARD, <<~BOARD2]
         . . . . . . . .
         . . . . . . . .
         . . . ○ . . . .
@@ -156,7 +156,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
-        . . . . . . . .
+        . . . . ● . . .
         . . . . . . . .
         . . . . . . . .
         . . . ○ . . . .

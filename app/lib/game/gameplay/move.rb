@@ -18,16 +18,16 @@ module Game
 
       # @return [Game::Gameplay::Board] transformed board
       def perform
-        result || raise(error)
+        raise(error || InvalidMove) unless valid?
+        result
       end
 
-      def perform_partial
-        last_valid_step = valid_steps.last
-        last_valid_step&.perform || board
+      def perform_while_valid
+        valid_steps.last&.perform || board
       end
 
       memoize def valid?
-        result.present?
+        result.present? && move_steps.length == move_cells.length - 1
       end
 
       def beat?
@@ -43,7 +43,7 @@ module Game
         memoize def result
           move_steps.each(&method(:validate_step!))
           validate_final_state!
-          last_step.perform
+          last_step&.perform
         rescue InvalidMove => e
           @error = e
           nil
@@ -51,10 +51,6 @@ module Game
 
         def validate_final_state!
           raise InvalidMove, 'can not stop if can beat' unless valid_final_state?
-        end
-
-        def valid_steps
-          move_steps.take_while { |s| s.valid? && valid_step?(s) }
         end
 
         def next_moves_calculators
@@ -74,21 +70,26 @@ module Game
           last_step.from_cell.same_direction?(step.to_cell, last_step.to_cell)
         end
 
-        # @return [Array<Game::Gameplay::MoveStep>]
-        memoize def move_steps
-          move_cells.each_cons(2).reduce([], &method(:add_step))
+        def valid_steps
+          move_steps.take_while { |s| valid_step?(s) }
         end
 
         # @return [Array<Game::Gameplay::MoveStep>]
-        def add_step(steps, step_cells)
-          prev_step = steps.last
-          step = MoveStep.build(
+        memoize def move_steps
+          move_cells.each_cons(2).with_object([]) do |step_cells, steps|
+            step = build_next_step(steps.last, step_cells)
+            break steps unless step.valid?
+            steps << step
+          end
+        end
+
+        def build_next_step(prev_step, step_cells)
+          MoveStep.build(
             prev_step&.perform || board,
             step_cells,
             current_player,
             prev_beaten_cells: (prev_step&.beaten_cells || [])
           )
-          [*steps, step]
         end
 
         def validate_step!(step)
@@ -113,7 +114,7 @@ module Game
         end
 
         memoize def should_beat?
-          moves_calculator(move_steps.first).any_can_beat?
+          MovesCalculator.new(board, move_cells.first, current_player).any_can_beat?
         end
     end
   end
