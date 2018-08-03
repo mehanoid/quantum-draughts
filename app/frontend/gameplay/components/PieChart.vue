@@ -44,7 +44,7 @@ export default {
     },
     backgroundColor: {
       type: String,
-      default: null
+      default: undefined
     },
     backgroundOpacity: {
       type: Number,

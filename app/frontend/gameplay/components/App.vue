@@ -6,17 +6,21 @@
       | {{ currentPlayerMessage }}
     .app-layout
       GameBoard(:board="multiBoard")
-      MatchHistory
+      div
+        MatchHistory
+        GameBeatenDraughts
+
 </template>
 
 <script>
 import GameBoard from './GameBoard'
 import MatchHistory from './MatchHistory'
+import GameBeaten from './GameBeaten'
 import {mapGetters, mapState} from 'vuex'
 
 export default {
   components: {
-    GameBoard, MatchHistory
+    GameBoard, MatchHistory, GameBeatenDraughts: GameBeaten
   },
   computed: {
     ...mapState(['boards', 'match']),

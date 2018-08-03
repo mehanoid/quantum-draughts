@@ -6,7 +6,8 @@ const MAX_MOVES_COUNT = 2
 export default {
   selectCell({commit, state, getters, dispatch}, cell) {
     if (!state.selectedCellName) {
-      dispatch('selectDraught', cell)
+      commit('cleanSelections')
+      commit('setSelectedCell', cell)
     }
     else {
       if (!getters.currentPossibleSteps.includes(cell.name)) {
@@ -18,9 +19,15 @@ export default {
     }
   },
 
-  selectDraught({commit}, cell) {
-    commit('cleanSelections')
-    commit('setSelectedDraught', cell)
+  selectDraught({commit, state}, draught) {
+    if (state.selectedDraughtId !== draught.id) {
+      commit('cleanSelections')
+      commit('setSelectedDraughtId', draught.id)
+    }
+    else {
+      commit('cleanSelections')
+      commit('setSelectedDraughtId', null)
+    }
   },
 
   selectMove({commit, getters, state, dispatch}, cell) {

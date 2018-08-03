@@ -4,7 +4,7 @@ import state from './state'
 import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
-import history from './modules/history'
+import modules from './modules'
 
 Vue.use(Vuex)
 
@@ -16,7 +16,7 @@ export default function initStore() {
     getters,
     mutations,
     actions,
-    modules: {history},
+    modules: modules,
     strict: process.env.NODE_ENV !== 'production'
   })
   return store
@@ -24,17 +24,19 @@ export default function initStore() {
 
 if (module.hot) {
   // accept actions and mutations as hot modules
-  module.hot.accept(['./getters', './mutations', './actions'], () => {
+  module.hot.accept(['./getters', './mutations', './actions', './modules'], () => {
     // require the updated modules
     // have to add .default here due to babel 6 module output
     const newGetters = require('./getters').default
     const newMutations = require('./mutations').default
     const newActions = require('./actions').default
+    const newModules = require('./modules').default
     // swap in the new actions and mutations
     store.hotUpdate({
       getters: newGetters,
       mutations: newMutations,
       actions: newActions,
+      modules: newModules,
     })
   })
 }

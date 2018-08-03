@@ -55,7 +55,7 @@ export default {
   },
 
   entanglementInfo(state, getters) {
-    if (!state.selectedDraughtId) {
+    if (!state.selectedCellName) {
       return []
     }
     const totalWeight = _.sumBy(getters.boardsWithSelectedDraught, board => board.weight)

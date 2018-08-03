@@ -1,7 +1,11 @@
 export default {
-  setSelectedDraught(state, cell) {
+  setSelectedCell(state, cell) {
     state.selectedCellName = cell.name
     state.selectedDraughtId = cell.draught.id
+  },
+
+  setSelectedDraughtId(state, draughtId) {
+    state.selectedDraughtId = draughtId
   },
 
   updateMatch(state, match){

@@ -25,6 +25,9 @@ rules:
     - error
     - destructuring: all
       ignoreReadBeforeAssign: false
+  no-unused-vars:
+    - error
+    - argsIgnorePattern: "^_"
 globals:
   module: false
   process: false
