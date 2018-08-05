@@ -67,7 +67,7 @@ module Game
         vector = cell2.coordinate - cell1.coordinate
         normalized_vector = vector.normalize
         (1...vector.cells_length).map do |factor|
-          cell_at((cell1.coordinate + normalized_vector * factor).name)
+          cell_at(cell1.coordinate + normalized_vector * factor)
         end
       end
 
@@ -101,12 +101,19 @@ module Game
         # @example
         #   cell_index('A4')
         #   cell_index('A', 4)
-        def cell_index(column, row = nil)
-          unless row.present?
-            column, row = column.chars
-            row         = row.to_i
+        def cell_index(*args)
+          case args.first
+          when BoardCellCoordinate
+            column = args.first.column_number
+            row    = args.first.row_number
+          when String
+            column_name, row_name = args.first.chars
+            column = column_name.ord - 'A'.ord + 1
+            row = row_name.to_i
+          else
+            column, row = args
           end
-          CELLS_PER_ROW * (row - 1) + (column.ord - 'A'.ord)
+          CELLS_PER_ROW * (row - 1) + (column - 1)
         end
 
         def populated
