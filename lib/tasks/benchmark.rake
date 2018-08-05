@@ -1,40 +1,32 @@
 # frozen_string_literal: true
 
-namespace :benchmark do
-  task moves: :environment do
-    board = Game::Gameplay::Board.from_s(<<~BOARD)
-      . . . . . . . .
-      . . . . . . . .
-      . . . . . . . .
-      ● . . . ○ . . .
-      . ● . ○ . . . .
-      . . ○ . . . . .
-      . ● . ○ . . . .
-      ● . . . ○ . . .
-    BOARD
+require Rails.root.join('lib/performance_test/move.rb')
 
-    boards = board.occupied_cells
-      .map { |cell| { cell.name => cell.draught } }
-      .combination(5)
-      .map { |bs| Game::Gameplay::Board.new.update(bs.reduce(&:merge)) }
-
-    puts "#{boards.count} boards"
-    puts
-
+namespace :performance_test do
+  task bench: :environment do
     iterations = 5
+    move_test = PerformanceTest::Move.new
 
     Benchmark.bm(15) do |x|
       x.report('possible moves') do
-        iterations.times do
-          Game::Gameplay::QuantumMovesCalculator.valid_possible_move_chains(boards, :white)
-        end
+        iterations.times { move_test.possible_moves }
       end
 
       x.report('move') do
-        iterations.times do
-          Game::Gameplay::QuantumMove.new(boards, [%w[C3 A1], %w[C3 A5]], :white).perform
-        end
+        iterations.times { move_test.move }
       end
+    end
+  end
+
+  task profile: :environment do
+    move_test = PerformanceTest::Move.new
+
+    Profiler.profile('possible_moves') do
+      move_test.possible_moves
+    end
+
+    Profiler.profile('move') do
+      move_test.move
     end
   end
 end
