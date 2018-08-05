@@ -4,7 +4,7 @@ require Rails.root.join('lib/performance_test/move.rb')
 
 namespace :performance_test do
   task bench: :environment do
-    iterations = 5
+    iterations = 10
     move_test = PerformanceTest::Move.new
 
     Benchmark.bm(15) do |x|
