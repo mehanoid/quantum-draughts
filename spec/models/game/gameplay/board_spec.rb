@@ -58,12 +58,17 @@ RSpec.describe Game::Gameplay::Board do
   end
 
   describe '#cells_between' do
-    it 'returns cells between the specified from bottom-left' do
+    it 'returns one cell between the specified from bottom-left' do
       diagonal = subject.cells_between(subject.cell_at('E1'), subject.cell_at('G3'))
       expect(diagonal.map(&:name)).to eq %w[F2]
     end
 
-    it 'returns cells on the same diagonal from bottom-right' do
+    it 'returns all cells between the specified from bottom-left' do
+      diagonal = subject.cells_between(subject.cell_at('B2'), subject.cell_at('G7'))
+      expect(diagonal.map(&:name)).to eq %w[C3 D4 E5 F6]
+    end
+
+    it 'returns one cell on the same diagonal from bottom-right' do
       diagonal = subject.cells_between(subject.cell_at('C1'), subject.cell_at('A3'))
       expect(diagonal.map(&:name)).to eq %w[B2]
     end
