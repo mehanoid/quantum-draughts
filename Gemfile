@@ -55,6 +55,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-inline'
   gem 'pry-rails'
+
+  gem 'ruby-prof'
 end
 
 group :development do
