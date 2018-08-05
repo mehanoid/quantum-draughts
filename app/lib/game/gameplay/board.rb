@@ -64,7 +64,11 @@ module Game
       # @return [Array<Game::Gameplay::BoardCell>]
       def cells_between(cell1, cell2)
         raise ArgumentError unless cell1.same_diagonal?(cell2)
-        cells.select { |c| c.between?(cell1, cell2) }
+        vector = cell2.coordinate - cell1.coordinate
+        normalized_vector = vector.normalize
+        (1...vector.cells_length).map do |factor|
+          cell_at((cell1.coordinate + normalized_vector * factor).name)
+        end
       end
 
       def update(update_params)

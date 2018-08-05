@@ -3,23 +3,19 @@
 module Game
   module Gameplay
     class BoardCell
-      include Dry::Equalizer(:column, :row, :draught)
+      include Dry::Equalizer(:draught, :coordinate)
 
-      attr_reader :column, :row, :playable, :draught
+      attr_reader :playable, :draught, :coordinate
+
+      delegate :name, :column, :row, :column_number, :row_number, to: :coordinate
 
       # @param column [String]
       # @param row [Integer]
       # @param draught [Game::Gameplay::Draught]
       def initialize(column:, row:, draught: nil)
-        @column   = column
-        @row      = row
+        @coordinate = BoardCellCoordinate.new(column: column, row: row)
         @playable = (column_number + row_number).even?
         @draught  = draught
-      end
-
-      # @return [String] string identifying the cell, e.g. "A4"
-      def name
-        column + row.to_s
       end
 
       alias row_number row
