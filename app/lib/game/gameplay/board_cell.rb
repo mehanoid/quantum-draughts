@@ -11,9 +11,10 @@ module Game
 
       # @param column [String]
       # @param row [Integer]
+      # @param coordinate [BoardCellCoordinate]
       # @param draught [Game::Gameplay::Draught]
-      def initialize(column:, row:, draught: nil)
-        @coordinate = BoardCellCoordinate.new(column: column, row: row)
+      def initialize(column: nil, row: nil, coordinate: nil, draught: nil)
+        @coordinate = coordinate || BoardCellCoordinate.new(column: column, row: row)
         @playable = (column_number + row_number).even?
         @draught  = draught
       end
@@ -21,7 +22,7 @@ module Game
       alias row_number row
 
       def update(draught: nil)
-        self.class.new(column: column, row: row, draught: draught)
+        self.class.new(coordinate: coordinate, draught: draught)
       end
 
       # @return [Boolean]
@@ -34,22 +35,14 @@ module Game
         !empty?
       end
 
-      # Returns array of to integers: columns diff and rows diff
-      # @param cell [Game::Gameplay::BoardCell]
-      # @return [Array<Integer>]
-      def position_diff(cell)
-        [column_number - cell.column_number, row_number - cell.row_number]
-      end
-
       # @param cell [Game::Gameplay::BoardCell]
       # @return [Boolean]
       def adjacent?(cell)
-        position_diff(cell).all? { |d| d.abs <= 1 }
+        (coordinate - cell.coordinate).cells_length <= 1
       end
 
       def same_diagonal?(cell)
-        columns_diff, rows_diff = position_diff(cell)
-        columns_diff.abs == rows_diff.abs
+        (coordinate - cell.coordinate).diagonal?
       end
 
       # Returns true if cell is lying between other cells on the same diagonal

@@ -10,7 +10,7 @@ module Game
       # @param column [String]
       # @param row [Integer]
       def initialize(column:, row:)
-        @row_number           = row
+        @row_number    = row
         @column_number = if column.is_a? String
           column.ord - 'A'.ord + 1
         else

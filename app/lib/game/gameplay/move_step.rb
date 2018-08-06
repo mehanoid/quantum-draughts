@@ -80,10 +80,10 @@ module Game
 
         def attributes_for_update
           {
-            from_cell.name => nil,
-            to_cell.name   => draught,
+            from_cell.coordinate => nil,
+            to_cell.coordinate   => draught,
           }.merge(current_beaten_cells.map do |c|
-            [c.name, nil]
+            [c.coordinate, nil]
           end.to_h)
         end
 

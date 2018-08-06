@@ -15,11 +15,15 @@ module Game
       end
 
       def cells_length
-        columns.abs
+        [columns.abs, rows.abs].max
       end
 
       def normalize
         self.class.new(columns: columns / cells_length, rows: rows / cells_length)
+      end
+
+      def diagonal?
+        columns.abs == rows.abs
       end
 
       def *(number)
