@@ -36,18 +36,18 @@ module Game
         possible_move_steps.any?(&:beat?)
       end
 
-      memoize def beat_move_steps
+      def beat_move_steps
         possible_move_steps.select(&:beat?)
       end
 
-      memoize def possible_move_steps
+      def possible_move_steps
         length = MoveStep.max_length(from_cell)
         board.diagonals_through_cell(from_cell, length).map do |cell|
           MoveStep.build(board, [cell_name, cell.name], current_player, prev_beaten_cells: prev_beaten_cells)
         end.select(&:valid?)
       end
 
-      memoize def valid_move_steps
+      def valid_move_steps
         possible_move_steps.select(&method(:valid_move?))
       end
 

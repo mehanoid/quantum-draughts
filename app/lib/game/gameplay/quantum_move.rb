@@ -3,8 +3,6 @@
 module Game
   module Gameplay
     class QuantumMove
-      include Memery
-
       attr_reader :boards, :moves_params, :current_player
 
       # @param boards [Array<Game::GamePlay::Board>]
@@ -22,7 +20,7 @@ module Game
           .yield_self(&method(:compact_boards))
       end
 
-      memoize def beat?
+      def beat?
         build_moves(moves_params).any? { |m| m.valid? && m.beat? }
       end
 

@@ -31,7 +31,7 @@ module Game
         end
       end
 
-      memoize def valid?
+      def valid?
         result.present? && valid_steps.length == move_cells.length - 1
       end
 
@@ -49,13 +49,15 @@ module Game
 
       private
 
-        memoize def result
-          move_steps.each(&method(:validate_step!))
-          validate_final_state!
-          last_step&.perform
-        rescue InvalidMove => e
-          @error = e
-          nil
+        def result
+          @result ||= begin
+            move_steps.each(&method(:validate_step!))
+            validate_final_state!
+            last_step&.perform
+          rescue InvalidMove => e
+            @error = e
+            nil
+          end
         end
 
         def validate_final_state!
@@ -84,7 +86,7 @@ module Game
         end
 
         # @return [Array<Game::Gameplay::MoveStep>]
-        memoize def move_steps
+        def move_steps
           move_cells.each_cons(2).with_object([]) do |step_cells, steps|
             step = build_next_step(steps.last, step_cells)
             break steps unless step.valid?

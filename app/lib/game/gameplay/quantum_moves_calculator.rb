@@ -3,8 +3,6 @@
 module Game
   module Gameplay
     class QuantumMovesCalculator
-      include Memery
-
       attr_reader :boards, :cell_name, :current_player
 
       def initialize(boards, cell_name, current_player)
@@ -41,21 +39,21 @@ module Game
         end.uniq
       end
 
-      memoize def possible_move_steps
+      def possible_move_steps
         boards.flat_map do |board|
           MovesCalculator.new(board, cell_name, current_player).possible_move_steps
         end
       end
 
-      memoize def all_possible_move_steps
+      def all_possible_move_steps
         self.class.all_possible_move_steps(boards, current_player)
       end
 
-      memoize def all_beat_move_steps
+      def all_beat_move_steps
         self.class.all_beat_move_steps(boards, current_player)
       end
 
-      memoize def any_can_beat?
+      def any_can_beat?
         self.class.any_can_beat?(boards, current_player)
       end
 

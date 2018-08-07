@@ -3,7 +3,6 @@
 module Game
   module Gameplay
     class MoveStep
-      include Memery
       attr_reader :from_cell, :to_cell, :prev_beaten_cells, :current_player, :board
 
       class << self
@@ -78,7 +77,7 @@ module Game
 
       private
 
-        memoize def result
+        def result
           board.update attributes_for_update
         end
 
