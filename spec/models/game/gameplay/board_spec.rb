@@ -45,15 +45,15 @@ RSpec.describe Game::Gameplay::Board do
     end
   end
 
-  describe '#diagonal_through_cells' do
-    it 'returns cells on the same diagonal from bottom-left' do
-      diagonal = subject.diagonal_through_cells(subject.cell_at('E1'), subject.cell_at('G3'))
-      expect(diagonal.map(&:name)).to eq %w[E1 F2 G3 H4]
+  describe '#diagonals_through_cell' do
+    it 'returns cells on the same diagonal for cell' do
+      diagonal = subject.diagonals_through_cell(subject.cell_at('E5'))
+      expect(diagonal.map(&:name)).to match_array %w[F6 G7 H8 D4 C3 B2 A1 D6 C7 B8 F4 G3 H2]
     end
 
-    it 'returns cells on the same diagonal from bottom-right' do
-      diagonal = subject.diagonal_through_cells(subject.cell_at('C1'), subject.cell_at('A3'))
-      expect(diagonal.map(&:name)).to eq %w[C1 B2 A3]
+    it 'returns cells in diagonals of specified length' do
+      diagonal = subject.diagonals_through_cell(subject.cell_at('E5'), 2)
+      expect(diagonal.map(&:name)).to match_array %w[F6 G7 D4 C3 D6 C7 F4 G3]
     end
   end
 

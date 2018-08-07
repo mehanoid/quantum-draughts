@@ -41,7 +41,8 @@ module Game
       end
 
       memoize def possible_move_steps
-        board.playable_cells.map do |cell|
+        length = MoveStep.max_length(from_cell)
+        board.diagonals_through_cell(from_cell, length).map do |cell|
           MoveStep.build(board, [cell_name, cell.name], current_player, prev_beaten_cells: prev_beaten_cells)
         end.select(&:valid?)
       end
@@ -75,6 +76,10 @@ module Game
 
       memoize def any_can_beat?
         @should_beat || self.class.any_can_beat?(board, current_player)
+      end
+
+      def from_cell
+        board.cell_at(cell_name)
       end
 
       class << self

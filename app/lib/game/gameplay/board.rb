@@ -34,7 +34,8 @@ module Game
       #   cell_at('A4')
       #   cell_at('A', 4)
       def cell_at(*args)
-        cells[self.class.cell_index(*args)]
+        index = self.class.cell_index(*args)
+        cells[index] if index
       end
 
       def rows
@@ -54,11 +55,20 @@ module Game
         cells.map(&:draught).compact
       end
 
-      # Returns an array of cells lying on the same diagonal as the specified two
-      # @return [Array<Game::Gameplay::BoardCell>]
-      def diagonal_through_cells(cell1, cell2)
-        raise ArgumentError unless cell1.same_diagonal?(cell2)
-        cells.select { |c| c.same_diagonal?(cell1) && c.same_diagonal?(cell2) }
+      # @param cell [Game::Gameplay::BoardCell]
+      # @param length [Number]
+      def diagonals_through_cell(cell, length = nil)
+        length ||= Float::INFINITY
+        coordinate     = cell.coordinate
+        selected_cells = []
+        BoardVector::DIAGONALS.each do |vector|
+          (1..length).each do |i|
+            selected_cell = cell_at(coordinate + vector * i)
+            break unless selected_cell
+            selected_cells << selected_cell
+          end
+        end
+        selected_cells
       end
 
       # @return [Array<Game::Gameplay::BoardCell>]
@@ -103,7 +113,7 @@ module Game
         #   cell_index('A', 4)
         def cell_index(*args)
           case args.first
-          when BoardCellCoordinate
+          when ::Game::Gameplay::BoardCellCoordinate
             column = args.first.column_number
             row    = args.first.row_number
           when String
@@ -113,7 +123,7 @@ module Game
           else
             column, row = args
           end
-          CELLS_PER_ROW * (row - 1) + (column - 1)
+          CELLS_PER_ROW * (row - 1) + (column - 1) if column.in?(1..CELLS_PER_ROW) && row.in?(1..CELLS_PER_ROW)
         end
 
         def populated

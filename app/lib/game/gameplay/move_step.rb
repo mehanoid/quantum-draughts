@@ -17,6 +17,10 @@ module Game
             end
           klass.new(board, move_cells, current_player, prev_beaten_cells: prev_beaten_cells)
         end
+
+        def max_length(cell)
+          cell.draught.king? ? Float::INFINITY : 2
+        end
       end
 
       # @param board [Game::Gameplay::Board]

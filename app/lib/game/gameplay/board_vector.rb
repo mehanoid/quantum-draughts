@@ -29,6 +29,12 @@ module Game
       def *(number)
         self.class.new(columns: columns * number, rows: rows * number)
       end
+
+      TOP_RIGHT  = new(columns: 1, rows: 1)
+      DOWN_RIGHT = new(columns: 1, rows: -1)
+      TOP_LEFT   = new(columns: -1, rows: 1)
+      DOWN_LEFT  = new(columns: -1, rows: -1)
+      DIAGONALS  = [TOP_RIGHT, DOWN_RIGHT, TOP_LEFT, DOWN_LEFT].freeze
     end
   end
 end
