@@ -10,6 +10,53 @@ module Game
       attr_reader :cells
       attr_accessor :weight
 
+      class << self
+        # @return [Game::Gameplay::Board]
+        def from_s(string)
+          ::Game::Gameplay::Board::StringImport.new(string).import
+        end
+
+        # @param coordinate [String|Game::Gameplay::BoardCellCoordinate] column name or cell index
+        # @return [Integer] internal used cell index in cells array
+        # @example
+        #   cell_index('A4')
+        def cell_index(coordinate)
+          case coordinate
+          when ::Game::Gameplay::BoardCellCoordinate
+            column = coordinate.column_number
+            row    = coordinate.row_number
+          else
+            column_name, row_name = coordinate.chars
+            column                = column_name.ord - 'A'.ord + 1
+            row                   = row_name.to_i
+          end
+          coordinates_to_index(column, row) if coordinate_valid?(column) && coordinate_valid?(row)
+        end
+
+        def populated
+          from_s(<<~BOARD)
+            . ● . ● . ● . ●
+            ● . ● . ● . ● .
+            . ● . ● . ● . ●
+            . . . . . . . .
+            . . . . . . . .
+            ○ . ○ . ○ . ○ .
+            . ○ . ○ . ○ . ○
+            ○ . ○ . ○ . ○ .
+          BOARD
+        end
+
+        private
+
+          def coordinates_to_index(column_number, row_number)
+            CELLS_PER_ROW * (row_number - 1) + (column_number - 1)
+          end
+
+          def coordinate_valid?(number)
+            number >= 1 && number <= CELLS_PER_ROW
+          end
+      end
+
       def initialize(data = {})
         data = data.with_indifferent_access
 
@@ -28,13 +75,12 @@ module Game
         end.freeze
       end
 
-      # @param args [Array] column name or cell index, row number or nil
+      # @param coordinate [String|Game::Gameplay::BoardCellCoordinate] column name or cell index
       # @return [Game::Gameplay::BoardCell]
       # @example
       #   cell_at('A4')
-      #   cell_at('A', 4)
-      def cell_at(*args)
-        index = self.class.cell_index(*args)
+      def cell_at(coordinate)
+        index = self.class.cell_index(coordinate)
         cells[index] if index
       end
 
@@ -97,47 +143,6 @@ module Game
 
       def to_s
         StringExport.new(self).to_string
-      end
-
-      class << self
-        # @return [Game::Gameplay::Board]
-        def from_s(string)
-          ::Game::Gameplay::Board::StringImport.new(string).import
-        end
-
-        # @param column [String] column name or cell index
-        # @param row [Integer, nil] row number or nil
-        # @return [Integer] internal using cell index in cells array
-        # @example
-        #   cell_index('A4')
-        #   cell_index('A', 4)
-        def cell_index(*args)
-          case args.first
-          when ::Game::Gameplay::BoardCellCoordinate
-            column = args.first.column_number
-            row    = args.first.row_number
-          when String
-            column_name, row_name = args.first.chars
-            column = column_name.ord - 'A'.ord + 1
-            row = row_name.to_i
-          else
-            column, row = args
-          end
-          CELLS_PER_ROW * (row - 1) + (column - 1) if column.in?(1..CELLS_PER_ROW) && row.in?(1..CELLS_PER_ROW)
-        end
-
-        def populated
-          from_s(<<~BOARD)
-            . ● . ● . ● . ●
-            ● . ● . ● . ● .
-            . ● . ● . ● . ●
-            . . . . . . . .
-            . . . . . . . .
-            ○ . ○ . ○ . ○ .
-            . ○ . ○ . ○ . ○
-            ○ . ○ . ○ . ○ .
-          BOARD
-        end
       end
 
       protected
