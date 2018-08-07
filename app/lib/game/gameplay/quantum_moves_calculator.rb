@@ -108,7 +108,8 @@ module Game
             cells = chain_cells(chain)
             beaten_cells = chain.last.beaten_cells
             chains.reject do |ch|
-              !ch.equal?(chain) && (cells_include_chain?(cells, ch) || beaten_cells_include_chain?(beaten_cells, ch))
+              !ch.equal?(chain) && ch.first.from_cell.coordinate == chain.first.from_cell.coordinate &&
+                (cells_include_chain?(cells, ch) || beaten_cells_include_chain?(beaten_cells, ch))
             end
           end
 
