@@ -32,15 +32,18 @@ export default {
 
   selectMove({commit, getters, state, dispatch}, cell) {
     if (getters.currentPossibleSteps.includes(cell.name)) {
-      if (!state.selectedMoves.length && getters.currentPossibleMoves.length <= MAX_MOVES_COUNT) {
+      const cellName = cellUtils.name(cell)
+      commit('addToCurrentMove', cellName)
+      const moveCandidates = getters.currentPossibleMoves.filter(move => move[1] === cellName)
+
+      if (!state.selectedMoves.length && getters.currentPossibleMoves.length <= MAX_MOVES_COUNT
+        && moveCandidates.length === 1) {
+        commit('addSelectedMove', moveCandidates[0])
         while (getters.currentPossibleMoves.length) {
           commit('addSelectedMove', getters.currentPossibleMoves[0])
         }
       }
       else {
-        const cellName = cellUtils.name(cell)
-        commit('addToCurrentMove', cellName)
-
         if (!getters.currentPossibleSteps.length) {
           commit('selectCurrentMove')
         }
