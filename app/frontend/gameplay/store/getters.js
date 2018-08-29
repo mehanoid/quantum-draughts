@@ -50,6 +50,11 @@ export default {
     return !state.history.selectedMatchTurnId
   },
 
+  anyCanBeat(state) {
+    const move = state.match.possible_moves[0]
+    return move && move.beat
+  },
+
   canBeat: (state, getters) => cell => {
     return getters.anyCanMove && state.match.possible_moves.some(move => move.beat && move.cells[0] === cell)
   },
@@ -87,7 +92,11 @@ export default {
   },
 
   currentPossibleMoves(state, getters) {
-    if (!getters.anyCanMove) {
+    // if (!getters.anyCanMove || (state.selectedMoves.length && (getters.anyCanBeat || getters.selectedCell.draught.king))) {
+    if (!getters.anyCanMove || (state.selectedMoves.length && getters.anyCanBeat)) {
+      // beating is currency possible only in one direction. This is due
+      // to problem with endless beating loop when both players can beat
+      // with very little probability
       return []
     }
     return state.match.possible_moves.filter(pm =>
