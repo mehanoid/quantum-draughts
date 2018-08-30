@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::Gameplay::KingMoveStep do
+RSpec.describe Game::Gameplay::RussianRuleset::KingMoveStep do
   context 'white king' do
     let(:board) do
       Game::Gameplay::Board.from_s(<<~BOARD)

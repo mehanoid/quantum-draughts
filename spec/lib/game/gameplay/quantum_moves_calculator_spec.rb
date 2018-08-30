@@ -19,7 +19,7 @@ RSpec.describe Game::Gameplay::QuantumMovesCalculator do
 
     describe '::valid_possible_move_chains' do
       it 'return array of resulting cells' do
-        chains = described_class.valid_possible_move_chains([board], :white)
+        chains = described_class.valid_possible_move_chains([board], :white, ruleset: Game::Gameplay::RussianRuleset)
         expect(chains).to match_array(
           [
             { beat: true, cells: %w[B2 D4 B6] },
@@ -54,7 +54,7 @@ RSpec.describe Game::Gameplay::QuantumMovesCalculator do
     end
 
     it 'can not stop after beating first draught' do
-      chains = described_class.valid_possible_move_chains(boards, :white)
+      chains = described_class.valid_possible_move_chains(boards, :white, ruleset: Game::Gameplay::RussianRuleset)
       expect(chains).to eq([beat: true, cells: %w[D2 F4 B8]])
     end
   end

@@ -56,14 +56,16 @@ RSpec.describe Game::MatchesController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
+      let(:params) { {game_match: {ruleset: :russian} }}
+
       it 'creates a new Match' do
         expect {
-          post :create, session: valid_session
+          post :create, params: params, session: valid_session
         }.to change(Game::Match, :count).by(1)
       end
 
       it 'redirects to the created match' do
-        post :create, session: valid_session
+        post :create, params: params, session: valid_session
         expect(response).to redirect_to(Game::Match.last)
       end
     end

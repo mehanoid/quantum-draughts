@@ -3,13 +3,14 @@
 module Game
   module Gameplay
     class QuantumMove
-      attr_reader :boards, :moves_params, :current_player
+      attr_reader :boards, :moves_params, :current_player, :ruleset
 
       # @param boards [Array<Game::GamePlay::Board>]
-      def initialize(boards, moves_params, current_player)
+      def initialize(boards, moves_params, current_player, ruleset: RussianRuleset)
         @boards         = boards
         @moves_params   = moves_params
         @current_player = current_player
+        @ruleset = ruleset
       end
 
       def perform
@@ -33,7 +34,7 @@ module Game
         def build_moves(moves_params)
           move_groups = moves_params.map do |move_params|
             boards.map do |board|
-              Move.new(board, move_params, current_player)
+              Move.new(board, move_params, current_player, ruleset: ruleset)
             end
           end
 
@@ -49,7 +50,7 @@ module Game
 
           # each move group should contain at least one valid move
           unless move_groups.all? { |moves_group| moves_group.any?(&:valid?) }
-            raise InvalidMove, 'one if the moves is invalid'
+            raise InvalidMove, 'one of the moves is invalid'
           end
 
           unless move_groups.flatten.all?(&:can_partial_perform?)

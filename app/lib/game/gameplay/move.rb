@@ -6,14 +6,15 @@ module Game
     class Move
       include Memery
 
-      attr_reader :current_player, :board, :move_cells, :error
+      attr_reader :current_player, :board, :move_cells, :error, :ruleset
 
       # @param board [Game::Gameplay::Board] initial board
       # @param move_cells [Array<String>]
-      def initialize(board, move_cells, current_player = nil)
+      def initialize(board, move_cells, current_player = nil, ruleset: RussianRuleset)
         @board          = board
         @move_cells     = move_cells
         @current_player = current_player
+        @ruleset = ruleset
       end
 
       # @return [Game::Gameplay::Board] transformed board
@@ -95,7 +96,7 @@ module Game
         end
 
         def build_next_step(prev_step, step_cells)
-          MoveStep.build(
+          ruleset.build_move_step(
             prev_step&.perform || board,
             step_cells,
             current_player,
@@ -112,7 +113,7 @@ module Game
         end
 
         def moves_calculator(step)
-          MovesCalculator.new(step.board, step.from_cell.name, current_player)
+          MovesCalculator.new(step.board, step.from_cell.name, current_player, ruleset: ruleset)
         end
 
         def next_moves_calculator(step)
@@ -120,12 +121,13 @@ module Game
             step.perform,
             step.to_cell.name,
             current_player,
-            prev_beaten_cells: step.beaten_cells
+            prev_beaten_cells: step.beaten_cells,
+            ruleset: ruleset
           )
         end
 
         memoize def should_beat?
-          MovesCalculator.new(board, move_cells.first, current_player).any_can_beat?
+          MovesCalculator.new(board, move_cells.first, current_player, ruleset: ruleset).any_can_beat?
         end
     end
   end

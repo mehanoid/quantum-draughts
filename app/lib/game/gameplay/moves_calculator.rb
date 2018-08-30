@@ -5,18 +5,20 @@ module Game
     class MovesCalculator
       include Memery
 
-      attr_reader :board, :cell_name, :current_player, :prev_beaten_cells
+      attr_reader :board, :cell_name, :current_player, :prev_beaten_cells, :ruleset
 
       # @param board [Game::Gameplay::Board]
       # @param cell_name [String]
       # @param current_player [Symbol]
       # @param should_beat [Boolean]
-      def initialize(board, cell_name, current_player, should_beat: nil, prev_beaten_cells: [])
+      def initialize(board, cell_name, current_player, should_beat: nil,
+                     prev_beaten_cells: [], ruleset: )
         @board          = board
         @cell_name      = cell_name
         @current_player = current_player
         @should_beat    = should_beat
         @prev_beaten_cells = prev_beaten_cells
+        @ruleset = ruleset
       end
 
       # @return [Array<String>]
@@ -41,9 +43,9 @@ module Game
       end
 
       def possible_move_steps
-        length = MoveStep.max_length(from_cell)
+        length = ruleset.max_step_length(from_cell)
         board.diagonals_through_cell(from_cell, length).map do |cell|
-          MoveStep.build(board, [cell_name, cell.name], current_player, prev_beaten_cells: prev_beaten_cells)
+          ruleset.build_move_step(board, [cell_name, cell.name], current_player, prev_beaten_cells: prev_beaten_cells)
         end.select(&:valid?)
       end
 
@@ -59,7 +61,8 @@ module Game
               move_step.to_cell.name,
               current_player,
               should_beat: true,
-              prev_beaten_cells: move_step.beaten_cells
+              prev_beaten_cells: move_step.beaten_cells,
+              ruleset: ruleset,
             )
             possible_next_moves_obj.valid_move_steps.flat_map do |next_step|
               possible_next_moves_obj.possible_next_steps(next_step)
@@ -75,7 +78,7 @@ module Game
       end
 
       memoize def any_can_beat?
-        @should_beat || self.class.any_can_beat?(board, current_player)
+        @should_beat || self.class.any_can_beat?(board, current_player, ruleset: ruleset)
       end
 
       def from_cell
@@ -83,25 +86,25 @@ module Game
       end
 
       class << self
-        def all_beat_move_steps(board, player)
-          all_possible_move_steps(board, player).select(&:beat?)
+        def all_beat_move_steps(board, player, ruleset: )
+          all_possible_move_steps(board, player, ruleset: ruleset).select(&:beat?)
         end
 
-        def any_can_beat?(board, player)
-          all_possible_move_steps(board, player).any?(&:beat?)
+        def any_can_beat?(board, player, ruleset: )
+          all_possible_move_steps(board, player, ruleset: ruleset).any?(&:beat?)
         end
 
-        def all_possible_move_steps(board, player)
+        def all_possible_move_steps(board, player, ruleset: )
           from_cells = board.occupied_cells.select { |c| c.draught.color == player }
           from_cells.flat_map do |cell|
-            new(board, cell.name, player).possible_move_steps
+            new(board, cell.name, player, ruleset: ruleset).possible_move_steps
           end
         end
 
-        def all_possible_move_chains(board, player)
+        def all_possible_move_chains(board, player, ruleset: )
           from_cells = board.occupied_cells.select { |c| c.draught.color == player }
           from_cells.flat_map do |cell|
-            new(board, cell.name, player).possible_move_chains
+            new(board, cell.name, player, ruleset: ruleset).possible_move_chains
           end
         end
       end

@@ -3,12 +3,13 @@
 module Game
   module Gameplay
     class QuantumMovesCalculator
-      attr_reader :boards, :cell_name, :current_player
+      attr_reader :boards, :cell_name, :current_player, :ruleset
 
-      def initialize(boards, cell_name, current_player)
+      def initialize(boards, cell_name, current_player, ruleset: RussianRuleset)
         @boards         = boards
         @cell_name      = cell_name
         @current_player = current_player
+        @ruleset = ruleset
       end
 
       # @return [Array<String>]
@@ -18,7 +19,7 @@ module Game
 
       def possible_move_chains
         boards.flat_map do |board|
-          MovesCalculator.new(board, cell_name, current_player).possible_move_chains
+          MovesCalculator.new(board, cell_name, current_player, ruleset: ruleset).possible_move_chains
         end.select { |chain| valid_move?(chain.first) }
       end
 
@@ -41,7 +42,7 @@ module Game
 
       def possible_move_steps
         boards.flat_map do |board|
-          MovesCalculator.new(board, cell_name, current_player).possible_move_steps
+          MovesCalculator.new(board, cell_name, current_player, ruleset: ruleset).possible_move_steps
         end
       end
 
@@ -58,33 +59,33 @@ module Game
       end
 
       class << self
-        def all_beat_move_steps(boards, player)
-          all_possible_move_steps(boards, player).select(&:beat?)
+        def all_beat_move_steps(boards, player, ruleset: )
+          all_possible_move_steps(boards, player, ruleset: ruleset).select(&:beat?)
         end
 
-        def any_can_beat?(boards, player)
+        def any_can_beat?(boards, player, ruleset: )
           boards.any? do |board|
-            Game::Gameplay::MovesCalculator.any_can_beat?(board, player)
+            Game::Gameplay::MovesCalculator.any_can_beat?(board, player, ruleset: ruleset)
           end
         end
 
-        def all_possible_move_steps(boards, player)
+        def all_possible_move_steps(boards, player, ruleset: )
           boards.flat_map do |board|
-            Game::Gameplay::MovesCalculator.all_possible_move_steps(board, player)
+            Game::Gameplay::MovesCalculator.all_possible_move_steps(board, player, ruleset: ruleset)
           end
         end
 
-        def all_possible_move_chains(boards, player)
+        def all_possible_move_chains(boards, player, ruleset: )
           boards.flat_map do |board|
-            Game::Gameplay::MovesCalculator.all_possible_move_chains(board, player)
+            Game::Gameplay::MovesCalculator.all_possible_move_chains(board, player, ruleset: ruleset)
           end
         end
 
-        def valid_possible_move_chains(boards, player)
-          if any_can_beat?(boards, player)
-            all_possible_move_chains(boards, player).select { |chain| chain.first.beat? }
+        def valid_possible_move_chains(boards, player, ruleset: )
+          if any_can_beat?(boards, player, ruleset: ruleset)
+            all_possible_move_chains(boards, player, ruleset: ruleset).select { |chain| chain.first.beat? }
           else
-            all_possible_move_chains(boards, player)
+            all_possible_move_chains(boards, player, ruleset: ruleset)
           end.yield_self(&method(:reject_included_in_other_moves))
             .map do |chain|
             {

@@ -6,7 +6,7 @@ module Game
       attr_reader :from_cell, :to_cell, :prev_beaten_cells, :current_player, :board
 
       class << self
-        def build(board, move_cells, current_player = nil, prev_beaten_cells: [])
+        def build(*args)
           from_cell = board.cell_at(move_cells.first)
           klass     =
             if from_cell.draught&.king?
@@ -14,12 +14,9 @@ module Game
             else
               Game::Gameplay::ManMoveStep
             end
-          klass.new(board, move_cells, current_player, prev_beaten_cells: prev_beaten_cells)
+          klass.new(*args)
         end
 
-        def max_length(cell)
-          cell.draught.king? ? Float::INFINITY : 2
-        end
       end
 
       # @param board [Game::Gameplay::Board]

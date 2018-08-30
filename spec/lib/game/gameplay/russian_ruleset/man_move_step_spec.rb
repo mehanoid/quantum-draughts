@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Game::Gameplay::ManMoveStep do
+RSpec.describe Game::Gameplay::RussianRuleset::ManMoveStep do
   context 'populated board' do
     let(:board) { Game::Gameplay::Board.populated }
 

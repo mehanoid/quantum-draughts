@@ -3,8 +3,13 @@
 module Game
   module Gameplay
     class << self
-      def move(match_turn, moves_params)
-        move = Game::Gameplay::QuantumMove.new(match_turn.board_instances, moves_params, match_turn.player.to_sym)
+      def move(match_turn, moves_params, ruleset)
+        move = Game::Gameplay::QuantumMove.new(
+          match_turn.board_instances,
+          moves_params,
+          match_turn.player.to_sym,
+          ruleset: ruleset,
+        )
 
         {
           next_turn: {

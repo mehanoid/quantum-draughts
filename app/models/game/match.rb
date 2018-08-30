@@ -4,6 +4,11 @@ module Game
   class Match < ApplicationRecord
     has_many :match_turns, dependent: :destroy
 
+    enum ruleset: {
+      english: 0,
+      russian: 1,
+    }
+
     def current_turn
       match_turns.last
     end
@@ -16,14 +21,18 @@ module Game
       current_turn.board_instances
     end
 
-    def self.create_initial_match
-      match = create!
+    def self.create_initial_match(params = {})
+      match = create! params
       match.match_turns.build.init_boards
       match
     end
 
     def to_s
       current_turn.to_s
+    end
+
+    def ruleset_object
+      Gameplay.const_get "#{ruleset.to_s.capitalize}Ruleset".to_sym
     end
   end
 end

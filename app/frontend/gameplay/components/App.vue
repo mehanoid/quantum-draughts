@@ -7,6 +7,7 @@
     .app-layout
       GameBoard(:board="multiBoard")
       div
+        .ruleset Ruleset: {{match.ruleset}}
         MatchHistory
         GameBeatenDraughts
 

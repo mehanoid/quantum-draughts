@@ -6,4 +6,7 @@
         - @match.errors.full_messages.each do |message|
           li = message
 
+  = f.label :ruleset
+  = f.select :ruleset, [['English', 'english'], ['Russian', 'russian']]
+
   .actions = f.submit

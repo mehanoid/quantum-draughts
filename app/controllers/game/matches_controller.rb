@@ -15,7 +15,7 @@ module Game
     end
 
     def create
-      @match = Match.create_initial_match
+      @match = Match.create_initial_match match_params
 
       redirect_to @match, notice: 'Match was successfully created.'
     end
@@ -30,7 +30,7 @@ module Game
 
     def move
       match.with_lock do
-        result = Gameplay.move match.current_turn, params[:moves]
+        result = Gameplay.move match.current_turn, params[:moves], match.ruleset_object
         match.current_turn.update move: result[:move]
         match.match_turns.create! result[:next_turn]
         MatchChannel.broadcast_to(match, MatchSerializer.new(match).as_json)
@@ -48,9 +48,7 @@ module Game
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def match_params
-        param  = params.require(:match).permit(:boards)
-        boards = JSON.parse param[:boards]
-        param.merge(boards: boards)
+        params.require(:game_match).permit(:ruleset)
       end
   end
 end
