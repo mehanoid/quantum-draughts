@@ -32,14 +32,37 @@ module Game
         end
 
         def build_moves(moves_params)
-          move_groups = moves_params.map do |move_params|
+          # TODO add settings for this (or remove)
+          # move_groups = build_symmetric_move_groups(moves_params)
+          move_groups = build_assymetric_move_groups(moves_params)
+
+          validate_move_groups!(move_groups)
+          move_groups.flatten
+        end
+
+        def build_symmetric_move_groups(moves_params)
+          moves_params.map do |move_params|
             boards.map do |board|
               Move.new(board, move_params, current_player, ruleset: ruleset)
             end
           end
+        end
 
-          validate_move_groups!(move_groups)
-          move_groups.flatten
+        def build_assymetric_move_groups(moves_params)
+          [
+            build_assymetric_group(moves_params.first, 2),
+            build_assymetric_group(moves_params.last),
+          ]
+        end
+
+        def build_assymetric_group(move_params, weight = 1)
+          boards.map do |board|
+            if weight > 1
+              board        = board.dup
+              board.weight *= weight
+            end
+            Move.new(board, move_params, current_player)
+          end
         end
 
         def validate_move_groups!(move_groups)
