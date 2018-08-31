@@ -3,7 +3,7 @@
 module Game
   class MatchesController < ApplicationController
     def index
-      @matches = Match.all
+      @matches = Match.order(id: :desc)
     end
 
     def show
