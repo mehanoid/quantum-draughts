@@ -1,7 +1,10 @@
 export default {
   setSelectedCell(state, cell) {
-    state.selectedCellName = cell.name
+    if (!cell.draught) {
+      return
+    }
     state.selectedDraughtId = cell.draught.id
+    state.selectedCellName = cell.name
   },
 
   setSelectedDraughtId(state, draughtId) {
