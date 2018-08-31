@@ -6,7 +6,7 @@ module Game
       attr_reader :boards, :moves_params, :current_player, :ruleset
 
       # @param boards [Array<Game::GamePlay::Board>]
-      def initialize(boards, moves_params, current_player, ruleset: RussianRuleset)
+      def initialize(boards, moves_params, current_player, ruleset:)
         @boards         = boards
         @moves_params   = moves_params
         @current_player = current_player
@@ -61,7 +61,7 @@ module Game
               board        = board.dup
               board.weight *= weight
             end
-            Move.new(board, move_params, current_player)
+            Move.new(board, move_params, current_player, ruleset: ruleset)
           end
         end
 

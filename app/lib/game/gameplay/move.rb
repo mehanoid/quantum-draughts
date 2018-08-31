@@ -10,7 +10,7 @@ module Game
 
       # @param board [Game::Gameplay::Board] initial board
       # @param move_cells [Array<String>]
-      def initialize(board, move_cells, current_player = nil, ruleset: RussianRuleset)
+      def initialize(board, move_cells, current_player = nil, ruleset:)
         @board          = board
         @move_cells     = move_cells
         @current_player = current_player

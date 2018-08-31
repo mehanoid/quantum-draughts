@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Game::Gameplay::QuantumMove do
+  let(:ruleset) { Game::Gameplay::RussianRuleset }
+
   context 'with one draught' do
     let(:board) do
       Game::Gameplay::Board.from_s(<<~BOARD)
@@ -18,7 +20,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
     end
 
     it 'moves one step right and left' do
-      new_boards = described_class.new([board], [%w[D2 E3], %w[D2 C3]], :white).perform
+      new_boards = described_class.new([board], [%w[D2 E3], %w[D2 C3]], :white, ruleset: ruleset).perform
 
       expect(new_boards.map(&:to_s)).to match_array [<<~BOARD, <<~BOARD2]
         . . . . . . . .
@@ -58,7 +60,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
 
     it 'can not move both draughts at once' do
       expect {
-        described_class.new([board], [%w[D2 E3], %w[F2 E3]], :white).perform
+        described_class.new([board], [%w[D2 E3], %w[F2 E3]], :white, ruleset: ruleset).perform
       }.to raise_error Game::Gameplay::InvalidMove
     end
   end
@@ -87,7 +89,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
     end
 
     it 'beats both draughts on first board' do
-      new_boards = described_class.new(boards, [%w[D2 F4 D6]], :white).perform
+      new_boards = described_class.new(boards, [%w[D2 F4 D6]], :white, ruleset: ruleset).perform
 
       expect(new_boards).to match_multiboard [<<~BOARD, <<~BOARD2]
         . . . . . . . .
@@ -112,7 +114,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
 
     it 'can not stop after beating first draught' do
       expect {
-        described_class.new(boards, [%w[D2 F4]], :white).perform
+        described_class.new(boards, [%w[D2 F4]], :white, ruleset: ruleset).perform
       }.to raise_error Game::Gameplay::InvalidMove
     end
   end
@@ -141,7 +143,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
     end
 
     it 'beats both draughts on first board and does not move on second board' do
-      new_boards = described_class.new(boards, [%w[D2 F4 D6]], :white).perform
+      new_boards = described_class.new(boards, [%w[D2 F4 D6]], :white, ruleset: ruleset).perform
 
       expect(new_boards).to match_multiboard [<<~BOARD, <<~BOARD2]
         . . . . . . . .
@@ -166,7 +168,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
 
     it 'can not stop after beating first draught' do
       expect {
-        described_class.new(boards, [%w[D2 F4]], :white).perform
+        described_class.new(boards, [%w[D2 F4]], :white, ruleset: ruleset).perform
       }.to raise_error Game::Gameplay::InvalidMove
     end
   end
@@ -195,7 +197,7 @@ RSpec.describe Game::Gameplay::QuantumMove do
     end
 
     it 'beats both draughts on first board' do
-      new_boards = described_class.new(boards, [%w[D2 F4 D6]], :white).perform
+      new_boards = described_class.new(boards, [%w[D2 F4 D6]], :white, ruleset: ruleset).perform
 
       expect(new_boards).to match_multiboard [<<~BOARD, <<~BOARD2]
         . . . . . . . .
