@@ -15,6 +15,7 @@ module Game
     end
 
     def create
+      Game::Match.order(:id).offset(30).destroy_all
       @match = Match.create_initial_match match_params
 
       redirect_to @match, notice: 'Match was successfully created.'
