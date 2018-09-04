@@ -1,49 +1,48 @@
 <template lang="pug">
   .match-history
-    .table-wrap
-      table.table
-        tr
-          th #
-          th White
-          th Black
-        tr(v-for="matchTurn in turnGroups")
-          th {{matchTurn[0].turn_number}}
+    VuePerfectScrollbar.scroll-area
+      v-data-table(
+        :headers="headers"
+        :items="turnGroups"
+        hide-actions
+      )
+        template(slot="items" slot-scope="{item}")
+          th {{item[0].turn_number}}
           td
-            MatchHistoryItem(:turn="matchTurn[0]")
+            MatchHistoryItem(:turn="item[0]")
           td
-            MatchHistoryItem(v-if="matchTurn[1]" :turn="matchTurn[1]")
+            MatchHistoryItem(v-if="item[1]" :turn="item[1]")
 </template>
 
 <script>
 import {mapState} from 'vuex'
 import MatchHistoryItem from './MatchHistoryItem'
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 export default {
   components: {
-    MatchHistoryItem
+    MatchHistoryItem, VuePerfectScrollbar
   },
   computed: {
     ...mapState(['match']),
     turnGroups() {
       return _.reverse(_.chunk(this.match.match_turns, 2))
+    },
+    headers() {
+      return [
+        {text: '#', sortable: false, width: '5%'},
+        {text: 'White', sortable: false, width: '45%'},
+        {text: 'Black', sortable: false, width: '45%'},
+      ]
     }
   }
 }
 </script>
 
 <style lang="postcss" scoped>
-.table-wrap {
-  overflow-y: auto;
-  max-height: 300px;
-}
-
-.table {
-  border-collapse: collapse;
-
-  & th,
-  & td {
-    border: 1px solid black;
-    padding: 5px;
-  }
+.scroll-area {
+  position: relative;
+  margin: auto;
+  height: 300px;
 }
 </style>
