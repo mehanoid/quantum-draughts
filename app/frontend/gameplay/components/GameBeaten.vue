@@ -1,6 +1,5 @@
 <template lang="pug">
   .game-beaten
-    h3 Beaten draughts
     GameBeatenDraughtsGroup(:draughts="beatenWhite")
     GameBeatenDraughtsGroup(:draughts="beatenBlack")
 </template>

@@ -1,5 +1,5 @@
-p#notice = notice
-
-= link_to 'Back', game_matches_path
+- content_for :header
+  = stylesheet_pack_tag 'application' if Rails.env.production?
+  = javascript_pack_tag 'application'
 
 #gameplay

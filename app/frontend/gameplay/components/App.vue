@@ -1,15 +1,37 @@
 <template lang="pug">
-  div#app
-    .current-player-message(
-      :class="match.current_player"
-    )
-      | {{ currentPlayerMessage }}
-    .app-layout
-      GameBoard(:board="multiBoard")
-      div
-        .ruleset Ruleset: {{match.ruleset}}
-        MatchHistory
-        GameBeatenDraughts
+  v-app(dark)
+    v-toolbar
+      v-toolbar-side-icon
+      v-toolbar-title
+        a.title(href="/") Quantum Draughts
+    v-content
+      v-container
+        v-layout
+          v-flex(xs12)
+            .current-player-message(
+            :class="`${match.current_player}-player`"
+            )
+              | {{ currentPlayerMessage }}
+        v-layout
+          v-flex(xs8)
+            v-layout(justify-center)
+              GameBoard(:board="multiBoard")
+          v-flex(xs4)
+            .ruleset Ruleset: {{match.ruleset}}
+            v-expansion-panel(expand v-model="panels")
+              v-expansion-panel-content(ripple)
+                div(slot="header") MatchHistory
+                v-card
+                  v-card-text
+                    MatchHistory
+              v-expansion-panel-content(ripple)
+                div(slot="header") GameBeatenDraughts
+                v-card
+                  v-card-text
+                    GameBeatenDraughts
+    v-footer(app)
+      v-layout(justify-center)
+        | © 2018 Oleg Grigoriev
 
 </template>
 
@@ -23,10 +45,15 @@ export default {
   components: {
     GameBoard, MatchHistory, GameBeatenDraughts: GameBeaten
   },
+  data() {
+    return {
+      panels: [true, true],
+    }
+  },
   computed: {
     ...mapState(['boards', 'match']),
     ...mapGetters(['multiBoard']),
-    currentPlayerMessage(){
+    currentPlayerMessage() {
       return `${_.capitalize(this.match.current_player)}'s turn`
     }
   },
@@ -40,27 +67,22 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+.title {
+  color: white;
+  text-decoration: none;
+}
+
 .current-player-message {
   font-size: 2em;
   text-align: center;
   font-weight: bold;
 
-  &.white {
+  &.white-player {
     color: #ffe090;
-    text-stroke: 1 #878787;
   }
 
-  &.black {
+  &.black-player {
     color: #713002;
   }
-}
-
-.app-layout {
-  display: flex;
-  justify-content: center;
-}
-
-.board {
-  margin-right: 40px;
 }
 </style>

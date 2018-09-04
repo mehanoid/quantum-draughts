@@ -1,7 +1,11 @@
 import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 import App from './components/App.vue'
 import initStore from './store'
 import initCable from './cable'
+
+Vue.use(Vuetify)
 
 Object.defineProperty(Vue.prototype, '$cable', {
   get: function () {

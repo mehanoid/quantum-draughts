@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     classNames() {
-      return [this.draught.color,
+      return [`${this.draught.color}-player`,
         {
           highlighted: this.isSelectedDraught
         }
@@ -75,7 +75,7 @@ export default {
       justify-content: center;
     }
 
-    &.white {
+    &.white-player {
       &.highlighted {
         box-shadow: 0 0 15px 10px rgb(252, 255, 199);
       }
@@ -89,7 +89,7 @@ export default {
       }
     }
 
-    &.black {
+    &.black-player {
       &.highlighted {
         box-shadow: 0 0 15px 10px #deb58d;
       }

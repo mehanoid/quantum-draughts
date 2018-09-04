@@ -1,6 +1,5 @@
 <template lang="pug">
   .match-history
-    h3 Match history
     .table-wrap
       table.table
         tr
