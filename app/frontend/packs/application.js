@@ -10,3 +10,4 @@
 import 'babel-polyfill'
 import '../setup'
 import '../gameplay'
+import '../stylesheets'

@@ -1,0 +1,24 @@
+:root {
+  /* black draughts */
+  --clr-draught-black: #713002;
+  --clr-draught-black-highlighted: #deb58d;
+  --clr-draught-black-selected: #de9040;
+
+  /* white draughts */
+  --clr-draught-white: #ffe090;
+  --clr-draught-white-highlighted: #fcffc7;
+  --clr-draught-white-selected: #f8ff77;
+
+  /* draughts highlights */
+  --clr-draught-highlight-beat: #ff3030;
+  --clr-draught-entanglement: #6f00ac;
+  --clr-draught-entanglement-bg: #e9d2ff;
+
+  /* cells */
+  --clr-cell-playable: #75806f;
+  --clr-cell-possible-move: #56804f;
+  --clr-cell-selected: yellow;
+  --clr-cell-possible-move-step: green;
+  --clr-cell-possible-move-step-hover: #fdff8e;
+  --clr-cell-current-move: #00ffd6;
+}

@@ -15,9 +15,9 @@ export default {
   props: {
     draughts: {
       type: Array,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 
@@ -25,6 +25,6 @@ export default {
 .game-beaten-draughts-group {
   padding: 5px;
   border: 1px solid black;
-  background: #75806f;
+  background: var(--clr-cell-playable);
 }
 </style>

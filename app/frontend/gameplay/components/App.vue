@@ -45,7 +45,7 @@ import {mapGetters, mapState} from 'vuex'
 
 export default {
   components: {
-    GameBoard, MatchHistory, GameBeatenDraughts: GameBeaten
+    GameBoard, MatchHistory, GameBeatenDraughts: GameBeaten,
   },
   data() {
     return {
@@ -57,18 +57,18 @@ export default {
     ...mapGetters(['multiBoard']),
     currentPlayerMessage() {
       return `${_.capitalize(this.match.current_player)}'s turn`
-    }
+    },
   },
   created() {
     this.matchesChannel = this.$cable.channels.match.subscribe(this.match.id)
   },
   beforeDestroy() {
     this.matchesChannel.unsubscribe()
-  }
+  },
 }
 </script>
 
-<style lang="postcss" scoped>
+<style scoped>
 .title {
   color: white;
   text-decoration: none;
@@ -80,11 +80,11 @@ export default {
   font-weight: bold;
 
   &.white-player {
-    color: #ffe090;
+    color: var(--clr-draught-white);
   }
 
   &.black-player {
-    color: #713002;
+    color: var(--clr-draught-black);
   }
 }
 </style>

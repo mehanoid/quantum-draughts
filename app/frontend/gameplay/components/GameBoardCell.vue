@@ -15,13 +15,13 @@ import GameBoardDraught from './GameBoardDraught'
 
 export default {
   components: {
-    GameBoardDraught
+    GameBoardDraught,
   },
   props: {
     cell: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data: function () {
     return {}
@@ -37,15 +37,15 @@ export default {
         'current-move': this.currentMove.includes(this.cell.name),
         'selected-move': this.selectedMovesCellNames.includes(this.cell.name),
       }
-    }
+    },
   },
   methods: {
     ...mapActions(['selectCell']),
-  }
+  },
 }
 </script>
 
-<style lang="postcss" scoped>
+<style scoped>
 .cell {
   border: 1px solid black;
   width: 55px;
@@ -54,28 +54,28 @@ export default {
   padding: 0;
 
   &.playable {
-    background: #75806f;
+    background: var(--clr-cell-playable);
   }
 
   &.possible-moves {
-    background: #56804f;
+    background: var(--clr-cell-possible-move);
   }
 
   &.selected-move {
-    background: yellow;
+    background: var(--clr-cell-selected);
   }
 
   &.possible-move-step {
-    background: green;
+    background: var(--clr-cell-possible-move-step);
     cursor: pointer;
 
     &:hover {
-      background: #fdff8e;
+      background: var(--clr-cell-possible-move-step-hover);
     }
   }
 
   &.current-move {
-    background: #00ffd6;
+    background: var(--clr-cell-current-move);
   }
 }
 </style>

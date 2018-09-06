@@ -11,8 +11,8 @@
       v-if="entanglementProbability !== undefined"
       :percent="entanglementProbability"
       :width="0.1"
-      color="#6f00ac"
-      backgroundColor="#e9d2ff"
+      color="var(--clr-draught-entanglement)"
+      backgroundColor="var(--clr-draught-entanglement-bg)"
     )
     .king-label(v-if="draught.king") ♔
 </template>
@@ -25,32 +25,32 @@ export default {
   props: {
     draught: {
       type: Object,
-      required: true
+      required: true,
     },
     entanglementProbability: {
       type: Number,
-      default: undefined
-    }
+      default: undefined,
+    },
   },
   computed: {
     classNames() {
       return [`${this.draught.color}-player`,
         {
-          highlighted: this.isSelectedDraught
-        }
+          highlighted: this.isSelectedDraught,
+        },
       ]
     },
     chartColor() {
-      return this.draught.color === 'white' ? '#ffe090' : '#713002'
+      return this.draught.color === 'white' ? 'var(--clr-draught-white)' : 'var(--clr-draught-black)'
     },
     isSelectedDraught() {
       return this.draught.id && this.draught.id === this.$store.state.selectedDraughtId
     },
-  }
+  },
 }
 </script>
 
-<style lang="postcss" scoped>
+<style scoped>
   .game-draught {
     display: inline-block;
     position: relative;
@@ -61,7 +61,7 @@ export default {
     cursor: pointer;
 
     &.can-beat {
-      box-shadow: 0 0 15px 10px rgb(255, 48, 48);
+      box-shadow: 0 0 15px 10px var(--clr-draught-highlight-beat);
     }
 
     & .king-label {
@@ -77,29 +77,29 @@ export default {
 
     &.white-player {
       &.highlighted {
-        box-shadow: 0 0 15px 10px rgb(252, 255, 199);
+        box-shadow: 0 0 15px 10px var(--clr-draught-white-highlighted);
       }
 
       &.selected {
-        box-shadow: 0 0 15px 10px rgb(248, 255, 119);
+        box-shadow: 0 0 15px 10px var(--clr-draught-white-selected);
       }
 
       & .king-label {
-        color: #713002;
+        color: var(--clr-draught-black);
       }
     }
 
     &.black-player {
       &.highlighted {
-        box-shadow: 0 0 15px 10px #deb58d;
+        box-shadow: 0 0 15px 10px var(--clr-draught-black-highlighted);
       }
 
       &.selected {
-        box-shadow: 0 0 15px 10px #de9040;
+        box-shadow: 0 0 15px 10px var(--clr-draught-black-selected);
       }
 
       & .king-label {
-        color: #ffe090;
+        color: var(--clr-draught-white);
       }
     }
 

@@ -10,8 +10,8 @@ export default {
   props: {
     turn: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     ...mapState('history', ['selectedMatchTurnId']),
@@ -33,7 +33,7 @@ export default {
     },
     currentTurn() {
       return !this.turn.move
-    }
+    },
   },
   methods: {
     ...mapMutations('history', ['setSelectedMatchTurn']),
@@ -45,12 +45,12 @@ export default {
       else {
         this.selectMatchTurn(this.turn.id)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="postcss" scoped>
+<style scoped>
 .current-turn {
   font-style: italic;
 }

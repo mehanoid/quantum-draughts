@@ -21,7 +21,7 @@ import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 export default {
   components: {
-    MatchHistoryItem, VuePerfectScrollbar
+    MatchHistoryItem, VuePerfectScrollbar,
   },
   computed: {
     ...mapState(['match']),
@@ -34,12 +34,12 @@ export default {
         {text: 'White', sortable: false, width: '45%'},
         {text: 'Black', sortable: false, width: '45%'},
       ]
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="postcss" scoped>
+<style scoped>
 .scroll-area {
   position: relative;
   margin: auto;
