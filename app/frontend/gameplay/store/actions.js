@@ -1,5 +1,6 @@
 import serverApi from '../serverApi'
 import cellUtils from '../utils/cell'
+import delay from '../utils/delay'
 
 const MAX_MOVES_COUNT = 2
 
@@ -59,9 +60,11 @@ export default {
     if (!state.selectedMoves.length) {
       return
     }
+    commit('setMatchProgress', true)
     const promise = serverApi.matchMove(state.match.id, state.selectedMoves)
     commit('cleanSelections')
     const {data: response} = await promise
+    commit('setMatchProgress', false)
     if (response.error) {
       alert(response.error)
     }

@@ -33,5 +33,9 @@ export default {
   selectCurrentMove(state) {
     state.selectedMoves.push([state.selectedCellName, ...state.currentMove])
     state.currentMove = []
+  },
+
+  setMatchProgress(state, value) {
+    state.progress = value
   }
 }

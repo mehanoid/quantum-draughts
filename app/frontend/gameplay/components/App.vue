@@ -15,7 +15,9 @@
         v-layout
           v-flex(xs8)
             v-layout(justify-center)
-              GameBoard(:board="multiBoard")
+              GameBoard(
+                :board="multiBoard"
+              )
           v-flex(xs4)
             .ruleset Ruleset: {{match.ruleset}}
             v-expansion-panel(expand v-model="panels")

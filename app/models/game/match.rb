@@ -9,6 +9,12 @@ module Game
       russian: 1,
     }
 
+    def self.create_initial_match(params = {})
+      match = create! params
+      match.match_turns.build.init_boards
+      match
+    end
+
     def current_turn
       match_turns.last
     end
@@ -21,18 +27,18 @@ module Game
       current_turn.board_instances
     end
 
-    def self.create_initial_match(params = {})
-      match = create! params
-      match.match_turns.build.init_boards
-      match
-    end
-
     def to_s
       current_turn.to_s
     end
 
     def ruleset_object
       Gameplay.const_get "#{ruleset.to_s.capitalize}Ruleset".to_sym
+    end
+
+    def rollback_turn!
+      raise 'No turns available' if match_turns.count <= 1
+      current_turn.destroy
+      current_turn.update move: nil
     end
   end
 end

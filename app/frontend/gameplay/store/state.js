@@ -4,6 +4,7 @@ export default () => {
     selectedCellName: null,
     selectedDraughtId: null,
     selectedMoves: [],
-    currentMove: []
+    currentMove: [],
+    progress: false
   }
 }
