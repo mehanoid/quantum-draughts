@@ -47,7 +47,7 @@ export default {
 
 <style scoped>
 .cell {
-  border: 1px solid black;
+  background: var(--clr-cell-non-playable);
   width: 55px;
   height: 55px;
   text-align: center;
