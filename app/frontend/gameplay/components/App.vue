@@ -2,7 +2,8 @@
   v-app(dark)
     v-toolbar
       v-toolbar-side-icon
-      v-toolbar-title
+      .logo
+      v-toolbar-title.ml-2
         a.title(href="/") Quantum Draughts
     v-content
       v-container
@@ -69,6 +70,15 @@ export default {
 </script>
 
 <style scoped>
+
+.logo {
+  display: inline-block;
+  width: 43px;
+  height: 60%;
+  background: url("~images/logo.svg") no-repeat;
+  background-size: contain;
+}
+
 .title {
   color: white;
   text-decoration: none;
