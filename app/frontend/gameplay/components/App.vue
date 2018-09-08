@@ -8,7 +8,12 @@
     v-content
       v-container
         v-layout
-          v-flex(xs8)
+          v-flex(xs3)
+            v-expansion-panel(expand v-model="leftPanels")
+              v-expansion-panel-content(ripple)
+                div(slot="header") Match info
+                MatchInfo
+          v-flex(xs6)
             v-layout(justify-center)
               .current-player-message
                 | Current player:
@@ -20,9 +25,8 @@
               GameBoard(
                 :board="multiBoard"
               )
-          v-flex(xs4)
-            .ruleset Ruleset: {{match.ruleset}}
-            v-expansion-panel(expand v-model="panels")
+          v-flex(xs3)
+            v-expansion-panel(expand v-model="rightPanels")
               v-expansion-panel-content(ripple)
                 div(slot="header") Match history
                 MatchHistory
@@ -42,15 +46,17 @@ import GameBoard from './GameBoard'
 import MatchHistory from './MatchHistory'
 import GameDraught from './GameDraught'
 import GameBeaten from './GameBeaten'
+import MatchInfo from './MatchInfo'
 import {mapGetters, mapState} from 'vuex'
 
 export default {
   components: {
-    GameBoard, MatchHistory, GameDraught, GameBeaten,
+    GameBoard, MatchHistory, GameDraught, GameBeaten, MatchInfo,
   },
   data() {
     return {
-      panels: [true, true],
+      leftPanels: [true, true],
+      rightPanels: [true, true],
     }
   },
   computed: {

@@ -31,8 +31,8 @@ export default {
     headers() {
       return [
         {text: '#', sortable: false, width: '5%'},
-        {text: 'White', sortable: false, width: '45%'},
-        {text: 'Black', sortable: false, width: '45%'},
+        {text: 'White', sortable: false, width: '47.5%'},
+        {text: 'Black', sortable: false, width: '47.5%'},
       ]
     },
   },
@@ -43,6 +43,15 @@ export default {
 .scroll-area {
   position: relative;
   margin: auto;
-  height: 300px;
+  height: 250px;
+}
+
+.match-history {
+  & >>> table.v-table {
+    & th,
+    & td {
+      padding: 16px;
+    }
+  }
 }
 </style>

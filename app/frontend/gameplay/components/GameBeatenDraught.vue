@@ -1,5 +1,5 @@
 <template lang="pug">
-  GameDraught(
+  GameDraught.draught(
     :draught="draught"
     @click.native="selectDraught(draught)"
   )
@@ -22,3 +22,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.draught {
+  --draught-size: 25px;
+}
+</style>
