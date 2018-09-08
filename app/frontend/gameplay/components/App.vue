@@ -8,13 +8,14 @@
     v-content
       v-container
         v-layout
-          v-flex(xs12)
-            .current-player-message(
-            :class="`${match.current_player}-player`"
-            )
-              | {{ currentPlayerMessage }}
-        v-layout
           v-flex(xs8)
+            v-layout(justify-center)
+              .current-player-message
+                | Current player:
+                |
+                GameDraught.current-player-draught(
+                  :draught="{color: match.current_player}"
+                )
             v-layout(justify-center)
               GameBoard(
                 :board="multiBoard"
@@ -23,15 +24,13 @@
             .ruleset Ruleset: {{match.ruleset}}
             v-expansion-panel(expand v-model="panels")
               v-expansion-panel-content(ripple)
-                div(slot="header") MatchHistory
-                v-card
-                  v-card-text
-                    MatchHistory
+                div(slot="header") Match history
+                MatchHistory
               v-expansion-panel-content(ripple)
-                div(slot="header") GameBeatenDraughts
+                div(slot="header") Beaten draughts
                 v-card
                   v-card-text
-                    GameBeatenDraughts
+                    GameBeaten
     v-footer(app)
       v-layout(justify-center)
         | © 2018 Oleg Grigoriev
@@ -41,12 +40,13 @@
 <script>
 import GameBoard from './GameBoard'
 import MatchHistory from './MatchHistory'
+import GameDraught from './GameDraught'
 import GameBeaten from './GameBeaten'
 import {mapGetters, mapState} from 'vuex'
 
 export default {
   components: {
-    GameBoard, MatchHistory, GameBeatenDraughts: GameBeaten,
+    GameBoard, MatchHistory, GameDraught, GameBeaten,
   },
   data() {
     return {
@@ -56,9 +56,6 @@ export default {
   computed: {
     ...mapState(['boards', 'match']),
     ...mapGetters(['multiBoard']),
-    currentPlayerMessage() {
-      return `${_.capitalize(this.match.current_player)}'s turn`
-    },
   },
   created() {
     this.matchesChannel = this.$cable.channels.match.subscribe(this.match.id)
@@ -88,13 +85,12 @@ export default {
   font-size: 2em;
   text-align: center;
   font-weight: bold;
-
-  &.white-player {
-    color: var(--clr-draught-white);
-  }
-
-  &.black-player {
-    color: var(--clr-draught-black);
-  }
 }
+
+.current-player-draught {
+  --draught-size: 0.7em;
+
+  display: inline-block;
+}
+
 </style>

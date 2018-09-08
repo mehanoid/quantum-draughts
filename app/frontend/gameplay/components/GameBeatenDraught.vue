@@ -14,11 +14,11 @@ export default {
   props: {
     draught: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     ...mapActions(['selectDraught']),
-  }
+  },
 }
 </script>

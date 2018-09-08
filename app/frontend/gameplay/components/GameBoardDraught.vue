@@ -1,8 +1,9 @@
 <template lang="pug">
   GameDraught(
-    :class="classNames"
     :draught="draught"
     :entanglementProbability="entanglementProbability"
+    :canBeat="canBeat"
+    :selected="isSelectedCell"
   )
 </template>
 
@@ -15,17 +16,11 @@ export default {
   props: {
     cell: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     ...mapGetters(['entanglementInfo']),
-    classNames() {
-      return {
-        selected: this.isSelectedCell,
-        'can-beat': this.canBeat,
-      }
-    },
     draught() {
       return this.cell.draught
     },
@@ -41,7 +36,7 @@ export default {
     entanglementProbability() {
       const info = this.entanglementInfo.find(i => i.cellName === this.cell.name)
       return info && info.probability
-    }
-  }
+    },
+  },
 }
 </script>

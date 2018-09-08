@@ -3,7 +3,7 @@
     :class="classNames"
     @click="selectCell(cell)"
   )
-    GameBoardDraught(
+    GameBoardDraught.draught(
       v-if="cell.draught"
       :cell="cell"
     )
@@ -77,5 +77,10 @@ export default {
   &.current-move {
     background: var(--clr-cell-current-move);
   }
+}
+
+.draught {
+  vertical-align: middle;
+  display: inline-block;
 }
 </style>

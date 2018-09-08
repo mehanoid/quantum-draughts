@@ -1,20 +1,21 @@
 <template lang="pug">
-  .game-draught(
-    :class="classNames"
-  )
-    PieChart(
-      :percent="draught.probability"
-      :width="1"
-      :color="chartColor"
+  .root
+    .game-draught(
+      :class="classNames"
     )
-    PieChart.entanglement(
-      v-if="entanglementProbability !== undefined"
-      :percent="entanglementProbability"
-      :width="0.1"
-      color="var(--clr-draught-entanglement)"
-      backgroundColor="var(--clr-draught-entanglement-bg)"
-    )
-    .king-label(v-if="draught.king") ♔
+      PieChart.draught-chart(
+        :percent="probability"
+        :width="1"
+        :color="chartColor"
+      )
+      PieChart.entanglement(
+        v-if="entanglementProbability !== undefined"
+        :percent="entanglementProbability"
+        :width="0.1"
+        color="var(--clr-draught-entanglement)"
+        backgroundColor="var(--clr-draught-entanglement-bg)"
+      )
+      .king-label(v-if="draught.king") ♔
 </template>
 
 <script>
@@ -31,12 +32,22 @@ export default {
       type: Number,
       default: undefined,
     },
+    canBeat: {
+      type: Boolean,
+      default: false,
+    },
+    selected: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classNames() {
       return [`${this.draught.color}-player`,
         {
           highlighted: this.isSelectedDraught,
+          selected: this.selected,
+          'can-beat': this.canBeat,
         },
       ]
     },
@@ -46,67 +57,78 @@ export default {
     isSelectedDraught() {
       return this.draught.id && this.draught.id === this.$store.state.selectedDraughtId
     },
+    probability() {
+      return this.draught.probability != null ? this.draught.probability : 100
+    },
   },
 }
 </script>
 
 <style scoped>
-  .game-draught {
-    display: inline-block;
-    position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    vertical-align: middle;
-    cursor: pointer;
+.root {
+  --_draught-size: var(--draught-size, 40px);
 
-    &.can-beat {
-      box-shadow: 0 0 15px 10px var(--clr-draught-highlight-beat);
-    }
+  width: var(--_draught-size);
+  height: var(--_draught-size);
+}
 
-    & .king-label {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      font-size: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.game-draught {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: calc(var(--_draught-size) / 2);
+  cursor: pointer;
 
-    &.white-player {
-      &.highlighted {
-        box-shadow: 0 0 15px 10px var(--clr-draught-white-highlighted);
-      }
-
-      &.selected {
-        box-shadow: 0 0 15px 10px var(--clr-draught-white-selected);
-      }
-
-      & .king-label {
-        color: var(--clr-draught-black);
-      }
-    }
-
-    &.black-player {
-      &.highlighted {
-        box-shadow: 0 0 15px 10px var(--clr-draught-black-highlighted);
-      }
-
-      &.selected {
-        box-shadow: 0 0 15px 10px var(--clr-draught-black-selected);
-      }
-
-      & .king-label {
-        color: var(--clr-draught-white);
-      }
-    }
-
-    & .entanglement {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+  &.can-beat,
+  &.highlighted,
+  &.selected {
+    box-shadow: 0 0 calc(var(--_draught-size) / 2.5) calc(var(--_draught-size) / 4) var(--clr-draught-shadow);
   }
+
+  &.can-beat {
+    --clr-draught-shadow: var(--clr-draught-highlight-beat);
+  }
+
+  &.highlighted {
+    --clr-draught-shadow: var(--clr-draught-highlighted);
+  }
+
+  &.selected {
+    --clr-draught-shadow: var(--clr-draught-selected);
+  }
+
+  & .king-label {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--clr-king-label);
+  }
+
+  &.white-player {
+    --clr-draught-highlighted: var(--clr-draught-white-highlighted);
+    --clr-draught-selected: var(--clr-draught-white-selected);
+    --clr-king-label: var(--clr-draught-black);
+  }
+
+  &.black-player {
+    --clr-draught-highlighted: var(--clr-draught-black-highlighted);
+    --clr-draught-selected: var(--clr-draught-black-selected);
+    --clr-king-label: var(--clr-draught-white);
+  }
+}
+
+.draught-chart {
+  display: block;
+}
+
+.entanglement {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 </style>

@@ -1,6 +1,6 @@
 <template lang="pug">
   .game-beaten-draughts-group
-    GameBeatenDraught(
+    GameBeatenDraught.draught(
       v-for="draught in draughts"
       :key="draught.id"
       :draught="draught"
@@ -26,5 +26,9 @@ export default {
   padding: 5px;
   border: 1px solid black;
   background: var(--clr-cell-playable);
+}
+
+.draught {
+  display: inline-block;
 }
 </style>

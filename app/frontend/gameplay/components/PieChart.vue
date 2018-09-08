@@ -32,7 +32,7 @@ export default {
   props: {
     percent: {
       type: Number,
-      required: true
+      required: true,
     },
     width: {
       type: Number,
@@ -40,16 +40,16 @@ export default {
     },
     color: {
       type: String,
-      required: true
+      required: true,
     },
     backgroundColor: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     backgroundOpacity: {
       type: Number,
-      default: 0.5
-    }
+      default: 0.5,
+    },
   },
   computed: {
     radius: () => 1,
@@ -76,7 +76,7 @@ export default {
       const y = -Math.cos(degree) * this.radius
       const largeArcFlag = x < 0 ? 1 : 0
       return `M 0 ${-this.radius} A ${this.radius} ${this.radius} 0 ${largeArcFlag} 1 ${x} ${y}`
-    }
-  }
+    },
+  },
 }
 </script>
