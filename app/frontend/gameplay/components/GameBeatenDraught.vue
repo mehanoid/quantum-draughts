@@ -22,9 +22,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.draught {
-  --draught-size: 25px;
-}
-</style>

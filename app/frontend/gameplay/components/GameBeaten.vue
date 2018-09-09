@@ -12,12 +12,6 @@ export default {
   components: {GameBeatenDraughtsGroup: GameBeatenGroup},
   computed: {
     ...mapGetters('draughts', ['beatenWhite', 'beatenBlack']),
-  }
+  },
 }
 </script>
-
-<style scoped>
-  .game-beaten {
-    width: 180px;
-  }
-</style>

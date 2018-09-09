@@ -32,9 +32,7 @@
                 MatchHistory
               v-expansion-panel-content(ripple)
                 div(slot="header") Beaten draughts
-                v-card
-                  v-card-text
-                    GameBeaten
+                GameBeaten
     v-footer(app)
       v-layout(justify-center)
         | © 2018 Oleg Grigoriev
