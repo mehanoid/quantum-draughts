@@ -15,7 +15,7 @@
         color="var(--clr-draught-entanglement)"
         backgroundColor="var(--clr-draught-entanglement-bg)"
       )
-      .king-label(v-if="draught.king") ♔
+      .king-label(v-if="draught.king") ♚
 </template>
 
 <script>
@@ -76,7 +76,7 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-  border-radius: calc(var(--_draught-size) / 2);
+  border-radius: 50%;
   cursor: pointer;
 
   &.can-beat,
@@ -106,7 +106,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--clr-king-label);
+    color: var(--clr-cell-playable);
+    /*color: var(--clr-king-label);*/
   }
 
   &.white-player {

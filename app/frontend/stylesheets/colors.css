@@ -1,13 +1,13 @@
 :root {
   /* black draughts */
-  --clr-draught-black: #713002;
-  --clr-draught-black-highlighted: #deb58d;
-  --clr-draught-black-selected: #de9040;
+  --clr-draught-black: #B388FF;
+  --clr-draught-black-highlighted: #D1C4E9;
+  --clr-draught-black-selected: #B388FF;
 
   /* white draughts */
-  --clr-draught-white: #ffe090;
-  --clr-draught-white-highlighted: #fcffc7;
-  --clr-draught-white-selected: #f8ff77;
+  --clr-draught-white: #80D8FF;
+  --clr-draught-white-highlighted: #E1F5FE;
+  --clr-draught-white-selected: #80D8FF;
 
   /* draughts highlights */
   --clr-draught-highlight-beat: #ff3030;
@@ -15,10 +15,10 @@
   --clr-draught-entanglement-bg: #e9d2ff;
 
   /* cells */
-  --clr-cell-non-playable: #303030;
-  --clr-cell-playable: #616161;
+  --clr-cell-non-playable: #616161;
+  --clr-cell-playable: #303030;
   --clr-cell-possible-move: #56804f;
-  --clr-cell-selected: yellow;
+  --clr-cell-selected: #FFEE58;
   --clr-cell-possible-move-step: #7CB342;
   --clr-cell-possible-move-step-hover: #fdff8e;
   --clr-cell-current-move: #00ffd6;
