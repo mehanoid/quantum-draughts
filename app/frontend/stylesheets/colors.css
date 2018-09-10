@@ -1,25 +1,29 @@
 :root {
   /* black draughts */
-  --clr-draught-black: #B388FF;
-  --clr-draught-black-highlighted: #D1C4E9;
-  --clr-draught-black-selected: #B388FF;
+  --clr-draught-black: #b388ff;
+  --clr-draught-black-highlighted: #d1c4e9;
+  --clr-draught-black-selected: var(--clr-draught-black);
 
   /* white draughts */
-  --clr-draught-white: #80D8FF;
-  --clr-draught-white-highlighted: #E1F5FE;
-  --clr-draught-white-selected: #80D8FF;
+  --clr-draught-white: #80d8ff;
+  --clr-draught-white-highlighted: #e1f5fe;
+  --clr-draught-white-selected: var(--clr-draught-white);
+
+  /* draughts entanglement */
+  --clr-draught-black-entanglement: #dbc2ff;
+  --clr-draught-white-entanglement: #cbefff;;
+  --clr-draught-black-entanglement-bg: #2d0c5c;
+  --clr-draught-white-entanglement-bg: #14313e;
 
   /* draughts highlights */
   --clr-draught-highlight-beat: #ff3030;
-  --clr-draught-entanglement: #6f00ac;
-  --clr-draught-entanglement-bg: #e9d2ff;
 
   /* cells */
   --clr-cell-non-playable: #616161;
   --clr-cell-playable: #303030;
   --clr-cell-possible-move: #56804f;
-  --clr-cell-selected: #FFEE58;
-  --clr-cell-possible-move-step: #7CB342;
+  --clr-cell-selected: #ffee58;
+  --clr-cell-possible-move-step: #7cb342;
   --clr-cell-possible-move-step-hover: #fdff8e;
   --clr-cell-current-move: #00ffd6;
 }

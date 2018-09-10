@@ -12,8 +12,9 @@
         v-if="entanglementProbability !== undefined"
         :percent="entanglementProbability"
         :width="0.1"
-        color="var(--clr-draught-entanglement)"
-        backgroundColor="var(--clr-draught-entanglement-bg)"
+        :color="entanglementColor"
+        :backgroundColor="entanglementBg"
+        backgroundOpacity="1"
       )
       .king-label(v-if="draught.king") ♚
 </template>
@@ -53,6 +54,16 @@ export default {
     },
     chartColor() {
       return this.draught.color === 'white' ? 'var(--clr-draught-white)' : 'var(--clr-draught-black)'
+    },
+    entanglementColor() {
+      return this.draught.color === 'white' ?
+        'var(--clr-draught-white-entanglement)' :
+        'var(--clr-draught-black-entanglement)'
+    },
+    entanglementBg() {
+      return this.draught.color === 'white' ?
+        'var(--clr-draught-white-entanglement-bg)' :
+        'var(--clr-draught-black-entanglement-bg)'
     },
     isSelectedDraught() {
       return this.draught.id && this.draught.id === this.$store.state.selectedDraughtId
@@ -107,7 +118,6 @@ export default {
     align-items: center;
     justify-content: center;
     color: var(--clr-cell-playable);
-    /*color: var(--clr-king-label);*/
   }
 
   &.white-player {
@@ -131,5 +141,6 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  transform: scale(1.05);
 }
 </style>
