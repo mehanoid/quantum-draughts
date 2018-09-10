@@ -1,6 +1,6 @@
 <template lang="pug">
   .match-info
-    v-data-table(
+    v-data-table.info-table(
       hide-headers
       :items="items"
       hide-actions
@@ -40,6 +40,15 @@ export default {
 
 .info-value {
   text-align: right;
+}
+
+.info-table {
+  & >>> table.v-table {
+    & th,
+    & td {
+      padding: 16px;
+    }
+  }
 }
 
 </style>

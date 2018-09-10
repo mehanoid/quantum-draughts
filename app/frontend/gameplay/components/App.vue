@@ -9,10 +9,9 @@
       v-container
         v-layout
           v-flex(xs3)
-            v-expansion-panel(expand v-model="leftPanels")
-              v-expansion-panel-content(ripple)
-                div(slot="header") Match info
-                MatchInfo
+            v-card.mb-2
+              v-card-title Match info
+              MatchInfo
           v-flex(xs6)
             v-layout(justify-center)
               .current-player-message
@@ -26,13 +25,12 @@
                 :board="multiBoard"
               )
           v-flex(xs3)
-            v-expansion-panel(expand v-model="rightPanels")
-              v-expansion-panel-content(ripple)
-                div(slot="header") Match history
-                MatchHistory
-              v-expansion-panel-content(ripple)
-                div(slot="header") Beaten draughts
-                GameBeaten
+            v-card.pb-4.mb-2
+              v-card-title Match history
+              MatchHistory
+            v-card.pb-3.mb-2
+              v-card-title Beaten draughts
+              GameBeaten
     v-footer(app)
       v-layout(justify-center)
         | © 2018 Oleg Grigoriev
