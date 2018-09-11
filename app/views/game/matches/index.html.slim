@@ -1,18 +1,5 @@
-h1 Listing matches
+- content_for :header
+  = stylesheet_pack_tag 'application' if Rails.env.production?
+  = javascript_pack_tag 'application'
 
-table
-  thead
-    tr
-      th id
-      th
-
-  tbody
-    - @matches.each do |match|
-      tr
-        td = match.id
-        td = link_to 'Show', match
-        td = link_to 'Destroy', match, data: { confirm: 'Are you sure?' }, method: :delete
-
-br
-
-= link_to 'New Match', new_game_match_path
+#gameplay data-page='MatchesIndex'

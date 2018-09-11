@@ -3,7 +3,7 @@
 module Game
   class MatchesController < ApplicationController
     def index
-      @matches = Match.order(id: :desc)
+      gon.matches = Match.order(id: :desc).as_json(only: %i[id])
     end
 
     def show

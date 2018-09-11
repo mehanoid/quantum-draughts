@@ -9,5 +9,5 @@
 
 import 'babel-polyfill'
 import '../setup'
-import '../gameplay'
+import '../application'
 import '../stylesheets'
