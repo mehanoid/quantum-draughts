@@ -3,22 +3,22 @@
     v-container
       v-layout
         v-flex(xs6)
-          | Matches list
-          .match(
-            v-for="match in matches"
-          )
-            a(:href="matchUrl(match.id)") {{match.id}}
+          h1 Matches list
           v-dialog(
             persistent
             v-model="showMatchForm"
             width="500"
           )
-            v-btn(
+            v-btn.deep-purple.accent-2(
               slot="activator"
             ) New match
             MatchForm(
               @close="showMatchForm = false"
             )
+          .match(
+            v-for="match in matches"
+          )
+            a(:href="matchUrl(match.id)") {{match.id}}
 </template>
 
 <script>

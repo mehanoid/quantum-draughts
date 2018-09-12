@@ -19,7 +19,7 @@
         v-btn(
           @click="close"
         ) Cancel
-        v-btn(
+        v-btn.deep-purple.accent-2(
           @click="saveMatch"
           :loading="progress"
         )
