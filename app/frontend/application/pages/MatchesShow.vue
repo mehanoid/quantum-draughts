@@ -1,7 +1,7 @@
 <template lang="pug">
   v-content
     v-container
-      v-layout
+      v-layout(v-if="match")
         v-flex(xs3)
           v-card.mb-2
             v-card-title Match info
@@ -34,6 +34,7 @@ import GameDraught from '../components/GameDraught'
 import GameBeaten from '../components/GameBeaten'
 import MatchInfo from '../components/MatchInfo'
 import {mapGetters, mapState} from 'vuex'
+import serverApi from '../serverApi'
 
 export default {
   components: {
@@ -43,11 +44,14 @@ export default {
     return {}
   },
   computed: {
-    ...mapState(['boards', 'match']),
+    ...mapState(['match']),
     ...mapGetters(['multiBoard']),
   },
-  created() {
-    this.matchesChannel = this.$cable.channels.match.subscribe(this.match.id)
+  async created() {
+    const id = this.$route.params.id
+    this.matchesChannel = this.$cable.channels.match.subscribe(id)
+    const response = await serverApi.matchGet(id)
+    this.$store.commit('updateMatch', response.data)
   },
   beforeDestroy() {
     this.matchesChannel.unsubscribe()

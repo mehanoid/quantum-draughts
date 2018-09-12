@@ -18,7 +18,7 @@
           .match(
             v-for="match in matches"
           )
-            a(:href="matchUrl(match.id)") {{match.id}}
+            router-link(:to="matchUrl(match.id)") {{match.id}}
 </template>
 
 <script>

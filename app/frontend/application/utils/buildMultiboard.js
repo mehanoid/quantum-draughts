@@ -24,8 +24,8 @@ function reduceMultiCell(cellsGroup, totalWeight) {
       draught: {
         ...multicell.draught,
         weight,
-        probability
-      }
+        probability,
+      },
     }
   }
   else {
@@ -36,6 +36,6 @@ function reduceMultiCell(cellsGroup, totalWeight) {
 function multiCellReducer(multicell, cell) {
   return {
     ...multicell,
-    draught: multicell.draught || cell.draught
+    draught: multicell.draught || cell.draught,
   }
 }

@@ -7,7 +7,11 @@ module Game
     end
 
     def show
-      gon.match = MatchSerializer.new(match).as_json
+      match_json = MatchSerializer.new(match).as_json
+      respond_to do |format|
+        format.html
+        format.json { render json: match_json }
+      end
     end
 
     def create
@@ -16,14 +20,6 @@ module Game
 
       render json: { id: match.id }
     end
-    #
-    # def destroy
-    #   match.destroy
-    #   respond_to do |format|
-    #     format.html { redirect_to game_matches_url, notice: 'Match was successfully destroyed.' }
-    #     format.json { head :no_content }
-    #   end
-    # end
 
     def move
       match.with_lock do

@@ -7,6 +7,8 @@ export default {
     axios.post(`/game/matches/${matchId}/move`, {
       moves,
     }),
+  matchGet: (id) =>
+    axios.get(`/game/matches/${id}`),
   matchTurnGet: (id) =>
     axios.get(`/game/match_turns/${id}`),
 }

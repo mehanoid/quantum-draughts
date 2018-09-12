@@ -4,6 +4,7 @@ import 'vuetify/dist/vuetify.min.css'
 import App from './App.vue'
 import initStore from './store'
 import initCable from './cable'
+import router from './router'
 
 Vue.use(Vuetify)
 
@@ -19,10 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const page = document.getElementById('gameplay').dataset.page
 
-  const app = new Vue({
+  new Vue({
     el: '#gameplay',
     render: h => h(App, {attrs: {page}}),
     store,
+    router,
     cable,
   })
 })

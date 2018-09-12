@@ -1,10 +1,10 @@
 export default () => {
   return {
-    match: gon.match,
+    match: null,
     selectedCellName: null,
     selectedDraughtId: null,
     selectedMoves: [],
     currentMove: [],
-    progress: false
+    progress: false,
   }
 }

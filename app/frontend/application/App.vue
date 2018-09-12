@@ -4,9 +4,9 @@
       v-toolbar-side-icon
       .logo
       v-toolbar-title.ml-2
-        a.title(href="/") Quantum Draughts
+        router-link.title(to="/") Quantum Draughts
     v-content
-      component(:is="pageComponent")
+      router-view
     v-footer(app)
       v-layout(justify-center)
         | © 2018 Oleg Grigoriev
@@ -14,26 +14,14 @@
 </template>
 
 <script>
-import MatchesShow from './pages/MatchesShow'
-import MatchesIndex from './pages/MatchesIndex'
-
-const components = {MatchesShow, MatchesIndex}
-
 export default {
-  components: components,
   props: {
     page: {type: String, required: true},
-  },
-  computed: {
-    pageComponent() {
-      return components[this.page]
-    },
   },
 }
 </script>
 
 <style scoped>
-
 .logo {
   display: inline-block;
   width: 43px;
@@ -46,5 +34,4 @@ export default {
   color: white;
   text-decoration: none;
 }
-
 </style>

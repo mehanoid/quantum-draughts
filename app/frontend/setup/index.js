@@ -1,1 +1,1 @@
-import './setupCSRFToken'
+import './setupAxios'
