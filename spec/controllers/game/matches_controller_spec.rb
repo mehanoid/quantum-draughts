@@ -47,12 +47,12 @@ RSpec.describe Game::MatchesController, type: :controller do
     end
   end
 
-  describe 'GET #new' do
-    it 'returns a success response' do
-      get :new, params: {}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
+  # describe 'GET #new' do
+  #   it 'returns a success response' do
+  #     get :new, params: {}, session: valid_session
+  #     expect(response).to be_successful
+  #   end
+  # end
 
   describe 'POST #create' do
     context 'with valid params' do
@@ -64,27 +64,27 @@ RSpec.describe Game::MatchesController, type: :controller do
         }.to change(Game::Match, :count).by(1)
       end
 
-      it 'redirects to the created match' do
+      it 'returns id of created match' do
         post :create, params: params, session: valid_session
-        expect(response).to redirect_to(Game::Match.last)
+        expect(JSON.parse(response.body)['id']).to eq Game::Match.last.id
       end
     end
   end
 
-  describe 'DELETE #destroy' do
-    it 'destroys the requested match' do
-      match = Game::Match.create!
-      expect {
-        delete :destroy, params: { id: match.to_param }, session: valid_session
-      }.to change(Game::Match, :count).by(-1)
-    end
-
-    it 'redirects to the matches list' do
-      match = Game::Match.create!
-      delete :destroy, params: { id: match.to_param }, session: valid_session
-      expect(response).to redirect_to(game_matches_url)
-    end
-  end
+  # describe 'DELETE #destroy' do
+  #   it 'destroys the requested match' do
+  #     match = Game::Match.create!
+  #     expect {
+  #       delete :destroy, params: { id: match.to_param }, session: valid_session
+  #     }.to change(Game::Match, :count).by(-1)
+  #   end
+  #
+  #   it 'redirects to the matches list' do
+  #     match = Game::Match.create!
+  #     delete :destroy, params: { id: match.to_param }, session: valid_session
+  #     expect(response).to redirect_to(game_matches_url)
+  #   end
+  # end
 
   describe 'POST #move' do
     let(:match) { Game::Match.create_initial_match }

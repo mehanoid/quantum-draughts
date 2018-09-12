@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 export default {
-  matchMove(matchId, moves) {
-    return axios.post(`/game/matches/${matchId}/move`, {
-      moves
-    })
-  },
-  matchTurnGet(id) {
-    return axios.get(`/game/match_turns/${id}`)
-  }
+  matchCreate: (game_match) =>
+    axios.post('/game/matches', {game_match}),
+  matchMove: (matchId, moves) =>
+    axios.post(`/game/matches/${matchId}/move`, {
+      moves,
+    }),
+  matchTurnGet: (id) =>
+    axios.get(`/game/match_turns/${id}`),
 }

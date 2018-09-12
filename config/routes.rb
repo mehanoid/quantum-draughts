@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'game/matches#index'
 
   namespace :game do
-    resources :matches, except: %i[edit update] do
+    resources :matches, only: %i[index show create] do
       member do
         post :move
       end

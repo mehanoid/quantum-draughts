@@ -8,17 +8,30 @@
             v-for="match in matches"
           )
             a(:href="matchUrl(match.id)") {{match.id}}
-          a.new-match(href="/game/matches/new") New Match
+          v-dialog(
+            persistent
+            v-model="showMatchForm"
+            width="500"
+          )
+            v-btn(
+              slot="activator"
+            ) New match
+            MatchForm(
+              @close="showMatchForm = false"
+            )
 </template>
 
 <script>
+import MatchForm from '../components/MatchForm'
 
 export default {
   components: {
+    MatchForm,
   },
   data() {
     return {
       matches: gon.matches,
+      showMatchForm: false,
     }
   },
   computed: {

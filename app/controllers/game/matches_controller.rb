@@ -10,24 +10,20 @@ module Game
       gon.match = MatchSerializer.new(match).as_json
     end
 
-    def new
-      @match = Match.new
-    end
-
     def create
       Game::Match.order(:id).offset(30).destroy_all
-      @match = Match.create_initial_match match_params
+      match = Match.create_initial_match match_params
 
-      redirect_to @match, notice: 'Match was successfully created.'
+      render json: { id: match.id }
     end
-
-    def destroy
-      match.destroy
-      respond_to do |format|
-        format.html { redirect_to game_matches_url, notice: 'Match was successfully destroyed.' }
-        format.json { head :no_content }
-      end
-    end
+    #
+    # def destroy
+    #   match.destroy
+    #   respond_to do |format|
+    #     format.html { redirect_to game_matches_url, notice: 'Match was successfully destroyed.' }
+    #     format.json { head :no_content }
+    #   end
+    # end
 
     def move
       match.with_lock do
