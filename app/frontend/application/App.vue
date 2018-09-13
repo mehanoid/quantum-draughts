@@ -6,17 +6,23 @@
       v-toolbar-title.ml-2
         router-link.title(to="/") Quantum Draughts
     v-content
-      router-view
+      v-progress-linear.progress(
+        v-if="pageLoading"
+        :indeterminate="true"
+      )
+      v-container
+        router-view
     v-footer(app)
       v-layout(justify-center)
         | © 2018 Oleg Grigoriev
-
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
-  props: {
-    page: {type: String, required: true},
+  computed: {
+    ...mapState(['pageLoading']),
   },
 }
 </script>
@@ -28,6 +34,11 @@ export default {
   height: 60%;
   background: url("~images/logo.svg") no-repeat;
   background-size: contain;
+}
+
+.progress {
+  position: absolute;
+  margin-top: 0;
 }
 
 .title {

@@ -1,30 +1,28 @@
 <template lang="pug">
-  v-content
-    v-container
-      v-layout(v-if="match")
-        v-flex(xs3)
-          v-card.mb-2
-            v-card-title Match info
-            MatchInfo
-        v-flex(xs6)
-          v-layout(justify-center)
-            .current-player-message
-              | Current player:
-              |
-              GameDraught.current-player-draught(
-                :draught="{color: match.current_player}"
-              )
-          v-layout(justify-center)
-            GameBoard(
-              :board="multiBoard"
-            )
-        v-flex(xs3)
-          v-card.pb-4.mb-2
-            v-card-title Match history
-            MatchHistory
-          v-card.pb-3.mb-2
-            v-card-title Beaten draughts
-            GameBeaten
+  v-layout(v-if="match")
+    v-flex(xs3)
+      v-card.mb-2
+        v-card-title Match info
+        MatchInfo
+    v-flex(xs6)
+      v-layout(justify-center)
+        .current-player-message
+          | Current player:
+          |
+          GameDraught.current-player-draught(
+            :draught="{color: match.current_player}"
+          )
+      v-layout(justify-center)
+        GameBoard(
+          :board="multiBoard"
+        )
+    v-flex(xs3)
+      v-card.pb-4.mb-2
+        v-card-title Match history
+        MatchHistory
+      v-card.pb-3.mb-2
+        v-card-title Beaten draughts
+        GameBeaten
 </template>
 
 <script>
@@ -33,7 +31,7 @@ import MatchHistory from '../components/MatchHistory'
 import GameDraught from '../components/GameDraught'
 import GameBeaten from '../components/GameBeaten'
 import MatchInfo from '../components/MatchInfo'
-import {mapGetters, mapState} from 'vuex'
+import {mapGetters, mapState, mapMutations} from 'vuex'
 import serverApi from '../serverApi'
 
 export default {
@@ -48,13 +46,21 @@ export default {
     ...mapGetters(['multiBoard']),
   },
   async created() {
-    const id = this.$route.params.id
-    this.matchesChannel = this.$cable.channels.match.subscribe(id)
+    const id = parseInt(this.$route.params.id)
+    if (this.match && this.match.id !== id) {
+      this.updateMatch(null)
+    }
+    this.matchChannel = this.$cable.channels.match.subscribe(id)
+    this.setPageLoading(true)
     const response = await serverApi.matchGet(id)
-    this.$store.commit('updateMatch', response.data)
+    this.setPageLoading(false)
+    this.updateMatch(response.data)
   },
   beforeDestroy() {
-    this.matchesChannel.unsubscribe()
+    this.matchChannel.unsubscribe()
+  },
+  methods: {
+    ...mapMutations(['updateMatch', 'setPageLoading']),
   },
 }
 </script>

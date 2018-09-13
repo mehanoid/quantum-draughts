@@ -6,5 +6,6 @@ export default () => {
     selectedMoves: [],
     currentMove: [],
     progress: false,
+    pageLoading: false,
   }
 }

@@ -3,14 +3,20 @@
 module Game
   class MatchesController < ApplicationController
     def index
-      gon.matches = Match.order(id: :desc).as_json(only: %i[id])
+      respond_to do |format|
+        format.html
+        format.json do
+          render json: Match.order(id: :desc).as_json(only: %i[id])
+        end
+      end
     end
 
     def show
-      match_json = MatchSerializer.new(match).as_json
       respond_to do |format|
         format.html
-        format.json { render json: match_json }
+        format.json do
+          render json: MatchSerializer.new(match).as_json
+        end
       end
     end
 

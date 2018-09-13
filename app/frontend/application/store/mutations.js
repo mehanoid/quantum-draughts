@@ -37,5 +37,9 @@ export default {
 
   setMatchProgress(state, value) {
     state.progress = value
-  }
+  },
+
+  setPageLoading(state, value) {
+    state.pageLoading = value
+  },
 }

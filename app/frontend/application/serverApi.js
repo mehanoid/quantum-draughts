@@ -9,6 +9,8 @@ export default {
     }),
   matchGet: (id) =>
     axios.get(`/game/matches/${id}`),
+  matchesGet: () =>
+    axios.get('/game/matches'),
   matchTurnGet: (id) =>
     axios.get(`/game/match_turns/${id}`),
 }

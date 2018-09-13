@@ -18,11 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const store = initStore()
   const cable = initCable({store})
 
-  const page = document.getElementById('gameplay').dataset.page
-
   new Vue({
-    el: '#gameplay',
-    render: h => h(App, {attrs: {page}}),
+    el: '#application',
+    render: h => h(App),
     store,
     router,
     cable,
