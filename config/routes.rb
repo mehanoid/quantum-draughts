@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   root to: 'game/matches#index'
 
   namespace :game do
-    resources :matches, only: %i[index show create] do
+    resources :matches, only: %i[show create] do
+      collection do
+        get :index, to: redirect('/', status: 302)
+      end
       member do
         post :move
       end
