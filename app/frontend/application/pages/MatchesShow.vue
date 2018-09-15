@@ -38,6 +38,9 @@ export default {
   components: {
     GameBoard, MatchHistory, GameDraught, GameBeaten, MatchInfo,
   },
+  props: {
+    matchId: {type: String, required: true},
+  },
   data() {
     return {}
   },
@@ -46,7 +49,7 @@ export default {
     ...mapGetters(['multiBoard']),
   },
   async created() {
-    const id = parseInt(this.$route.params.id)
+    const id = parseInt(this.matchId)
     if (this.match && this.match.id !== id) {
       this.updateMatch(null)
     }
