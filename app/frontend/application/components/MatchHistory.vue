@@ -7,7 +7,7 @@
         hide-actions
       )
         template(slot="items" slot-scope="{item}")
-          th {{item[0].turn_number}}
+          td {{item[0].turn_number}}
           td
             MatchHistoryItem(:turn="item[0]")
           td

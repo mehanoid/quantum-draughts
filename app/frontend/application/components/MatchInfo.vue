@@ -6,7 +6,7 @@
       hide-actions
     )
       template(slot="items" slot-scope="{item}")
-        th.info-title {{item.title}}
+        td.info-title {{item.title}}
         td.info-value {{item.value}}
 </template>
 
