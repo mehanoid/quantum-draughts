@@ -5,7 +5,7 @@
     "start": "bin/webpack-dev-server & bin/rails s"
   },
   "dependencies": {
-    "@rails/webpacker": "3.5",
+    "@rails/webpacker": "^4.0.2",
     "axios": "^0.18.0",
     "lodash": "^4.17.10",
     "pug": "^2.0.3",
@@ -22,6 +22,6 @@
     "eslint-plugin-vue": "^5.0.0-beta.1",
     "stylelint": "^9.4.0",
     "stylelint-config-standard": "^18.2.0",
-    "webpack-dev-server": "2.11.2"
+    "webpack-dev-server": "^3.2.1"
   }
 }
