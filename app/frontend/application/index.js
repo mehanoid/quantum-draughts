@@ -8,12 +8,6 @@ import router from './router'
 
 Vue.use(Vuetify)
 
-Object.defineProperty(Vue.prototype, '$cable', {
-  get: function () {
-    return this.$root.$options.cable
-  },
-})
-
 document.addEventListener('DOMContentLoaded', () => {
   const store = initStore()
   const cable = initCable({store})
