@@ -59,29 +59,29 @@ module Game
       end
 
       class << self
-        def all_beat_move_steps(boards, player, ruleset: )
+        def all_beat_move_steps(boards, player, ruleset: Game::Gameplay::RussianRuleset)
           all_possible_move_steps(boards, player, ruleset: ruleset).select(&:beat?)
         end
 
-        def any_can_beat?(boards, player, ruleset: )
+        def any_can_beat?(boards, player, ruleset: Game::Gameplay::RussianRuleset)
           boards.any? do |board|
             Game::Gameplay::MovesCalculator.any_can_beat?(board, player, ruleset: ruleset)
           end
         end
 
-        def all_possible_move_steps(boards, player, ruleset: )
+        def all_possible_move_steps(boards, player, ruleset: Game::Gameplay::RussianRuleset)
           boards.flat_map do |board|
             Game::Gameplay::MovesCalculator.all_possible_move_steps(board, player, ruleset: ruleset)
           end
         end
 
-        def all_possible_move_chains(boards, player, ruleset: )
+        def all_possible_move_chains(boards, player, ruleset: Game::Gameplay::RussianRuleset)
           boards.flat_map do |board|
             Game::Gameplay::MovesCalculator.all_possible_move_chains(board, player, ruleset: ruleset)
           end
         end
 
-        def valid_possible_move_chains(boards, player, ruleset: )
+        def valid_possible_move_chains(boards, player, ruleset: Game::Gameplay::RussianRuleset)
           if any_can_beat?(boards, player, ruleset: ruleset)
             all_possible_move_chains(boards, player, ruleset: ruleset).select { |chain| chain.first.beat? }
           else

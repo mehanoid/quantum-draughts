@@ -6,7 +6,7 @@ module Game
       attr_reader :boards, :moves_params, :current_player, :ruleset
 
       # @param boards [Array<Game::GamePlay::Board>]
-      def initialize(boards, moves_params, current_player, ruleset:)
+      def initialize(boards, moves_params, current_player, ruleset: RussianRuleset)
         @boards         = boards
         @moves_params   = moves_params
         @current_player = current_player
