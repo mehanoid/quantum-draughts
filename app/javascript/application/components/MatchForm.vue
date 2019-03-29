@@ -10,7 +10,7 @@
         )
           v-radio(
             v-for="ruleset in rulesets"
-            :v-key="ruleset.value"
+            :key="ruleset.value"
             :label="ruleset.label"
             :value="ruleset.value"
           )
