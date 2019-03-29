@@ -4,7 +4,7 @@ import state from './state'
 import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
-import modules from './modules/index'
+import modules from './modules'
 
 Vue.use(Vuex)
 
@@ -30,7 +30,7 @@ if (module.hot) {
     const newGetters = require('./getters').default
     const newMutations = require('./mutations').default
     const newActions = require('./actions').default
-    const newModules = require('./modules/index').default
+    const newModules = require('./modules').default
     // swap in the new actions and mutations
     store.hotUpdate({
       getters: newGetters,
