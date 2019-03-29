@@ -1,11 +1,11 @@
 <template lang="pug">
   v-card
     v-card-title
-      | New match
+      | {{ $t("matchForm.newMatch") }}
     v-card-text
       v-form
         v-radio-group(
-          label="Ruleset"
+          :label="$t('commons.ruleset')"
           v-model="match.ruleset"
         )
           v-radio(
@@ -18,12 +18,12 @@
         v-spacer
         v-btn(
           @click="close"
-        ) Cancel
+        ) {{ $t("buttons.cancel") }}
         v-btn.deep-purple.accent-2(
           @click="saveMatch"
           :loading="progress"
         )
-          | Create
+          | {{ $t("matchForm.start") }}
 </template>
 
 <script>
@@ -39,8 +39,8 @@ export default {
   computed: {
     rulesets() {
       return [
-        {value: 'english', label: 'English'},
-        {value: 'russian', label: 'Russian'},
+        {value: 'english', label: this.$t('rulesets.english')},
+        {value: 'russian', label: this.$t('rulesets.russian')},
       ]
     },
   },

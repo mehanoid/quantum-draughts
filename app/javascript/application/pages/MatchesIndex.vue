@@ -9,7 +9,7 @@
       )
         v-btn.deep-purple.accent-2(
           slot="activator"
-        ) New match
+        ) {{ $t("matchesIndex.startGame") }}
         MatchForm(
           @close="showMatchForm = false"
         )
