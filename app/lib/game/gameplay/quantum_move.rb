@@ -16,9 +16,9 @@ module Game
       def perform
         validate_moves_params!
         build_moves(moves_params)
-          .yield_self(&method(:perform_moves))
-          .yield_self(&method(:collapse_boards))
-          .yield_self(&method(:compact_boards))
+          .then(&method(:perform_moves))
+          .then(&method(:collapse_boards))
+          .then(&method(:compact_boards))
       end
 
       def beat?

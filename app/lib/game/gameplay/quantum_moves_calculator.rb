@@ -86,7 +86,7 @@ module Game
             all_possible_move_chains(boards, player, ruleset: ruleset).select { |chain| chain.first.beat? }
           else
             all_possible_move_chains(boards, player, ruleset: ruleset)
-          end.yield_self(&method(:reject_included_in_other_moves))
+          end.then(&method(:reject_included_in_other_moves))
             .map do |chain|
             {
               beat:  chain.first.beat?,

@@ -9,8 +9,8 @@ module Game
 
       def perform
         calc_boards_weights(@boards)
-          .yield_self(&method(:reduce_boards_weights))
-          .yield_self(&method(:make_board_list))
+          .then(&method(:reduce_boards_weights))
+          .then(&method(:make_board_list))
       end
 
       private
