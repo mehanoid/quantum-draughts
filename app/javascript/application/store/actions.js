@@ -68,5 +68,5 @@ export default {
     if (response.error) {
       alert(response.error)
     }
-  }
+  },
 }
