@@ -41,11 +41,13 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # views
 gem 'slim-rails'
 
+gem 'devise'
 # utils
 gem 'active_model_serializers'
 gem 'dry-equalizer'
 gem 'gon'
 gem 'memery'
+# Выбор случайного элемента с учётом его вероятности. Для коллапса суперпозиции
 gem 'pickup'
 
 group :development, :test do

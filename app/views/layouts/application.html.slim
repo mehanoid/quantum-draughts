@@ -13,5 +13,7 @@ html
     = javascript_pack_tag 'application'
   body
     = Gon::Base.render_data
+    p.notice= notice
+    p.alert= alert
     #application
     = yield
