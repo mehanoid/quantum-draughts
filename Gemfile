@@ -42,6 +42,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'slim-rails'
 
 gem 'devise'
+gem 'devise-guests'
 # utils
 gem 'active_model_serializers'
 gem 'dry-equalizer'
