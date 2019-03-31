@@ -22,7 +22,7 @@ module Game
 
     def create
       Game::Match.order(:id).offset(30).destroy_all
-      match = Match.create_initial_match match_params
+      match = Match.create_initial_match match_params.merge(white_player: current_or_guest_user)
 
       render json: { id: match.id }
     end
@@ -37,6 +37,14 @@ module Game
       end
     rescue Gameplay::InvalidMove => e
       render json: { status: :error, error: "Invalid move: #{e.message}" }
+    end
+
+    def join
+      raise 'Already participates' if current_or_guest_user.in?(match.players)
+
+      match.update black_player: current_or_guest_user
+      match.start!
+      render json: { status: :ok }
     end
 
     private

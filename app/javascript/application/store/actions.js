@@ -69,4 +69,8 @@ export default {
       alert(response.error)
     }
   },
+
+  async join({commit, state}) {
+    serverApi.matchJoin(state.match.id)
+  },
 }

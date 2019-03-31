@@ -6,12 +6,26 @@
         MatchInfo
     v-flex(xs6)
       v-layout(justify-center)
-        .current-player-message
-          | Current player:
-          |
-          GameDraught.current-player-draught(
-            :draught="{color: match.current_player}"
+        v-flex
+          v-layout(
+            justify-center
+            align-center
+            v-if="match.state === 'new_match'"
           )
+            span.state {{ $t("matchesShow.waitingForPlayers") }}
+            v-btn.deep-purple.accent-2(
+              @click="join"
+            ) {{ $t("matchesShow.join") }}
+          v-layout(
+            v-else
+          )
+            v-flex
+              .current-player-message
+                | Current player:
+                |
+                GameDraught.current-player-draught(
+                  :draught="{color: match.current_player}"
+                )
       v-layout(justify-center)
         GameBoard(
           :board="multiBoard"
@@ -31,7 +45,7 @@ import MatchHistory from '../components/MatchHistory'
 import GameDraught from '../components/GameDraught'
 import GameBeaten from '../components/GameBeaten'
 import MatchInfo from '../components/MatchInfo'
-import {mapGetters, mapState, mapMutations} from 'vuex'
+import {mapGetters, mapState, mapMutations, mapActions} from 'vuex'
 import serverApi from '../serverApi'
 
 export default {
@@ -64,6 +78,7 @@ export default {
   },
   methods: {
     ...mapMutations(['updateMatch', 'setPageLoading']),
+    ...mapActions(['join']),
   },
 }
 </script>

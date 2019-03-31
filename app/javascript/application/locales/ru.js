@@ -9,6 +9,10 @@ export default {
   matchesIndex: {
     startGame: 'Начать игру',
   },
+  matchesShow: {
+    join: 'Присоединиться',
+    waitingForPlayers: 'Ожидание игроков',
+  },
   matchForm: {
     newMatch: 'Новая игра',
     start: 'Начать',

@@ -2,7 +2,7 @@
 
 module Game
   class MatchSerializer < ActiveModel::Serializer
-    attributes :id, :boards, :current_player, :possible_moves, :ruleset
+    attributes :id, :boards, :current_player, :possible_moves, :ruleset, :state
 
     has_many :match_turns
 

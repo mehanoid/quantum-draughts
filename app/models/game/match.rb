@@ -2,12 +2,35 @@
 
 module Game
   class Match < ApplicationRecord
+    include AASM
+
     has_many :match_turns, dependent: :destroy
+
+    belongs_to :white_player, class_name: 'User', optional: true
+    belongs_to :black_player, class_name: 'User', optional: true
 
     enum ruleset: {
       english: 0,
       russian: 1,
     }
+
+    enum state: {
+      new_match: 0,
+      ready: 1,
+      started: 2,
+      finished: 3,
+    }
+
+    aasm column: :state do
+      state :new_match, initial: true
+      state :ready
+      state :started
+      state :finished
+
+      event :start do
+        transitions from: %i[new_match ready], to: :started
+      end
+    end
 
     def self.create_initial_match(params = {})
       match = create! params
@@ -21,6 +44,10 @@ module Game
 
     def current_player
       current_turn.player
+    end
+
+    def players
+      [white_player, black_player].compact
     end
 
     def board_instances

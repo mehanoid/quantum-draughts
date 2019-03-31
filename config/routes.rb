@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         get :index, to: redirect('/', status: 302)
       end
       member do
+        post :join
         post :move
       end
     end
