@@ -5,6 +5,8 @@ module Game
     attributes :id, :boards, :current_player, :possible_moves, :ruleset, :state
 
     has_many :match_turns
+    has_one :white_player, serializer: UserSerializer
+    has_one :black_player, serializer: UserSerializer
 
     def boards
       object.board_instances.map(&:as_json)
@@ -21,5 +23,6 @@ module Game
         ruleset: object.ruleset_object,
       )
     end
+
   end
 end

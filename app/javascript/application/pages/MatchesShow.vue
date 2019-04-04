@@ -21,7 +21,9 @@
           )
             v-flex
               .current-player-message
-                | Current player:
+                span.current-player-text(v-if="currentUserTurn") {{ $t("matchesShow.yourTurn") }}
+                span.current-player-text(v-else-if="opponentTurn") {{ $t("matchesShow.opponentTurn") }}
+                span.current-player-text(v-else) {{ $t("matchesShow.currentPlayer") }}
                 |
                 GameDraught.current-player-draught(
                   :draught="{color: match.current_player}"
@@ -60,7 +62,16 @@ export default {
   },
   computed: {
     ...mapState('gameplay', ['match']),
-    ...mapGetters('gameplay', ['multiBoard']),
+    ...mapGetters('gameplay', ['multiBoard', 'currentPlayerUser']),
+    ...mapState(['currentUser']),
+
+    currentUserTurn() {
+      return this.currentPlayerUser && this.currentUser && this.currentPlayerUser.id === this.currentUser.id
+    },
+
+    opponentTurn() {
+      return this.currentPlayerUser && this.currentUser && this.currentPlayerUser.id !== this.currentUser.id
+    }
   },
   async created() {
     const id = parseInt(this.matchId)
@@ -90,6 +101,10 @@ export default {
   font-size: 2em;
   text-align: center;
   font-weight: bold;
+}
+
+.current-player-text {
+  margin-right: .5em;
 }
 
 .current-player-draught {

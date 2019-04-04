@@ -12,6 +12,9 @@ export default {
   matchesShow: {
     join: 'Присоединиться',
     waitingForPlayers: 'Ожидание игроков',
+    yourTurn: 'Ваш ход',
+    opponentTurn: 'Ход противника',
+    currentPlayer: 'Текущий игрок:',
   },
   matchForm: {
     newMatch: 'Новая игра',

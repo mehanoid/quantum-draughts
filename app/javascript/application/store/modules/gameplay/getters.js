@@ -123,4 +123,10 @@ export default {
   selectedMovesCellNames(state) {
     return _.uniq(_.flatten(state.selectedMoves.map(_.drop)))
   },
+
+  currentPlayerUser(state) {
+    return state.match.current_player === 'white' ?
+      state.match.white_player :
+      state.match.black_player
+  },
 }
