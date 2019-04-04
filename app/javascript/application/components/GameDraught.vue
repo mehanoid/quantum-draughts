@@ -14,7 +14,7 @@
         :width="0.1"
         :color="entanglementColor"
         :backgroundColor="entanglementBg"
-        backgroundOpacity="1"
+        :backgroundOpacity="1"
       )
       .king-label(v-if="draught.king") ♚
 </template>
