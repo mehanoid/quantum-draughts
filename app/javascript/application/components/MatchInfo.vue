@@ -17,7 +17,7 @@ export default {
   components: {
   },
   computed: {
-    ...mapState(['match']),
+    ...mapState('gameplay', ['match']),
     items() {
       return [
         {title: 'Ruleset', value: _.capitalize(this.match.ruleset)},

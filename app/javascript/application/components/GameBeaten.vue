@@ -1,7 +1,7 @@
 <template lang="pug">
   .game-beaten
-    GameBeatenDraughtsGroup(:draughts="beatenWhite")
-    GameBeatenDraughtsGroup(:draughts="beatenBlack")
+    GameBeatenDraughtsGroup(:draughts="draughtsBeatenWhite")
+    GameBeatenDraughtsGroup(:draughts="draughtsBeatenBlack")
 </template>
 <script>
 
@@ -11,7 +11,7 @@ import GameBeatenGroup from './GameBeatenGroup'
 export default {
   components: {GameBeatenDraughtsGroup: GameBeatenGroup},
   computed: {
-    ...mapGetters('draughts', ['beatenWhite', 'beatenBlack']),
+    ...mapGetters('gameplay', ['draughtsBeatenWhite', 'draughtsBeatenBlack']),
   },
 }
 </script>

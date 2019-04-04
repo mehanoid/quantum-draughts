@@ -21,6 +21,7 @@
 
 <script>
 import PieChart from './PieChart'
+import {mapState} from 'vuex'
 
 export default {
   components: {PieChart},
@@ -43,6 +44,7 @@ export default {
     },
   },
   computed: {
+    ...mapState('gameplay', ['selectedDraughtId']),
     classNames() {
       return [`${this.draught.color}-player`,
         {
@@ -66,7 +68,7 @@ export default {
         'var(--clr-draught-black-entanglement-bg)'
     },
     isSelectedDraught() {
-      return this.draught.id && this.draught.id === this.$store.state.selectedDraughtId
+      return this.draught.id && this.draught.id === this.selectedDraughtId
     },
     probability() {
       return this.draught.probability != null ? this.draught.probability : 100

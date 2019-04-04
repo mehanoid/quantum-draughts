@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapState} from 'vuex'
 import GameDraught from './GameDraught'
 
 export default {
@@ -20,18 +20,19 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['entanglementInfo']),
+    ...mapGetters('gameplay', ['entanglementInfo']),
+    ...mapState('gameplay', ['match', 'selectedCellName']),
     draught() {
       return this.cell.draught
     },
     selectable() {
-      return this.$store.state.match.current_player === this.draught.color
+      return this.match.current_player === this.draught.color
     },
     isSelectedCell() {
-      return this.$store.state.selectedCellName === this.cell.name
+      return this.selectedCellName === this.cell.name
     },
     canBeat(){
-      return this.$store.getters.canBeat(this.cell.name)
+      return this.$store.getters['gameplay/canBeat'](this.cell.name)
     },
     entanglementProbability() {
       const info = this.entanglementInfo.find(i => i.cellName === this.cell.name)

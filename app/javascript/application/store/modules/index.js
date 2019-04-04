@@ -1,7 +1,5 @@
-import draughts from './draughts'
-import history from './history'
+import gameplay from './gameplay'
 
 export default {
-  draughts,
-  history
+  gameplay,
 }

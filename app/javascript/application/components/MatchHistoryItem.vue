@@ -14,7 +14,7 @@ export default {
     },
   },
   computed: {
-    ...mapState('history', ['selectedMatchTurnId']),
+    ...mapState('gameplay/history', ['selectedMatchTurnId']),
     classNames() {
       return {
         'current-turn': this.currentTurn,
@@ -36,8 +36,8 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('history', ['setSelectedMatchTurn']),
-    ...mapActions('history', ['selectMatchTurn']),
+    ...mapMutations('gameplay/history', ['setSelectedMatchTurn']),
+    ...mapActions('gameplay/history', ['selectMatchTurn']),
     handleClick() {
       if (this.currentTurn) {
         this.setSelectedMatchTurn(null)

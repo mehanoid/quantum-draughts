@@ -24,7 +24,7 @@ export default {
     MatchHistoryItem, VuePerfectScrollbar,
   },
   computed: {
-    ...mapState(['match']),
+    ...mapState('gameplay', ['match']),
     turnGroups() {
       return _.reverse(_.chunk(this.match.match_turns, 2))
     },

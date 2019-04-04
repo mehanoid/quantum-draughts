@@ -59,8 +59,8 @@ export default {
     return {}
   },
   computed: {
-    ...mapState(['match']),
-    ...mapGetters(['multiBoard']),
+    ...mapState('gameplay', ['match']),
+    ...mapGetters('gameplay', ['multiBoard']),
   },
   async created() {
     const id = parseInt(this.matchId)
@@ -77,8 +77,9 @@ export default {
     this.matchChannel.unsubscribe()
   },
   methods: {
-    ...mapMutations(['updateMatch', 'setPageLoading']),
-    ...mapActions(['join']),
+    ...mapMutations('gameplay', ['updateMatch']),
+    ...mapMutations(['setPageLoading']),
+    ...mapActions('gameplay', ['join']),
   },
 }
 </script>

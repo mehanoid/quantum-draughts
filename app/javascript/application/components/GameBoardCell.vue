@@ -27,8 +27,8 @@ export default {
     return {}
   },
   computed: {
-    ...mapState(['currentMove']),
-    ...mapGetters(['currentPossibleMovesCellNames', 'currentPossibleSteps', 'selectedMovesCellNames']),
+    ...mapState('gameplay', ['currentMove']),
+    ...mapGetters('gameplay', ['currentPossibleMovesCellNames', 'currentPossibleSteps', 'selectedMovesCellNames']),
     classNames() {
       return {
         playable: this.cell.playable,
@@ -40,7 +40,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['selectCell']),
+    ...mapActions('gameplay', ['selectCell']),
   },
 }
 </script>

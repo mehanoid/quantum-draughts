@@ -1,4 +1,4 @@
-import serverApi from '../../serverApi'
+import serverApi from '../../../../serverApi'
 
 export default {
   namespaced: true,
@@ -6,13 +6,13 @@ export default {
   state() {
     return {
       matchTurns: [],
-      selectedMatchTurnId: null
+      selectedMatchTurnId: null,
     }
   },
   getters: {
     selectedMatchTurn(state) {
       return state.matchTurns.find(t => t.id === state.selectedMatchTurnId)
-    }
+    },
   },
   mutations: {
     addMatchTurn(state, turn) {
@@ -21,7 +21,7 @@ export default {
 
     setSelectedMatchTurn(state, id) {
       state.selectedMatchTurnId = id
-    }
+    },
   },
   actions: {
     async selectMatchTurn({state, commit}, id) {
@@ -30,6 +30,6 @@ export default {
         commit('addMatchTurn', result.data)
       }
       commit('setSelectedMatchTurn', id)
-    }
-  }
+    },
+  },
 }
