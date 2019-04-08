@@ -70,9 +70,8 @@ export default {
     }
   },
 
-  async join({state, commit, dispatch}) {
-    const {data: match} = await serverApi.matchJoin(state.match.id)
-    commit('updateMatch', match)
+  async join({state, dispatch}) {
+    await serverApi.matchJoin(state.match.id)
     dispatch('updateCurrentUser', null, {root: true})
   },
 }

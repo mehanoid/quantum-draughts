@@ -44,7 +44,8 @@ module Game
 
       match.update black_player: current_or_guest_user
       match.start!
-      render json: match
+      MatchChannel.broadcast_to(match, serialize(match))
+      render json: { status: :ok }
     end
 
     private
