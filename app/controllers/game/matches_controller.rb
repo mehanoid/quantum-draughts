@@ -29,6 +29,10 @@ module Game
 
     def move
       match.with_lock do
+        unless current_or_guest_user == match.current_player
+          return render json: { status: :error }, status: :forbidden
+        end
+
         result = Gameplay.move match.current_turn, params[:moves], match.ruleset_object
         match.current_turn.update move: result[:move]
         match.match_turns.create! result[:next_turn]

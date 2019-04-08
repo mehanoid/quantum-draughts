@@ -26,7 +26,7 @@ export default {
       return this.cell.draught
     },
     selectable() {
-      return this.match.current_player === this.draught.color
+      return this.match.current_player_color === this.draught.color
     },
     isSelectedCell() {
       return this.selectedCellName === this.cell.name

@@ -2,7 +2,7 @@
 
 module Game
   class MatchSerializer < ActiveModel::Serializer
-    attributes :id, :boards, :current_player, :possible_moves, :ruleset, :state
+    attributes :id, :boards, :current_player_color, :possible_moves, :ruleset, :state
 
     has_many :match_turns
     has_one :white_player, serializer: UserSerializer
@@ -19,7 +19,7 @@ module Game
     def possible_moves
       Gameplay::QuantumMovesCalculator.valid_possible_move_chains(
         object.board_instances,
-        object.current_player.to_sym,
+        object.current_player_color.to_sym,
         ruleset: object.ruleset_object,
       )
     end

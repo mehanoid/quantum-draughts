@@ -26,7 +26,7 @@
                 span.current-player-text(v-else) {{ $t("matchesShow.currentPlayer") }}
                 |
                 GameDraught.current-player-draught(
-                  :draught="{color: match.current_player}"
+                  :draught="{color: match.current_player_color}"
                 )
       v-layout(justify-center)
         GameBoard(

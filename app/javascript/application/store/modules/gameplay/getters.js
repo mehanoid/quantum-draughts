@@ -125,7 +125,7 @@ export default {
   },
 
   currentPlayerUser(state) {
-    return state.match.current_player === 'white' ?
+    return state.match.current_player_color === 'white' ?
       state.match.white_player :
       state.match.black_player
   },

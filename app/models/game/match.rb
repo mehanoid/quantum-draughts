@@ -42,8 +42,12 @@ module Game
       match_turns.last
     end
 
-    def current_player
+    def current_player_color
       current_turn.player
+    end
+
+    def current_player
+      current_turn.white? ? white_player : black_player
     end
 
     def players
