@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 export default {
+  currentUserGet: () =>
+    axios.get('/users/current'),
   matchCreate: (game_match) =>
     axios.post('/game/matches', {game_match}),
   matchMove: (matchId, moves) =>
@@ -10,9 +12,9 @@ export default {
   matchJoin: (matchId) =>
     axios.post(`/game/matches/${matchId}/join`),
   matchGet: (id) =>
-    axios.get(`/game/matches/${id}`),
+    axios.get(`/game/matches/${id}.json`),
   matchesGet: () =>
-    axios.get('/game/matches'),
+    axios.get('/game/matches.json'),
   matchTurnGet: (id) =>
     axios.get(`/game/match_turns/${id}`),
 }

@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import serverApi from '../serverApi'
 
 export default {
@@ -45,6 +46,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['updateCurrentUser']),
     close() {
       this.$emit('close')
     },
@@ -52,7 +54,8 @@ export default {
       this.progress = true
       const response = await serverApi.matchCreate(this.match)
       const matchId = response.data.id
-      window.location = `/game/matches/${matchId}`
+      this.updateCurrentUser()
+      this.$router.push({name: 'match', params: {matchId}})
     },
   },
 }

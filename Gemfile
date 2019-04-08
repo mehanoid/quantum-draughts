@@ -43,7 +43,7 @@ gem 'slim-rails'
 
 # auth
 gem 'devise'
-gem 'devise-guests'
+gem 'devise-guests', path: '/home/meh/Projects/devise-guests'
 # state
 gem 'aasm'
 # utils

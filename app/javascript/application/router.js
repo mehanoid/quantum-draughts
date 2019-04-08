@@ -9,7 +9,7 @@ export default new VueRouter({
   mode: 'history',
   routes: [
     {path: '/', component: MatchesIndex, props: true},
-    {path: '/game/matches/:matchId', component: MatchesShow, props: true},
+    {path: '/game/matches/:matchId', component: MatchesShow, props: true, name: 'match'},
   ],
 })
 

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users
   root to: 'game/matches#index'
+
+  devise_for :users
+  get 'users/current'
 
   namespace :game do
     resources :matches, only: %i[show create] do

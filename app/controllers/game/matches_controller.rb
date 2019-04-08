@@ -15,7 +15,7 @@ module Game
       respond_to do |format|
         format.html
         format.json do
-          render json: MatchSerializer.new(match).as_json
+          render json: match
         end
       end
     end
@@ -32,7 +32,7 @@ module Game
         result = Gameplay.move match.current_turn, params[:moves], match.ruleset_object
         match.current_turn.update move: result[:move]
         match.match_turns.create! result[:next_turn]
-        MatchChannel.broadcast_to(match, MatchSerializer.new(match).as_json)
+        MatchChannel.broadcast_to(match, serialize(match))
         render json: { status: :ok }
       end
     rescue Gameplay::InvalidMove => e
@@ -44,7 +44,7 @@ module Game
 
       match.update black_player: current_or_guest_user
       match.start!
-      render json: { status: :ok }
+      render json: match
     end
 
     private

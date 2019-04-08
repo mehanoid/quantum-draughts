@@ -55,7 +55,7 @@ export default {
     GameBoard, MatchHistory, GameDraught, GameBeaten, MatchInfo,
   },
   props: {
-    matchId: {type: String, required: true},
+    matchId: {required: true},
   },
   data() {
     return {}

@@ -10,6 +10,11 @@ class ApplicationController < ActionController::Base
   def gon_defaults
     return unless request.format.html?
 
-    gon.current_user = UserSerializer.new(current_user).as_json if user_signed_in?
+    user = current_or_guest_user(create: false)
+    gon.current_user = serialize(user) if user
+  end
+
+  def serialize(model, **options)
+    ActiveModelSerializers::SerializableResource.new(model, **options).as_json
   end
 end
