@@ -63,6 +63,9 @@ group :development, :test do
   gem 'pry-rails'
 
   gem 'ruby-prof'
+  gem 'switch_user'
+  gem 'jquery-rails' # for switch_user_page
+  gem 'switch_user_page', github: 'mehanoid/switch_user_page'
 end
 
 group :development do

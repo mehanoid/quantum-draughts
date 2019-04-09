@@ -8,12 +8,13 @@
       v-layout(justify-center)
         v-flex
           v-layout(
+            v-if="isNewMatch"
             justify-center
             align-center
-            v-if="match.state === 'new_match'"
           )
             span.state {{ $t("matchesShow.waitingForPlayers") }}
             v-btn.deep-purple.accent-2(
+              v-if="showJoinButton"
               @click="join"
             ) {{ $t("matchesShow.join") }}
           v-layout(
@@ -21,8 +22,8 @@
           )
             v-flex
               .current-player-message
-                span.current-player-text(v-if="currentUserTurn") {{ $t("matchesShow.yourTurn") }}
-                span.current-player-text(v-else-if="opponentTurn") {{ $t("matchesShow.opponentTurn") }}
+                span.current-player-text(v-if="isCurrentUserTurn") {{ $t("matchesShow.yourTurn") }}
+                span.current-player-text(v-else-if="isCurrentUserParticipant") {{ $t("matchesShow.opponentTurn") }}
                 span.current-player-text(v-else) {{ $t("matchesShow.currentPlayer") }}
                 |
                 GameDraught.current-player-draught(
@@ -62,16 +63,16 @@ export default {
   },
   computed: {
     ...mapState('gameplay', ['match']),
-    ...mapGetters('gameplay', ['multiBoard', 'currentPlayerUser']),
+    ...mapGetters('gameplay', ['multiBoard', 'isCurrentUserParticipant', 'isCurrentUserTurn']),
     ...mapState(['currentUser']),
 
-    currentUserTurn() {
-      return this.currentPlayerUser && this.currentUser && this.currentPlayerUser.id === this.currentUser.id
+    isNewMatch() {
+      return this.match.state === 'new_match'
     },
 
-    opponentTurn() {
-      return this.currentPlayerUser && this.currentUser && this.currentPlayerUser.id !== this.currentUser.id
-    }
+    showJoinButton() {
+      return this.isNewMatch && !this.isCurrentUserParticipant
+    },
   },
   async created() {
     const id = parseInt(this.matchId)
@@ -104,7 +105,7 @@ export default {
 }
 
 .current-player-text {
-  margin-right: .5em;
+  margin-right: 0.5em;
 }
 
 .current-player-draught {

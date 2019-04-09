@@ -18,4 +18,6 @@ Rails.application.routes.draw do
     end
     resources :match_turns, only: %i[show]
   end
+
+  mount SwitchUserPage::Engine, at: 'switch_user_page' if defined? SwitchUserPage::Engine
 end

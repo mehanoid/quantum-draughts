@@ -46,8 +46,25 @@ export default {
     return getters.cellByName(state.selectedCellName)
   },
 
-  anyCanMove(state) {
-    return !state.history.selectedMatchTurnId
+  isCurrentUserParticipant(state, getters, rootState) {
+    return rootState.currentUser && (
+      state.match.white_player && rootState.currentUser.id === state.match.white_player.id ||
+      state.match.black_player && rootState.currentUser.id === state.match.black_player
+    )
+  },
+
+  isCurrentUserTurn(state, getters, rootState) {
+    return getters.currentPlayerUser && rootState.currentUser && getters.currentPlayerUser.id === rootState.currentUser.id
+  },
+
+  currentPlayerUser(state) {
+    return state.match.current_player_color === 'white' ?
+      state.match.white_player :
+      state.match.black_player
+  },
+
+  anyCanMove(state, getters) {
+    return getters.isCurrentUserTurn && !state.history.selectedMatchTurnId
   },
 
   anyCanBeat(state) {
@@ -122,11 +139,5 @@ export default {
 
   selectedMovesCellNames(state) {
     return _.uniq(_.flatten(state.selectedMoves.map(_.drop)))
-  },
-
-  currentPlayerUser(state) {
-    return state.match.current_player_color === 'white' ?
-      state.match.white_player :
-      state.match.black_player
   },
 }
