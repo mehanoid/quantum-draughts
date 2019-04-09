@@ -19,6 +19,5 @@ environment.loaders.prepend('pug-plain', pug)
 environment.loaders.prepend('vue', vue)
 
 environment.config.merge(customConfig)
-console.log(environment.config)
 
 module.exports = environment
