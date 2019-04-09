@@ -49,7 +49,7 @@ export default {
   isCurrentUserParticipant(state, getters, rootState) {
     return rootState.currentUser && (
       state.match.white_player && rootState.currentUser.id === state.match.white_player.id ||
-      state.match.black_player && rootState.currentUser.id === state.match.black_player
+      state.match.black_player && rootState.currentUser.id === state.match.black_player.id
     )
   },
 

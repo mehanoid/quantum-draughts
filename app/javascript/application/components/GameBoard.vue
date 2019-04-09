@@ -7,8 +7,8 @@
     table.board-table
       tr.column-names
         th
-        th(v-for="cell in board[0]") {{ cell.column }}
-      tr.row(v-for="row in board")
+        th(v-for="cell in displayingBoard[0]") {{ cell.column }}
+      tr.row(v-for="row in displayingBoard")
         th.row-name {{ row[0].row }}
         GameBoardCell(
           v-for="cell in row"
@@ -18,11 +18,12 @@
         th.row-name {{ row[0].row }}
       tr.column-names
         th
-        th(v-for="cell in board[0]") {{ cell.column }}
+        th(v-for="cell in displayingBoard[0]") {{ cell.column }}
 </template>
 
 <script>
 import GameBoardCell from './GameBoardCell'
+import {mapState} from 'vuex'
 
 export default {
   components: {
@@ -36,6 +37,20 @@ export default {
   },
   data: function () {
     return {}
+  },
+  computed: {
+    ...mapState('gameplay', ['match']),
+    ...mapState(['currentUser']),
+    displayingBoard() {
+      if (this.currentUser && this.match.black_player && this.currentUser.id === this.match.black_player.id) {
+        return _.reverse(
+          this.board.map(row => _.reverse(row))
+        )
+      }
+      else {
+        return this.board
+      }
+    },
   },
 }
 </script>
