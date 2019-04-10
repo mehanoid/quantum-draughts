@@ -35,6 +35,7 @@ if defined? SwitchUser
 
     # redirect_path is a block, it returns which page will be redirected
     # after switching a user.
-    config.redirect_path = ->(request, params) { '/' }
+    config.redirect_path = lambda { |request, params|
+      request.env["HTTP_REFERER"] ? request.referer : Rails.application.routes.url_helpers.root_path }
   end
 end
