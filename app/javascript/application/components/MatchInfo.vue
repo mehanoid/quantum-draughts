@@ -20,9 +20,7 @@ export default {
     ...mapState('gameplay', ['match']),
     items() {
       return _.compact([
-        this.match.white_player && {title: 'White player', value: _.capitalize(this.match.white_player.id)},
-        this.match.black_player && {title: 'Black player', value: _.capitalize(this.match.black_player.id)},
-        {title: 'Ruleset', value: _.capitalize(this.match.ruleset)},
+        {title: this.$t('commons.ruleset'), value: this.$t(`rulesets.${this.match.ruleset}`)},
       ])
     },
   },

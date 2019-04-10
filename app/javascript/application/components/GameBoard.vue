@@ -1,7 +1,7 @@
 <template lang="pug">
   .board
     v-progress-linear.progress(
-      v-if="$store.state.progress"
+      v-if="$store.state.gameplay.progress"
       :indeterminate="true"
     )
     table.board-table
@@ -58,8 +58,6 @@ export default {
 <style scoped>
 .board {
   position: relative;
-
-  --board-padding: 25px;
 }
 
 .progress {

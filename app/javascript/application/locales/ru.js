@@ -1,6 +1,6 @@
 export default {
   commons: {
-    ruleset: 'Набор правил',
+    ruleset: 'Правила',
   },
   rulesets: {
     english: 'Английские',
@@ -14,7 +14,10 @@ export default {
     waitingForPlayers: 'Ожидание игроков',
     yourTurn: 'Ваш ход',
     opponentTurn: 'Ход противника',
-    currentPlayer: 'Текущий игрок:',
+    whiteTurn: 'Ход белых',
+    blackTurn: 'Ход чёрных',
+    anonymousPlayerName: 'Игрок %{id}',
+    noPlayer: 'Не назначен',
   },
   matchForm: {
     newMatch: 'Новая игра',

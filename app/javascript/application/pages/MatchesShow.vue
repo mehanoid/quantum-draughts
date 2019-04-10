@@ -1,34 +1,38 @@
 <template lang="pug">
-  v-layout(v-if="match")
+  v-layout.matches-show(v-if="match")
     v-flex(xs3)
       v-card.mb-2
         v-card-title Match info
         MatchInfo
     v-flex(xs6)
-      v-layout(justify-center)
-        v-flex
-          v-layout(
-            v-if="isNewMatch"
-            justify-center
-            align-center
+      v-layout.board-header(justify-center)
+        v-flex.player.player_white(xs4)
+          GameDraught.player-draught(
+            :draught="{color: 'white'}"
+            :selected="match.current_player_color==='white'"
           )
-            span.state {{ $t("matchesShow.waitingForPlayers") }}
-            v-btn.deep-purple.accent-2(
-              v-if="showJoinButton"
-              @click="join"
-            ) {{ $t("matchesShow.join") }}
-          v-layout(
-            v-else
+          .player-name {{ whitePlayerName }}
+        v-flex(
+          xs4
+          v-if="isNewMatch"
+          justify-center
+          align-center
+        )
+          span.state {{ $t("matchesShow.waitingForPlayers") }}
+          v-btn.deep-purple.accent-2(
+            v-if="showJoinButton"
+            @click="join"
+          ) {{ $t("matchesShow.join") }}
+        v-flex.current-player-message(
+          xs4
+          v-else
+        ) {{ currentPlayerMessage }}
+        v-flex.player.player_black(xs4)
+          GameDraught.player-draught(
+            :draught="{color: 'black'}"
+            :selected="match.current_player_color==='black'"
           )
-            v-flex
-              .current-player-message
-                span.current-player-text(v-if="isCurrentUserTurn") {{ $t("matchesShow.yourTurn") }}
-                span.current-player-text(v-else-if="isCurrentUserParticipant") {{ $t("matchesShow.opponentTurn") }}
-                span.current-player-text(v-else) {{ $t("matchesShow.currentPlayer") }}
-                |
-                GameDraught.current-player-draught(
-                  :draught="{color: match.current_player_color}"
-                )
+          .player-name {{ blackPlayerName }}
       v-layout(justify-center)
         GameBoard(
           :board="multiBoard"
@@ -73,6 +77,29 @@ export default {
     showJoinButton() {
       return this.isNewMatch && !this.isCurrentUserParticipant
     },
+
+    whitePlayerName() {
+      return this.match.white_player && this.$t('matchesShow.anonymousPlayerName', {id: this.match.white_player.id}) || this.$t('matchesShow.noPlayer')
+    },
+
+    blackPlayerName() {
+      return this.match.black_player && this.$t('matchesShow.anonymousPlayerName', {id: this.match.black_player.id}) || this.$t('matchesShow.noPlayer')
+    },
+
+    currentPlayerMessage() {
+      if (this.isCurrentUserTurn) {
+        return this.$t('matchesShow.yourTurn')
+      }
+      else if (this.isCurrentUserParticipant) {
+        return this.$t('matchesShow.opponentTurn')
+      }
+      else if (this.match.current_player_color === 'white'){
+        return this.$t('matchesShow.whiteTurn')
+      }
+      else {
+        return this.$t('matchesShow.blackTurn')
+      }
+    },
   },
   async created() {
     const id = parseInt(this.matchId)
@@ -98,20 +125,44 @@ export default {
 
 <style scoped>
 
-.current-player-message {
-  font-size: 2em;
-  text-align: center;
-  font-weight: bold;
+.matches-show {
+  --board-padding: 25px;
 }
 
-.current-player-text {
-  margin-right: 0.5em;
+.board-header {
+  width: 490px;
+  padding: 0 var(--board-padding);
+  margin: 0 auto 10px;
+  height: 65px;
 }
 
-.current-player-draught {
-  --draught-size: 0.7em;
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player_black {
+  text-align: right;
+}
+
+.player-draught {
+  --draught-size: 30px;
 
   display: inline-block;
+}
+
+.player-name {
+  margin-top: 10px;
+}
+
+.current-player-message {
+  height: 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 </style>
