@@ -12,13 +12,13 @@
             :selected="match.current_player_color==='white'"
           )
           .player-name {{ whitePlayerName }}
-        v-flex(
+        v-flex.waiting-for-players(
           xs4
           v-if="isNewMatch"
           justify-center
           align-center
         )
-          span.state {{ $t("matchesShow.waitingForPlayers") }}
+          span {{ $t("matchesShow.waitingForPlayers") }}
           v-btn.deep-purple.accent-2(
             v-if="showJoinButton"
             @click="join"
@@ -93,7 +93,7 @@ export default {
       else if (this.isCurrentUserParticipant) {
         return this.$t('matchesShow.opponentTurn')
       }
-      else if (this.match.current_player_color === 'white'){
+      else if (this.match.current_player_color === 'white') {
         return this.$t('matchesShow.whiteTurn')
       }
       else {
@@ -154,6 +154,13 @@ export default {
 
 .player-name {
   margin-top: 10px;
+}
+
+.waiting-for-players {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .current-player-message {
