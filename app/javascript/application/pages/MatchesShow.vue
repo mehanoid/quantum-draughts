@@ -18,7 +18,7 @@
           justify-center
           align-center
         )
-          span {{ $t("matchesShow.waitingForPlayers") }}
+          span.waiting-for-players__text {{ $t("matchesShow.waitingForPlayers") }}
           v-btn.deep-purple.accent-2(
             v-if="showJoinButton"
             @click="join"
@@ -133,7 +133,7 @@ export default {
   width: 490px;
   padding: 0 var(--board-padding);
   margin: 0 auto 10px;
-  height: 65px;
+  height: 80px;
 }
 
 .player {
@@ -161,6 +161,10 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+}
+
+.waiting-for-players__text {
+  text-align: center
 }
 
 .current-player-message {

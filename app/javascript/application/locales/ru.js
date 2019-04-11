@@ -40,7 +40,7 @@ export default {
     matchHistory: 'История ходов',
     beatenDraughts: 'Битые шашки',
     join: 'Присоединиться',
-    waitingForPlayers: 'Ожидание игроков',
+    waitingForPlayers: 'Ожидание других игроков',
     yourTurn: 'Ваш ход',
     opponentTurn: 'Ход противника',
     whiteTurn: 'Ход белых',
