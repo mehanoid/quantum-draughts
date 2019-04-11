@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :gon_defaults
-
+  before_action :set_locale
   # set_callback :logging_in_user, :before, :handle_guest_authorized
 
   private
@@ -16,8 +16,12 @@ class ApplicationController < ActionController::Base
       gon.current_user = serialize(user) if user
     end
 
-    # def handle_guest_authorized
-    # end
+    def set_locale
+      I18n.locale = params[:locale] || I18n.default_locale
+    end
+
+  # def handle_guest_authorized
+  # end
 
     def serialize(model, **options)
       ActiveModelSerializers::SerializableResource.new(model, **options).as_json

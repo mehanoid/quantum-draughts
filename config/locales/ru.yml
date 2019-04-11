@@ -29,7 +29,7 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
+ru:
   layouts:
     application:
-      title: Quantum Draughts — online game
+      title: Quantum Draughts — квантовые шашки онлайн
