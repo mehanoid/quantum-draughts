@@ -14,12 +14,12 @@
             v-btn.deep-purple.accent-2.hide-on-hover-tr
               | {{ $t(`enums.match.statuses.${match.state}`) }}
             v-btn.deep-purple.accent-2.show-on-hover-tr(:to="matchUrl(match.id)")
-              template(v-if="match.state === 'new_match'") {{ $t('matchesList.join') }}
-              template(v-else) {{ $t('matchesList.watch') }}
+              | {{ matchOpenButtonText(match) }}
 </template>
 
 <script>
 import MatchForm from '../components/MatchForm'
+import {mapState} from 'vuex'
 
 export default {
   components: {
@@ -32,6 +32,7 @@ export default {
     },
   },
   computed: {
+    ...mapState(['currentUser']),
     headers() {
       return [
         {text: '#', sortable: false},
@@ -49,6 +50,18 @@ export default {
     },
     playersList(match) {
       return _.compact([this.playerName(match.white_player), this.playerName(match.black_player)])
+    },
+    matchOpenButtonText(match) {
+      if (this.currentUser && (match.white_player && match.white_player.id === this.currentUser.id ||
+        match.black_player && match.black_player.id === this.currentUser.id)) {
+        return this.$t('matchesList.backToGame')
+      }
+      if (match.state === 'new_match') {
+        return this.$t('matchesList.join')
+      }
+      else {
+        return this.$t('matchesList.watch')
+      }
     },
   },
 }

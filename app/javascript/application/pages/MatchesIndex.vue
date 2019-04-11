@@ -43,9 +43,6 @@ export default {
   },
   methods: {
     ...mapMutations(['setPageLoading']),
-    matchUrl(id) {
-      return `/game/matches/${id}`
-    },
   },
 }
 </script>

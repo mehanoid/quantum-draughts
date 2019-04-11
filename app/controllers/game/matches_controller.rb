@@ -6,7 +6,7 @@ module Game
       respond_to do |format|
         format.html
         format.json do
-          matches = Match.order(:state, id: :desc)
+          matches = Match.order(:state, id: :desc).includes(:white_player, :black_player)
           render json: matches
         end
       end

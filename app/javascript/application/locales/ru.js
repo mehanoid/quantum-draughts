@@ -24,6 +24,7 @@ export default {
   matchesList: {
     players: 'Участники',
     state: 'Статус',
+    backToGame: 'Вернуться к игре',
     join: 'Присоединиться',
     watch: 'Наблюдать',
   },
