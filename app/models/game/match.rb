@@ -19,6 +19,7 @@ module Game
       ready: 1,
       started: 2,
       finished: 3,
+      interrupted: 4,
     }
 
     aasm column: :state do
@@ -26,6 +27,7 @@ module Game
       state :ready
       state :started
       state :finished
+      state :interrupted
 
       event :start do
         transitions from: %i[new_match ready], to: :started

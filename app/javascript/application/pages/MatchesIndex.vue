@@ -1,7 +1,6 @@
 <template lang="pug">
   v-layout
     v-flex(xs6)
-      h1 Matches list
       v-dialog(
         persistent
         v-model="showMatchForm"
@@ -13,20 +12,20 @@
         MatchForm(
           @close="showMatchForm = false"
         )
-      .match(
-        v-for="match in matches"
-      )
-        router-link.light-blue--text.text--lighten-4(:to="matchUrl(match.id)") {{match.id}}
+      h1 {{ $t('matchesIndex.currentMatches') }}
+      MatchesList(:matches="matches")
 </template>
 
 <script>
 import {mapMutations} from 'vuex'
 import MatchForm from '../components/MatchForm'
+import MatchesList from '../components/MatchesList'
 import serverApi from '../serverApi'
 
 export default {
   components: {
     MatchForm,
+    MatchesList,
   },
   data() {
     return {

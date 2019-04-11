@@ -6,7 +6,8 @@ module Game
       respond_to do |format|
         format.html
         format.json do
-          render json: Match.order(id: :desc).as_json(only: %i[id])
+          matches = Match.order(:state, id: :desc)
+          render json: matches
         end
       end
     end
@@ -15,7 +16,7 @@ module Game
       respond_to do |format|
         format.html
         format.json do
-          render json: match
+          render json: match, serializer: MatchDetailsSerializer
         end
       end
     end
@@ -36,7 +37,7 @@ module Game
         result = Gameplay.move match.current_turn, params[:moves], match.ruleset_object
         match.current_turn.update move: result[:move]
         match.match_turns.create! result[:next_turn]
-        MatchChannel.broadcast_to(match, serialize(match))
+        MatchChannel.broadcast_to(match, serialize(match, serializer: MatchDetailsSerializer))
         render json: { status: :ok }
       end
     rescue Gameplay::InvalidMove => e
@@ -48,7 +49,7 @@ module Game
 
       match.update black_player: current_or_guest_user
       match.start!
-      MatchChannel.broadcast_to(match, serialize(match))
+      MatchChannel.broadcast_to(match, serialize(match, serializer: MatchDetailsSerializer))
       render json: { status: :ok }
     end
 

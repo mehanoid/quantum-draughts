@@ -11,6 +11,11 @@ export default {
   },
   matchesIndex: {
     startGame: 'Начать игру',
+    currentMatches: 'Текущие партии',
+  },
+  matchesList: {
+    players: 'Участники',
+    state: 'Статус',
   },
   matchesShow: {
     matchInfo: 'О партии',
