@@ -2,7 +2,7 @@
   v-layout.matches-show(v-if="match")
     v-flex(xs3)
       v-card.mb-2
-        v-card-title Match info
+        v-card-title {{ $t('matchesShow.matchInfo') }}
         MatchInfo
     v-flex(xs6)
       v-layout.board-header(justify-center)
@@ -39,10 +39,10 @@
         )
     v-flex(xs3)
       v-card.pb-4.mb-2
-        v-card-title Match history
+        v-card-title {{ $t('matchesShow.matchHistory') }}
         MatchHistory
       v-card.pb-3.mb-2
-        v-card-title Beaten draughts
+        v-card-title {{ $t('matchesShow.beatenDraughts') }}
         GameBeaten
 </template>
 

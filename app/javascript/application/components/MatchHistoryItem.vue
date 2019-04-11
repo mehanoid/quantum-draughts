@@ -28,7 +28,7 @@ export default {
         }).join(' | ')
       }
       else {
-        return 'Current turn'
+        return this.$t('matchHistory.currentTurn')
       }
     },
     currentTurn() {

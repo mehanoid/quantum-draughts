@@ -31,8 +31,8 @@ export default {
     headers() {
       return [
         {text: '#', sortable: false, width: '5%'},
-        {text: 'White', sortable: false, width: '47.5%'},
-        {text: 'Black', sortable: false, width: '47.5%'},
+        {text: this.$t('commons.white'), sortable: false, width: '47.5%'},
+        {text: this.$t('commons.black'), sortable: false, width: '47.5%'},
       ]
     },
   },

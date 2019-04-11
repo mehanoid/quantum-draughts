@@ -14,7 +14,8 @@
         router-view
     v-footer(app)
       v-layout(justify-center)
-        | © 2019 Oleg Grigoriev
+        | © 2019
+        | {{ $t('copyright') }}
 </template>
 
 <script>

@@ -1,6 +1,9 @@
 export default {
+  copyright: 'Олег Григорьев',
   commons: {
     ruleset: 'Правила',
+    white: 'Белые',
+    black: 'Чёрные',
   },
   rulesets: {
     english: 'Английские',
@@ -10,6 +13,9 @@ export default {
     startGame: 'Начать игру',
   },
   matchesShow: {
+    matchInfo: 'О партии',
+    matchHistory: 'История ходов',
+    beatenDraughts: 'Битые шашки',
     join: 'Присоединиться',
     waitingForPlayers: 'Ожидание игроков',
     yourTurn: 'Ваш ход',
@@ -18,6 +24,9 @@ export default {
     blackTurn: 'Ход чёрных',
     anonymousPlayerName: 'Игрок %{id}',
     noPlayer: 'Не назначен',
+  },
+  matchHistory: {
+    currentTurn: 'Текущий ход',
   },
   matchForm: {
     newMatch: 'Новая игра',
