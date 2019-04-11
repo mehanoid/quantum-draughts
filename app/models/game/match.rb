@@ -25,7 +25,7 @@ module Game
     aasm column: :state do
       state :new_match, initial: true
       state :ready
-      state :started
+      state :started, before_enter: 'set_started_at'
       state :finished
       state :interrupted
 
@@ -74,6 +74,12 @@ module Game
       raise 'No turns available' if match_turns.count <= 1
       current_turn.destroy
       current_turn.update move: nil
+    end
+
+    private
+
+    def set_started_at
+      self.started_at = Time.current
     end
   end
 end

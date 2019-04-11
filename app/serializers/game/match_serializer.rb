@@ -2,10 +2,14 @@
 
 module Game
   class MatchSerializer < ActiveModel::Serializer
-    attributes :id, :current_player_color, :ruleset, :state
+    attributes :id, :current_player_color, :ruleset, :state, :started_at
 
     has_one :white_player, serializer: UserSerializer
     has_one :black_player, serializer: UserSerializer
+
+    def started_at
+      object.started_at&.strftime('%d.%m.%Y %H:%M')
+    end
 
   end
 end

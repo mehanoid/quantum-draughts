@@ -13,6 +13,13 @@ export default {
       },
     },
   },
+  models: {
+    attributes: {
+      match: {
+        startedAt: 'Время начала',
+      },
+    },
+  },
   rulesets: {
     english: 'Английские',
     russian: 'Русские',
