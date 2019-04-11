@@ -8,7 +8,7 @@ export default {
   enums: {
     match: {
       statuses: {
-        new_match: 'Новая игра',
+        new_match: 'Новая',
         started: 'Начата',
       },
     },
@@ -24,6 +24,8 @@ export default {
   matchesList: {
     players: 'Участники',
     state: 'Статус',
+    join: 'Присоединиться',
+    watch: 'Наблюдать',
   },
   matchesShow: {
     matchInfo: 'О партии',
