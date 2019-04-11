@@ -5,6 +5,14 @@ export default {
     white: 'Белые',
     black: 'Чёрные',
   },
+  enums: {
+    match: {
+      statuses: {
+        new_match: 'Новая игра',
+        started: 'Начата',
+      },
+    },
+  },
   rulesets: {
     english: 'Английские',
     russian: 'Русские',

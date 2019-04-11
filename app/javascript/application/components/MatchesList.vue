@@ -10,7 +10,8 @@
           td {{match.id}}
           td
           td
-            router-link.light-blue--text.text--lighten-4(:to="matchUrl(match.id)") {{match.state}}
+            router-link.light-blue--text.text--lighten-4(:to="matchUrl(match.id)")
+              | {{ $t(`enums.match.statuses.${match.state}`) }}
 </template>
 
 <script>
