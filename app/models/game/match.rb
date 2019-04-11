@@ -34,6 +34,8 @@ module Game
       end
     end
 
+    scope :active, -> { where(state: %i[new_match ready started]) }
+
     def self.create_initial_match(params = {})
       match = create! params
       match.match_turns.build.init_boards
