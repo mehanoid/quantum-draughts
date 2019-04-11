@@ -20,7 +20,7 @@ export default {
     ...mapState('gameplay', ['match']),
     items() {
       return [
-        {title: this.$t('commons.ruleset'), value: this.$t(`rulesets.${this.match.ruleset}`)},
+        {title: this.$t('models.attributes.match.ruleset'), value: this.$t(`rulesets.${this.match.ruleset}`)},
         {title: this.$t('models.attributes.match.startedAt'), value: this.match.started_at},
       ].filter(({value}) => value)
     },

@@ -10,6 +10,7 @@
           td {{match.id}}
           td
             div(v-for="player in playersList(match)") {{ player }}
+          td {{ $t(`rulesets.${match.ruleset}`) }}
           td.actions
             v-btn.deep-purple.accent-2.hide-on-hover-tr
               | {{ $t(`enums.match.statuses.${match.state}`) }}
@@ -37,6 +38,7 @@ export default {
       return [
         {text: '#', sortable: false},
         {text: this.$t('matchesList.players'), sortable: false},
+        {text: this.$t('models.attributes.match.ruleset'), sortable: false},
         {text: this.$t('matchesList.state'), sortable: false},
       ]
     },

@@ -1,7 +1,6 @@
 export default {
   copyright: 'Олег Григорьев',
   commons: {
-    ruleset: 'Правила',
     white: 'Белые',
     black: 'Чёрные',
   },
@@ -17,6 +16,7 @@ export default {
     attributes: {
       match: {
         startedAt: 'Время начала',
+        ruleset: 'Правила',
       },
     },
   },

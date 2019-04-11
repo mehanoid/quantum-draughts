@@ -5,7 +5,7 @@
     v-card-text
       v-form
         v-radio-group(
-          :label="$t('commons.ruleset')"
+          :label="$t('models.attributes.match.ruleset')"
           v-model="match.ruleset"
         )
           v-radio(
