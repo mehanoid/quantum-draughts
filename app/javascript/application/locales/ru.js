@@ -25,7 +25,7 @@ export default {
     russian: 'Русские',
   },
   matchesIndex: {
-    startGame: 'Начать игру',
+    startGame: 'Новая игра',
     currentMatches: 'Текущие партии',
   },
   matchesList: {
