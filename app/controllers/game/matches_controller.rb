@@ -4,7 +4,7 @@ module Game
   class MatchesController < ApplicationController
     def index
       respond_to do |format|
-        format.html
+        format.html { redirect_to root_path }
         format.json do
           matches = Match.active.order(:state, id: :desc).includes(:white_player, :black_player)
           render json: matches

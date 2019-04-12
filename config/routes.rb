@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: 'game/matches#index'
+  root to: 'pages#index'
 
   devise_for :users
   get 'users/current'
