@@ -11,7 +11,7 @@
             :draught="{color: 'white'}"
             :selected="match.current_player_color==='white'"
           )
-          .player-name {{ whitePlayerName }}
+          .player-name {{ playerName(match.white_player) }}
         v-flex.waiting-for-players(
           xs4
           v-if="isNewMatch"
@@ -32,7 +32,7 @@
             :draught="{color: 'black'}"
             :selected="match.current_player_color==='black'"
           )
-          .player-name {{ blackPlayerName }}
+          .player-name {{ playerName(match.black_player) }}
       v-layout(justify-center)
         GameBoard(
           :board="multiBoard"
@@ -54,6 +54,7 @@ import GameBeaten from '../components/GameBeaten'
 import MatchInfo from '../components/MatchInfo'
 import {mapGetters, mapState, mapMutations, mapActions} from 'vuex'
 import serverApi from '../serverApi'
+import userUtils from '@application/utils/user'
 
 export default {
   components: {
@@ -76,14 +77,6 @@ export default {
 
     showJoinButton() {
       return this.isNewMatch && !this.isCurrentUserParticipant
-    },
-
-    whitePlayerName() {
-      return this.match.white_player && this.$t('matchesShow.anonymousPlayerName', {id: this.match.white_player.id}) || this.$t('matchesShow.noPlayer')
-    },
-
-    blackPlayerName() {
-      return this.match.black_player && this.$t('matchesShow.anonymousPlayerName', {id: this.match.black_player.id}) || this.$t('matchesShow.noPlayer')
     },
 
     currentPlayerMessage() {
@@ -119,6 +112,10 @@ export default {
     ...mapMutations('gameplay', ['updateMatch']),
     ...mapMutations(['setPageLoading']),
     ...mapActions('gameplay', ['join']),
+
+    playerName(player) {
+      return player && userUtils.displayingName(player) || this.$t('matchesShow.noPlayer')
+    },
   },
 }
 </script>
@@ -154,6 +151,7 @@ export default {
 
 .player-name {
   margin-top: 10px;
+  text-align: center;
 }
 
 .waiting-for-players {
@@ -164,7 +162,7 @@ export default {
 }
 
 .waiting-for-players__text {
-  text-align: center
+  text-align: center;
 }
 
 .current-player-message {

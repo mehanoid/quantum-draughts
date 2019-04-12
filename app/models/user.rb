@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  skip_callback :validation, :before, :downcase_keys, if: :guest
+
   def to_s
     "#{id}: #{email}"
   end

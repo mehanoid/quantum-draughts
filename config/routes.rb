@@ -7,10 +7,7 @@ Rails.application.routes.draw do
   get 'users/current'
 
   namespace :game do
-    resources :matches, only: %i[show create] do
-      collection do
-        get :index, to: redirect('/', status: 302)
-      end
+    resources :matches, only: %i[show create index] do
       member do
         post :join
         post :move

@@ -25,6 +25,10 @@ module Game
       Game::Match.order(:id).offset(30).destroy_all
       match = Match.create_initial_match match_params.merge(white_player: current_or_guest_user)
 
+      if user_params[:displaying_name].present?
+        current_or_guest_user.update(user_params)
+      end
+
       render json: { id: match.id }
     end
 
@@ -62,6 +66,10 @@ module Game
       # Never trust parameters from the scary internet, only allow the white list through.
       def match_params
         params.require(:game_match).permit(:ruleset)
+      end
+
+      def user_params
+        params[:user]&.permit(:displaying_name) || {}
       end
   end
 end

@@ -3,6 +3,7 @@ export default {
   commons: {
     white: 'Белые',
     black: 'Чёрные',
+    anonymousPlayerName: 'Игрок %{id}',
   },
   enums: {
     match: {
@@ -45,7 +46,6 @@ export default {
     opponentTurn: 'Ход противника',
     whiteTurn: 'Ход белых',
     blackTurn: 'Ход чёрных',
-    anonymousPlayerName: 'Игрок %{id}',
     noPlayer: 'Не назначен',
   },
   matchHistory: {
@@ -61,5 +61,11 @@ export default {
   },
   errors: {
     connectionError: 'Не удаётся подключиться к серверу',
+  },
+  validation: {
+    errors: {
+      required: 'Заполните поле',
+      maxLength: 'Максимум %{count} символов',
+    },
   },
 }

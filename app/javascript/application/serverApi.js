@@ -30,8 +30,8 @@ export default {
 
   currentUserGet: () =>
     axios.get('/users/current'),
-  matchCreate: (game_match) =>
-    axios.post('/game/matches', {game_match}),
+  matchCreate: (params) =>
+    axios.post('/game/matches', params),
   matchMove: (matchId, moves) =>
     axios.post(`/game/matches/${matchId}/move`, {
       moves,

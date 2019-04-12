@@ -21,6 +21,7 @@
 <script>
 import MatchForm from '../components/MatchForm'
 import {mapState} from 'vuex'
+import userUtils from '@application/utils/user'
 
 export default {
   components: {
@@ -48,7 +49,7 @@ export default {
       return `/game/matches/${id}`
     },
     playerName(player) {
-      return player && this.$t('matchesShow.anonymousPlayerName', {id: player.id})
+      return player && userUtils.displayingName(player)
     },
     playersList(match) {
       return _.compact([this.playerName(match.white_player), this.playerName(match.black_player)])
