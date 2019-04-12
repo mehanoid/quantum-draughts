@@ -6,7 +6,10 @@ module Game
       respond_to do |format|
         format.html { redirect_to root_path }
         format.json do
-          matches = Match.active.order(:state, id: :desc).includes(:white_player, :black_player)
+          matches = Match.active
+            .where('updated_at > ?', 1.day.ago)
+            .order(:state, updated_at: :desc)
+            .includes(:white_player, :black_player)
           render json: matches
         end
       end
@@ -41,6 +44,7 @@ module Game
         result = Gameplay.move match.current_turn, params[:moves], match.ruleset_object
         match.current_turn.update move: result[:move]
         match.match_turns.create! result[:next_turn]
+        match.touch
         MatchChannel.broadcast_to(match, serialize(match, serializer: MatchDetailsSerializer))
         render json: { status: :ok }
       end
