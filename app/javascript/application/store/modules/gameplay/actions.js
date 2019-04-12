@@ -1,6 +1,6 @@
 import serverApi from '@application/serverApi.js'
 import cellUtils from '@application/utils/cell'
-import delay from '@application/utils/delay'
+import i18n from '@application/i18n'
 
 const MAX_MOVES_COUNT = 2
 
@@ -60,13 +60,18 @@ export default {
     if (!state.selectedMoves.length) {
       return
     }
-    commit('setMatchProgress', true)
-    const promise = serverApi.matchMove(state.match.id, state.selectedMoves)
-    commit('cleanSelections')
-    const {data: response} = await promise
-    commit('setMatchProgress', false)
-    if (response.error) {
-      alert(response.error)
+    try {
+      commit('setMatchProgress', true)
+      const promise = serverApi.matchMove(state.match.id, state.selectedMoves)
+      commit('cleanSelections')
+      const {data: response} = await promise
+
+      if (response.error) {
+        commit('snackbars/push', {text: response.error}, {root: true})
+      }
+    }
+    finally {
+      commit('setMatchProgress', false)
     }
   },
 

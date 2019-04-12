@@ -4,15 +4,16 @@ import 'vuetify/dist/vuetify.min.css'
 import App from './App.vue'
 import initStore from './store'
 import initCable from './cable'
-import initI18n from './i18n'
+import i18n from './i18n'
 import router from './router'
+import serverApi from './serverApi'
 
 Vue.use(Vuetify)
 
 document.addEventListener('DOMContentLoaded', () => {
   const store = initStore()
+  serverApi.init({store})
   const cable = initCable({store})
-  const i18n = initI18n()
 
   new Vue({
     el: '#application',

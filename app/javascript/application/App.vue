@@ -11,6 +11,7 @@
         :indeterminate="true"
       )
       v-container
+        LayoutSnackbars
         router-view
     v-footer(app)
       v-layout(justify-center)
@@ -20,8 +21,10 @@
 
 <script>
 import {mapState} from 'vuex'
+import LayoutSnackbars from './components/LayoutSnackbars'
 
 export default {
+  components: {LayoutSnackbars},
   computed: {
     ...mapState(['pageLoading']),
   },

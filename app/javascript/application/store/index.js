@@ -17,7 +17,7 @@ export default function initStore() {
     mutations,
     actions,
     modules: modules,
-    strict: process.env.NODE_ENV !== 'production'
+    strict: process.env.NODE_ENV !== 'production',
   })
   return store
 }

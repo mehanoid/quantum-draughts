@@ -57,5 +57,9 @@ export default {
   },
   buttons: {
     cancel: 'Отмена',
+    close: 'Закрыть',
+  },
+  errors: {
+    connectionError: 'Не удаётся подключиться к серверу',
   },
 }

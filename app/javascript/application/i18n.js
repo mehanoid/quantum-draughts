@@ -4,17 +4,13 @@ import locales from './locales'
 
 Vue.use(VueI18n)
 
-let i18n
+const i18n = new VueI18n({
+  locale: 'ru',      // set locale
+  fallbackLocale: 'ru',
+  messages: locales, // set locale messages
+})
 
-export default function initI18n () {
-  i18n = new VueI18n({
-    locale: 'ru',      // set locale
-    fallbackLocale: 'ru',
-    messages: locales, // set locale messages
-  })
-
-  return i18n
-}
+export default i18n
 
 if (module.hot) {
   module.hot.accept(['./locales'], function () {
