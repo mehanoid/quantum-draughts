@@ -10,7 +10,21 @@ module Game
             .where('updated_at > ?', 1.day.ago)
             .order(:state, updated_at: :desc)
             .includes(:white_player, :black_player)
-          render json: matches
+
+          user = current_or_guest_user(create: false)
+          current_user_matches =
+            if user
+              Match.where('white_player_id = :id OR black_player_id = :id', id: user.id)
+                .order(:state, updated_at: :desc)
+                .includes(:white_player, :black_player)
+            else
+              []
+            end
+
+          render json: {
+            all_matches:          serialize(matches),
+            current_user_matches: serialize(current_user_matches)
+          }
         end
       end
     end

@@ -12,8 +12,20 @@
         MatchForm(
           @close="showMatchForm = false"
         )
-      h1 {{ $t('matchesIndex.currentMatches') }}
-      MatchesList(:matches="matches")
+      v-tabs(
+        v-model="currentTab"
+      )
+        v-tab(
+        ) {{ $t('matchesIndex.tabs.allMatches') }}
+        v-tab(
+        )  {{ $t('matchesIndex.tabs.myMatches') }}
+        v-tab-item(
+        )
+          MatchesList#sometab(:matches="allMatches")
+        v-tab-item(
+        )
+          MatchesList(:matches="currentUserMatches")
+
 </template>
 
 <script>
@@ -22,6 +34,8 @@ import MatchForm from '../components/MatchForm'
 import MatchesList from '../components/MatchesList'
 import serverApi from '../serverApi'
 
+const TABS = ['allMatches', 'myMatches']
+
 export default {
   components: {
     MatchForm,
@@ -29,18 +43,26 @@ export default {
   },
   data() {
     return {
-      matches: [],
+      allMatches: [],
+      currentUserMatches: [],
       showMatchForm: false,
+      currentTab: TABS.indexOf('allMatches'),
     }
   },
-  computed: {
-  },
+
+  computed: {},
+
   async created() {
     this.setPageLoading(true)
     const response = await serverApi.matchesGet()
     this.setPageLoading(false)
-    this.matches = response.data
+    this.allMatches = response.data.all_matches
+    this.currentUserMatches = response.data.current_user_matches
+    if (this.currentUserMatches.length) {
+      this.currentTab = TABS.indexOf('myMatches')
+    }
   },
+
   methods: {
     ...mapMutations(['setPageLoading']),
   },

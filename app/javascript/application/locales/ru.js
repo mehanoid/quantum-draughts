@@ -27,7 +27,10 @@ export default {
   },
   matchesIndex: {
     startGame: 'Новая игра',
-    currentMatches: 'Текущие партии',
+    tabs: {
+      allMatches: 'Текущие партии',
+      myMatches: 'Мои партии',
+    },
   },
   matchesList: {
     players: 'Участники',

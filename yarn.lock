@@ -8050,9 +8050,10 @@ vue@^2.6.10:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
 
-vuetify@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.2.2.tgz#937fbc39cc1299a05d09b01653d8fc5e028e7a26"
+vuetify@^1.5.11:
+  version "1.5.11"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.5.11.tgz#ae1790df1dc1505289116dfd79426d83b38d2ba9"
+  integrity sha512-S4f0wXEbQNHnP4IUtSSIRmzU/fjyPtTN5fC80JlHdTcF78VLT1/xsTqXgNtSW5712UJtrLPpF6b0LfOTJrCCBg==
 
 vuex@^3.0.1:
   version "3.0.1"

@@ -16,7 +16,7 @@
     "vue-perfect-scrollbar": "^0.1.0",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.6.10",
-    "vuetify": "^1.2.2",
+    "vuetify": "^1.5.11",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
