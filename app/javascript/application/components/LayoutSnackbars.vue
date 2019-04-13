@@ -3,13 +3,13 @@
     v-snackbar(
       v-if="snackbar"
       :timeout="snackbar.timeout"
+      :color="snackbar.color"
       v-model="visible"
       bottom
       left
     )
       | {{ snackbar.text }}
       v-btn(
-        color="pink"
         flat
         @click="visible = false"
       )

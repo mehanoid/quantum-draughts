@@ -7,6 +7,9 @@ export default {
   init(options) {
     store = options.store
 
+    axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector("meta[name=csrf-token]").content
+    axios.defaults.headers.common['Accept'] = 'application/json'
+
     // Add a request interceptor
     axios.interceptors.request.use(function (config) {
       // Do something before request is sent
@@ -23,7 +26,21 @@ export default {
       return response
     }, function (error) {
       // Do something with response error
-      store.commit('snackbars/push', {text: i18n.t('errors.connectionError')})
+
+      const status = error.response && error.response.status
+
+      if (status) {
+        if (status === 500) {
+          store.commit('snackbars/push', {text: i18n.t('errors.internalServerError'), color: 'error'})
+        }
+        else {
+          store.commit('snackbars/push', {text: i18n.t('errors.requestError'), color: 'error'})
+        }
+      }
+      else {
+        store.commit('snackbars/push', {text: i18n.t('errors.connectionError'), color: 'error'})
+      }
+
       return Promise.reject(error)
     })
   },

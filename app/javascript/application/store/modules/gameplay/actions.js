@@ -67,7 +67,7 @@ export default {
       const {data: response} = await promise
 
       if (response.error) {
-        commit('snackbars/push', {text: response.error}, {root: true})
+        commit('snackbars/push', {text: response.error, color: 'error'}, {root: true})
       }
     }
     finally {

@@ -64,6 +64,8 @@ export default {
   },
   errors: {
     connectionError: 'Не удаётся подключиться к серверу',
+    requestError: 'Ошибка выполнения запроса',
+    internalServerError: 'Внутренняя ошибка сервера',
   },
   validation: {
     errors: {
