@@ -91,6 +91,7 @@ export default {
   position: relative;
   border-radius: 50%;
   cursor: pointer;
+  transition: box-shadow 0.2s ease;
 
   &.can-beat,
   &.highlighted,

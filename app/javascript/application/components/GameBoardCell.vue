@@ -52,6 +52,7 @@ export default {
   height: 55px;
   text-align: center;
   padding: 0;
+  transition: background-color 0.2s ease;
 
   &.playable {
     background: var(--clr-cell-playable);
