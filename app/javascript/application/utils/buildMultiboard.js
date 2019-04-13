@@ -15,7 +15,7 @@ function reduceMultiCell(cellsGroup, totalWeight) {
   if (multicell.draught) {
     // count the number of checker appearances on all boards,
     // based on this, calculate the probabilities
-    const draughts = _.compact(cellsGroup.map(cell => cell.draught))
+    const draughts = cellsGroup.map(cell => cell.draught).filter(Boolean)
     const weight = _.sumBy(draughts, draught => draught.weight)
     const probability = Math.round(100 * weight / totalWeight)
 

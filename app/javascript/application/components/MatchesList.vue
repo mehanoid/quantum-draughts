@@ -52,7 +52,7 @@ export default {
       return player && userUtils.displayingName(player)
     },
     playersList(match) {
-      return _.compact([this.playerName(match.white_player), this.playerName(match.black_player)])
+      return [this.playerName(match.white_player), this.playerName(match.black_player)].filter(Boolean)
     },
     matchOpenButtonText(match) {
       if (this.currentUser && (match.white_player && match.white_player.id === this.currentUser.id ||

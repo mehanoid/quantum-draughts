@@ -24,7 +24,7 @@ export default {
     moveString() {
       if (this.turn.move) {
         return this.turn.move.map(moveVar => {
-          return _.toLower(moveVar.cells.join(moveVar.beat ? ':' : '-'))
+          return moveVar.cells.join(moveVar.beat ? ':' : '-').toLowerCase()
         }).join(' | ')
       }
       else {

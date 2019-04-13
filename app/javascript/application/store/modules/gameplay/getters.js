@@ -97,7 +97,7 @@ export default {
           }
         }
       })
-    return _.compact(info)
+    return info.filter(Boolean)
   },
 
   currentMoveStepCellName(state) {
@@ -130,11 +130,10 @@ export default {
 
   currentPossibleSteps(state, getters) {
     const stepIndex = state.currentMove.length
-    return _.compact(
-      getters.currentPossibleMoves
-        .filter(pm => pm[stepIndex] === getters.currentMoveStepCellName)
-        .map(pm => pm[stepIndex + 1])
-    )
+    return getters.currentPossibleMoves
+      .filter(pm => pm[stepIndex] === getters.currentMoveStepCellName)
+      .map(pm => pm[stepIndex + 1])
+      .filter(Boolean)
   },
 
   selectedMovesCellNames(state) {
