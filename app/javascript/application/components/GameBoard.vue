@@ -43,9 +43,7 @@ export default {
     ...mapState(['currentUser']),
     displayingBoard() {
       if (this.currentUser && this.match.black_player && this.currentUser.id === this.match.black_player.id) {
-        return _.reverse(
-          this.board.map(row => _.reverse(row))
-        )
+        return this.board.map(row => [...row].reverse()).reverse()
       }
       else {
         return this.board

@@ -26,7 +26,7 @@ export default {
   computed: {
     ...mapState('gameplay', ['match']),
     turnGroups() {
-      return _.reverse(_.chunk(this.match.match_turns, 2))
+      return _.chunk(this.match.match_turns, 2).reverse()
     },
     headers() {
       return [
