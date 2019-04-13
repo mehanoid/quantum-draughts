@@ -13,6 +13,7 @@
           @close="showMatchForm = false"
         )
       v-tabs(
+        v-if="allMatches !== null"
         v-model="currentTab"
       )
         v-tab(
@@ -43,8 +44,8 @@ export default {
   },
   data() {
     return {
-      allMatches: [],
-      currentUserMatches: [],
+      allMatches: null,
+      currentUserMatches: null,
       showMatchForm: false,
       currentTab: TABS.indexOf('allMatches'),
     }
