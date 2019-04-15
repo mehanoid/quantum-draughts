@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   devise_for :users
   get 'users/current'
 
+  resource :profile, only: :update
+
   namespace :game do
     resources :matches, only: %i[show create index] do
       member do

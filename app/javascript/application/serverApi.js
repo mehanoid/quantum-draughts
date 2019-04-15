@@ -47,6 +47,8 @@ export default {
 
   currentUserGet: () =>
     axios.get('/users/current'),
+  profileUpdate: (user) =>
+    axios.patch('/profile', {user}),
   matchCreate: (params) =>
     axios.post('/game/matches', params),
   matchMove: (matchId, moves) =>

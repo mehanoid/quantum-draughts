@@ -32,6 +32,7 @@
 <script>
 import {mapActions, mapState} from 'vuex'
 import UserFormInputs from './UserFormInputs'
+import serverApi from '@application/serverApi'
 
 export default {
   components: {UserFormInputs},
@@ -60,7 +61,9 @@ export default {
         return
       }
 
-      this.updateCurrentUser()
+      const user = await serverApi.profileUpdate(this.user)
+      this.$store.commit('setCurrentUser', user)
+      this.$emit('success')
     },
   },
 }

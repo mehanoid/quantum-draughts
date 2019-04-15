@@ -5,7 +5,7 @@
         v-card-title {{ $t('matchesShow.matchInfo') }}
         MatchInfo
     v-flex(xs6)
-      MatchHead
+      MatchHeader
       v-layout(justify-center)
         GameBoard(
           :board="multiBoard"
@@ -27,11 +27,11 @@ import GameBeaten from '../components/GameBeaten'
 import MatchInfo from '../components/MatchInfo'
 import {mapState, mapMutations, mapGetters} from 'vuex'
 import serverApi from '../serverApi'
-import MatchHead from '@application/components/MatchHead'
+import MatchHeader from '@application/components/MatchHeader'
 
 export default {
   components: {
-    GameBoard, MatchHistory, GameDraught, GameBeaten, MatchInfo, MatchHead
+    GameBoard, MatchHistory, GameDraught, GameBeaten, MatchInfo, MatchHeader,
   },
   props: {
     matchId: {required: true},

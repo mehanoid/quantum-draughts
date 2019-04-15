@@ -42,8 +42,8 @@ module Game
       Game::Match.order(:id).offset(30).destroy_all
       match = Match.create_initial_match match_params.merge(white_player: current_or_guest_user)
 
-      if user_params[:displaying_name].present?
-        current_or_guest_user.update(user_params)
+      if user_params[:displaying_name]
+        current_or_guest_user.update!(user_params)
       end
 
       render json: { id: match.id }

@@ -20,6 +20,7 @@
       GuestWelcomeForm(
         v-model="showGuestWelcomeForm"
         @close="showGuestWelcomeForm = false"
+        @success="joinToMatch"
       )
     v-flex.current-player-message(
       xs4
