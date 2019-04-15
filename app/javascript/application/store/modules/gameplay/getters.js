@@ -13,7 +13,9 @@ const moveBaseSignature = (move) => {
 export default {
   boards(state, getters) {
     const source = getters['history/selectedMatchTurn'] || state.match
-    // const source = state.match
+    if(!source) {
+      return []
+    }
     return convertBoards(source.boards)
   },
 
@@ -47,7 +49,7 @@ export default {
   },
 
   isCurrentUserParticipant(state, getters, rootState) {
-    return rootState.currentUser && (
+    return rootState.currentUser && state.match && (
       state.match.white_player && rootState.currentUser.id === state.match.white_player.id ||
       state.match.black_player && rootState.currentUser.id === state.match.black_player.id
     )
@@ -58,6 +60,9 @@ export default {
   },
 
   currentPlayerUser(state) {
+    if (!state.match) {
+      return null
+    }
     return state.match.current_player_color === 'white' ?
       state.match.white_player :
       state.match.black_player
@@ -68,7 +73,7 @@ export default {
   },
 
   anyCanBeat(state) {
-    const move = state.match.possible_moves[0]
+    const move = state.match && state.match.possible_moves[0]
     return move && move.beat
   },
 
