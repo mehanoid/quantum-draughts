@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include SerializationHelper
+
   protect_from_forgery with: :exception
 
   before_action :gon_defaults
@@ -23,7 +25,4 @@ class ApplicationController < ActionController::Base
   # def handle_guest_authorized
   # end
 
-    def serialize(model, **options)
-      ActiveModelSerializers::SerializableResource.new(model, **options).as_json
-    end
 end

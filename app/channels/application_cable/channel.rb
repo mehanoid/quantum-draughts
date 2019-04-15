@@ -2,5 +2,7 @@
 
 module ApplicationCable
   class Channel < ActionCable::Channel::Base
+    include SerializationHelper
+
   end
 end

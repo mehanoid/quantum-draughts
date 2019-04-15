@@ -99,7 +99,9 @@ export default {
     if (this.match && this.match.id !== id) {
       this.updateMatch(null)
     }
-    this.matchChannel = this.$cable.channels.match.subscribe(id)
+    this.matchChannel = this.$cable.channels.match.subscribe(id, {
+      received: (data) => this.updateMatch(data),
+    })
     this.setPageLoading(true)
     const response = await serverApi.matchGet(id)
     this.setPageLoading(false)
