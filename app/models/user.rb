@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   skip_callback :validation, :before, :downcase_keys, if: :guest
 
+  validates :displaying_name, presence: true
+
   def to_s
     "#{id}: #{email} - #{displaying_name}"
   end

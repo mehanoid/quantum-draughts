@@ -15,8 +15,12 @@
       span.waiting-for-players__text {{ $t("matchesShow.waitingForPlayers") }}
       v-btn.deep-purple.accent-2(
         v-if="showJoinButton"
-        @click="join"
+        @click="joinToMatch"
       ) {{ $t("matchesShow.join") }}
+      GuestWelcomeForm(
+        v-model="showGuestWelcomeForm"
+        @close="showGuestWelcomeForm = false"
+      )
     v-flex.current-player-message(
       xs4
       v-else
@@ -33,11 +37,17 @@
 
 import {mapGetters, mapState, mapActions} from 'vuex'
 import userUtils from '@application/utils/user'
-import GameDraught from '@application/components/GameDraught'
+import GameDraught from './GameDraught'
+import GuestWelcomeForm from './GuestWelcomeForm'
 
 export default {
   components: {
-    GameDraught,
+    GameDraught, GuestWelcomeForm,
+  },
+  data() {
+    return {
+      showGuestWelcomeForm: false,
+    }
   },
   computed: {
     ...mapState('gameplay', ['match']),
@@ -69,6 +79,15 @@ export default {
   },
   methods: {
     ...mapActions('gameplay', ['join']),
+
+    joinToMatch() {
+      if (this.currentUser) {
+        this.join()
+      }
+      else {
+        this.showGuestWelcomeForm = true
+      }
+    },
 
     playerName(player) {
       return player && userUtils.displayingName(player) || this.$t('matchesShow.noPlayer')

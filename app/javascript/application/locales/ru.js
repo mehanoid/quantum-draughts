@@ -13,6 +13,9 @@ export default {
       },
     },
   },
+  guestWelcomeForm: {
+    title: 'Представьтесь, пожалуйста',
+  },
   models: {
     attributes: {
       match: {
@@ -61,6 +64,7 @@ export default {
   buttons: {
     cancel: 'Отмена',
     close: 'Закрыть',
+    next: 'Далее',
   },
   errors: {
     connectionError: 'Не удаётся подключиться к серверу',

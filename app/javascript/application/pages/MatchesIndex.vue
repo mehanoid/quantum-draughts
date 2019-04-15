@@ -2,9 +2,9 @@
   v-layout
     v-flex(xs6)
       v-dialog(
-        persistent
         v-model="showMatchForm"
         width="500"
+        lazy
       )
         v-btn.deep-purple.accent-2(
           slot="activator"

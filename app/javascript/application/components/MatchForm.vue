@@ -18,12 +18,8 @@
             :label="ruleset.label"
             :value="ruleset.value"
           )
-        v-text-field(
-          v-if="!currentUser"
-          v-model="user.displaying_name"
-          label="Ваше имя"
-          :rules="userValidations.displayingNameRules"
-          required
+        UserFormInputs(
+          v-model="user"
         )
       v-card-actions
         v-spacer
@@ -38,10 +34,12 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
+import {mapActions} from 'vuex'
 import serverApi from '../serverApi'
+import UserFormInputs from './UserFormInputs'
 
 export default {
+  components: {UserFormInputs},
   data: () => ({
     valid: true,
     match: {
@@ -53,22 +51,11 @@ export default {
     progress: false,
   }),
   computed: {
-    ...mapState(['currentUser']),
-
     rulesets() {
       return [
         {value: 'english', label: this.$t('rulesets.english')},
         {value: 'russian', label: this.$t('rulesets.russian')},
       ]
-    },
-
-    userValidations() {
-      return {
-        displayingNameRules: [
-          v => !!v || this.$t('validation.errors.required'),
-          v => (v && v.length <= 25) || this.$t('validation.errors.maxLength', {count: 25}),
-        ],
-      }
     },
   },
   methods: {
