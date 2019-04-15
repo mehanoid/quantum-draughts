@@ -29,12 +29,16 @@ RSpec.describe Game::MatchesController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # MatchesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:user) { create(:user) }
+
+  before do
+    sign_in user
+  end
 
   describe 'GET #index' do
     it 'returns a success response' do
       match = Game::Match.create_initial_match
-      get :index, params: {}, session: valid_session
+      get :index, params: {format: :json}
       expect(response).to be_successful
     end
   end
@@ -42,17 +46,10 @@ RSpec.describe Game::MatchesController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       match = Game::Match.create_initial_match
-      get :show, params: { id: match.to_param }, session: valid_session
+      get :show, params: { id: match.to_param }
       expect(response).to be_successful
     end
   end
-
-  # describe 'GET #new' do
-  #   it 'returns a success response' do
-  #     get :new, params: {}, session: valid_session
-  #     expect(response).to be_successful
-  #   end
-  # end
 
   describe 'POST #create' do
     context 'with valid params' do
@@ -60,47 +57,33 @@ RSpec.describe Game::MatchesController, type: :controller do
 
       it 'creates a new Match' do
         expect {
-          post :create, params: params, session: valid_session
+          post :create, params: params
         }.to change(Game::Match, :count).by(1)
       end
 
       it 'returns id of created match' do
-        post :create, params: params, session: valid_session
+        post :create, params: params
         expect(JSON.parse(response.body)['id']).to eq Game::Match.last.id
       end
     end
   end
 
-  # describe 'DELETE #destroy' do
-  #   it 'destroys the requested match' do
-  #     match = Game::Match.create!
-  #     expect {
-  #       delete :destroy, params: { id: match.to_param }, session: valid_session
-  #     }.to change(Game::Match, :count).by(-1)
-  #   end
-  #
-  #   it 'redirects to the matches list' do
-  #     match = Game::Match.create!
-  #     delete :destroy, params: { id: match.to_param }, session: valid_session
-  #     expect(response).to redirect_to(game_matches_url)
-  #   end
-  # end
-
   describe 'POST #move' do
     let(:match) { Game::Match.create_initial_match }
+    before { match.update white_player: user }
 
     context 'with valid move' do
       let(:params) { { id: match.to_param, moves: [%w[C3 D4]] } }
 
       it 'updates the requested match' do
         expect {
-          post :move, params: params, session: valid_session, as: :json
+          post :move, params: params, as: :json
         }.to change { match.current_turn.reload.boards }
       end
 
       it 'sends match data to clients' do
         expect {
-          post :move, params: params, session: valid_session, as: :json
+          post :move, params: params, as: :json
         }.to have_broadcasted_to(match).from_channel(Game::MatchChannel)
       end
     end
@@ -110,7 +93,7 @@ RSpec.describe Game::MatchesController, type: :controller do
 
       it 'does not change match' do
         expect {
-          post :move, params: params, session: valid_session, as: :json
+          post :move, params: params, as: :json
         }.not_to change { match.current_turn.reload.boards }
       end
     end

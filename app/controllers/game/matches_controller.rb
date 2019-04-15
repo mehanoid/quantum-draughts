@@ -51,7 +51,7 @@ module Game
 
     def move
       match.with_lock do
-        unless current_or_guest_user == match.current_player
+        unless current_or_guest_user(create: false) == match.current_player
           return render json: { status: :error }, status: :forbidden
         end
 
