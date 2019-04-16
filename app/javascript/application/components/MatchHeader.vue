@@ -98,11 +98,16 @@ export default {
 </script>
 
 <style scoped>
+@import "../../stylesheets/media.css";
+
 .board-header {
-  width: 490px;
   padding: 0 var(--board-padding);
   margin: 0 auto 10px;
   height: 80px;
+
+  @media (--lg) {
+    width: 490px;
+  }
 }
 
 .player {
@@ -144,5 +149,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 </style>

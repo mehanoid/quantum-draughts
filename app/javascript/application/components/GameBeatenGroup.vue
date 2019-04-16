@@ -39,15 +39,15 @@ export default {
 .draughts-chunk {
   --chunk-margin: 5px;
   --draughts-count: 3;
+  --draught-size: 35px;
 
   width: calc(50% - var(--chunk-margin) * 2);
+  min-width: calc((var(--draught-size) + 5px) * var(--draughts-count));
   display: flex;
   margin: 0 var(--chunk-margin);
 }
 
 .draught {
-  --draught-size: 35px;
-
-  margin: calc((100% - var(--draught-size) * var(--draughts-count)) / (var(--draughts-count) * 2));
+  margin: 0 calc((100% - var(--draught-size) * var(--draughts-count)) / (var(--draughts-count) * 2));
 }
 </style>

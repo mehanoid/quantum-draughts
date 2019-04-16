@@ -46,13 +46,21 @@ export default {
 </script>
 
 <style scoped>
+@import "../../stylesheets/media.css";
+
 .cell {
+  --size: 45px;
+
   background: var(--clr-cell-non-playable);
-  width: 55px;
-  height: 55px;
+  width: var(--size);
+  height: var(--size);
   text-align: center;
   padding: 0;
   transition: background-color 0.2s ease;
+
+  @media (--lg) {
+    --size: 55px;
+  }
 
   &.playable {
     background: var(--clr-cell-playable);

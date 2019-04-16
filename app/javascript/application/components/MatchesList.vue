@@ -12,9 +12,9 @@
             div(v-for="player in playersList(match)") {{ player }}
           td {{ $t(`rulesets.${match.ruleset}`) }}
           td.actions
-            v-btn.deep-purple.accent-2.hide-on-hover-tr
+            v-btn.deep-purple.accent-2.hide-on-hover-tr(small)
               | {{ $t(`enums.match.statuses.${match.state}`) }}
-            v-btn.deep-purple.accent-2.show-on-hover-tr(:to="matchUrl(match.id)")
+            v-btn.deep-purple.accent-2.show-on-hover-tr(:to="matchUrl(match.id)" small)
               | {{ matchOpenButtonText(match) }}
 </template>
 

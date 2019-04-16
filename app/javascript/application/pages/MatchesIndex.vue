@@ -1,6 +1,6 @@
 <template lang="pug">
   v-layout
-    v-flex(xs6)
+    v-flex(xs12 lg6)
       v-dialog(
         v-model="showMatchForm"
         width="500"

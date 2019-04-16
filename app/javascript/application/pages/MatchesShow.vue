@@ -1,22 +1,22 @@
 <template lang="pug">
-  v-layout.matches-show(v-if="match")
-    v-flex(xs3)
+  v-layout.matches-show(v-if="match" wrap)
+    v-flex(xs12 md6 lg3)
       v-card.mb-2
         v-card-title {{ $t('matchesShow.matchInfo') }}
         MatchInfo
-    v-flex(xs6)
+    v-flex(xs12 md6 lg6)
       MatchHeader
       v-layout(justify-center)
         GameBoard(
           :board="multiBoard"
         )
-    v-flex(xs3)
+    v-flex(xs12 md6 lg3)
       v-card.pb-4.mb-2
-        v-card-title {{ $t('matchesShow.matchHistory') }}
-        MatchHistory
-      v-card.pb-3.mb-2
         v-card-title {{ $t('matchesShow.beatenDraughts') }}
         GameBeaten
+      v-card.pb-3.mb-2
+        v-card-title {{ $t('matchesShow.matchHistory') }}
+        MatchHistory
 </template>
 
 <script>

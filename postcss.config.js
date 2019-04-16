@@ -8,6 +8,7 @@ module.exports = {
       },
       features: {
         'nesting-rules': true,
+        'custom-media-queries': true,
       },
       stage: 3,
     }),

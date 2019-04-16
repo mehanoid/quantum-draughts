@@ -78,8 +78,14 @@ export default {
 </script>
 
 <style scoped>
+@import "../../stylesheets/media.css";
+
 .root {
-  --_draught-size: var(--draught-size, 40px);
+  --_draught-size: var(--draught-size, 35px);
+
+  @media (--lg) {
+    --_draught-size: var(--draught-size, 40px);
+  }
 
   width: var(--_draught-size);
   height: var(--_draught-size);
