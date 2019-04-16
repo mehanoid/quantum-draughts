@@ -33,8 +33,8 @@ module Game
 
         def build_moves(moves_params)
           # TODO add settings for this (or remove)
-          # move_groups = build_symmetric_move_groups(moves_params)
-          move_groups = build_assymetric_move_groups(moves_params)
+          move_groups = build_symmetric_move_groups(moves_params)
+          # move_groups = build_assymetric_move_groups(moves_params)
 
           validate_move_groups!(move_groups)
           move_groups.flatten

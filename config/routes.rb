@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       member do
         post :join
         post :move
+        post :measure
       end
     end
     resources :match_turns, only: %i[show]

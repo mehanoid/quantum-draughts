@@ -66,6 +66,16 @@ module Game
       render json: { status: :error, error: "Invalid move: #{e.message}" }
     end
 
+    def measure
+      unless current_or_guest_user(create: false) == match.current_player
+        return render json: { status: :error }, status: :forbidden
+      end
+      boards = Game::Gameplay::CellMeasure.new(match.board_instances, params[:cell_name]).perform
+      match.current_turn.update boards: Game::Gameplay::Board::JsonExport.new(boards).as_json
+      MatchChannel.broadcast_with(match.reload)
+      render json: { status: :ok }
+    end
+
     def join
       raise 'Already participates' if current_or_guest_user.in?(match.players)
 

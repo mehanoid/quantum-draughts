@@ -31,7 +31,7 @@ export default {
     }
   },
 
-  selectMove({commit, getters, state, dispatch}, cell) {
+  async selectMove({commit, getters, state, dispatch}, cell) {
     if (getters.currentPossibleSteps.includes(cell.name)) {
       const cellName = cellUtils.name(cell)
       commit('addToCurrentMove', cellName)
@@ -51,7 +51,13 @@ export default {
       }
 
       if (state.selectedMoves.length >= MAX_MOVES_COUNT || !getters.currentPossibleMoves.length) {
-        dispatch('move')
+        await dispatch('measure')
+        if (getters.selectedCell && getters.selectedCell.draught) {
+          dispatch('move')
+        }
+        else {
+          commit('cleanSelections')
+        }
       }
     }
   },
@@ -64,6 +70,21 @@ export default {
       commit('setMatchProgress', true)
       const promise = serverApi.matchMove(state.match.id, state.selectedMoves)
       commit('cleanSelections')
+      const {data: response} = await promise
+
+      if (response.error) {
+        commit('snackbars/push', {text: response.error, color: 'error'}, {root: true})
+      }
+    }
+    finally {
+      commit('setMatchProgress', false)
+    }
+  },
+
+  async measure({commit, state}) {
+    try {
+      commit('setMatchProgress', true)
+      const promise = serverApi.matchMeasure(state.match.id, state.selectedCellName)
       const {data: response} = await promise
 
       if (response.error) {
