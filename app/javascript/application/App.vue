@@ -1,7 +1,6 @@
 <template lang="pug">
   v-app(dark)
     v-toolbar
-      v-toolbar-side-icon
       .logo
       v-toolbar-title.ml-2
         router-link.title(to="/") Quantum Draughts
