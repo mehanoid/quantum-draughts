@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/mehanoid/devise-guests.git
+  revision: ce42c57ccd8e5f29c5b2c4413944b61d82fac1b6
+  branch: customized
+  specs:
+    devise-guests (0.7.0)
+      devise
+
+GIT
   remote: https://github.com/mehanoid/switch_user_page.git
   revision: a8bd65e02985f9a573730f3dce6425095b23d4ce
   specs:
@@ -7,12 +15,6 @@ GIT
       rails (> 4.0)
       select2-rails
       switch_user
-
-PATH
-  remote: /home/meh/Projects/devise-guests
-  specs:
-    devise-guests (0.7.0)
-      devise
 
 GEM
   remote: https://rubygems.org/
