@@ -115,13 +115,10 @@ export default {
 
   currentPossibleMoves(state, getters) {
     // if (!getters.anyCanMove || (state.selectedMoves.length && (getters.anyCanBeat || getters.selectedCell.draught.king))) {
-    // if (!getters.anyCanMove || (state.selectedMoves.length && getters.anyCanBeat)) {
-    //   // beating is currency possible only in one direction. This is due
-    //   // to problem with endless beating loop when both players can beat
-    //   // with very little probability
-    //   return []
-    // }
-    if (!getters.anyCanMove) {
+    if (!getters.anyCanMove || (state.selectedMoves.length && getters.anyCanBeat)) {
+      // beating is currency possible only in one direction. This is due
+      // to problem with endless beating loop when both players can beat
+      // with very little probability
       return []
     }
     return state.match.possible_moves.filter(pm =>
