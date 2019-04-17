@@ -49,7 +49,7 @@ export default {
 @import "../../stylesheets/media.css";
 
 .cell {
-  --size: 40px;
+  --size: 35px;
 
   background: var(--clr-cell-non-playable);
   width: var(--size);

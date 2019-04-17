@@ -81,7 +81,7 @@ export default {
 @import "../../stylesheets/media.css";
 
 .root {
-  --_draught-size: var(--draught-size, 30px);
+  --_draught-size: var(--draught-size, 25px);
 
   @media (--md) {
     --_draught-size: var(--draught-size, 35px);
