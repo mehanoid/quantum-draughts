@@ -49,7 +49,7 @@ export default {
 @import "../../stylesheets/media.css";
 
 .cell {
-  --size: 45px;
+  --size: 40px;
 
   background: var(--clr-cell-non-playable);
   width: var(--size);
@@ -57,6 +57,10 @@ export default {
   text-align: center;
   padding: 0;
   transition: background-color 0.2s ease;
+
+  @media (--md) {
+    --size: 45px;
+  }
 
   @media (--lg) {
     --size: 55px;

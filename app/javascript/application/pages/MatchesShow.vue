@@ -5,7 +5,7 @@
         v-card-title {{ $t('matchesShow.matchInfo') }}
         MatchInfo
     v-flex(xs12 md6 lg6)
-      MatchHeader
+      MatchHeader.header
       v-layout(justify-center)
         GameBoard(
           :board="multiBoard"
@@ -67,6 +67,16 @@ export default {
 </script>
 
 <style scoped>
+
+@import "../../stylesheets/media.css";
+
+.header {
+  margin-top: 20px;
+
+  @media (--md) {
+    margin-top: 0;
+  }
+}
 
 .matches-show {
   --board-padding: 25px;
