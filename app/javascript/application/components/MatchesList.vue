@@ -1,21 +1,19 @@
 <template lang="pug">
-  v-layout.matches-list
-    v-flex
-      v-data-table(
-        :headers="headers"
-        :items="matches"
-        hide-actions
-      )
-        template(#items="{item: match}")
-          td {{match.id}}
-          td
-            div(v-for="player in playersList(match)") {{ player }}
-          td {{ $t(`rulesets.${match.ruleset}`) }}
-          td.actions
-            v-btn.deep-purple.accent-2.hide-on-hover-tr(small)
-              | {{ $t(`enums.match.statuses.${match.state}`) }}
-            v-btn.deep-purple.accent-2.show-on-hover-tr(:to="matchUrl(match.id)" small)
-              | {{ matchOpenButtonText(match) }}
+  v-layout(wrap).matches-list
+    v-flex.mt-2(xs12 v-for="match in matches")
+      v-card(:to="matchUrl(match.id)")
+        v-card-title
+          v-layout(wrap)
+            v-flex(xs6)
+              div {{`#${match.id} ${$t(`rulesetsFull.${match.ruleset}`)}`}}
+              div.mt-1 {{ $t(`enums.match.statuses.${match.state}`) }}
+            v-flex.players(xs6)
+              div.player {{ playerName(match.white_player) }}
+              div vs
+              div.player {{ playerName(match.black_player) }}
+            v-flex(xs6)
+              v-btn.deep-purple.accent-2
+                | {{ matchOpenButtonText(match) }}
 </template>
 
 <script>
@@ -35,24 +33,13 @@ export default {
   },
   computed: {
     ...mapState(['currentUser']),
-    headers() {
-      return [
-        {text: '#', sortable: false},
-        {text: this.$t('matchesList.players'), sortable: false},
-        {text: this.$t('models.attributes.match.ruleset'), sortable: false},
-        {text: this.$t('matchesList.state'), sortable: false},
-      ]
-    },
   },
   methods: {
     matchUrl(id) {
       return `/game/matches/${id}`
     },
     playerName(player) {
-      return player && userUtils.displayingName(player)
-    },
-    playersList(match) {
-      return [this.playerName(match.white_player), this.playerName(match.black_player)].filter(Boolean)
+      return player && userUtils.displayingName(player) || this.$t('matchesShow.noPlayer')
     },
     matchOpenButtonText(match) {
       if (this.currentUser && (match.white_player && match.white_player.id === this.currentUser.id ||
@@ -73,26 +60,15 @@ export default {
 <style scoped>
 
 .matches-list {
-
-  & >>> table.v-table {
-    & tr {
-      &:hover {
-        & .hide-on-hover-tr {
-          display: none;
-        }
-      }
-
-      &:not(:hover) {
-        & .show-on-hover-tr {
-          display: none;
-        }
-      }
-    }
-  }
 }
 
-.actions {
-  min-width: 250px;
+.players {
+  text-align: center;
+}
+
+.player {
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 </style>

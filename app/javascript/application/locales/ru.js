@@ -28,6 +28,10 @@ export default {
     english: 'Английские',
     russian: 'Русские',
   },
+  rulesetsFull: {
+    english: 'Английские шашки',
+    russian: 'Русские шашки',
+  },
   matchesIndex: {
     startGame: 'Новая игра',
     tabs: {
