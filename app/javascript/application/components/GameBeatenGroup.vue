@@ -44,7 +44,7 @@ export default {
   width: calc(50% - var(--chunk-margin) * 2);
   min-width: calc((var(--draught-size) + 5px) * var(--draughts-count));
   display: flex;
-  margin: 0 var(--chunk-margin);
+  margin: var(--chunk-margin) var(--chunk-margin);
 }
 
 .draught {
