@@ -30,12 +30,16 @@ export default {
 <style scoped>
 .game-beaten-draughts-group {
   max-width: 285px;
-  margin: 0 auto 10px;
-  padding: 5px 12px;
+  margin: 0 auto;
+  padding: 0 12px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-gap: 8px 20px;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
 
 .draughts-chunk {
