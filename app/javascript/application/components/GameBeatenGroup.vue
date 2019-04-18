@@ -29,25 +29,23 @@ export default {
 
 <style scoped>
 .game-beaten-draughts-group {
-  margin-bottom: 5px;
-  padding: 5px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  max-width: 285px;
+  margin: 0 auto 10px;
+  padding: 5px 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 8px 20px;
 }
 
 .draughts-chunk {
-  --chunk-margin: 5px;
-  --draughts-count: 3;
-  --draught-size: 35px;
-
-  width: calc(50% - var(--chunk-margin) * 2);
-  min-width: calc((var(--draught-size) + 5px) * var(--draughts-count));
-  display: flex;
-  margin: var(--chunk-margin) var(--chunk-margin);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-gap: 8px;
 }
 
 .draught {
-  margin: 0 calc((100% - var(--draught-size) * var(--draughts-count)) / (var(--draughts-count) * 2));
+  --draught-size: 100%;
 }
 </style>
