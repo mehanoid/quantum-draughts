@@ -30,9 +30,9 @@ rules:
     - argsIgnorePattern: "^_"
   comma-dangle:
     - error
-    - arrays: 'always-multiline'
-      objects: 'always-multiline'
-      exports: 'always-multiline'
+    - arrays: 'only-multiline'
+      objects: 'only-multiline'
+      exports: 'only-multiline'
 globals:
   module: false
   process: false

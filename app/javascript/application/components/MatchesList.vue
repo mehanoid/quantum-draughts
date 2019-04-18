@@ -1,6 +1,6 @@
 <template lang="pug">
   v-layout(wrap).matches-list
-    v-flex.mt-2(xs12 v-for="match in matches")
+    v-flex.mt-2(xs12 v-for="match in matches" :key="match.id")
       v-card(:to="matchUrl(match.id)")
         v-card-title
           v-layout(wrap)
