@@ -26,7 +26,7 @@ export default {
     userValidations() {
       return {
         displayingNameRules: [
-          v => !!v.trim() || this.$t('validation.errors.required'),
+          v => !!(v && v.trim()) || this.$t('validation.errors.required'),
           v => (v && v.length <= 25) || this.$t('validation.errors.maxLength', {count: 25}),
         ],
       }
