@@ -31,7 +31,7 @@ export default {
 .game-beaten-draughts-group {
   max-width: 285px;
   margin: 0 auto;
-  padding: 0 12px;
+  padding: 0 16px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(auto-fill, 1fr);

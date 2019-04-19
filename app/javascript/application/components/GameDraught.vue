@@ -106,7 +106,7 @@ export default {
   &.can-beat,
   &.highlighted,
   &.selected {
-    box-shadow: 0 0 calc(var(--_draught-size) / 2.5) calc(var(--_draught-size) / 4) var(--clr-draught-shadow);
+    box-shadow: 0 0 16px 10px var(--clr-draught-shadow);
   }
 
   &.can-beat {
