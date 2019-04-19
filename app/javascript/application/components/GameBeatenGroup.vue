@@ -1,5 +1,5 @@
 <template lang="pug">
-  .game-beaten-draughts-group
+  .game-beaten-draughts-group(v-if="this.draughts.length")
     .draughts-chunk(v-for="draughtsLine in chunkedDraughts")
       GameBeatenDraught.draught(
         v-for="draught in draughtsLine"
@@ -34,7 +34,7 @@ export default {
   padding: 0 12px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(auto-fill, 1fr);
   grid-gap: 8px 20px;
 
   &:not(:last-child) {
