@@ -79,6 +79,7 @@ module Game
       raise 'No turns available' if match_turns.count <= 1
       current_turn.destroy
       current_turn.update move: nil
+      update state: :started, winner_id: nil
     end
   end
 end
