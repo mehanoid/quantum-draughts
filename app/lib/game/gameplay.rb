@@ -11,13 +11,24 @@ module Game
           ruleset: ruleset,
         )
 
+        new_boards = move.perform
+        player = next_player(match_turn)
+
+        possible_next_moves = Gameplay::QuantumMovesCalculator.valid_possible_move_chains(
+          new_boards,
+          player,
+          ruleset: ruleset,
+        )
+
         {
-          next_turn: {
+          next_turn:           {
             boards:      Game::Gameplay::Board::JsonExport.new(move.perform).as_json,
-            player:      next_player(match_turn),
+            player:      player,
             turn_number: next_turn(match_turn),
           },
-          move:      last_move(move, moves_params),
+          move:                last_move(move, moves_params),
+          possible_next_moves: possible_next_moves,
+          finished: possible_next_moves.blank?
         }
       end
 
@@ -28,7 +39,7 @@ module Game
         end
 
         def next_player(match_turn)
-          match_turn.player == 'white' ? 'black' : 'white'
+          match_turn.white? ? :black : :white
         end
 
         def last_move(move, moves_params)

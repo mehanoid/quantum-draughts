@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_18_113937) do
+ActiveRecord::Schema.define(version: 2019_04_18_212146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,8 +34,11 @@ ActiveRecord::Schema.define(version: 2019_04_18_113937) do
     t.bigint "white_player_id"
     t.integer "state", default: 0, null: false
     t.datetime "started_at"
+    t.datetime "finished_at"
+    t.bigint "winner_id"
     t.index ["black_player_id"], name: "index_game_matches_on_black_player_id"
     t.index ["white_player_id"], name: "index_game_matches_on_white_player_id"
+    t.index ["winner_id"], name: "index_game_matches_on_winner_id"
   end
 
   create_table "users", force: :cascade do |t|

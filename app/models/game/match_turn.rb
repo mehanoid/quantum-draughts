@@ -17,6 +17,10 @@ module Game
       Game::Gameplay::Board::JsonImport.new(boards).boards
     end
 
+    def player_user
+      white? ? match.white_player : match.black_player
+    end
+
     def to_s
       board_instances.map do |b|
         "#{b.weight}\n#{b}\n"

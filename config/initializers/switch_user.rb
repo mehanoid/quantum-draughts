@@ -25,7 +25,9 @@ if defined? SwitchUser
     # if it returns true, the request will continue,
     # else the request will be refused and returns "Permission Denied"
     # if you switch from "admin" to user, the current_user param is "admin"
-    config.controller_guard = ->(current_user, request) { current_user.admin? }
+    config.controller_guard = ->(current_user, request) do
+      current_user&.admin? || Rails.env.development?
+    end
 
     # view_guard is a block,
     # if it returns true, the switch user select box will be shown,
@@ -33,7 +35,7 @@ if defined? SwitchUser
     # if you switch from admin to "user", the current_user param is "user"
     config.switch_back = true
     config.view_guard = ->(current_user, request, original_user) do
-      current_user&.admin? || original_user&.admin?
+      current_user&.admin? || original_user&.admin? || Rails.env.development?
     end
 
     # redirect_path is a block, it returns which page will be redirected

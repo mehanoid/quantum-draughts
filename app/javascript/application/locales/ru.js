@@ -10,6 +10,7 @@ export default {
       statuses: {
         new_match: 'Новая',
         started: 'Начата',
+        finished: 'Завершена',
       },
     },
   },
@@ -20,6 +21,7 @@ export default {
     attributes: {
       match: {
         startedAt: 'Время начала',
+        finishedAt: 'Время завершения',
         ruleset: 'Правила',
       },
     },
@@ -43,6 +45,7 @@ export default {
     players: 'Участники',
     state: 'Статус',
     backToGame: 'Вернуться к игре',
+    showDetails: 'Подробнее',
     join: 'Присоединиться',
     watch: 'Наблюдать',
   },
@@ -57,6 +60,10 @@ export default {
     whiteTurn: 'Ход белых',
     blackTurn: 'Ход чёрных',
     noPlayer: 'Не назначен',
+    youWon: 'Вы победили',
+    youLose: 'Вы проиграли',
+    whiteWon: 'Победа белых',
+    blackWon: 'Победа чёрных',
   },
   matchHistory: {
     currentTurn: 'Текущий ход',

@@ -8,6 +8,7 @@ module Game
 
     belongs_to :white_player, class_name: 'User', optional: true
     belongs_to :black_player, class_name: 'User', optional: true
+    belongs_to :winner, class_name: 'User', optional: true
 
     enum ruleset: {
       english: 0,
@@ -25,12 +26,16 @@ module Game
     aasm column: :state do
       state :new_match, initial: true
       state :ready
-      state :started, before_enter: 'set_started_at'
-      state :finished
+      state :started, before_enter: -> { self.started_at = Time.current }
+      state :finished, before_enter: -> { self.finished_at = Time.current }
       state :interrupted
 
       event :start do
         transitions from: %i[new_match ready], to: :started
+      end
+
+      event :finish do
+        transitions from: %i[started], to: :finished
       end
     end
 
@@ -74,12 +79,6 @@ module Game
       raise 'No turns available' if match_turns.count <= 1
       current_turn.destroy
       current_turn.update move: nil
-    end
-
-    private
-
-    def set_started_at
-      self.started_at = Time.current
     end
   end
 end

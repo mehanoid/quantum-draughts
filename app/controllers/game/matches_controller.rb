@@ -55,10 +55,17 @@ module Game
           return render json: { status: :error }, status: :forbidden
         end
 
-        result = Gameplay.move match.current_turn, params[:moves], match.ruleset_object
-        match.current_turn.update move: result[:move]
+        prev_turn = match.current_turn
+        result = Gameplay.move prev_turn, params[:moves], match.ruleset_object
+        prev_turn.update move: result[:move]
         match.match_turns.create! result[:next_turn]
         match.touch
+
+        if result[:finished]
+          match.finish
+          match.update winner: prev_turn.player_user
+        end
+
         MatchChannel.broadcast_with(match)
         render json: { status: :ok }
       end

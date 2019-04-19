@@ -45,20 +45,26 @@ module Game
           def build_draught(char)
             case char
             when '○'
-              create_draught(color: :white)
+              create_white_draught
             when '●'
-              create_draught(color: :black)
+              create_black_draught
             when '□'
-              create_draught(color: :white, king: true)
+              create_white_draught king: true
             when '■'
-              create_draught(color: :black, king: true)
+              create_black_draught king: true
             end
           end
 
-          def create_draught(**opts)
-            @id ||= 0
-            @id += 1
-            Draught.new(id: @id, **opts)
+          def create_white_draught(**opts)
+            @white_id ||= 0
+            @white_id += 1
+            Draught.new(id: @white_id, color: :white, **opts)
+          end
+
+          def create_black_draught(**opts)
+            @black_id ||= 12
+            @black_id += 1
+            Draught.new(id: @black_id, color: :black, **opts)
           end
       end
     end

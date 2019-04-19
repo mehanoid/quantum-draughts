@@ -3,7 +3,7 @@
     v-flex.player.player_white(xs4)
       GameDraught.player-draught(
         :draught="{color: 'white'}"
-        :selected="match.current_player_color==='white'"
+        :selected="highlightWhite"
       )
       .player-name {{ playerName(match.white_player) }}
     v-flex.waiting-for-players(
@@ -22,14 +22,18 @@
         @close="showGuestWelcomeForm = false"
         @success="joinToMatch"
       )
-    v-flex.current-player-message(
+    v-flex.status-message(
+      xs4
+      v-else-if="isFinished"
+    ) {{ matchFinishedMessage }}
+    v-flex.status-message(
       xs4
       v-else
     ) {{ currentPlayerMessage }}
     v-flex.player.player_black(xs4)
       GameDraught.player-draught(
         :draught="{color: 'black'}"
-        :selected="match.current_player_color==='black'"
+        :selected="highlightBlack"
       )
       .player-name {{ playerName(match.black_player) }}
 </template>
@@ -59,8 +63,30 @@ export default {
       return this.match.state === 'new_match'
     },
 
+    isFinished() {
+      return this.match.state === 'finished'
+    },
+
     showJoinButton() {
       return this.isNewMatch && !this.isCurrentUserParticipant
+    },
+
+    highlightWhite() {
+      if (this.isFinished) {
+        return this.match.current_player_color === 'black'
+      }
+      else {
+        return this.match.current_player_color === 'white'
+      }
+    },
+
+    highlightBlack() {
+      if (this.isFinished) {
+        return this.match.current_player_color === 'white'
+      }
+      else {
+        return this.match.current_player_color === 'black'
+      }
     },
 
     currentPlayerMessage() {
@@ -77,6 +103,21 @@ export default {
         return this.$t('matchesShow.blackTurn')
       }
     },
+
+    matchFinishedMessage() {
+      if (this.isCurrentUserTurn) {
+        return this.$t('matchesShow.youLose')
+      }
+      else if (this.isCurrentUserParticipant) {
+        return this.$t('matchesShow.youWon')
+      }
+      else if (this.match.current_player_color === 'white') {
+        return this.$t('matchesShow.blackWon')
+      }
+      else {
+        return this.$t('matchesShow.whiteWon')
+      }
+    }
   },
   methods: {
     ...mapActions('gameplay', ['join']),
@@ -142,7 +183,7 @@ export default {
   text-align: center;
 }
 
-.current-player-message {
+.status-message {
   height: 30px;
   font-size: 1.2em;
   font-weight: bold;

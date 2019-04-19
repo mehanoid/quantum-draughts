@@ -42,6 +42,9 @@ export default {
       return player && userUtils.displayingName(player) || this.$t('matchesShow.noPlayer')
     },
     matchOpenButtonText(match) {
+      if (match.state === 'finished') {
+        return this.$t('matchesList.showDetails')
+      }
       if (this.currentUser && (match.white_player && match.white_player.id === this.currentUser.id ||
         match.black_player && match.black_player.id === this.currentUser.id)) {
         return this.$t('matchesList.backToGame')

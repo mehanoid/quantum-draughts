@@ -22,6 +22,7 @@ export default {
       return [
         {title: this.$t('models.attributes.match.ruleset'), value: this.$t(`rulesets.${this.match.ruleset}`)},
         {title: this.$t('models.attributes.match.startedAt'), value: this.match.started_at},
+        {title: this.$t('models.attributes.match.finishedAt'), value: this.match.finished_at},
       ].filter(({value}) => value)
     },
   },
