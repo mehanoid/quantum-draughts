@@ -8,8 +8,16 @@ Vue.use(VueRouter)
 export default new VueRouter({
   mode: 'history',
   routes: [
-    {path: '/', component: MatchesIndex, props: true},
-    {path: '/game/matches/:matchId', component: MatchesShow, props: true, name: 'match'},
+    {
+      path: '/',
+      component: MatchesIndex,
+    },
+    {
+      path: '/game/matches/:matchId',
+      component: MatchesShow,
+      props: (route) => ({matchId: +route.params.matchId}),
+      name: 'match'
+    },
   ],
 })
 

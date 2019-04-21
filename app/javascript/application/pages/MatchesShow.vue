@@ -31,7 +31,7 @@ import MatchHistory from '../components/MatchHistory'
 import GameDraught from '../components/GameDraught'
 import GameBeaten from '../components/GameBeaten'
 import MatchInfo from '../components/MatchInfo'
-import {mapState, mapMutations, mapGetters, mapActions} from 'vuex'
+import {mapActions, mapGetters, mapMutations, mapState} from 'vuex'
 import serverApi from '../serverApi'
 import MatchHeader from '@application/components/MatchHeader'
 
@@ -40,7 +40,7 @@ export default {
     GameBoard, MatchHistory, GameDraught, GameBeaten, MatchInfo, MatchHeader,
   },
   props: {
-    matchId: {required: true},
+    matchId: {required: true, type: Number},
   },
   data() {
     return {
@@ -52,18 +52,17 @@ export default {
     ...mapGetters('gameplay', ['multiBoard']),
   },
   async created() {
-    const id = parseInt(this.matchId)
-    if (this.match && this.match.id !== id) {
+    if (this.match && this.match.id !== this.matchId) {
       this.updateMatch(null)
     }
-    this.matchChannel = this.$cable.channels.match.subscribe(id, {
+    this.matchChannel = this.$cable.channels.match.subscribe(this.matchId, {
       received: this.updateMatch.bind(this),
       disconnected: () => {
         this.disconnected = true
       },
     })
     await this.withPageLoader(async () => {
-      const response = await serverApi.matchGet(id)
+      const response = await serverApi.matchGet(this.matchId)
       this.updateMatch(response.data)
     })
   },
