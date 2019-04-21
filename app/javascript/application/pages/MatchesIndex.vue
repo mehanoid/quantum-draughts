@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapActions} from 'vuex'
 import MatchForm from '../components/MatchForm'
 import MatchesList from '../components/MatchesList'
 import serverApi from '../serverApi'
@@ -54,18 +54,20 @@ export default {
   computed: {},
 
   async created() {
-    this.setPageLoading(true)
-    const response = await serverApi.matchesGet()
-    this.setPageLoading(false)
-    this.allMatches = response.data.all_matches
-    this.currentUserMatches = response.data.current_user_matches
+    await this.withPageLoader(async () => {
+      const response = await serverApi.matchesGet()
+      this.updateMatch(response.data)
+      this.allMatches = response.data.all_matches
+      this.currentUserMatches = response.data.current_user_matches
+    })
+
     if (this.currentUserMatches.length) {
       this.currentTab = TABS.indexOf('myMatches')
     }
   },
 
   methods: {
-    ...mapMutations(['setPageLoading']),
+    ...mapActions(['withPageLoader']),
   },
 }
 </script>

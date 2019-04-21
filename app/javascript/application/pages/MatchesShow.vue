@@ -31,7 +31,7 @@ import MatchHistory from '../components/MatchHistory'
 import GameDraught from '../components/GameDraught'
 import GameBeaten from '../components/GameBeaten'
 import MatchInfo from '../components/MatchInfo'
-import {mapState, mapMutations, mapGetters} from 'vuex'
+import {mapState, mapMutations, mapGetters, mapActions} from 'vuex'
 import serverApi from '../serverApi'
 import MatchHeader from '@application/components/MatchHeader'
 
@@ -62,17 +62,17 @@ export default {
         this.disconnected = true
       },
     })
-    this.setPageLoading(true)
-    const response = await serverApi.matchGet(id)
-    this.setPageLoading(false)
-    this.updateMatch(response.data)
+    await this.withPageLoader(async () => {
+      const response = await serverApi.matchGet(id)
+      this.updateMatch(response.data)
+    })
   },
   beforeDestroy() {
     this.matchChannel.unsubscribe()
   },
   methods: {
     ...mapMutations('gameplay', ['updateMatch']),
-    ...mapMutations(['setPageLoading']),
+    ...mapActions(['withPageLoader']),
   },
 }
 </script>
