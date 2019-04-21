@@ -55,10 +55,6 @@ export default {
     axios.post(`/game/matches/${matchId}/move`, {
       moves,
     }),
-  matchMeasure: (matchId, cell_name) =>
-    axios.post(`/game/matches/${matchId}/measure`, {
-      cell_name,
-    }),
   matchJoin: (matchId) =>
     axios.post(`/game/matches/${matchId}/join`),
   matchGet: (id) =>

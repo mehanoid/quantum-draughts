@@ -53,6 +53,7 @@ gem 'gon'
 gem 'memery'
 # Выбор случайного элемента с учётом его вероятности. Для коллапса суперпозиции
 gem 'pickup'
+gem 'active_interaction'
 
 gem 'rollbar'
 gem 'switch_user'

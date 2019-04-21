@@ -51,36 +51,17 @@ module Game
 
     def move
       match.with_lock do
-        unless current_or_guest_user(create: false) == match.current_player
+        user = current_or_guest_user(create: false)
+        unless user == match.current_player
           return render json: { status: :error }, status: :forbidden
         end
 
-        prev_turn = match.current_turn
-        result = Gameplay.move prev_turn, params[:moves], match.ruleset_object
-        prev_turn.update move: result[:move]
-        match.match_turns.create! result[:next_turn]
-        match.touch
+        Game::Matches::MoveInteraction.run!(current_user: user, match: match, moves: params[:moves])
 
-        if result[:finished]
-          match.finish
-          match.update winner: prev_turn.player_user
-        end
-
-        MatchChannel.broadcast_with(match)
         render json: { status: :ok }
       end
     rescue Gameplay::InvalidMove => e
       render json: { status: :error, error: "Invalid move: #{e.message}" }
-    end
-
-    def measure
-      unless current_or_guest_user(create: false) == match.current_player
-        return render json: { status: :error }, status: :forbidden
-      end
-      boards = Game::Gameplay::CellMeasure.new(match.board_instances, params[:cell_name]).perform
-      match.current_turn.update boards: Game::Gameplay::Board::JsonExport.new(boards).as_json
-      MatchChannel.broadcast_with(match.reload)
-      render json: { status: :ok }
     end
 
     def join

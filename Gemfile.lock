@@ -46,6 +46,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_interaction (3.7.1)
+      activemodel (>= 4, < 7)
     active_model_serializers (0.10.7)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
@@ -301,6 +303,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   action-cable-testing
+  active_interaction
   active_model_serializers
   awesome_print
   bootsnap (>= 1.1.0)

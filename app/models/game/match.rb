@@ -52,7 +52,7 @@ module Game
     end
 
     def current_player_color
-      current_turn.player
+      current_turn.player.to_sym
     end
 
     def current_player
@@ -61,6 +61,10 @@ module Game
 
     def players
       [white_player, black_player].compact
+    end
+
+    def player_by_color(color)
+      color.to_sym == :white ? white_player : black_player
     end
 
     def board_instances
