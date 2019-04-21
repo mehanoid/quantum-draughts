@@ -56,7 +56,6 @@ export default {
   async created() {
     await this.withPageLoader(async () => {
       const response = await serverApi.matchesGet()
-      this.updateMatch(response.data)
       this.allMatches = response.data.all_matches
       this.currentUserMatches = response.data.current_user_matches
     })
