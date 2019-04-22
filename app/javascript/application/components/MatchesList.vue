@@ -14,6 +14,9 @@
             v-flex(xs6)
               v-btn.deep-purple.accent-2
                 | {{ matchOpenButtonText(match) }}
+    v-flex.mt-2(v-if="!matches.length")
+      v-card
+        v-card-title {{ $t('commons.noData') }}
 </template>
 
 <script>

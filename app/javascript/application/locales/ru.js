@@ -4,6 +4,7 @@ export default {
     white: 'Белые',
     black: 'Чёрные',
     anonymousPlayerName: 'Игрок %{id}',
+    noData: 'Нет данных',
   },
   enums: {
     match: {
