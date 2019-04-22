@@ -37,7 +37,6 @@ export default {
   },
   matchesIndex: {
     startGame: 'Новая игра',
-    aboutGame: 'Об игре',
     tabs: {
       allMatches: 'Текущие партии',
       myMatches: 'Мои партии',
@@ -91,4 +90,10 @@ export default {
       maxLength: 'Максимум %{count} символов',
     },
   },
+  aboutGame: {
+    title: 'Об игре'
+  },
+  menu: {
+    matches: 'Партии'
+  }
 }

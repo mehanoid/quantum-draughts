@@ -13,8 +13,9 @@
           @close="showMatchForm = false"
         )
       v-btn.deep-purple.accent-2(
-        :to="{ name: 'about' }"
-      ) {{ $t("matchesIndex.aboutGame") }}
+        @click="showAboutDialog=true"
+      ) {{ $t("aboutGame.title") }}
+      AboutDialog(v-model="showAboutDialog")
       v-tabs(
         v-if="allMatches !== null"
         v-model="currentTab"
@@ -37,6 +38,7 @@ import {mapActions} from 'vuex'
 import MatchForm from '../components/MatchForm'
 import MatchesList from '../components/MatchesList'
 import serverApi from '../serverApi'
+import AboutDialog from '@application/components/AboutDialog'
 
 const TABS = ['allMatches', 'myMatches']
 
@@ -44,12 +46,14 @@ export default {
   components: {
     MatchForm,
     MatchesList,
+    AboutDialog,
   },
   data() {
     return {
       allMatches: null,
       currentUserMatches: null,
       showMatchForm: false,
+      showAboutDialog: false,
       currentTab: TABS.indexOf('allMatches'),
     }
   },

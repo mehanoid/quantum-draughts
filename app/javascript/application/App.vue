@@ -2,8 +2,14 @@
   v-app(dark)
     v-toolbar
       .logo
-      v-toolbar-title.ml-2
+      v-toolbar-title.ml-2.mr-3
         router-link.title(to="/") Quantum Draughts
+      v-toolbar-items
+        v-btn(flat to="/") {{ $t('menu.matches') }}
+        v-btn(
+          flat
+          :to="{ name: 'about' }"
+        ) {{ $t('aboutGame.title') }}
     v-content
       v-progress-linear.progress(
         v-if="pageLoading"
@@ -24,6 +30,10 @@ import LayoutSnackbars from './components/LayoutSnackbars'
 
 export default {
   components: {LayoutSnackbars},
+  data() {
+    return {
+    }
+  },
   computed: {
     ...mapState(['pageLoading']),
   },

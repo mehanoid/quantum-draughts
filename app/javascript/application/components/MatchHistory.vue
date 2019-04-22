@@ -21,7 +21,7 @@ import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 export default {
   components: {
-    MatchHistoryItem, VuePerfectScrollbar,
+    MatchHistoryItem, VuePerfectScrollbar
   },
   computed: {
     ...mapState('gameplay', ['match']),
