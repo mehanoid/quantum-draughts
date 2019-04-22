@@ -1,10 +1,26 @@
 <template lang="pug">
   v-app(dark)
+    v-navigation-drawer(
+      v-model="drawer"
+      absolute
+      temporary
+    )
+      v-list
+        v-list-tile(to="/")
+          v-list-tile-content
+            v-list-tile-title {{ $t('menu.matches') }}
+      v-list
+        v-list-tile(:to="{ name: 'about' }")
+          v-list-tile-content
+            v-list-tile-title {{ $t('aboutGame.title') }}
     v-toolbar
+      v-toolbar-side-icon.hidden-lg-and-up(
+        @click="drawer = true"
+      )
       .logo
       v-toolbar-title.ml-2.mr-3
         router-link.title(to="/") Quantum Draughts
-      v-toolbar-items
+      v-toolbar-items.hidden-md-and-down
         v-btn(flat to="/") {{ $t('menu.matches') }}
         v-btn(
           flat
@@ -32,6 +48,7 @@ export default {
   components: {LayoutSnackbars},
   data() {
     return {
+      drawer: false
     }
   },
   computed: {
