@@ -1,6 +1,6 @@
 <template lang="pug">
   .matches-show
-    v-alert.mb-4(
+    v-alert.mb-4.alert(
       :value="disconnected"
       type="error"
       transition="scale-transition"
@@ -32,7 +32,6 @@ import GameDraught from '../components/GameDraught'
 import GameBeaten from '../components/GameBeaten'
 import MatchInfo from '../components/MatchInfo'
 import {mapActions, mapGetters, mapMutations, mapState} from 'vuex'
-import serverApi from '../serverApi'
 import MatchHeader from '@application/components/MatchHeader'
 
 export default {
@@ -53,24 +52,31 @@ export default {
   },
   async created() {
     if (this.match && this.match.id !== this.matchId) {
-      this.updateMatch(null)
+      this.setMatch(null)
     }
+
     this.matchChannel = this.$cable.channels.match.subscribe(this.matchId, {
-      received: this.updateMatch.bind(this),
+      received: this.setMatch.bind(this),
+      connected: () => {
+        if (this.disconnected) {
+          this.updateMatch(this.matchId)
+          this.disconnected = false
+        }
+      },
       disconnected: () => {
         this.disconnected = true
-      },
+      }
     })
     await this.withPageLoader(async () => {
-      const response = await serverApi.matchGet(this.matchId)
-      this.updateMatch(response.data)
+      this.updateMatch(this.matchId)
     })
   },
   beforeDestroy() {
     this.matchChannel.unsubscribe()
   },
   methods: {
-    ...mapMutations('gameplay', ['updateMatch']),
+    ...mapMutations('gameplay', ['setMatch']),
+    ...mapActions('gameplay', ['updateMatch']),
     ...mapActions(['withPageLoader']),
   },
 }
@@ -81,6 +87,12 @@ export default {
 
 .matches-show {
   --board-padding: 25px;
+}
+
+.alert {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .header {

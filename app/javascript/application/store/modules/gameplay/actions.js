@@ -1,10 +1,14 @@
 import serverApi from '@application/serverApi.js'
 import cellUtils from '@application/utils/cell'
-import i18n from '@application/i18n'
 
 const MAX_MOVES_COUNT = 2
 
 export default {
+  async updateMatch({commit}, id) {
+    const response = await serverApi.matchGet(id)
+    commit('setMatch', response.data)
+  },
+
   selectCell({commit, state, getters, dispatch}, cell) {
     if (!state.selectedCellName) {
       commit('cleanSelections')

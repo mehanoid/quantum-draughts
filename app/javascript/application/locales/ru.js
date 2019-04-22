@@ -78,7 +78,7 @@ export default {
     next: 'Далее',
   },
   errors: {
-    disconnected: 'Соединение разорвано. Проверьте подключение и обновите страницу',
+    disconnected: 'Соединение разорвано',
     connectionError: 'Не удаётся подключиться к серверу',
     requestError: 'Ошибка выполнения запроса',
     internalServerError: 'Внутренняя ошибка сервера',

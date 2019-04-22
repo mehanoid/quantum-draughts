@@ -11,7 +11,7 @@ export default {
     state.selectedDraughtId = draughtId
   },
 
-  updateMatch(state, match){
+  setMatch(state, match){
     state.match = match
   },
 
