@@ -8,7 +8,11 @@ import i18n from './i18n'
 import router from './router'
 import serverApi from './serverApi'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#b3e5fc',
+  }
+})
 
 document.addEventListener('DOMContentLoaded', () => {
   const store = initStore()

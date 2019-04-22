@@ -12,6 +12,9 @@
         MatchForm(
           @close="showMatchForm = false"
         )
+      v-btn.deep-purple.accent-2(
+        :to="{ name: 'about' }"
+      ) {{ $t("matchesIndex.aboutGame") }}
       v-tabs(
         v-if="allMatches !== null"
         v-model="currentTab"

@@ -1,5 +1,5 @@
 <template lang="pug">
-  a.light-blue--text.text--lighten-4(:class="classNames" href="#" @click.prevent="handleClick") {{moveString}}
+  a(:class="classNames" href="#" @click.prevent="handleClick") {{moveString}}
 </template>
 
 <script>

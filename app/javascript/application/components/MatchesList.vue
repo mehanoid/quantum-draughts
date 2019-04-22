@@ -1,7 +1,7 @@
 <template lang="pug">
   v-layout(wrap).matches-list
     v-flex.mt-2(xs12 v-for="match in matches" :key="match.id")
-      v-card(:to="matchUrl(match.id)")
+      v-card(:to="{ name: 'match', params: { matchId: match.id}}")
         v-card-title
           v-layout(wrap)
             v-flex(xs6)
@@ -38,9 +38,6 @@ export default {
     ...mapState(['currentUser']),
   },
   methods: {
-    matchUrl(id) {
-      return `/game/matches/${id}`
-    },
     playerName(player) {
       return player && userUtils.displayingName(player) || this.$t('matchesShow.noPlayer')
     },

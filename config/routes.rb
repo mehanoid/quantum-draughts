@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   devise_for :users
   get 'users/current'
 
+  get 'about' => 'pages#front'
+
   resource :profile, only: :update
 
   namespace :game do

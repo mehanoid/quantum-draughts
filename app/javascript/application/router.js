@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MatchesShow from './pages/MatchesShow'
 import MatchesIndex from './pages/MatchesIndex'
+import AboutGame from './pages/AboutGame'
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,11 @@ export default new VueRouter({
       component: MatchesShow,
       props: (route) => ({matchId: +route.params.matchId}),
       name: 'match'
+    },
+    {
+      path: '/about',
+      component: AboutGame,
+      name: 'about'
     },
   ],
 })
