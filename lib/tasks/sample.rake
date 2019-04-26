@@ -2,7 +2,7 @@
 
 namespace :sample do
   task boards: :environment do
-    boards = [Game::Gameplay::Board.from_s(<<~BOARD)]
+    boards = [Gameplay::Board.from_s(<<~BOARD)]
       . . . . . . . .
       . . . . . . . .
       . ● . . . . . .
@@ -13,7 +13,7 @@ namespace :sample do
       . . . . . . . .
     BOARD
     Game::Match.last.current_turn.update!(
-      boards: Game::Gameplay::Board::JsonExport.new(boards).as_json,
+      boards: Gameplay::Board::JsonExport.new(boards).as_json,
       player: :white,
     )
     Game::Match.last.update!(

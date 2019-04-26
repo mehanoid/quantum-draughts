@@ -15,13 +15,13 @@ module Game
       end
 
       def measure
-        Game::Gameplay::CellBelongingCheck.new(match.board_instances, starting_cell_name, match.current_player_color).check!
-        boards = Game::Gameplay::CellMeasure.new(match.board_instances, starting_cell_name).perform
-        match.current_turn.update boards: Game::Gameplay::Board::JsonExport.new(boards).as_json
+        Gameplay::CellBelongingCheck.new(match.board_instances, starting_cell_name, match.current_player_color).check!
+        boards = Gameplay::CellMeasure.new(match.board_instances, starting_cell_name).perform
+        match.current_turn.update boards: Gameplay::Board::JsonExport.new(boards).as_json
       end
 
       def move
-        return unless Game::Gameplay::CellBelongingCheck.new(
+        return unless Gameplay::CellBelongingCheck.new(
           match.board_instances, starting_cell_name, match.current_player_color
         ).check
         prev_turn = match.current_turn
@@ -32,7 +32,7 @@ module Game
       end
 
       def win_condition_check
-        result = Game::Gameplay::WinCondition.new(
+        result = Gameplay::WinCondition.new(
           match.board_instances,
           match.current_player_color,
           ruleset: match.ruleset_object

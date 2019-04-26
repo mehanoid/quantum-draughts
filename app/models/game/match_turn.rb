@@ -7,14 +7,14 @@ module Game
     belongs_to :match
 
     def init_boards
-      board       = Game::Gameplay::Board.populated
-      self.boards = Game::Gameplay::Board::JsonExport.new([board]).as_json
+      board       = Gameplay::Board.populated
+      self.boards = Gameplay::Board::JsonExport.new([board]).as_json
       save
       self
     end
 
     def board_instances
-      Game::Gameplay::Board::JsonImport.new(boards).boards
+      Gameplay::Board::JsonImport.new(boards).boards
     end
 
     def player_user
