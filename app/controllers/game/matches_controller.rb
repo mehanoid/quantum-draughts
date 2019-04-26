@@ -14,7 +14,7 @@ module Game
           user = current_or_guest_user(create: false)
           current_user_matches =
             if user
-              Match.where('white_player_id = :id OR black_player_id = :id', id: user.id)
+              Match.by_player(user)
                 .order(:state, updated_at: :desc)
                 .includes(:white_player, :black_player)
             else

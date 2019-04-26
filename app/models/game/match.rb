@@ -23,7 +23,7 @@ module Game
       interrupted: 4,
     }
 
-    aasm column: :state do
+    aasm column: :state, enum: true do
       state :new_match, initial: true
       state :ready
       state :started, before_enter: -> { self.started_at = Time.current }
@@ -40,6 +40,7 @@ module Game
     end
 
     scope :active, -> { where(state: %i[new_match ready started]) }
+    scope :by_player, -> (player) { where(white_player: player).or(where(black_player: player)) }
 
     def self.create_initial_match(params = {})
       match = create! params
