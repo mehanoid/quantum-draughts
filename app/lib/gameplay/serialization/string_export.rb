@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Gameplay
-  class Board
+  module Serialization
     class StringExport
       attr_reader :board
 

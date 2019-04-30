@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Gameplay
-  class Board
+  module Serialization
     # converts multiboard to json
     class JsonExport
       attr_reader :boards

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Gameplay::QuantumMovesCalculator do
   context 'populated board' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -32,7 +32,7 @@ RSpec.describe Gameplay::QuantumMovesCalculator do
 
   context 'king can beat one draught on both boards, and another only on one board' do
     let(:boards) do
-      [<<~BOARD, <<~BOARD2].map { |b| Gameplay::Board.from_s(b) }
+      [<<~BOARD, <<~BOARD2].map { |b| Gameplay::Types::Board.from_s(b) }
         . . . . . . . .
         . . ● . . . . .
         . . . . . . . .

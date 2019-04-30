@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Gameplay::Board::JsonExport do
+RSpec.describe Gameplay::Serialization::JsonExport do
   context 'two boards' do
     let(:boards) do
-      [Gameplay::Board.from_s(<<~BOARD), Gameplay::Board.from_s(<<~BOARD2)]
+      [Gameplay::Types::Board.from_s(<<~BOARD), Gameplay::Types::Board.from_s(<<~BOARD2)]
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -27,7 +27,7 @@ RSpec.describe Gameplay::Board::JsonExport do
     end
 
     it 'creates json' do
-      result = Gameplay::Board::JsonExport.new(boards).as_json
+      result = Gameplay::Serialization::JsonExport.new(boards).as_json
       expect(result[:weights]).to match_array [1, 1]
 
       draught1 = result[:draughts].find { |c| c[:cell] == 'B4' }

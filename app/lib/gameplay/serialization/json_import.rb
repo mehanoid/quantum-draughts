@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Gameplay
-  class Board
+  module Serialization
     class JsonImport
       attr_reader :boards_json
 
@@ -10,7 +10,7 @@ module Gameplay
       end
 
       def boards
-        initial_board = Board.new
+        initial_board = Types::Board.new
         boards_attributes.map.with_index do |board_attributes, index|
           board        = initial_board.update(board_attributes)
           board.weight = boards_json['weights'][index]
@@ -37,7 +37,7 @@ module Gameplay
         end
 
         def build_draught(data)
-          Draught.new(
+          Types::Draught.new(
             id:    data['id'],
             color: draught_color(data['id']),
             king:  data['king'],

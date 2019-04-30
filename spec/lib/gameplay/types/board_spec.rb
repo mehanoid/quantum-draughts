@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Gameplay::Board do
+RSpec.describe Gameplay::Types::Board do
   subject { described_class.new }
 
   it 'has 32 playable_cells' do
@@ -76,7 +76,7 @@ RSpec.describe Gameplay::Board do
 
   describe '#update' do
     it 'removes draught at position' do
-      board = Gameplay::Board.from_s(<<~BOARD)
+      board = Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -102,7 +102,7 @@ RSpec.describe Gameplay::Board do
     end
 
     it 'adds draught at position' do
-      new_board = subject.update('A1' => Gameplay::Draught.new(id: 1, color: :white))
+      new_board = subject.update('A1' => Gameplay::Types::Draught.new(id: 1, color: :white))
 
       expect(new_board.to_s).to eq <<~BOARD
         . . . . . . . .

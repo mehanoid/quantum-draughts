@@ -4,7 +4,7 @@ module Gameplay
   class QuantumMove
     attr_reader :boards, :moves_params, :current_player, :ruleset
 
-    # @param boards [Array<Gameplay::Board>]
+    # @param boards [Array<Gameplay::Types::Board>]
     def initialize(boards, moves_params, current_player, ruleset: RussianRuleset)
       @boards         = boards
       @moves_params   = moves_params

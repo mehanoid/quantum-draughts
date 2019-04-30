@@ -17,7 +17,7 @@ module Game
       def measure
         Gameplay::CellBelongingCheck.new(match.board_instances, starting_cell_name, match.current_player_color).check!
         boards = Gameplay::CellMeasure.new(match.board_instances, starting_cell_name).perform
-        match.current_turn.update boards: Gameplay::Board::JsonExport.new(boards).as_json
+        match.current_turn.update boards: Gameplay::Serialization::JsonExport.new(boards).as_json
       end
 
       def move

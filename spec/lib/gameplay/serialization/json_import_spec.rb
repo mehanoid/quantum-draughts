@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Gameplay::Board::JsonImport do
+RSpec.describe Gameplay::Serialization::JsonImport do
   let(:json) {
     {
       weights:  [1, 4],

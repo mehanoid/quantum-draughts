@@ -7,7 +7,7 @@ module Gameplay
 
     attr_reader :current_player, :board, :move_cells, :error, :ruleset
 
-    # @param board [Gameplay::Board] initial board
+    # @param board [Gameplay::Types::Board] initial board
     # @param move_cells [Array<String>]
     def initialize(board, move_cells, current_player = nil, ruleset:)
       @board          = board
@@ -16,7 +16,7 @@ module Gameplay
       @ruleset        = ruleset
     end
 
-    # @return [Gameplay::Board] transformed board
+    # @return [Gameplay::Types::Board] transformed board
     def perform
       raise(error || InvalidMove) unless valid?
       result

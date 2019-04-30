@@ -14,7 +14,7 @@ module Gameplay
 
       {
         next_turn: {
-          boards:      Gameplay::Board::JsonExport.new(move.perform).as_json,
+          boards:      Gameplay::Serialization::JsonExport.new(move.perform).as_json,
           player:      player,
           turn_number: next_turn(match_turn),
         },

@@ -8,7 +8,7 @@ RSpec.describe Gameplay::WinCondition do
   context 'each player can move' do
     let(:boards) do
       [
-        Gameplay::Board.from_s(<<~BOARD)
+        Gameplay::Types::Board.from_s(<<~BOARD)
           . . . . . . . .
           . . . . . . . .
           . . . ● . . . .
@@ -31,7 +31,7 @@ RSpec.describe Gameplay::WinCondition do
   context 'black player has no draughts' do
     let(:boards) do
       [
-        Gameplay::Board.from_s(<<~BOARD)
+        Gameplay::Types::Board.from_s(<<~BOARD)
           . . . . . . . .
           . . . . . . . .
           . . . . . . . .
@@ -60,7 +60,7 @@ RSpec.describe Gameplay::WinCondition do
   context 'black player can not move' do
     let(:boards) do
       [
-        Gameplay::Board.from_s(<<~BOARD)
+        Gameplay::Types::Board.from_s(<<~BOARD)
           . . . . . . . .
           . . . . . . . .
           . . . . . . . ●

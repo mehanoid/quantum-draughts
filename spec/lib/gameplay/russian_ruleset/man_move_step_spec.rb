@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
   context 'populated board' do
-    let(:board) { Gameplay::Board.populated }
+    let(:board) { Gameplay::Types::Board.populated }
 
     it 'moves C3:D4' do
       new_board = described_class.new(board, %w[C3 D4], :white).perform
@@ -36,7 +36,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
 
   context 'white draught' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -72,7 +72,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
 
   context 'black draught' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -108,7 +108,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
 
   context 'two draughts' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -135,7 +135,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
 
   context 'two draughts of the same color' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -156,7 +156,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
 
   context 'surrounded draught' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -237,7 +237,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
 
   context 'near edge line' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . ○ . . . . .
         . . . . . . . .

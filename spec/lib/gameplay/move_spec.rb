@@ -7,7 +7,7 @@ RSpec.describe Gameplay::Move do
 
   context 'man draughts' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -52,7 +52,7 @@ RSpec.describe Gameplay::Move do
 
   context 'man becoming king' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . ● . ● . ● .
         . . . ○ . . . .
@@ -97,7 +97,7 @@ RSpec.describe Gameplay::Move do
 
   context 'two draughts can beat' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . ● . . . .
@@ -128,7 +128,7 @@ RSpec.describe Gameplay::Move do
   context 'king' do
     context 'zigzag beats' do
       let(:board) do
-        Gameplay::Board.from_s(<<~BOARD)
+        Gameplay::Types::Board.from_s(<<~BOARD)
           . . . . . . . □
           . . . . . . ● .
           . . . . . . . .
@@ -170,7 +170,7 @@ RSpec.describe Gameplay::Move do
 
     context 'can beat in opposite directions' do
       let(:board) do
-        Gameplay::Board.from_s(<<~BOARD)
+        Gameplay::Types::Board.from_s(<<~BOARD)
           . . . . . . . .
           . . . . . . ● .
           . . . . . . . .

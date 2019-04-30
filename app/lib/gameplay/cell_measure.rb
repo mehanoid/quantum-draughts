@@ -13,7 +13,7 @@ module Gameplay
 
     private
 
-      # @return [Gameplay::Board] boards
+      # @return [Gameplay::Types::Board] boards
       def resolve_conflicts_on_cell(boards, cell_name)
         weighted_draughts = get_weighted_draughts_at_cell(boards, cell_name)
         if too_many_draughts?(weighted_draughts)
@@ -38,7 +38,7 @@ module Gameplay
       end
 
       # pick sample draught from the array by it's weight
-      # @return [Gameplay::Draught]
+      # @return [Gameplay::Types::Draught]
       def weighted_draught_sample(weighted_draughts)
         Pickup.new(
           weighted_draughts,
@@ -48,7 +48,7 @@ module Gameplay
       end
 
       # reject all boards that has any draught on that cell other than our sample draught
-      # @return [Gameplay::Board] boards
+      # @return [Gameplay::Types::Board] boards
       def reject_conflicts_with_draught(boards, draught, cell_name)
         boards.reject { |board| cell_conflicts_with?(board.cell_at(cell_name), draught) }
       end

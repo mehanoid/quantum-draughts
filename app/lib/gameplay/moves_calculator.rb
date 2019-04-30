@@ -6,7 +6,7 @@ module Gameplay
 
     attr_reader :board, :cell_name, :current_player, :prev_beaten_cells, :ruleset
 
-    # @param board [Gameplay::Board]
+    # @param board [Gameplay::Types::Board]
     # @param cell_name [String]
     # @param current_player [Symbol]
     # @param should_beat [Boolean]

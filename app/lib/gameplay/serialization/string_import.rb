@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Gameplay
-  class Board
-    # converts from string with draughts position to Gameplay::Board
+  module Serialization
+    # converts from string with draughts position to Gameplay::Types::Board
     # @example
     #   StringImport.new(<<~BOARD).import
     #     . ● . ● . ● . ●
@@ -20,10 +20,10 @@ module Gameplay
       # @param string [String]
       def initialize(string)
         @string = string
-        @board  = Board.new
+        @board  = Types::Board.new
       end
 
-      # @return [Gameplay::Board]
+      # @return [Gameplay::Types::Board]
       def import
         cells_hash = board_cells.zip(cells_chars).map do |cell, char|
           [cell.name, build_draught(char)]
@@ -57,13 +57,13 @@ module Gameplay
         def create_white_draught(**opts)
           @white_id ||= 0
           @white_id += 1
-          Draught.new(id: @white_id, color: :white, **opts)
+          Types::Draught.new(id: @white_id, color: :white, **opts)
         end
 
         def create_black_draught(**opts)
           @black_id ||= 12
           @black_id += 1
-          Draught.new(id: @black_id, color: :black, **opts)
+          Types::Draught.new(id: @black_id, color: :black, **opts)
         end
     end
   end

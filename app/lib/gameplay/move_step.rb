@@ -18,7 +18,7 @@ module Gameplay
 
     end
 
-    # @param board [Gameplay::Board]
+    # @param board [Gameplay::Types::Board]
     # @param move_cells [Array<String>]
     def initialize(board, move_cells, current_player = nil, prev_beaten_cells: [])
       @board             = board

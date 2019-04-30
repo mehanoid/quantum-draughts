@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Gameplay::CellMeasure do
   def init_boards(data)
-    data.map { |d| Gameplay::Board.new(d) }
+    data.map { |d| Gameplay::Types::Board.new(d) }
   end
 
   context 'all conflicting boards' do

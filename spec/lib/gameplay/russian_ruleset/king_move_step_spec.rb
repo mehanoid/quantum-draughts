@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Gameplay::RussianRuleset::KingMoveStep do
   context 'white king' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -146,7 +146,7 @@ RSpec.describe Gameplay::RussianRuleset::KingMoveStep do
 
   context 'king with another draughts' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -221,7 +221,7 @@ RSpec.describe Gameplay::RussianRuleset::KingMoveStep do
 
   context 'draughts on adjacent cells' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . □
         . . . . . . ● .
         . . . . . ● . .

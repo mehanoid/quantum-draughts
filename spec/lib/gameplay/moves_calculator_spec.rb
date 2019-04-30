@@ -6,7 +6,7 @@ RSpec.describe Gameplay::MovesCalculator do
   let(:ruleset) { Gameplay::RussianRuleset }
 
   context 'populated board' do
-    let(:board) { Gameplay::Board.populated }
+    let(:board) { Gameplay::Types::Board.populated }
 
     describe 'possible moves' do
       it 'return array of resulting cells' do
@@ -18,7 +18,7 @@ RSpec.describe Gameplay::MovesCalculator do
 
   context 'draught can beat' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -45,7 +45,7 @@ RSpec.describe Gameplay::MovesCalculator do
 
   context 'draught can beat multiple times' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -67,7 +67,7 @@ RSpec.describe Gameplay::MovesCalculator do
 
   context 'king can beat in opposite directions' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . ● .
         . . . . . . . .

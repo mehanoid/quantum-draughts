@@ -7,7 +7,7 @@ RSpec.describe Gameplay::QuantumMove do
 
   context 'with one draught' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -46,7 +46,7 @@ RSpec.describe Gameplay::QuantumMove do
 
   context 'with two draughts' do
     let(:board) do
-      Gameplay::Board.from_s(<<~BOARD)
+      Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -67,7 +67,7 @@ RSpec.describe Gameplay::QuantumMove do
 
   context 'when king can beat one draught on both boards, and another only on one board' do
     let(:boards) do
-      [<<~BOARD, <<~BOARD2].map { |b| Gameplay::Board.from_s(b) }
+      [<<~BOARD, <<~BOARD2].map { |b| Gameplay::Types::Board.from_s(b) }
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -121,7 +121,7 @@ RSpec.describe Gameplay::QuantumMove do
 
   context 'when draught can beat two draughts on one board but can not beat and stop on another' do
     let(:boards) do
-      [<<~BOARD, <<~BOARD2].map { |b| Gameplay::Board.from_s(b) }
+      [<<~BOARD, <<~BOARD2].map { |b| Gameplay::Types::Board.from_s(b) }
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -175,7 +175,7 @@ RSpec.describe Gameplay::QuantumMove do
 
   context 'when can beat two draughts on first board and no one on another' do
     let(:boards) do
-      [<<~BOARD, <<~BOARD2].map { |b| Gameplay::Board.from_s(b) }
+      [<<~BOARD, <<~BOARD2].map { |b| Gameplay::Types::Board.from_s(b) }
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .

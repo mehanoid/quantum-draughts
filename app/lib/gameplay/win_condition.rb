@@ -4,7 +4,7 @@ module Gameplay
   class WinCondition
     attr_reader :current_player, :boards, :ruleset
 
-    # @param boards [Array<Gameplay::Board>]
+    # @param boards [Array<Gameplay::Types::Board>]
     # @param [Symbol] current_player
     # @param [Object] ruleset
     def initialize(boards, current_player = nil, ruleset:)
