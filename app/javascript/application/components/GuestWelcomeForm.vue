@@ -13,20 +13,21 @@
           ref="form"
           v-model="valid"
           lazy-validation
+          @submit.prevent="submit"
         )
           UserFormInputs(
             v-model="user"
           )
-        v-card-actions
-          v-spacer
-          v-btn(
-            @click="close"
-          ) {{ $t("buttons.cancel") }}
-          v-btn.deep-purple.accent-2(
-            @click="submit"
-            :loading="progress"
-          )
-            | {{ $t("buttons.next") }}
+      v-card-actions
+        v-spacer
+        v-btn(
+          @click="close"
+        ) {{ $t("buttons.cancel") }}
+        v-btn.deep-purple.accent-2(
+          @click="submit"
+          :loading="progress"
+        )
+          | {{ $t("buttons.next") }}
 </template>
 
 <script>

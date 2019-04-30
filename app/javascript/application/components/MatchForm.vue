@@ -7,6 +7,7 @@
         ref="form"
         v-model="valid"
         lazy-validation
+        @submit.prevent="saveMatch"
       )
         v-radio-group(
           :label="$t('models.attributes.match.ruleset')"
@@ -21,16 +22,16 @@
         UserFormInputs(
           v-model="user"
         )
-      v-card-actions
-        v-spacer
-        v-btn(
-          @click="close"
-        ) {{ $t("buttons.cancel") }}
-        v-btn.deep-purple.accent-2(
-          @click="saveMatch"
-          :loading="progress"
-        )
-          | {{ $t("matchForm.start") }}
+    v-card-actions
+      v-spacer
+      v-btn(
+        @click="close"
+      ) {{ $t("buttons.cancel") }}
+      v-btn.deep-purple.accent-2(
+        @click="saveMatch"
+        :loading="progress"
+      )
+        | {{ $t("matchForm.start") }}
 </template>
 
 <script>
