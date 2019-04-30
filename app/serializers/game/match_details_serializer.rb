@@ -15,11 +15,11 @@ module Game
     end
 
     def possible_moves
-      Gameplay::QuantumMovesCalculator.valid_possible_move_chains(
+      Gameplay::QuantumBoardMovesCalculator.new(
         object.board_instances,
         object.current_player_color.to_sym,
         ruleset: object.ruleset_object,
-      )
+      ).valid_possible_move_chains
     end
 
   end

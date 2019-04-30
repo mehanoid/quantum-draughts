@@ -14,11 +14,11 @@ module Gameplay
     end
 
     def perform
-      possible_next_moves = Gameplay::QuantumMovesCalculator.valid_possible_move_chains(
+      possible_next_moves = Gameplay::QuantumBoardMovesCalculator.new(
         boards,
         current_player,
         ruleset: ruleset,
-      )
+      ).valid_possible_move_chains
 
       if possible_next_moves.blank?
         {

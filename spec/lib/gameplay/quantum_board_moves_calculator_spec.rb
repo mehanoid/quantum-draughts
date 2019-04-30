@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Gameplay::QuantumMovesCalculator do
+RSpec.describe Gameplay::QuantumBoardMovesCalculator do
   context 'populated board' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
@@ -19,7 +19,7 @@ RSpec.describe Gameplay::QuantumMovesCalculator do
 
     describe '::valid_possible_move_chains' do
       it 'return array of resulting cells' do
-        chains = described_class.valid_possible_move_chains([board], :white, ruleset: Gameplay::RussianRuleset)
+        chains = described_class.new([board], :white, ruleset: Gameplay::RussianRuleset).valid_possible_move_chains
         expect(chains).to match_array(
           [
             { beat: true, cells: %w[B2 D4 B6] },
@@ -54,7 +54,7 @@ RSpec.describe Gameplay::QuantumMovesCalculator do
     end
 
     it 'can not stop after beating first draught' do
-      chains = described_class.valid_possible_move_chains(boards, :white, ruleset: Gameplay::RussianRuleset)
+      chains = described_class.new(boards, :white, ruleset: Gameplay::RussianRuleset).valid_possible_move_chains
       expect(chains).to eq([beat: true, cells: %w[D2 F4 B8]])
     end
   end

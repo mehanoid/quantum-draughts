@@ -77,35 +77,12 @@ module Gameplay
     end
 
     memoize def any_can_beat?
-      @should_beat || self.class.any_can_beat?(board, current_player, ruleset: ruleset)
+      # TODO не вызывать BoardMovesCalculator из MovesCalculator
+      @should_beat || BoardMovesCalculator.new(board, current_player, ruleset: ruleset).any_can_beat?
     end
 
     def from_cell
       board.cell_at(cell_name)
-    end
-
-    class << self
-      def all_beat_move_steps(board, player, ruleset:)
-        all_possible_move_steps(board, player, ruleset: ruleset).select(&:beat?)
-      end
-
-      def any_can_beat?(board, player, ruleset:)
-        all_possible_move_steps(board, player, ruleset: ruleset).any?(&:beat?)
-      end
-
-      def all_possible_move_steps(board, player, ruleset:)
-        from_cells = board.occupied_cells.select { |c| c.draught.color == player }
-        from_cells.flat_map do |cell|
-          new(board, cell.name, player, ruleset: ruleset).possible_move_steps
-        end
-      end
-
-      def all_possible_move_chains(board, player, ruleset:)
-        from_cells = board.occupied_cells.select { |c| c.draught.color == player }
-        from_cells.flat_map do |cell|
-          new(board, cell.name, player, ruleset: ruleset).possible_move_chains
-        end
-      end
     end
 
     private

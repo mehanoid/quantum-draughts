@@ -23,7 +23,7 @@ module PerformanceTest
     end
 
     def possible_moves
-      Gameplay::QuantumMovesCalculator.valid_possible_move_chains(boards, :white)
+      Gameplay::QuantumBoardMovesCalculator.new(boards, :white).valid_possible_move_chains
     end
 
     def move
