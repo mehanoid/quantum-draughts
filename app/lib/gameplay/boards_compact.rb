@@ -23,10 +23,9 @@ module Gameplay
       end
 
       def make_board_list(boards_weights)
-        boards_weights.each do |board, weight|
-          board.weight = weight
+        boards_weights.map do |board, weight|
+          board.update weight: weight
         end
-        boards_weights.keys
       end
 
       def greatest_common_divisor(boards_weights)

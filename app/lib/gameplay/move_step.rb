@@ -18,7 +18,7 @@ module Gameplay
 
     end
 
-    # @param board [Gameplay::Types::Board]
+    # @param board [Types::Board]
     # @param move_cells [Array<String>]
     def initialize(board, move_cells, current_player = nil, prev_beaten_cells: [])
       @board             = board
@@ -30,6 +30,7 @@ module Gameplay
       @current_player    = current_player
     end
 
+    # @return [Types::Board]
     def perform
       validate!
       result

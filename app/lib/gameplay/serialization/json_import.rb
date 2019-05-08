@@ -12,9 +12,7 @@ module Gameplay
       def boards
         initial_board = Types::Board.new
         boards_attributes.map.with_index do |board_attributes, index|
-          board        = initial_board.update(board_attributes)
-          board.weight = boards_json['weights'][index]
-          board
+          initial_board.update(board_attributes.merge(weight: boards_json['weights'][index]))
         end
       end
 

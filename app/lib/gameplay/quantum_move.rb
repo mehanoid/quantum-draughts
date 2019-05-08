@@ -57,8 +57,7 @@ module Gameplay
       def build_assymetric_group(move_params, weight = 1)
         boards.map do |board|
           if weight > 1
-            board        = board.dup
-            board.weight *= weight
+            board = board.update weight: board.weight * weight
           end
           Move.new(board, move_params, current_player, ruleset: ruleset)
         end

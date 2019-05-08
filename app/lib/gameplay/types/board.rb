@@ -7,8 +7,7 @@ module Gameplay
 
       CELLS_PER_ROW = 8
 
-      attr_reader :cells
-      attr_accessor :weight
+      attr_reader :cells, :weight
 
       class << self
         # @return [Gameplay::Types::Board]
@@ -148,11 +147,17 @@ module Gameplay
       protected
 
         def update!(update_params)
-          @cells = cells.dup
-          update_params.each do |cell_name, draught|
-            cells[self.class.cell_index(cell_name)] = cell_at(cell_name).update(draught: draught)
+          cell_params = update_params.except(:weight)
+          @weight = update_params[:weight] if update_params[:weight]
+
+          if cell_params.present?
+            @cells = cells.dup
+            cell_params.each do |cell_name, draught|
+              cells[self.class.cell_index(cell_name)] = cell_at(cell_name).update(draught: draught)
+            end
+            @cells.freeze
           end
-          @cells.freeze
+
           self
         end
     end
