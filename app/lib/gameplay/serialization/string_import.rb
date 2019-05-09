@@ -25,9 +25,9 @@ module Gameplay
 
       # @return [Gameplay::Types::Board]
       def import
-        cells_hash = board_cells.zip(cells_chars).map do |cell, char|
+        cells_hash = board_cells.zip(cells_chars).to_h do |cell, char|
           [cell.name, build_draught(char)]
-        end.to_h
+        end
         board.update(cells_hash)
       end
 

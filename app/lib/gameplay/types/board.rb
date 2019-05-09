@@ -133,9 +133,9 @@ module Gameplay
 
       def as_json(*)
         {
-          cells:  cells.reject(&:empty?).map do |cell|
+          cells:  cells.reject(&:empty?).to_h do |cell|
             [cell.name, cell.draught.as_json]
-          end.to_h,
+          end,
           weight: weight,
         }
       end

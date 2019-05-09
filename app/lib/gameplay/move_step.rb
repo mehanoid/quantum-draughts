@@ -82,9 +82,9 @@ module Gameplay
         {
           from_cell.coordinate => nil,
           to_cell.coordinate   => draught,
-        }.merge(current_beaten_cells.map do |c|
+        }.merge(current_beaten_cells.to_h do |c|
           [c.coordinate, nil]
-        end.to_h)
+        end)
       end
 
       def current_beaten_cells
