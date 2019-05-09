@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.5.1
+  TargetRubyVersion: 2.6.0
   TargetRailsVersion: 5.2
   Exclude:
     - 'db/schema.rb'
@@ -57,3 +57,6 @@ Style/TrailingCommaInHashLiteral:
     - comma
     - consistent_comma
     - no_comma
+
+Style/AsciiComments:
+  Enabled: false
