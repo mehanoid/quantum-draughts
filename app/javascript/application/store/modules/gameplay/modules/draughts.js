@@ -12,10 +12,16 @@ export default {
         .compact()
         .groupBy(d => d.id)
         .entries()
-        .map(([_id, group]) => ({
-          ...group[0],
-          probability: _.sumBy(group, d => d.probability),
-        })).value()
+        .map(([_id, group]) => {
+          const weight = _.sumBy(group, d => d.weight)
+          const probability = Math.round(100 * weight / getters.boardsTotalWeight)
+
+          return {
+            ...group[0],
+            weight,
+            probability,
+          }
+        }).value()
     },
 
     draughtsBeaten: (state, getters) => (color) => {

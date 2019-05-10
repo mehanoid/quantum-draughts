@@ -19,6 +19,10 @@ export default {
     return convertBoards(source.boards)
   },
 
+  boardsTotalWeight(state, getters) {
+    return _.sumBy(getters.boards, board => board.weight)
+  },
+
   multiBoard(state, getters) {
     return buildMultiboard(getters.boards)
   },
