@@ -56,7 +56,7 @@ gem 'pickup'
 gem 'active_interaction'
 
 gem 'rollbar'
-gem 'switch_user'
+gem 'switch_user', require: false
 gem 'switch_user_page', github: 'mehanoid/switch_user_page'
 gem 'jquery-rails' # for switch_user_page
 
@@ -75,7 +75,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails', '~> 4.0'
   gem 'rubocop', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

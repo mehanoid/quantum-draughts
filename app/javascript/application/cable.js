@@ -8,7 +8,7 @@ export default function ({store}) {
   })
 
   if (process.env.NODE_ENV !== 'production') {
-    ActionCable.startDebugging()
+    ActionCable.logger.enabled = true
   }
 
   const consumer = ActionCable.createConsumer()
