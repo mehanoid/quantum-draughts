@@ -87,7 +87,9 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.1)
     awesome_print (1.8.0)
+    backport (1.1.2)
     bcrypt (3.1.16)
+    benchmark (0.1.0)
     bindex (0.8.1)
     bootsnap (1.4.8)
       msgpack (~> 1.0)
@@ -115,6 +117,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
     dry-equalizer (0.3.0)
+    e2mmap (0.1.0)
     erubi (1.9.0)
     execjs (2.7.0)
     factory_bot (6.1.0)
@@ -132,6 +135,7 @@ GEM
       request_store (>= 1.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    jaro_winkler (1.5.4)
     jquery-rails (4.4.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -148,6 +152,7 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
+    maruku (0.7.3)
     memery (1.3.0)
       ruby2_keywords (~> 0.0.2)
     method_source (1.0.0)
@@ -222,6 +227,8 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    reverse_markdown (2.0.0)
+      nokogiri
     rexml (3.2.4)
     rollbar (3.0.1)
     rspec-core (3.9.3)
@@ -269,6 +276,20 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (>= 3.0, < 5.0)
+    solargraph (0.39.17)
+      backport (~> 1.1)
+      benchmark
+      bundler (>= 1.17.2)
+      e2mmap
+      jaro_winkler (~> 1.5)
+      maruku (~> 0.7, >= 0.7.3)
+      nokogiri (~> 1.9, >= 1.9.1)
+      parser (~> 2.3)
+      reverse_markdown (>= 1.0.5, < 3)
+      rubocop (~> 0.52)
+      thor (~> 1.0)
+      tilt (~> 2.0)
+      yard (~> 0.9, >= 0.9.24)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -308,6 +329,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yard (0.9.25)
     zeitwerk (2.4.0)
 
 PLATFORMS
@@ -343,6 +365,7 @@ DEPENDENCIES
   ruby-prof
   selenium-webdriver
   slim-rails
+  solargraph
   spring
   spring-watcher-listen (~> 2.0.0)
   switch_user
