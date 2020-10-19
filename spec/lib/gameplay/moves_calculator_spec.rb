@@ -31,7 +31,7 @@ RSpec.describe Gameplay::MovesCalculator do
     end
 
     describe 'possible moves' do
-      it 'should beat' do
+      it 'beats' do
         possible_moves = described_class.new(board, 'B2', :white, ruleset: ruleset).possible_moves
         expect(possible_moves).to match_array ['D4']
       end
@@ -58,7 +58,7 @@ RSpec.describe Gameplay::MovesCalculator do
     end
 
     describe 'possible_move_chains' do
-      it 'should beat with chained move' do
+      it 'beats with chained move' do
         chain_cells = described_class.new(board, 'B2', :white, ruleset: ruleset).possible_move_chains_cell_names
         expect(chain_cells).to match_array [%w[D4 B6], %w[D4 F6]]
       end

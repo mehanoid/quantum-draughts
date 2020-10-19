@@ -41,16 +41,16 @@ module Gameplay
 
       private
 
-        def expand_color(color)
-          case color
-          when 'b'
-            :black
-          when 'w'
-            :white
-          else
-            color.to_sym
-          end
+      def expand_color(color)
+        case color
+        when 'b'
+          :black
+        when 'w'
+          :white
+        else
+          color.to_sym
         end
+      end
     end
   end
 end

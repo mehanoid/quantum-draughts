@@ -21,6 +21,5 @@ module Game
         ruleset: object.ruleset_object,
       ).valid_possible_move_chains
     end
-
   end
 end

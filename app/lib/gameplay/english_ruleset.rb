@@ -14,7 +14,7 @@ module Gameplay
         klass.new(board, move_cells, *args)
       end
 
-      def max_step_length(cell)
+      def max_step_length(_cell)
         2
       end
     end

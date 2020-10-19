@@ -16,10 +16,10 @@ module Game
     }
 
     enum state: {
-      new_match: 0,
-      ready: 1,
-      started: 2,
-      finished: 3,
+      new_match:   0,
+      ready:       1,
+      started:     2,
+      finished:    3,
       interrupted: 4,
     }
 
@@ -40,7 +40,7 @@ module Game
     end
 
     scope :active, -> { where(state: %i[new_match ready started]) }
-    scope :by_player, -> (player) { where(white_player: player).or(where(black_player: player)) }
+    scope :by_player, ->(player) { where(white_player: player).or(where(black_player: player)) }
 
     def self.create_initial_match(params = {})
       match = create! params
@@ -68,13 +68,9 @@ module Game
       color.to_sym == :white ? white_player : black_player
     end
 
-    def board_instances
-      current_turn.board_instances
-    end
+    delegate :board_instances, to: :current_turn
 
-    def to_s
-      current_turn.to_s
-    end
+    delegate :to_s, to: :current_turn
 
     def ruleset_object
       Gameplay.const_get "#{ruleset.to_s.capitalize}Ruleset".to_sym
@@ -82,6 +78,7 @@ module Game
 
     def rollback_turn!
       raise 'No turns available' if match_turns.count <= 1
+
       current_turn.destroy
       current_turn.update move: nil
       update state: :started, winner_id: nil

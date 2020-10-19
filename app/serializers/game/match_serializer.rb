@@ -14,6 +14,5 @@ module Game
     def finished_at
       object.finished_at&.strftime('%d.%m.%Y %H:%M')
     end
-
   end
 end

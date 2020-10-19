@@ -20,8 +20,8 @@ module Gameplay
 
     private
 
-      def cell_belongs_on_board?(board)
-        board.cell_at(cell_name).draught&.color == current_player
-      end
+    def cell_belongs_on_board?(board)
+      board.cell_at(cell_name).draught&.color == current_player
+    end
   end
 end

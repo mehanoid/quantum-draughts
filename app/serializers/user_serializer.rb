@@ -2,5 +2,4 @@
 
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :email, :displaying_name
-
 end

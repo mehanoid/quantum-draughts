@@ -52,13 +52,13 @@ gem 'dry-equalizer'
 gem 'gon'
 gem 'memery'
 # Выбор случайного элемента с учётом его вероятности. Для коллапса суперпозиции
-gem 'pickup'
 gem 'active_interaction'
+gem 'pickup'
 
+gem 'jquery-rails' # for switch_user_page
 gem 'rollbar'
 gem 'switch_user', require: false
 gem 'switch_user_page', github: 'mehanoid/switch_user_page'
-gem 'jquery-rails' # for switch_user_page
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

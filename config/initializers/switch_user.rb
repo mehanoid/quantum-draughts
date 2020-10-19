@@ -27,22 +27,23 @@ if defined? SwitchUser
     # if it returns true, the request will continue,
     # else the request will be refused and returns "Permission Denied"
     # if you switch from "admin" to user, the current_user param is "admin"
-    config.controller_guard = ->(current_user, request) do
+    config.controller_guard = lambda { |current_user, _request|
       current_user&.admin? || Rails.env.development?
-    end
+    }
 
     # view_guard is a block,
     # if it returns true, the switch user select box will be shown,
     # else the select box will not be shown
     # if you switch from admin to "user", the current_user param is "user"
     config.switch_back = true
-    config.view_guard = ->(current_user, request, original_user) do
+    config.view_guard = lambda { |current_user, _request, original_user|
       current_user&.admin? || original_user&.admin? || Rails.env.development?
-    end
+    }
 
     # redirect_path is a block, it returns which page will be redirected
     # after switching a user.
-    config.redirect_path = lambda { |request, params|
-      request.env["HTTP_REFERER"] ? request.referer : Rails.application.routes.url_helpers.root_path }
+    config.redirect_path = lambda { |request, _params|
+      request.env['HTTP_REFERER'] ? request.referer : Rails.application.routes.url_helpers.root_path
+    }
   end
 end

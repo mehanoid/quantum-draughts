@@ -15,7 +15,6 @@ module Gameplay
           end
         klass.new(*args)
       end
-
     end
 
     # @param board [Types::Board]
@@ -59,6 +58,7 @@ module Gameplay
       return 'destination is occupied' unless to_cell.empty?
       return 'cells are not on the same diagonal' unless from_cell.same_diagonal?(to_cell)
       return 'can not move back' unless valid_direction?
+
       if current_beaten_cells.present?
         return 'can not beat same draught multiple times' unless valid_unique_beaten_cells?
         return 'invalid beating' unless valid_beaten_cells_order?
@@ -68,47 +68,45 @@ module Gameplay
       end
     end
 
-    def draught
-      from_cell.draught
-    end
+    delegate :draught, to: :from_cell
 
     private
 
-      def result
-        board.update attributes_for_update
-      end
+    def result
+      board.update attributes_for_update
+    end
 
-      def attributes_for_update
-        {
-          from_cell.coordinate => nil,
-          to_cell.coordinate   => draught,
-        }.merge(current_beaten_cells.to_h do |c|
-          [c.coordinate, nil]
-        end)
-      end
+    def attributes_for_update
+      {
+        from_cell.coordinate => nil,
+        to_cell.coordinate   => draught,
+      }.merge(current_beaten_cells.to_h do |c|
+        [c.coordinate, nil]
+      end)
+    end
 
-      def current_beaten_cells
-        @board.cells_between(from_cell, to_cell).select(&:occupied?)
-      end
+    def current_beaten_cells
+      @board.cells_between(from_cell, to_cell).select(&:occupied?)
+    end
 
-      def valid_beaten_draughts_color?
-        current_beaten_cells.none? { |c| c.draught.color == draught.color }
-      end
+    def valid_beaten_draughts_color?
+      current_beaten_cells.none? { |c| c.draught.color == draught.color }
+    end
 
-      def valid_unique_beaten_cells?
-        prev_beaten_cells.none? { |beaten_cell| beaten_cell.between?(from_cell, to_cell) }
-      end
+    def valid_unique_beaten_cells?
+      prev_beaten_cells.none? { |beaten_cell| beaten_cell.between?(from_cell, to_cell) }
+    end
 
-      def valid_direction?
-        raise 'abstract method'
-      end
+    def valid_direction?
+      raise 'abstract method'
+    end
 
-      def valid_beaten_cells_order?
-        raise 'abstract method'
-      end
+    def valid_beaten_cells_order?
+      raise 'abstract method'
+    end
 
-      def valid_move_distance?
-        raise 'abstract method'
-      end
+    def valid_move_distance?
+      raise 'abstract method'
+    end
   end
 end

@@ -2,7 +2,6 @@
 
 module Game
   class MatchChannel < ApplicationCable::Channel
-
     class << self
       def broadcast_with(match)
         broadcast_to(match, serialize(match, serializer: Game::MatchDetailsSerializer))

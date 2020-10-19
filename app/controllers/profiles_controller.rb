@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
 
   private
 
-    def user_params
-      params[:user]&.permit(:displaying_name) || {}
-    end
+  def user_params
+    params[:user]&.permit(:displaying_name) || {}
+  end
 end

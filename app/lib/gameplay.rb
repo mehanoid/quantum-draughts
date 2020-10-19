@@ -24,21 +24,21 @@ module Gameplay
 
     private
 
-      def next_turn(match_turn)
-        match_turn.player == 'white' ? match_turn.turn_number : match_turn.turn_number + 1
-      end
+    def next_turn(match_turn)
+      match_turn.player == 'white' ? match_turn.turn_number : match_turn.turn_number + 1
+    end
 
-      def next_player(match_turn)
-        match_turn.white? ? :black : :white
-      end
+    def next_player(match_turn)
+      match_turn.white? ? :black : :white
+    end
 
-      def last_move(move, moves_params)
-        moves_params.map do |cells|
-          {
-            beat:  move.beat?,
-            cells: cells,
-          }
-        end
+    def last_move(move, moves_params)
+      moves_params.map do |cells|
+        {
+          beat:  move.beat?,
+          cells: cells,
+        }
       end
+    end
   end
 end

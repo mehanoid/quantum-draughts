@@ -33,38 +33,38 @@ module Gameplay
 
       private
 
-        def board_cells
-          @board.rows.flatten
-        end
+      def board_cells
+        @board.rows.flatten
+      end
 
-        def cells_chars
-          @string.lines.reverse.join.remove(/\s/).chars
-        end
+      def cells_chars
+        @string.lines.reverse.join.remove(/\s/).chars
+      end
 
-        def build_draught(char)
-          case char
-          when '○'
-            create_white_draught
-          when '●'
-            create_black_draught
-          when '□'
-            create_white_draught king: true
-          when '■'
-            create_black_draught king: true
-          end
+      def build_draught(char)
+        case char
+        when '○'
+          create_white_draught
+        when '●'
+          create_black_draught
+        when '□'
+          create_white_draught king: true
+        when '■'
+          create_black_draught king: true
         end
+      end
 
-        def create_white_draught(**opts)
-          @white_id ||= 0
-          @white_id += 1
-          Types::Draught.new(id: @white_id, color: :white, **opts)
-        end
+      def create_white_draught(**opts)
+        @white_id ||= 0
+        @white_id += 1
+        Types::Draught.new(id: @white_id, color: :white, **opts)
+      end
 
-        def create_black_draught(**opts)
-          @black_id ||= 12
-          @black_id += 1
-          Types::Draught.new(id: @black_id, color: :black, **opts)
-        end
+      def create_black_draught(**opts)
+        @black_id ||= 12
+        @black_id += 1
+        Types::Draught.new(id: @black_id, color: :black, **opts)
+      end
     end
   end
 end

@@ -24,6 +24,7 @@ module Game
         return unless Gameplay::CellBelongingCheck.new(
           match.board_instances, starting_cell_name, match.current_player_color
         ).check
+
         prev_turn = match.current_turn
         result    = Gameplay.move prev_turn, moves, match.ruleset_object
         prev_turn.update move: result[:move]
@@ -46,9 +47,9 @@ module Game
 
       private
 
-        def starting_cell_name
-          moves.first.first
-        end
+      def starting_cell_name
+        moves.first.first
+      end
     end
   end
 end

@@ -140,7 +140,7 @@ RSpec.describe Gameplay::RussianRuleset::KingMoveStep do
     it 'dows not move horizontally one step top right' do
       expect {
         described_class.new(board, %w[D4 B4], :white).perform
-      }.to raise_error /not on the same diagonal/
+      }.to raise_error(/not on the same diagonal/)
     end
   end
 
@@ -236,7 +236,7 @@ RSpec.describe Gameplay::RussianRuleset::KingMoveStep do
     it 'can not beat them' do
       expect {
         described_class.new(board, %w[H8 E5], :white).perform
-      }.to raise_error /invalid beating/
+      }.to raise_error(/invalid beating/)
     end
   end
 end

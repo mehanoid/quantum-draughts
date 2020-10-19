@@ -23,12 +23,12 @@ module Gameplay
       if possible_next_moves.blank?
         {
           finished: true,
-          winner:   winner
+          winner:   winner,
         }
       else
         {
           finished: false,
-          winner:   nil
+          winner:   nil,
         }
       end
     end

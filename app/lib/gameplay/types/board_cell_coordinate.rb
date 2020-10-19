@@ -11,11 +11,12 @@ module Gameplay
       # @param row [Integer]
       def initialize(column:, row:)
         @row_number    = row
-        @column_number = if column.is_a? String
-          column.ord - 'A'.ord + 1
-        else
-          column
-        end
+        @column_number =
+          if column.is_a? String
+            column.ord - 'A'.ord + 1
+          else
+            column
+          end
       end
 
       # @return [String] string identifying the cell, e.g. "A4"
@@ -29,15 +30,17 @@ module Gameplay
 
       alias row row_number
 
-      def -(coordinate)
+      # @param other [BoardCellCoordinate]
+      def -(other)
         BoardVector.new(
-          columns: column_number - coordinate.column_number,
-          rows:    row_number - coordinate.row_number
+          columns: column_number - other.column_number,
+          rows:    row_number - other.row_number
         )
       end
 
-      def +(vector)
-        self.class.new(column: column_number + vector.columns, row: row_number + vector.rows)
+      # @param other [BoardVector]
+      def +(other)
+        self.class.new(column: column_number + other.columns, row: row_number + other.rows)
       end
     end
   end

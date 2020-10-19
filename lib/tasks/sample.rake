@@ -19,8 +19,8 @@ namespace :sample do
     Game::Match.last.update!(
       white_player: User.first,
       black_player: User.last,
-      state: :started,
-      winner_id: nil,
+      state:        :started,
+      winner_id:    nil,
     )
   end
 end

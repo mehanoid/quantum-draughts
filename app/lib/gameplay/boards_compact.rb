@@ -14,22 +14,22 @@ module Gameplay
 
     private
 
-      def calc_boards_weights(boards)
-        boards.group_by(&:itself).transform_values { |boards_group| boards_group.sum(&:weight) }
-      end
+    def calc_boards_weights(boards)
+      boards.group_by(&:itself).transform_values { |boards_group| boards_group.sum(&:weight) }
+    end
 
-      def reduce_boards_weights(boards_weights)
-        boards_weights.transform_values { |weight| weight / greatest_common_divisor(boards_weights) }
-      end
+    def reduce_boards_weights(boards_weights)
+      boards_weights.transform_values { |weight| weight / greatest_common_divisor(boards_weights) }
+    end
 
-      def make_board_list(boards_weights)
-        boards_weights.map do |board, weight|
-          board.update weight: weight
-        end
+    def make_board_list(boards_weights)
+      boards_weights.map do |board, weight|
+        board.update weight: weight
       end
+    end
 
-      def greatest_common_divisor(boards_weights)
-        boards_weights.values.reduce(&:gcd)
-      end
+    def greatest_common_divisor(boards_weights)
+      boards_weights.values.reduce(&:gcd)
+    end
   end
 end

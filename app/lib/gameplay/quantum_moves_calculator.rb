@@ -59,8 +59,8 @@ module Gameplay
 
     private
 
-      def valid_move?(move_step)
-        move_step.valid? && (any_can_beat?.blank? || move_step.beat?)
-      end
+    def valid_move?(move_step)
+      move_step.valid? && (any_can_beat?.blank? || move_step.beat?)
+    end
   end
 end

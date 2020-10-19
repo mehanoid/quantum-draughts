@@ -17,31 +17,31 @@ module Gameplay
 
       private
 
-        def row_string(row)
-          row.map do |cell|
-            if cell.draught
-              draught_char(cell.draught)
-            else
-              '.'
-            end
-          end.join(' ')
-        end
-
-        def draught_char(draught)
-          if draught.white?
-            if draught.king?
-              '□'
-            else
-              '○'
-            end
+      def row_string(row)
+        row.map do |cell|
+          if cell.draught
+            draught_char(cell.draught)
           else
-            if draught.king?
-              '■'
-            else
-              '●'
-            end
+            '.'
+          end
+        end.join(' ')
+      end
+
+      def draught_char(draught)
+        if draught.white?
+          if draught.king?
+            '□'
+          else
+            '○'
+          end
+        else
+          if draught.king?
+            '■'
+          else
+            '●'
           end
         end
+      end
     end
   end
 end

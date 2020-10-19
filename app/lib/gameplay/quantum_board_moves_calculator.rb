@@ -48,32 +48,31 @@ module Gameplay
 
     private
 
-      def chain_cells(chain)
-        [chain.first.from_cell.name, *chain.map { |step| step.to_cell.name }]
-      end
+    def chain_cells(chain)
+      [chain.first.from_cell.name, *chain.map { |step| step.to_cell.name }]
+    end
 
-      def reject_included_in_other_moves(chains)
-        chains.reduce(chains, &method(:reject_moves_included_in))
-      end
+    def reject_included_in_other_moves(chains)
+      chains.reduce(chains, &method(:reject_moves_included_in))
+    end
 
-      def reject_moves_included_in(chains, chain)
-        cells        = chain_cells(chain)
-        beaten_cells = chain.last.beaten_cells
-        chains.reject do |ch|
-          !ch.equal?(chain) && ch.first.from_cell.coordinate == chain.first.from_cell.coordinate &&
-            (cells_include_chain?(cells, ch) || beaten_cells_include_chain?(beaten_cells, ch))
-        end
+    def reject_moves_included_in(chains, chain)
+      cells        = chain_cells(chain)
+      beaten_cells = chain.last.beaten_cells
+      chains.reject do |ch|
+        !ch.equal?(chain) && ch.first.from_cell.coordinate == chain.first.from_cell.coordinate &&
+          (cells_include_chain?(cells, ch) || beaten_cells_include_chain?(beaten_cells, ch))
       end
+    end
 
-      def cells_include_chain?(cells, chain)
-        cells.first(chain.length) == chain_cells(chain)
-      end
+    def cells_include_chain?(cells, chain)
+      cells.first(chain.length) == chain_cells(chain)
+    end
 
-      def beaten_cells_include_chain?(beaten_cells, chain)
-        chain_beaten_cells = chain.last.beaten_cells
-        beaten_cells.length > chain_beaten_cells.length &&
-          beaten_cells.first(chain_beaten_cells.length) == chain_beaten_cells
-      end
-
+    def beaten_cells_include_chain?(beaten_cells, chain)
+      chain_beaten_cells = chain.last.beaten_cells
+      beaten_cells.length > chain_beaten_cells.length &&
+        beaten_cells.first(chain_beaten_cells.length) == chain_beaten_cells
+    end
   end
 end

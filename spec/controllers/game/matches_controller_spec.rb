@@ -38,7 +38,7 @@ RSpec.describe Game::MatchesController, type: :controller do
   describe 'GET #index' do
     it 'returns a success response' do
       match = Game::Match.create_initial_match
-      get :index, params: {format: :json}
+      get :index, params: { format: :json }
       expect(response).to be_successful
     end
   end
@@ -53,7 +53,7 @@ RSpec.describe Game::MatchesController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
-      let(:params) { {game_match: {ruleset: :russian} }}
+      let(:params) { { game_match: { ruleset: :russian } } }
 
       it 'creates a new Match' do
         expect {
@@ -70,6 +70,7 @@ RSpec.describe Game::MatchesController, type: :controller do
 
   describe 'POST #move' do
     let(:match) { Game::Match.create_initial_match }
+
     before { match.update white_player: user }
 
     context 'with valid move' do

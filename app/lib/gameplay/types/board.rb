@@ -47,13 +47,13 @@ module Gameplay
 
         private
 
-          def coordinates_to_index(column_number, row_number)
-            CELLS_PER_ROW * (row_number - 1) + (column_number - 1)
-          end
+        def coordinates_to_index(column_number, row_number)
+          CELLS_PER_ROW * (row_number - 1) + (column_number - 1)
+        end
 
-          def coordinate_valid?(number)
-            number >= 1 && number <= CELLS_PER_ROW
-          end
+        def coordinate_valid?(number)
+          number >= 1 && number <= CELLS_PER_ROW
+        end
       end
 
       def initialize(data = {})
@@ -103,13 +103,14 @@ module Gameplay
       # @param cell [Gameplay::Types::BoardCell]
       # @param length [Number]
       def diagonals_through_cell(cell, length = nil)
-        length         ||= Float::INFINITY
-        coordinate     = cell.coordinate
+        length ||= Float::INFINITY
+        coordinate = cell.coordinate
         selected_cells = []
         BoardVector::DIAGONALS.each do |vector|
           (1..length).each do |i|
             selected_cell = cell_at(coordinate + vector * i)
             break unless selected_cell
+
             selected_cells << selected_cell
           end
         end
@@ -119,6 +120,7 @@ module Gameplay
       # @return [Array<Gameplay::Types::BoardCell>]
       def cells_between(cell1, cell2)
         raise ArgumentError unless cell1.same_diagonal?(cell2)
+
         vector            = cell2.coordinate - cell1.coordinate
         normalized_vector = vector.normalize
         (1...vector.cells_length).map do |factor|
@@ -146,20 +148,20 @@ module Gameplay
 
       protected
 
-        def update!(update_params)
-          cell_params = update_params.except(:weight)
-          @weight = update_params[:weight] if update_params[:weight]
+      def update!(update_params)
+        cell_params = update_params.except(:weight)
+        @weight = update_params[:weight] if update_params[:weight]
 
-          if cell_params.present?
-            @cells = cells.dup
-            cell_params.each do |cell_name, draught|
-              cells[self.class.cell_index(cell_name)] = cell_at(cell_name).update(draught: draught)
-            end
-            @cells.freeze
+        if cell_params.present?
+          @cells = cells.dup
+          cell_params.each do |cell_name, draught|
+            cells[self.class.cell_index(cell_name)] = cell_at(cell_name).update(draught: draught)
           end
-
-          self
+          @cells.freeze
         end
+
+        self
+      end
     end
   end
 end

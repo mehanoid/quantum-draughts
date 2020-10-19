@@ -18,33 +18,33 @@ module Gameplay
 
       private
 
-        def boards_count
-          boards_json['weights'].length
-        end
+      def boards_count
+        boards_json['weights'].length
+      end
 
-        def boards_attributes
-          attributes = Array.new(boards_count) { {} }
+      def boards_attributes
+        attributes = Array.new(boards_count) { {} }
 
-          boards_json['draughts'].each do |draught_data|
-            draught = build_draught(draught_data)
-            draught_data['boards'].each do |board_index|
-              attributes[board_index][draught_data['cell']] = draught
-            end
+        boards_json['draughts'].each do |draught_data|
+          draught = build_draught(draught_data)
+          draught_data['boards'].each do |board_index|
+            attributes[board_index][draught_data['cell']] = draught
           end
-          attributes
         end
+        attributes
+      end
 
-        def build_draught(data)
-          Types::Draught.new(
-            id:    data['id'],
-            color: draught_color(data['id']),
-            king:  data['king'],
-          )
-        end
+      def build_draught(data)
+        Types::Draught.new(
+          id:    data['id'],
+          color: draught_color(data['id']),
+          king:  data['king'],
+        )
+      end
 
-        def draught_color(id)
-          id <= 12 ? :white : :black
-        end
+      def draught_color(id)
+        id <= 12 ? :white : :black
+      end
     end
   end
 end

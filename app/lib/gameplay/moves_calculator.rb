@@ -10,8 +10,8 @@ module Gameplay
     # @param cell_name [String]
     # @param current_player [Symbol]
     # @param should_beat [Boolean]
-    def initialize(board, cell_name, current_player, should_beat: nil,
-                   prev_beaten_cells: [], ruleset:)
+    def initialize(board, cell_name, current_player, ruleset:, should_beat: nil,
+                   prev_beaten_cells: [])
       @board             = board
       @cell_name         = cell_name
       @current_player    = current_player
@@ -77,7 +77,7 @@ module Gameplay
     end
 
     memoize def any_can_beat?
-      # TODO не вызывать BoardMovesCalculator из MovesCalculator
+      # TODO: не вызывать BoardMovesCalculator из MovesCalculator
       @should_beat || BoardMovesCalculator.new(board, current_player, ruleset: ruleset).any_can_beat?
     end
 
@@ -87,8 +87,8 @@ module Gameplay
 
     private
 
-      def valid_move?(move_step)
-        move_step.valid? && (!any_can_beat? || move_step.beat?)
-      end
+    def valid_move?(move_step)
+      move_step.valid? && (!any_can_beat? || move_step.beat?)
+    end
   end
 end

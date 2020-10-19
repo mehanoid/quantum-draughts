@@ -11,18 +11,17 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def gon_defaults
-      return unless request.format.html?
+  def gon_defaults
+    return unless request.format.html?
 
-      user             = current_or_guest_user(create: false)
-      gon.current_user = serialize(user) if user
-    end
+    user             = current_or_guest_user(create: false)
+    gon.current_user = serialize(user) if user
+  end
 
-    def set_locale
-      I18n.locale = params[:locale] || I18n.default_locale
-    end
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
 
   # def handle_guest_authorized
   # end
-
 end
