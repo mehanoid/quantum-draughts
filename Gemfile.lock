@@ -259,6 +259,12 @@ GEM
       unicode-display_width (>= 1.4.0, < 2.0)
     rubocop-ast (0.8.0)
       parser (>= 2.7.1.5)
+    rubocop-rails (2.8.1)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 0.87.0)
+    rubocop-rspec (1.43.2)
+      rubocop (~> 0.87)
     ruby-prof (1.4.1)
     ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.2)
@@ -361,7 +367,8 @@ DEPENDENCIES
   redis (~> 4.0)
   rollbar
   rspec-rails (~> 4.0)
-  rubocop
+  rubocop-rails
+  rubocop-rspec
   ruby-prof
   selenium-webdriver
   slim-rails

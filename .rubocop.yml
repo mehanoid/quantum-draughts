@@ -1,11 +1,11 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
 AllCops:
-  TargetRubyVersion: 2.6.0
-  TargetRailsVersion: 5.2
-  Exclude:
-    - 'db/schema.rb'
-    - 'db/migrate/*'
-    - 'node_modules/**/*'
-    - 'bin/*'
+  NewCops: enable
+  # Exclude:
+  #   - 'db/migrate/*'
+  #   - 'node_modules/**/*'
 
 Style/BlockDelimiters:
   Exclude:
@@ -15,48 +15,25 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
-Metrics/BlockLength:
-  Enabled: false
+# Metrics/BlockLength:
+#   Enabled: false
 
-Metrics/LineLength:
-  Max: 120
+# Layout/IndentationConsistency:
+#   EnforcedStyle: indented_internal_methods
 
-Layout/IndentationConsistency:
-  EnforcedStyle: rails
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
 
 Style/TrailingCommaInArguments:
-  # If `comma`, the cop requires a comma after the last argument, but only for
-  # parenthesized method calls where each argument is on its own line.
-  # If `consistent_comma`, the cop requires a comma after the last argument,
-  # for all parenthesized method calls with arguments.
   Enabled: false
   EnforcedStyleForMultiline: comma
-  SupportedStylesForMultiline:
-    - comma
-    - consistent_comma
-    - no_comma
 
 Style/TrailingCommaInArrayLiteral:
-  # If `comma`, the cop requires a comma after the last item in an array,
-  # but only when each item is on its own line.
-  # If `consistent_comma`, the cop requires a comma after the last item of all
-  # non-empty array literals.
   EnforcedStyleForMultiline: comma
-  SupportedStylesForMultiline:
-    - comma
-    - consistent_comma
-    - no_comma
 
 Style/TrailingCommaInHashLiteral:
-  # If `comma`, the cop requires a comma after the last item in a hash,
-  # but only when each item is on its own line.
-  # If `consistent_comma`, the cop requires a comma after the last item of all
-  # non-empty hash literals.
   EnforcedStyleForMultiline: comma
-  SupportedStylesForMultiline:
-    - comma
-    - consistent_comma
-    - no_comma
 
 Style/AsciiComments:
   Enabled: false
