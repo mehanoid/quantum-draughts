@@ -76,7 +76,7 @@ RSpec.describe Gameplay::Types::Board do
 
   describe '#update' do
     it 'removes draught at position' do
-      board = Gameplay::Types::Board.from_s(<<~BOARD)
+      board = described_class.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .

@@ -27,7 +27,7 @@ RSpec.describe Gameplay::Serialization::JsonExport do
     end
 
     it 'creates json' do
-      result = Gameplay::Serialization::JsonExport.new(boards).as_json
+      result = described_class.new(boards).as_json
       expect(result[:weights]).to match_array [1, 1]
 
       draught1 = result[:draughts].find { |c| c[:cell] == 'B4' }

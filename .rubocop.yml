@@ -1,11 +1,14 @@
 require:
   - rubocop-rails
   - rubocop-rspec
+
 AllCops:
   NewCops: enable
-  # Exclude:
-  #   - 'db/migrate/*'
-  #   - 'node_modules/**/*'
+  Exclude:
+    - bin/*
+    - db/schema.rb
+    - db/migrate/*
+    - node_modules/**/*
 
 Style/BlockDelimiters:
   Exclude:
