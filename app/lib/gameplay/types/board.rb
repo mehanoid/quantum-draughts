@@ -15,8 +15,8 @@ module Gameplay
           ::Gameplay::Serialization::StringImport.new(string).import
         end
 
-        # @param coordinate [String|Gameplay::Types::BoardCellCoordinate] column name or cell index
-        # @return [Integer] internal used cell index in cells array
+        # @param coordinate [String, Gameplay::Types::BoardCellCoordinate] column name or cell index
+        # @return [Integer, nil] internal used cell index in cells array
         # @example
         #   cell_index('A4')
         def cell_index(coordinate)
@@ -74,8 +74,8 @@ module Gameplay
         end.freeze
       end
 
-      # @param coordinate [String|Gameplay::Types::BoardCellCoordinate] column name or cell index
-      # @return [Gameplay::Types::BoardCell]
+      # @param coordinate [String, Gameplay::Types::BoardCellCoordinate] column name or cell index
+      # @return [Gameplay::Types::BoardCell, nil]
       # @example
       #   cell_at('A4')
       def cell_at(coordinate)
@@ -101,7 +101,7 @@ module Gameplay
       end
 
       # @param cell [Gameplay::Types::BoardCell]
-      # @param length [Number]
+      # @param length [Numeric]
       def diagonals_through_cell(cell, length = nil)
         length ||= Float::INFINITY
         coordinate = cell.coordinate

@@ -51,6 +51,7 @@ module Gameplay
 
     private
 
+    # @return [Gameplay::Types::Board, nil] transformed board
     def result
       @result ||= begin
         move_steps.each(&method(:validate_step!))
