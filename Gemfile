@@ -80,6 +80,8 @@ group :development do
   gem 'rubocop-rspec', require: false
   gem 'solargraph'
   gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-rubocop'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
