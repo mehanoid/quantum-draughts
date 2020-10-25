@@ -37,7 +37,7 @@ RSpec.describe Game::MatchesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      match = Game::Match.create_initial_match
+      Game::Match.create_initial_match
       get :index, params: { format: :json }
       expect(response).to be_successful
     end
