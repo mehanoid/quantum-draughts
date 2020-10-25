@@ -5,6 +5,7 @@
     "start": "bin/webpack-dev-server & bin/rails s"
   },
   "dependencies": {
+    "@rails/actioncable": "^6.0.3-4",
     "@rails/webpacker": "^4.0.2",
     "axios": "^0.18.0",
     "jstransformer-markdown-it": "^2.1.0",
