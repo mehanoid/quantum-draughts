@@ -53,7 +53,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .board {
   position: relative;
 }

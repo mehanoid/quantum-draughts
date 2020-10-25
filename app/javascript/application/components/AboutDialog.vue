@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .scroll-area {
   position: relative;
   max-height: 60vh;

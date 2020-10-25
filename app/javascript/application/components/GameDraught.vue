@@ -77,7 +77,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 @import "../../stylesheets/media.css";
 
 .root {

@@ -39,7 +39,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .scroll-area {
   position: relative;
   margin: auto;

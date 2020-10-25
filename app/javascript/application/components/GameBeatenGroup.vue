@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .game-beaten-draughts-group {
   max-width: 285px;
   margin: 0 auto;

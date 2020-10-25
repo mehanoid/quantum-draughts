@@ -60,7 +60,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 
 .matches-list {
 }
