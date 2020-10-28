@@ -5,7 +5,7 @@ module PerformanceTest
     attr_reader :boards
 
     def initialize
-      board = Gameplay::Board.from_s(<<~BOARD)
+      board = Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
         . . . . . . . .
         . . . . . . . .
@@ -19,7 +19,7 @@ module PerformanceTest
       @boards = board.occupied_cells
                      .map { |cell| { cell.name => cell.draught } }
                      .combination(5)
-                     .map { |bs| Gameplay::Board.new.update(bs.reduce(&:merge)) }
+                     .map { |bs| Gameplay::Types::Board.new.update(bs.reduce(&:merge)) }
     end
 
     def possible_moves
