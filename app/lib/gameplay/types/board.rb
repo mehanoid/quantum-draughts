@@ -10,18 +10,18 @@ module Gameplay
       attr_reader :cells, :weight
 
       class << self
-        # @return [Gameplay::Types::Board]
+        # @return [Board]
         def from_s(string)
-          ::Gameplay::Serialization::StringImport.new(string).import
+          Serialization::StringImport.new(string).import
         end
 
-        # @param coordinate [String, Gameplay::Types::BoardCellCoordinate] column name or cell index
+        # @param coordinate [String, BoardCellCoordinate] column name or cell index
         # @return [Integer, nil] internal used cell index in cells array
         # @example
         #   cell_index('A4')
         def cell_index(coordinate)
           case coordinate
-          when ::Gameplay::Types::BoardCellCoordinate
+          when BoardCellCoordinate
             column = coordinate.column_number
             row    = coordinate.row_number
           else
@@ -74,8 +74,8 @@ module Gameplay
         end.freeze
       end
 
-      # @param coordinate [String, Gameplay::Types::BoardCellCoordinate] column name or cell index
-      # @return [Gameplay::Types::BoardCell, nil]
+      # @param coordinate [String, BoardCellCoordinate] column name or cell index
+      # @return [BoardCell, nil]
       # @example
       #   cell_at('A4')
       def cell_at(coordinate)
@@ -95,29 +95,27 @@ module Gameplay
         playable_cells.select(&:occupied?)
       end
 
-      # @return [Array<Gameplay::Types::Board::Draught>]
+      # @return [Array<Draught>]
       def draughts
         cells.map(&:draught).compact
       end
 
-      # @param cell [Gameplay::Types::BoardCell]
+      # @param cell [BoardCell]
       # @param length [Numeric]
-      def diagonals_through_cell(cell, length = nil)
-        length ||= Float::INFINITY
-        coordinate = cell.coordinate
-        selected_cells = []
-        BoardVector::DIAGONALS.each do |vector|
+      def diagonals_through_cell(cell, length = Float::INFINITY)
+        BoardVector::DIAGONALS.each_with_object([]) do |vector, selected_cells|
           (1..length).each do |i|
-            selected_cell = cell_at(coordinate + vector * i)
+            selected_cell = cell_at(cell.coordinate + vector * i)
             break unless selected_cell
 
             selected_cells << selected_cell
           end
         end
-        selected_cells
       end
 
-      # @return [Array<Gameplay::Types::BoardCell>]
+      # @param cell1 [BoardCell]
+      # @param cell2 [BoardCell]
+      # @return [Array<BoardCell>]
       def cells_between(cell1, cell2)
         raise ArgumentError unless cell1.same_diagonal?(cell2)
 

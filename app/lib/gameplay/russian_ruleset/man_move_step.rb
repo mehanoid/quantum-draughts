@@ -7,7 +7,7 @@ module Gameplay
 
       def attributes_for_update
         if becomes_king?
-          super.merge to_cell.coordinate => draught.becomes_king
+          super.merge to_cell.coordinate => draught.to_king
         else
           super
         end

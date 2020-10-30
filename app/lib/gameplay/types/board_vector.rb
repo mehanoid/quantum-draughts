@@ -26,8 +26,9 @@ module Gameplay
         columns.abs == rows.abs
       end
 
-      def *(number)
-        self.class.new(columns: columns * number, rows: rows * number)
+      # @param other [Integer]
+      def *(other)
+        self.class.new(columns: columns * other, rows: rows * other)
       end
 
       TOP_RIGHT  = new(columns: 1, rows: 1)

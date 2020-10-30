@@ -47,12 +47,12 @@ gem 'devise-guests', github: 'mehanoid/devise-guests', branch: 'customized'
 # state
 gem 'aasm'
 # utils
+gem 'active_interaction'
 gem 'active_model_serializers'
 gem 'dry-equalizer'
 gem 'gon'
 gem 'memery'
 # Выбор случайного элемента с учётом его вероятности. Для коллапса суперпозиции
-gem 'active_interaction'
 gem 'pickup'
 
 gem 'jquery-rails' # for switch_user_page

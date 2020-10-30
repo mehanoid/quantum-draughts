@@ -35,7 +35,7 @@ module Gameplay
         color.to_s.first
       end
 
-      def becomes_king
+      def to_king
         self.class.new(id: id, color: color, king: true)
       end
 
