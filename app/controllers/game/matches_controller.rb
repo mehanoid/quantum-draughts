@@ -83,7 +83,7 @@ module Game
     end
 
     def user_params
-      params[:user]&.permit(:displaying_name) || {}
+      params.fetch(:user, {}).permit(:displaying_name)
     end
   end
 end
