@@ -7,9 +7,7 @@ module Gameplay
     attr_reader :board, :current_player, :ruleset
 
     # @param board [Gameplay::Types::Board]
-    # @param cell_name [String]
     # @param current_player [Symbol]
-    # @param should_beat [Boolean]
     def initialize(board, current_player, ruleset:)
       @board          = board
       @current_player = current_player
