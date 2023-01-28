@@ -29,7 +29,7 @@ module Game
         result    = Gameplay.move prev_turn, moves, match.ruleset_object
         prev_turn.update move: result[:move]
         match.match_turns.create! result[:next_turn]
-        match.touch
+        match.touch # rubocop:disable Rails/SkipsModelValidations:
       end
 
       def win_condition_check
@@ -39,10 +39,10 @@ module Game
           ruleset: match.ruleset_object
         ).perform
 
-        if result[:finished]
-          match.finish
-          match.update winner: match.player_by_color(result[:winner])
-        end
+        return unless result[:finished]
+
+        match.finish
+        match.update winner: match.player_by_color(result[:winner])
       end
 
       private

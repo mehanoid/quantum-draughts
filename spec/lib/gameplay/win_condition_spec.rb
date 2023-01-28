@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Gameplay::WinCondition do
   let(:ruleset) { Gameplay::RussianRuleset }
 
-  context 'each player can move' do
+  context 'when each player can move' do
     let(:boards) do
       [
         Gameplay::Types::Board.from_s(<<~BOARD),
@@ -28,7 +28,7 @@ RSpec.describe Gameplay::WinCondition do
     end
   end
 
-  context 'black player has no draughts' do
+  context 'when black player has no draughts' do
     let(:boards) do
       [
         Gameplay::Types::Board.from_s(<<~BOARD),
@@ -57,7 +57,7 @@ RSpec.describe Gameplay::WinCondition do
     end
   end
 
-  context 'black player can not move' do
+  context 'when black player can not move' do
     let(:boards) do
       [
         Gameplay::Types::Board.from_s(<<~BOARD),

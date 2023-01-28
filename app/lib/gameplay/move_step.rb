@@ -51,7 +51,7 @@ module Gameplay
       raise InvalidMove, error unless valid?
     end
 
-    def error
+    def error # rubocop:disable Metrics/PerceivedComplexity
       return 'source is empty' unless from_cell.occupied?
       return "other player's turn" unless current_player == draught.color
       return 'destination is not playable' unless to_cell.playable

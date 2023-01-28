@@ -3,7 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Gameplay do
-  context 'populated board' do
+  context 'with populated board' do
     let(:match_turn) { Game::MatchTurn.new.init_boards }
+
+    it 'does something' do
+      skip
+    end
   end
 end

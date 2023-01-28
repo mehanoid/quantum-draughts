@@ -18,15 +18,21 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
-# Metrics/BlockLength:
-#   Enabled: false
+Metrics:
+  Enabled: false
 
-# Layout/IndentationConsistency:
-#   EnforcedStyle: indented_internal_methods
+Metrics/PerceivedComplexity:
+  Enabled: true
 
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
 
 Style/TrailingCommaInArguments:
   Enabled: false
@@ -39,4 +45,7 @@ Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
 
 Style/AsciiComments:
+  Enabled: false
+
+Style/Documentation:
   Enabled: false

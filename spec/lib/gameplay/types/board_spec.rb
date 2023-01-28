@@ -118,7 +118,7 @@ RSpec.describe Gameplay::Types::Board do
   end
 
   describe '#==' do
-    context 'different boards' do
+    context 'with different boards' do
       let(:board1) { described_class.new(cells: { 'A1' => { c: 'w', id: 1 } }) }
       let(:board2) { described_class.new(cells: { 'A1' => { c: 'w', id: 2 } }) }
 
@@ -127,7 +127,7 @@ RSpec.describe Gameplay::Types::Board do
       end
     end
 
-    context 'same boards' do
+    context 'with same boards' do
       let(:board1) { described_class.new(cells: { 'A1' => { c: 'w', id: 1 } }) }
       let(:board2) { described_class.new(cells: { 'A1' => { c: 'w', id: 1 } }) }
 

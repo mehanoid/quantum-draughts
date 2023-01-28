@@ -7,7 +7,7 @@ RSpec.describe Gameplay::CellMeasure do
     data.map { |d| Gameplay::Types::Board.new(d) }
   end
 
-  context 'all conflicting boards' do
+  context 'with all conflicting boards' do
     let(:boards) {
       init_boards(
         [
@@ -23,7 +23,7 @@ RSpec.describe Gameplay::CellMeasure do
     end
   end
 
-  context 'draught vs empty cell' do
+  context 'when draught vs empty cell' do
     let(:boards) {
       init_boards(
         [
@@ -39,7 +39,7 @@ RSpec.describe Gameplay::CellMeasure do
     end
   end
 
-  context 'same boards' do
+  context 'with same boards' do
     let(:boards) {
       init_boards(
         [

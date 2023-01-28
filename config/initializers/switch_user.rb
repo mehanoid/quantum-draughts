@@ -4,7 +4,8 @@ require 'switch_user'
 
 if defined? SwitchUser
   SwitchUser.setup do |config|
-    # provider may be :devise, :authlogic, :clearance, :restful_authentication, :sorcery, or {name: :devise, store_sign_in: true}
+    # provider may be :devise, :authlogic, :clearance, :restful_authentication, :sorcery,
+    # or {name: :devise, store_sign_in: true}
     config.provider = :devise
 
     # available_users is a hash,

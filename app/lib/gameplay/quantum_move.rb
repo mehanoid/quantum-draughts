@@ -56,7 +56,8 @@ module Gameplay
 
     def build_assymetric_group(move_params, weight = 1)
       boards.map do |board|
-        board = board.update weight: board.weight * weight if weight > 1
+        board = board.update weight: board.weight * weight if weight > 1 # rubocop:disable Style/RedundantSelfAssignment
+        # TODO: подумать, как переименовать метод
         Move.new(board, move_params, current_player, ruleset: ruleset)
       end
     end

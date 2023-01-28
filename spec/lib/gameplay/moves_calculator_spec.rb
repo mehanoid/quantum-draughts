@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Gameplay::MovesCalculator do
   let(:ruleset) { Gameplay::RussianRuleset }
 
-  context 'populated board' do
+  context 'with populated board' do
     let(:board) { Gameplay::Types::Board.populated }
 
     describe 'possible moves' do
@@ -16,7 +16,7 @@ RSpec.describe Gameplay::MovesCalculator do
     end
   end
 
-  context 'draught can beat' do
+  context 'when draught can beat' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -43,7 +43,7 @@ RSpec.describe Gameplay::MovesCalculator do
     end
   end
 
-  context 'draught can beat multiple times' do
+  context 'when draught can beat multiple times' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -65,7 +65,7 @@ RSpec.describe Gameplay::MovesCalculator do
     end
   end
 
-  context 'king can beat in opposite directions' do
+  context 'when king can beat in opposite directions' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
-  context 'populated board' do
+  context 'with populated board' do
     let(:board) { Gameplay::Types::Board.populated }
 
     it 'moves C3:D4' do
@@ -34,7 +34,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
     end
   end
 
-  context 'white draught' do
+  context 'with white draught' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -70,7 +70,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
     end
   end
 
-  context 'black draught' do
+  context 'with black draught' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -106,7 +106,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
     end
   end
 
-  context 'two draughts' do
+  context 'with two draughts' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -133,7 +133,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
     end
   end
 
-  context 'two draughts of the same color' do
+  context 'with two draughts of the same color' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -154,7 +154,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
     end
   end
 
-  context 'surrounded draught' do
+  context 'with surrounded draught' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -198,7 +198,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
       BOARD
     end
 
-    it 'beats draught if jump over it to top-right' do
+    it 'beats draught if jump over it to bottom-right' do
       new_board = described_class.new(board, %w[C3 E1], :white).perform
 
       expect(new_board.to_s).to eq <<~BOARD
@@ -213,7 +213,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
       BOARD
     end
 
-    it 'beats draught if jump over it to top-right' do
+    it 'beats draught if jump over it to bottom-left' do
       new_board = described_class.new(board, %w[C3 A1], :white).perform
 
       expect(new_board.to_s).to eq <<~BOARD
@@ -235,7 +235,7 @@ RSpec.describe Gameplay::RussianRuleset::ManMoveStep do
     end
   end
 
-  context 'near edge line' do
+  context 'when near edge line' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .

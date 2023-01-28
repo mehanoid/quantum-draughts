@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Gameplay::Serialization::JsonExport do
-  context 'two boards' do
+  context 'with two boards' do
     let(:boards) do
       [Gameplay::Types::Board.from_s(<<~BOARD), Gameplay::Types::Board.from_s(<<~BOARD2)]
         . . . . . . . .

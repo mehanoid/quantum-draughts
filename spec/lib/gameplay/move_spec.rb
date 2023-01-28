@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Gameplay::Move do
   let(:ruleset) { Gameplay::RussianRuleset }
 
-  context 'man draughts' do
+  context 'with man draughts' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -50,7 +50,7 @@ RSpec.describe Gameplay::Move do
     end
   end
 
-  context 'man becoming king' do
+  context 'when man becoming king' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -95,7 +95,7 @@ RSpec.describe Gameplay::Move do
     end
   end
 
-  context 'two draughts can beat' do
+  context 'when two draughts can beat' do
     let(:board) do
       Gameplay::Types::Board.from_s(<<~BOARD)
         . . . . . . . .
@@ -125,8 +125,8 @@ RSpec.describe Gameplay::Move do
     end
   end
 
-  context 'king' do
-    context 'zigzag beats' do
+  context 'with king' do
+    context 'with zigzag beats' do
       let(:board) do
         Gameplay::Types::Board.from_s(<<~BOARD)
           . . . . . . . □
@@ -168,7 +168,7 @@ RSpec.describe Gameplay::Move do
       end
     end
 
-    context 'can beat in opposite directions' do
+    context 'when can beat in opposite directions' do
       let(:board) do
         Gameplay::Types::Board.from_s(<<~BOARD)
           . . . . . . . .

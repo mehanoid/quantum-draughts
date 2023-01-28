@@ -10,7 +10,7 @@ module Gameplay
       end
 
       def to_string
-        board.rows.reverse.map do |row|
+        board.rows.reverse.map do |row| # rubocop:disable Style/StringConcatenation
           row_string(row)
         end.join("\n") + "\n"
       end
@@ -29,17 +29,25 @@ module Gameplay
 
       def draught_char(draught)
         if draught.white?
-          if draught.king?
-            '□'
-          else
-            '○'
-          end
+          white_draught_char(draught)
         else
-          if draught.king?
-            '■'
-          else
-            '●'
-          end
+          black_draught_char(draught)
+        end
+      end
+
+      def black_draught_char(draught)
+        if draught.king?
+          '■'
+        else
+          '●'
+        end
+      end
+
+      def white_draught_char(draught)
+        if draught.king?
+          '□'
+        else
+          '○'
         end
       end
     end

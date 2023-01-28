@@ -7,7 +7,7 @@ RSpec.describe Gameplay::BoardsCompact do
     data.map { |d| Gameplay::Types::Board.new(d) }
   end
 
-  context 'different boards' do
+  context 'with different boards' do
     let(:boards) {
       init_boards(
         [
@@ -23,7 +23,7 @@ RSpec.describe Gameplay::BoardsCompact do
     end
   end
 
-  context 'same boards' do
+  context 'with same boards' do
     let(:boards) {
       init_boards(
         [
