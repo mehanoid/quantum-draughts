@@ -2,14 +2,12 @@
 
 module Game
   class MatchesController < ApplicationController
-    using ArelShortcut
-
     def index
       respond_to do |format|
         format.html { redirect_to root_path }
         format.json do
           matches = Match.active
-                         .where(Match[:updated_at] > 1.day.ago)
+                         .where(updated_at: 1.day.ago..)
                          .order(:state, updated_at: :desc)
                          .includes(:white_player, :black_player)
 
