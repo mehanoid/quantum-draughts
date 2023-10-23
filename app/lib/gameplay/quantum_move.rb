@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Gameplay
+  # Квантовый ход выполняет одни и те же указанные передвижения шашки на наборе досок
   class QuantumMove
     attr_reader :boards, :moves_params, :current_player, :ruleset
 
@@ -20,6 +21,7 @@ module Gameplay
         .then(&method(:compact_boards))
     end
 
+    # была ли на этом ходу побита хоть одна шашка
     def beat?
       build_moves(moves_params).any? { |m| m.valid? && m.beat? }
     end

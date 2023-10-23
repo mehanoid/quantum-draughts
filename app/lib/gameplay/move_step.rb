@@ -39,6 +39,7 @@ module Gameplay
       error.blank?
     end
 
+    # была на этом шаге побита какая-либо шашка
     def beat?
       current_beaten_cells.present?
     end

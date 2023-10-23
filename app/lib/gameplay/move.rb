@@ -41,6 +41,7 @@ module Gameplay
       valid_final_state? || valid_steps.length < move_cells.length - 1
     end
 
+    # была ли на этом ходу побита хоть одна шашка
     def beat?
       should_beat?
     end

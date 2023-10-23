@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Gameplay
+  # Устраняет дублирование досок путём объединения одинаковых досок в одну с указанием веса
+  # Кроме того, если веса содержат общий делитель, то выполняет сокращение на этот делитель
   class BoardsCompact
     def initialize(boards)
       @boards = boards
