@@ -1,0 +1,18 @@
+databases:
+  - name: quantum_draughts
+    databaseName: quantum_draughts
+    user: quantum_draughts
+
+services:
+  - type: web
+    name: quantum_draughts
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: quantum_draughts
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false

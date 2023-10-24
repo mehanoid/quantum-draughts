@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: quantum_draughts_production
-  username: quantum_draughts
-  password: <%= ENV['QUANTUM_DRAUGHTS_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
