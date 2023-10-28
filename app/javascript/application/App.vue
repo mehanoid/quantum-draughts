@@ -36,7 +36,7 @@
         router-view
     v-footer(app)
       v-layout(justify-center)
-        | © 2020
+        | © 2023
         | {{ $t('copyright') }}
 </template>
 
