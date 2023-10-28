@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 
+require 'benchmark/ips'
 require Rails.root.join('lib/performance_test/move.rb')
 
 namespace :performance_test do
   task bench: :environment do
-    iterations = 10
     move_test = PerformanceTest::Move.new
 
-    Benchmark.bm(15) do |x|
-      x.report('possible moves') do
+    Benchmark.ips do |x|
+      x.config(time: 10, warmup: 2)
+
+      x.report('possible moves') do |iterations|
         iterations.times { move_test.possible_moves }
       end
 
-      x.report('move') do
+      x.report('move') do |iterations|
         iterations.times { move_test.move }
       end
     end
