@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include SerializationHelper
+  include Dry::Monads[:result]
 
   protect_from_forgery with: :exception
 

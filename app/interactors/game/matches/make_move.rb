@@ -2,16 +2,20 @@
 
 module Game
   module Matches
-    class MoveInteraction < ActiveInteraction::Base
-      object :current_user, class: User
-      object :match, class: Game::Match
-      array :moves
+    class MakeMove < ApplicationInteractor
+      option :current_user
+      option :match
+      option :moves
 
-      def execute
+      def call
         measure
         move
         win_condition_check
         MatchChannel.broadcast_with(match)
+
+        Success()
+      rescue Gameplay::InvalidMove => e
+        Failure(e.message)
       end
 
       def measure
@@ -26,7 +30,7 @@ module Game
         ).check
 
         prev_turn = match.current_turn
-        result    = Gameplay.move prev_turn, moves, match.ruleset_object
+        result = Gameplay.move prev_turn, moves, match.ruleset_object
         prev_turn.update move: result[:move]
         match.match_turns.create! result[:next_turn]
         match.touch # rubocop:disable Rails/SkipsModelValidations:

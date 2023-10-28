@@ -48,16 +48,18 @@ module Game
     end
 
     def move
+      user = current_or_guest_user(create: false)
+
       match.with_lock do
-        user = current_or_guest_user(create: false)
         return render json: { status: :error }, status: :forbidden unless user == match.current_player
 
-        Game::Matches::MoveInteraction.run!(current_user: user, match: match, moves: params[:moves])
-
-        render json: { status: :ok }
+        case Game::Matches::MakeMove.call(current_user: user, match: match, moves: params[:moves])
+        in Success()
+          render json: { status: :ok }
+        in Failure(message)
+          render json: { status: :error, error: "Invalid move: #{message}" }
+        end
       end
-    rescue Gameplay::InvalidMove => e
-      render json: { status: :error, error: "Invalid move: #{e.message}" }
     end
 
     def join
