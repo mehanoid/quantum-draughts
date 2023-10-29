@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'benchmark/ips'
 require Rails.root.join('lib/performance_test/move.rb')
 
 namespace :performance_test do
   task bench: :environment do
+    require 'benchmark/ips'
     move_test = PerformanceTest::Move.new
 
     Benchmark.ips do |x|
