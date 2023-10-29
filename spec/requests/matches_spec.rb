@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Matches', type: :request do
+RSpec.describe 'Matches' do
   let(:user) { create(:user) }
   let(:match) { create(:game_match) }
 
@@ -49,7 +49,7 @@ RSpec.describe 'Matches', type: :request do
       let(:params) { { id: match.to_param, moves: [%w[C3 D4]] } }
 
       it 'makes a move in the match' do
-        post move_game_match_path(match), params: params, as: :json
+        post move_game_match_path(match), params:, as: :json
 
         expect(response).to have_http_status(:success)
         expect(match.reload.match_turns.first.move).to eq [{ 'beat' => false, 'cells' => %w[C3 D4] }]
@@ -57,7 +57,7 @@ RSpec.describe 'Matches', type: :request do
 
       it 'sends match data to clients' do
         expect {
-          post move_game_match_path(match), params: params, as: :json
+          post move_game_match_path(match), params:, as: :json
         }.to have_broadcasted_to(match).from_channel(Game::MatchChannel)
       end
     end
@@ -67,7 +67,7 @@ RSpec.describe 'Matches', type: :request do
 
       it 'does not change match' do
         expect {
-          post move_game_match_path(match), params: params, as: :json
+          post move_game_match_path(match), params:, as: :json
         }.not_to change { match.current_turn.reload.boards }
 
         expect(response.parsed_body).to include('error' => 'Invalid move: one of the moves is invalid')

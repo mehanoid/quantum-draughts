@@ -16,19 +16,19 @@ module Gameplay
 
     def any_can_beat?
       boards.any? do |board|
-        Gameplay::BoardMovesCalculator.new(board, current_player, ruleset: ruleset).any_can_beat?
+        Gameplay::BoardMovesCalculator.new(board, current_player, ruleset:).any_can_beat?
       end
     end
 
     def all_possible_move_steps
       boards.flat_map do |board|
-        Gameplay::BoardMovesCalculator.new(board, current_player, ruleset: ruleset).all_possible_move_steps
+        Gameplay::BoardMovesCalculator.new(board, current_player, ruleset:).all_possible_move_steps
       end
     end
 
     def all_possible_move_chains
       boards.flat_map do |board|
-        Gameplay::BoardMovesCalculator.new(board, current_player, ruleset: ruleset).all_possible_move_chains
+        Gameplay::BoardMovesCalculator.new(board, current_player, ruleset:).all_possible_move_chains
       end
     end
 

@@ -26,7 +26,7 @@ module Gameplay
 
     def make_board_list(boards_weights)
       boards_weights.map do |board, weight|
-        board.update weight: weight
+        board.update weight:
       end
     end
 

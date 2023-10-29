@@ -28,7 +28,7 @@ module Gameplay
     def get_weighted_draughts_at_cell(boards, cell_name)
       boards.flat_map do |b|
         draught = b.cell_at(cell_name).draught
-        { draught: draught, weight: b.weight }
+        { draught:, weight: b.weight }
       end.compact
     end
 

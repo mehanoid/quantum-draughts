@@ -7,7 +7,7 @@ module Gameplay
         match_turn.board_instances,
         moves_params,
         match_turn.player.to_sym,
-        ruleset: ruleset,
+        ruleset:,
       )
 
       player = next_player(match_turn)
@@ -15,7 +15,7 @@ module Gameplay
       {
         next_turn: {
           boards:      Gameplay::Serialization::JsonExport.new(move.perform).as_json,
-          player:      player,
+          player:,
           turn_number: next_turn(match_turn),
         },
         move:      last_move(move, moves_params),
@@ -36,7 +36,7 @@ module Gameplay
       moves_params.map do |cells|
         {
           beat:  move.beat?,
-          cells: cells,
+          cells:,
         }
       end
     end

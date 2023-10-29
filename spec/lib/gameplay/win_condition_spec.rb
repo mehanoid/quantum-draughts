@@ -22,9 +22,9 @@ RSpec.describe Gameplay::WinCondition do
     end
 
     it 'returns finished false' do
-      result = described_class.new(boards, :black, ruleset: ruleset).perform
+      result = described_class.new(boards, :black, ruleset:).perform
 
-      expect(result[:finished]).to eq false
+      expect(result[:finished]).to be false
     end
   end
 
@@ -45,13 +45,13 @@ RSpec.describe Gameplay::WinCondition do
     end
 
     it 'returns finished true' do
-      result = described_class.new(boards, :black, ruleset: ruleset).perform
+      result = described_class.new(boards, :black, ruleset:).perform
 
-      expect(result[:finished]).to eq true
+      expect(result[:finished]).to be true
     end
 
     it 'marks white player as winner' do
-      result = described_class.new(boards, :black, ruleset: ruleset).perform
+      result = described_class.new(boards, :black, ruleset:).perform
 
       expect(result[:winner]).to eq :white
     end
@@ -74,13 +74,13 @@ RSpec.describe Gameplay::WinCondition do
     end
 
     it 'returns finished true' do
-      result = described_class.new(boards, :black, ruleset: ruleset).perform
+      result = described_class.new(boards, :black, ruleset:).perform
 
-      expect(result[:finished]).to eq true
+      expect(result[:finished]).to be true
     end
 
     it 'marks white player as winner' do
-      result = described_class.new(boards, :black, ruleset: ruleset).perform
+      result = described_class.new(boards, :black, ruleset:).perform
 
       expect(result[:winner]).to eq :white
     end

@@ -14,7 +14,7 @@ module Gameplay
       # @param coordinate [BoardCellCoordinate]
       # @param draught [Gameplay::Types::Draught]
       def initialize(column: nil, row: nil, coordinate: nil, draught: nil)
-        @coordinate = coordinate || BoardCellCoordinate.new(column: column, row: row)
+        @coordinate = coordinate || BoardCellCoordinate.new(column:, row:)
         @playable   = (column_number + row_number).even?
         @draught    = draught
       end
@@ -22,7 +22,7 @@ module Gameplay
       alias row_number row
 
       def update(draught: nil)
-        self.class.new(coordinate: coordinate, draught: draught)
+        self.class.new(coordinate:, draught:)
       end
 
       # @return [Boolean]

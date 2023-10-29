@@ -44,7 +44,7 @@ module Gameplay
     def build_symmetric_move_groups(moves_params)
       moves_params.map do |move_params|
         boards.map do |board|
-          Move.new(board, move_params, current_player, ruleset: ruleset)
+          Move.new(board, move_params, current_player, ruleset:)
         end
       end
     end
@@ -60,7 +60,7 @@ module Gameplay
       boards.map do |board|
         board = board.update weight: board.weight * weight if weight > 1 # rubocop:disable Style/RedundantSelfAssignment
         # TODO: подумать, как переименовать метод
-        Move.new(board, move_params, current_player, ruleset: ruleset)
+        Move.new(board, move_params, current_player, ruleset:)
       end
     end
 

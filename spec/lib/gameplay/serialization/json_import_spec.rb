@@ -22,7 +22,7 @@ RSpec.describe Gameplay::Serialization::JsonImport do
 
   it 'sets boards data' do
     boards = described_class.new(json).boards
-    expect(boards.map(&:to_s)).to match_array [<<~BOARD, <<~BOARD2]
+    expect(boards.map(&:to_s)).to contain_exactly(<<~BOARD, <<~BOARD2)
       . . . . . . . .
       . . . . . . . .
       . . . . . . . .

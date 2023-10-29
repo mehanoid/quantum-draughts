@@ -17,13 +17,13 @@ module Gameplay
       possible_next_moves = Gameplay::QuantumBoardMovesCalculator.new(
         boards,
         current_player,
-        ruleset: ruleset,
+        ruleset:,
       ).valid_possible_move_chains
 
       if possible_next_moves.blank?
         {
           finished: true,
-          winner:   winner,
+          winner:,
         }
       else
         {

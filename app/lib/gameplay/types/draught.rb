@@ -15,7 +15,7 @@ module Gameplay
 
       def as_json(*_args)
         {
-          id: id,
+          id:,
           c:  short_color,
           k:  king,
         }
@@ -36,7 +36,7 @@ module Gameplay
       end
 
       def to_king
-        self.class.new(id: id, color: color, king: true)
+        self.class.new(id:, color:, king: true)
       end
 
       private

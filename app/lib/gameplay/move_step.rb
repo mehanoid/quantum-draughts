@@ -63,9 +63,10 @@ module Gameplay
       if current_beaten_cells.present?
         return 'can not beat same draught multiple times' unless valid_unique_beaten_cells?
         return 'invalid beating' unless valid_beaten_cells_order?
-        return 'can not beat draught of the same color' unless valid_beaten_draughts_color?
+
+        'can not beat draught of the same color' unless valid_beaten_draughts_color?
       else
-        return 'invalid move distance' unless valid_move_distance?
+        'invalid move distance' unless valid_move_distance?
       end
     end
 

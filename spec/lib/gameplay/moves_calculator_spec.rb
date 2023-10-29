@@ -10,7 +10,7 @@ RSpec.describe Gameplay::MovesCalculator do
 
     describe 'possible moves' do
       it 'return array of resulting cells' do
-        possible_moves = described_class.new(board, 'C3', :white, ruleset: ruleset).possible_moves
+        possible_moves = described_class.new(board, 'C3', :white, ruleset:).possible_moves
         expect(possible_moves).to match_array %w[B4 D4]
       end
     end
@@ -32,12 +32,12 @@ RSpec.describe Gameplay::MovesCalculator do
 
     describe 'possible moves' do
       it 'beats' do
-        possible_moves = described_class.new(board, 'B2', :white, ruleset: ruleset).possible_moves
-        expect(possible_moves).to match_array ['D4']
+        possible_moves = described_class.new(board, 'B2', :white, ruleset:).possible_moves
+        expect(possible_moves).to contain_exactly('D4')
       end
 
       it 'can not move if another draught can beat' do
-        possible_moves = described_class.new(board, 'G2', :white, ruleset: ruleset).possible_moves
+        possible_moves = described_class.new(board, 'G2', :white, ruleset:).possible_moves
         expect(possible_moves).to be_empty
       end
     end
@@ -59,8 +59,8 @@ RSpec.describe Gameplay::MovesCalculator do
 
     describe 'possible_move_chains' do
       it 'beats with chained move' do
-        chain_cells = described_class.new(board, 'B2', :white, ruleset: ruleset).possible_move_chains_cell_names
-        expect(chain_cells).to match_array [%w[D4 B6], %w[D4 F6]]
+        chain_cells = described_class.new(board, 'B2', :white, ruleset:).possible_move_chains_cell_names
+        expect(chain_cells).to contain_exactly(%w[D4 B6], %w[D4 F6])
       end
     end
   end
@@ -81,8 +81,8 @@ RSpec.describe Gameplay::MovesCalculator do
 
     describe 'possible_move_chains' do
       it 'can beat one of the draughts' do
-        chain_cells = described_class.new(board, 'D4', :white, ruleset: ruleset).possible_move_chains_cell_names
-        expect(chain_cells).to match_array [%w[A1], %w[H8]]
+        chain_cells = described_class.new(board, 'D4', :white, ruleset:).possible_move_chains_cell_names
+        expect(chain_cells).to contain_exactly(%w[A1], %w[H8])
       end
     end
   end

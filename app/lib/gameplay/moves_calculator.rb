@@ -44,7 +44,7 @@ module Gameplay
     def possible_move_steps
       length = ruleset.max_step_length(from_cell)
       board.diagonals_through_cell(from_cell, length).map do |cell|
-        ruleset.build_move_step(board, [cell_name, cell.name], current_player, prev_beaten_cells: prev_beaten_cells)
+        ruleset.build_move_step(board, [cell_name, cell.name], current_player, prev_beaten_cells:)
       end.select(&:valid?)
     end
 
@@ -61,7 +61,7 @@ module Gameplay
             current_player,
             should_beat:       true,
             prev_beaten_cells: move_step.beaten_cells,
-            ruleset:           ruleset,
+            ruleset:,
           )
           possible_next_moves_obj.valid_move_steps.flat_map do |next_step|
             possible_next_moves_obj.possible_next_steps(next_step)
@@ -78,7 +78,7 @@ module Gameplay
 
     memoize def any_can_beat?
       # TODO: не вызывать BoardMovesCalculator из MovesCalculator
-      @should_beat || BoardMovesCalculator.new(board, current_player, ruleset: ruleset).any_can_beat?
+      @should_beat || BoardMovesCalculator.new(board, current_player, ruleset:).any_can_beat?
     end
 
     def from_cell

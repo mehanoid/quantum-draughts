@@ -47,7 +47,7 @@ module Gameplay
     end
 
     def valid_final_state?(step = last_step)
-      !should_beat? || step && next_moves_calculators(step).none?(&:can_beat?)
+      !should_beat? || (step && next_moves_calculators(step).none?(&:can_beat?))
     end
 
     private
@@ -117,7 +117,7 @@ module Gameplay
     end
 
     def moves_calculator(step)
-      MovesCalculator.new(step.board, step.from_cell.name, current_player, ruleset: ruleset)
+      MovesCalculator.new(step.board, step.from_cell.name, current_player, ruleset:)
     end
 
     def next_moves_calculator(step)
@@ -126,12 +126,12 @@ module Gameplay
         step.to_cell.name,
         current_player,
         prev_beaten_cells: step.beaten_cells,
-        ruleset:           ruleset
+        ruleset:
       )
     end
 
     memoize def should_beat?
-      MovesCalculator.new(board, move_cells.first, current_player, ruleset: ruleset).any_can_beat?
+      MovesCalculator.new(board, move_cells.first, current_player, ruleset:).any_can_beat?
     end
   end
 end

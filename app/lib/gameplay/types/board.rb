@@ -51,7 +51,7 @@ module Gameplay
         private
 
         def coordinates_to_index(column_number, row_number)
-          CELLS_PER_ROW * (row_number - 1) + (column_number - 1)
+          (CELLS_PER_ROW * (row_number - 1)) + (column_number - 1)
         end
 
         def coordinate_valid?(number)
@@ -72,7 +72,7 @@ module Gameplay
               (Draught.new id: draught_data['id'], color: draught_data['c'], king: draught_data['k'] if draught_data)
             BoardCell.new(column:  column_char,
                           row:     row_number,
-                          draught: draught)
+                          draught:)
           end
         end.freeze
       end
@@ -108,7 +108,7 @@ module Gameplay
       def diagonals_through_cell(cell, length = Float::INFINITY)
         BoardVector::DIAGONALS.each_with_object([]) do |vector, selected_cells|
           (1..length).each do |i|
-            selected_cell = cell_at(cell.coordinate + vector * i)
+            selected_cell = cell_at(cell.coordinate + (vector * i))
             break unless selected_cell
 
             selected_cells << selected_cell
@@ -125,7 +125,7 @@ module Gameplay
         vector            = cell2.coordinate - cell1.coordinate
         normalized_vector = vector.normalize
         (1...vector.cells_length).map do |factor|
-          cell_at(cell1.coordinate + normalized_vector * factor)
+          cell_at(cell1.coordinate + (normalized_vector * factor))
         end
       end
 
@@ -139,7 +139,7 @@ module Gameplay
           cells:  cells.reject(&:empty?).to_h do |cell|
             [cell.name, cell.draught.as_json]
           end,
-          weight: weight,
+          weight:,
         }
       end
 
@@ -156,7 +156,7 @@ module Gameplay
         if cell_params.present?
           @cells = cells.dup
           cell_params.each do |cell_name, draught|
-            cells[self.class.cell_index(cell_name)] = cell_at(cell_name).update(draught: draught)
+            cells[self.class.cell_index(cell_name)] = cell_at(cell_name).update(draught:)
           end
           @cells.freeze
         end

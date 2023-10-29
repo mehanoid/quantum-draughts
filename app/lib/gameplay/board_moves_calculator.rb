@@ -25,14 +25,14 @@ module Gameplay
     def all_possible_move_steps
       from_cells = board.occupied_cells.select { |c| c.draught.color == current_player }
       from_cells.flat_map do |cell|
-        MovesCalculator.new(board, cell.name, current_player, ruleset: ruleset).possible_move_steps
+        MovesCalculator.new(board, cell.name, current_player, ruleset:).possible_move_steps
       end
     end
 
     def all_possible_move_chains
       from_cells = board.occupied_cells.select { |c| c.draught.color == current_player }
       from_cells.flat_map do |cell|
-        MovesCalculator.new(board, cell.name, current_player, ruleset: ruleset).possible_move_chains
+        MovesCalculator.new(board, cell.name, current_player, ruleset:).possible_move_chains
       end
     end
   end

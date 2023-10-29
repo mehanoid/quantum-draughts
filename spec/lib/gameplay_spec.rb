@@ -7,7 +7,7 @@ RSpec.describe Gameplay do
     let(:match_turn) { Game::MatchTurn.new.init_boards }
 
     it 'does something' do
-      skip
+      skip('todo')
     end
   end
 end

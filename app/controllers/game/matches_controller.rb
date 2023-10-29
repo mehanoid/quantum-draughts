@@ -51,9 +51,12 @@ module Game
       user = current_or_guest_user(create: false)
 
       match.with_lock do
-        return render json: { status: :error }, status: :forbidden unless user == match.current_player
+        unless user == match.current_player
+          render json: { status: :error }, status: :forbidden
+          raise ActiveRecord::Rollback
+        end
 
-        case Game::Matches::MakeMove.call(current_user: user, match: match, moves: params[:moves])
+        case Game::Matches::MakeMove.call(current_user: user, match:, moves: params[:moves])
         in Success()
           render json: { status: :ok }
         in Failure(message)

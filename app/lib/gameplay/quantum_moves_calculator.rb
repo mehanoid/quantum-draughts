@@ -18,7 +18,7 @@ module Gameplay
 
     def possible_move_chains
       chains = boards.flat_map do |board|
-        MovesCalculator.new(board, cell_name, current_player, ruleset: ruleset).possible_move_chains
+        MovesCalculator.new(board, cell_name, current_player, ruleset:).possible_move_chains
       end
       chains.select { |chain| valid_move?(chain.first) }
     end
@@ -42,7 +42,7 @@ module Gameplay
 
     def possible_move_steps
       boards.flat_map do |board|
-        MovesCalculator.new(board, cell_name, current_player, ruleset: ruleset).possible_move_steps
+        MovesCalculator.new(board, cell_name, current_player, ruleset:).possible_move_steps
       end
     end
 

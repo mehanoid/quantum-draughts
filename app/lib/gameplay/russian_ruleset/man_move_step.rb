@@ -35,8 +35,8 @@ module Gameplay
       end
 
       def becomes_king?
-        draught.white? && to_cell.row_number == 8 ||
-          draught.black? && to_cell.row_number == 1
+        (draught.white? && to_cell.row_number == 8) ||
+          (draught.black? && to_cell.row_number == 1)
       end
     end
   end

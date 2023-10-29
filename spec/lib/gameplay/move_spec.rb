@@ -20,7 +20,7 @@ RSpec.describe Gameplay::Move do
     end
 
     it 'moves one step right' do
-      new_board = described_class.new(board, %w[D2 E3], :white, ruleset: ruleset).perform
+      new_board = described_class.new(board, %w[D2 E3], :white, ruleset:).perform
 
       expect(new_board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -35,7 +35,7 @@ RSpec.describe Gameplay::Move do
     end
 
     it 'moves one step towards black draught' do
-      new_board = described_class.new(board, %w[D2 C3], :white, ruleset: ruleset).perform
+      new_board = described_class.new(board, %w[D2 C3], :white, ruleset:).perform
 
       expect(new_board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -65,7 +65,7 @@ RSpec.describe Gameplay::Move do
     end
 
     it 'beats to left' do
-      new_board = described_class.new(board, %w[D6 B8], :white, ruleset: ruleset).perform
+      new_board = described_class.new(board, %w[D6 B8], :white, ruleset:).perform
 
       expect(new_board.to_s).to eq <<~BOARD
         . □ . . . . . .
@@ -80,7 +80,7 @@ RSpec.describe Gameplay::Move do
     end
 
     it 'continues beating after becoming king' do
-      new_board = described_class.new(board, %w[D6 F8 H6 C1], :white, ruleset: ruleset).perform
+      new_board = described_class.new(board, %w[D6 F8 H6 C1], :white, ruleset:).perform
 
       expect(new_board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -110,7 +110,7 @@ RSpec.describe Gameplay::Move do
     end
 
     it 'does not prevent second draught to move' do
-      new_board = described_class.new(board, %w[E5 C7], :white, ruleset: ruleset).perform
+      new_board = described_class.new(board, %w[E5 C7], :white, ruleset:).perform
 
       expect(new_board.to_s).to eq <<~BOARD
         . . . . . . . .
@@ -141,7 +141,7 @@ RSpec.describe Gameplay::Move do
       end
 
       it 'beats all of them' do
-        new_board = described_class.new(board, %w[H8 F6 C3 E1], :white, ruleset: ruleset).perform
+        new_board = described_class.new(board, %w[H8 F6 C3 E1], :white, ruleset:).perform
 
         expect(new_board.to_s).to eq <<~BOARD
           . . . . . . . .
@@ -157,13 +157,13 @@ RSpec.describe Gameplay::Move do
 
       it 'can not stop after first beating' do
         expect {
-          described_class.new(board, %w[H8 F6], :white, ruleset: ruleset).perform
+          described_class.new(board, %w[H8 F6], :white, ruleset:).perform
         }.to raise_error Gameplay::InvalidMove
       end
 
       it 'can not move on to avoid third beating' do
         expect {
-          described_class.new(board, %w[H8 F6 B2], :white, ruleset: ruleset).perform
+          described_class.new(board, %w[H8 F6 B2], :white, ruleset:).perform
         }.to raise_error Gameplay::InvalidMove
       end
     end
@@ -183,7 +183,7 @@ RSpec.describe Gameplay::Move do
       end
 
       it 'can beat one of them' do
-        new_board = described_class.new(board, %w[D4 A1], :white, ruleset: ruleset).perform
+        new_board = described_class.new(board, %w[D4 A1], :white, ruleset:).perform
 
         expect(new_board.to_s).to eq <<~BOARD
           . . . . . . . .
@@ -199,7 +199,7 @@ RSpec.describe Gameplay::Move do
 
       it 'can not beat one draught two times' do
         expect {
-          described_class.new(board, %w[D4 A1 H8], :white, ruleset: ruleset).perform
+          described_class.new(board, %w[D4 A1 H8], :white, ruleset:).perform
         }.to raise_error Gameplay::InvalidMove
       end
     end

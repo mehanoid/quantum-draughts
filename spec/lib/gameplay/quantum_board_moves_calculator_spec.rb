@@ -20,12 +20,7 @@ RSpec.describe Gameplay::QuantumBoardMovesCalculator do
     describe '::valid_possible_move_chains' do
       it 'return array of resulting cells' do
         chains = described_class.new([board], :white, ruleset: Gameplay::RussianRuleset).valid_possible_move_chains
-        expect(chains).to match_array(
-          [
-            { beat: true, cells: %w[B2 D4 B6] },
-            { beat: true, cells: %w[B2 D4 F6] },
-          ]
-        )
+        expect(chains).to contain_exactly({ beat: true, cells: %w[B2 D4 B6] }, { beat: true, cells: %w[B2 D4 F6] })
       end
     end
   end
