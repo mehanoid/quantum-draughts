@@ -67,9 +67,6 @@ group :development, :test do
   gem 'benchmark-ips'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
-  gem 'pry-byebug'
-  gem 'pry-inline'
-  gem 'pry-rails'
   gem 'ruby-prof'
 end
 
@@ -83,7 +80,6 @@ group :development do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
-  gem 'solargraph'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-rubocop'
