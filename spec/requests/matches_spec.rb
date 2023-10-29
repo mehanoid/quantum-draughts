@@ -70,7 +70,7 @@ RSpec.describe 'Matches', type: :request do
           post move_game_match_path(match), params: params, as: :json
         }.not_to change { match.current_turn.reload.boards }
 
-        expect(response.parsed_body).to include('error' => "Invalid move: one of the moves is invalid")
+        expect(response.parsed_body).to include('error' => 'Invalid move: one of the moves is invalid')
       end
     end
   end
