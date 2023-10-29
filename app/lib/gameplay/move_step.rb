@@ -5,7 +5,7 @@ module Gameplay
     attr_reader :from_cell, :to_cell, :prev_beaten_cells, :current_player, :board
 
     class << self
-      def build(*args)
+      def build(*)
         from_cell = board.cell_at(move_cells.first)
         klass     =
           if from_cell.draught&.king?
@@ -13,7 +13,7 @@ module Gameplay
           else
             Gameplay::ManMoveStep
           end
-        klass.new(*args)
+        klass.new(*)
       end
     end
 

@@ -54,16 +54,16 @@ module Gameplay
         end
       end
 
-      def create_white_draught(**opts)
+      def create_white_draught(**)
         @white_id ||= 0
         @white_id += 1
-        Types::Draught.new(id: @white_id, color: :white, **opts)
+        Types::Draught.new(id: @white_id, color: :white, **)
       end
 
-      def create_black_draught(**opts)
+      def create_black_draught(**)
         @black_id ||= 12
         @black_id += 1
-        Types::Draught.new(id: @black_id, color: :black, **opts)
+        Types::Draught.new(id: @black_id, color: :black, **)
       end
     end
   end
