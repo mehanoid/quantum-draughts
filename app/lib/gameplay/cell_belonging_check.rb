@@ -15,7 +15,7 @@ module Gameplay
     end
 
     def check
-      boards.any?(&method(:cell_belongs_on_board?))
+      boards.any? { cell_belongs_on_board? _1 }
     end
 
     private

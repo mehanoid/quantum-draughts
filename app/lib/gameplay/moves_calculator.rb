@@ -49,7 +49,7 @@ module Gameplay
     end
 
     def valid_move_steps
-      possible_move_steps.select(&method(:valid_move?))
+      possible_move_steps.select { valid_move?(_1) }
     end
 
     def possible_next_steps(move_step)

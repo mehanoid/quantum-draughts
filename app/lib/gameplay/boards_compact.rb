@@ -10,8 +10,8 @@ module Gameplay
 
     def perform
       calc_boards_weights(@boards)
-        .then(&method(:reduce_boards_weights))
-        .then(&method(:make_board_list))
+        .then { reduce_boards_weights _1 }
+        .then { make_board_list _1 }
     end
 
     private

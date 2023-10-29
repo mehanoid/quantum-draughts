@@ -25,14 +25,14 @@ module Gameplay
 
       def cells_json
         cell_names = boards.first.cells.map(&:name)
-        cell_names.map do |cell_name|
-          draughts_data = draughts_with_boards_indexes(boards, cell_name).map(&method(:draught_json))
+        cell_names.filter_map do |cell_name|
+          draughts_data = draughts_with_boards_indexes(boards, cell_name).map { draught_json(*_1) }
           next if draughts_data.empty?
 
           {
             cell: cell_name,
           }.merge(draughts_data[0])
-        end.compact
+        end
       end
 
       # @return [Hash<Game::Draught, Array<Integer>>]

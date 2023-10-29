@@ -11,7 +11,7 @@ module Gameplay
     end
 
     def perform
-      cell_names.reduce(@boards, &method(:resolve_conflicts_on_cell))
+      cell_names.reduce(@boards) { |*args| resolve_conflicts_on_cell(*args) }
     end
 
     private

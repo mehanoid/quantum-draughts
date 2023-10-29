@@ -1,8 +1,11 @@
 require:
+  - rubocop-factory_bot
+  - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
 
 AllCops:
+  ActiveSupportExtensionsEnabled: true
   NewCops: enable
   Exclude:
     - bin/*

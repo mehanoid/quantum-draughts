@@ -55,7 +55,7 @@ module Gameplay
     # @return [Gameplay::Types::Board, nil] transformed board
     def result
       @result ||= begin
-        move_steps.each(&method(:validate_step!))
+        move_steps.each { validate_step!(_1) }
         validate_final_state!
         last_step&.perform
       rescue InvalidMove => e
@@ -69,7 +69,7 @@ module Gameplay
     end
 
     def next_moves_calculators(step)
-      [next_moves_calculator(step), *alternative_steps(step).map(&method(:next_moves_calculator))]
+      [next_moves_calculator(step), *alternative_steps(step).map { next_moves_calculator _1 }]
     end
 
     # @return [Gameplay::MoveStep]
@@ -86,7 +86,7 @@ module Gameplay
     end
 
     def valid_steps
-      move_steps.take_while(&method(:valid_step?))
+      move_steps.take_while { valid_step?(_1) }
     end
 
     # @return [Array<Gameplay::MoveStep>]

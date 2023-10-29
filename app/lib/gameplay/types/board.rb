@@ -100,7 +100,7 @@ module Gameplay
 
       # @return [Array<Draught>]
       def draughts
-        cells.map(&:draught).compact
+        cells.filter_map(&:draught)
       end
 
       # @param cell [BoardCell]

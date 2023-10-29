@@ -37,7 +37,7 @@ module Gameplay
         all_possible_move_chains.select { |chain| chain.first.beat? }
       else
         all_possible_move_chains
-      end.then(&method(:reject_included_in_other_moves))
+      end.then { reject_included_in_other_moves(_1) }
         .map do |chain|
         {
           beat:  chain.first.beat?,
@@ -53,7 +53,7 @@ module Gameplay
     end
 
     def reject_included_in_other_moves(chains)
-      chains.reduce(chains, &method(:reject_moves_included_in))
+      chains.reduce(chains) { |*args| reject_moves_included_in(*args) }
     end
 
     def reject_moves_included_in(chains, chain)

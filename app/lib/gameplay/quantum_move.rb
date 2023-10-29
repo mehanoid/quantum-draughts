@@ -16,9 +16,9 @@ module Gameplay
     def perform
       validate_moves_params!
       build_moves(moves_params)
-        .then(&method(:perform_moves))
-        .then(&method(:collapse_boards))
-        .then(&method(:compact_boards))
+        .then { perform_moves(_1) }
+        .then { collapse_boards(_1) }
+        .then { compact_boards(_1) }
     end
 
     # была ли на этом ходу побита хоть одна шашка

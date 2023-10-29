@@ -13,7 +13,7 @@ module Gameplay
 
     # @return [Array<String>]
     def possible_moves
-      possible_move_steps.select(&method(:valid_move?)).map { |step| step.to_cell.name }.uniq
+      possible_move_steps.select { valid_move?(_1) }.map { |step| step.to_cell.name }.uniq
     end
 
     def possible_move_chains
