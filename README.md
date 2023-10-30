@@ -46,9 +46,10 @@ bin/rake db:create
 bin/rake db:migrate
 ```
 
-И, наконец, запустить сервер и webpacker командой `yarn start`.
-Команда для запуска тестов: `bin/rspec`
-Команда для запуска тестов с анализом покрытия: `DISABLE_SPRING=1 bin/rspec`
-Команда для запуска бенчмарков: `RUBY_YJIT_ENABLE=true bin/rake performance_test:bench`
+Запуск сервера и webpacker: `yarn start`.
+Запуск тестов: `bin/rspec`
+Запуск тестов с анализом покрытия: `DISABLE_SPRING=1 bin/rspec`
+Запуск бенчмарков: `RUBY_YJIT_ENABLE=true bin/rake performance_test:bench`
+Запуск профайлера: `bin/rake performance_test:profile`
 
 Бенчмарки измеряют производительность вычисления квантовых ходов. Эти вычисления достаточно ресурсоёмки и являются узким местом, поэтому бенчмарки важны для выполнения их оптимизации.
