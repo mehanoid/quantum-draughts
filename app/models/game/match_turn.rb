@@ -24,7 +24,7 @@ module Game
     def to_s
       board_instances.map do |b|
         "#{b.weight}\n#{b}\n"
-      end
+      end.join("\n\n")
     end
   end
 end
