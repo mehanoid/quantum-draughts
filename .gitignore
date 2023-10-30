@@ -31,4 +31,4 @@ yarn-debug.log*
 .yarn-integrity
 
 /reports
-
+/coverage
