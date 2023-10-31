@@ -18,7 +18,7 @@ module Game
 
     describe 'uuid' do
       it 'assigns a uuid before create' do
-        player = Game::Player.new
+        player = described_class.new
         expect(player.uuid).to be_nil
         player.save!
         expect(player.reload.uuid).to be_present
