@@ -6,8 +6,8 @@ module Game
 
     has_many :match_turns, dependent: :destroy
 
-    belongs_to :white_player, class_name: 'User', optional: true
-    belongs_to :black_player, class_name: 'User', optional: true
+    belongs_to :white_player, class_name: 'Player', optional: true
+    belongs_to :black_player, class_name: 'Player', optional: true
     belongs_to :winner, class_name: 'User', optional: true
 
     enum ruleset: {
@@ -59,6 +59,8 @@ module Game
     def current_player
       current_turn.white? ? white_player : black_player
     end
+
+    def current_player_id = current_player&.id
 
     def players
       [white_player, black_player].compact

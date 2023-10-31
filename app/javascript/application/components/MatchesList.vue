@@ -22,7 +22,7 @@
 <script>
 import MatchForm from '../components/MatchForm'
 import {mapState} from 'vuex'
-import userUtils from '@application/utils/user'
+import playerUtils from '@application/utils/player'
 
 export default {
   components: {
@@ -35,18 +35,18 @@ export default {
     },
   },
   computed: {
-    ...mapState(['currentUser']),
+    ...mapState(['currentPlayer']),
   },
   methods: {
     playerName(player) {
-      return player && userUtils.displayingName(player) || this.$t('matchesShow.noPlayer')
+      return player && playerUtils.displayingName(player) || this.$t('matchesShow.noPlayer')
     },
     matchOpenButtonText(match) {
       if (match.state === 'finished') {
         return this.$t('matchesList.showDetails')
       }
-      if (this.currentUser && (match.white_player && match.white_player.id === this.currentUser.id ||
-        match.black_player && match.black_player.id === this.currentUser.id)) {
+      if (this.currentPlayer && (match.white_player && match.white_player.id === this.currentPlayer.id ||
+        match.black_player && match.black_player.id === this.currentPlayer.id)) {
         return this.$t('matchesList.backToGame')
       }
       if (match.state === 'new_match') {

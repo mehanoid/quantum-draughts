@@ -67,8 +67,11 @@ export default {
         this.disconnected = true
       }
     })
-    await this.withPageLoader(async () => {
-      this.updateMatch(this.matchId)
+    await this.withPageLoader(() => {
+      Promise.all([
+        this.updateCurrentPlayer(),
+        this.updateMatch(this.matchId)
+      ])
     })
   },
   beforeDestroy() {
@@ -77,7 +80,7 @@ export default {
   methods: {
     ...mapMutations('gameplay', ['setMatch']),
     ...mapActions('gameplay', ['updateMatch']),
-    ...mapActions(['withPageLoader']),
+    ...mapActions(['withPageLoader', 'updateCurrentPlayer']),
   },
 }
 </script>

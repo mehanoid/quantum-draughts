@@ -81,6 +81,6 @@ export default {
 
   async join({state, dispatch}) {
     await serverApi.matchJoin(state.match.id)
-    dispatch('updateCurrentUser', null, {root: true})
+    dispatch('updateCurrentPlayer', null, {root: true})
   },
 }

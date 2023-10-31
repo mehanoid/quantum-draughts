@@ -8,8 +8,6 @@ Rails.application.routes.draw do
 
   get 'about' => 'pages#front'
 
-  resource :profile, only: :update
-
   namespace :game do
     resources :matches, only: %i[show create index] do
       member do
@@ -17,6 +15,7 @@ Rails.application.routes.draw do
         post :move
       end
     end
+    resource :current_player, only: %i[show update]
     resources :match_turns, only: %i[show]
   end
 

@@ -3,7 +3,7 @@ export default {
     state.pageLoading = value
   },
 
-  setCurrentUser(state, value) {
-    state.currentUser = value
+  setCurrentPlayer(state, value) {
+    state.currentPlayer = value
   },
 }

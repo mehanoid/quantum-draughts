@@ -19,8 +19,8 @@
             :label="ruleset.label"
             :value="ruleset.value"
           )
-        UserFormInputs(
-          v-model="user"
+        PlayerFormInputs(
+          v-model="player"
         )
     v-card-actions
       v-spacer
@@ -37,16 +37,16 @@
 <script>
 import {mapActions} from 'vuex'
 import serverApi from '../serverApi'
-import UserFormInputs from './UserFormInputs'
+import PlayerFormInputs from './PlayerFormInputs'
 
 export default {
-  components: {UserFormInputs},
+  components: {PlayerFormInputs},
   data: () => ({
     valid: true,
     match: {
       ruleset: 'english',
     },
-    user: {
+    player: {
       displaying_name: null,
     },
     progress: false,
@@ -60,7 +60,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['updateCurrentUser']),
+    ...mapActions(['updateCurrentPlayer']),
 
     close() {
       this.$refs.form.resetValidation()
@@ -72,9 +72,9 @@ export default {
       }
 
       this.progress = true
-      const response = await serverApi.matchCreate({game_match: this.match, user: this.user})
+      const response = await serverApi.matchCreate({game_match: this.match, player: this.player})
       const matchId = response.data.id
-      this.updateCurrentUser()
+      this.updateCurrentPlayer()
       this.$router.push({name: 'match', params: {matchId}})
     },
   },

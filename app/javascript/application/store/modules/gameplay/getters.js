@@ -52,18 +52,18 @@ export default {
     return getters.cellByName(state.selectedCellName)
   },
 
-  isCurrentUserParticipant(state, getters, rootState) {
-    return rootState.currentUser && state.match && (
-      state.match.white_player && rootState.currentUser.id === state.match.white_player.id ||
-      state.match.black_player && rootState.currentUser.id === state.match.black_player.id
+  isCurrentPlayerParticipant(state, getters, rootState) {
+    return rootState.currentPlayer && state.match && (
+      state.match.white_player && rootState.currentPlayer.id === state.match.white_player.id ||
+      state.match.black_player && rootState.currentPlayer.id === state.match.black_player.id
     )
   },
 
-  isCurrentUserTurn(state, getters, rootState) {
-    return getters.currentPlayerUser && rootState.currentUser && getters.currentPlayerUser.id === rootState.currentUser.id
+  isCurrentPlayerTurn(state, getters, rootState) {
+    return getters.matchCurrentPlayer && rootState.currentPlayer && getters.matchCurrentPlayer.id === rootState.currentPlayer.id
   },
 
-  currentPlayerUser(state) {
+  matchCurrentPlayer(state) {
     if (!state.match) {
       return null
     }
@@ -73,7 +73,7 @@ export default {
   },
 
   anyCanMove(state, getters) {
-    return getters.isCurrentUserTurn && !state.history.selectedMatchTurnId
+    return getters.isCurrentPlayerTurn && !state.history.selectedMatchTurnId
   },
 
   anyCanBeat(state) {

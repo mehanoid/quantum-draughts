@@ -40,9 +40,9 @@ export default {
   },
   computed: {
     ...mapState('gameplay', ['match']),
-    ...mapState(['currentUser']),
+    ...mapState(['currentPlayer']),
     displayingBoard() {
-      if (this.currentUser && this.match.black_player && this.currentUser.id === this.match.black_player.id) {
+      if (this.currentPlayer && this.match.black_player && this.currentPlayer.id === this.match.black_player.id) {
         return this.board.map(row => [...row].reverse()).reverse()
       }
       else {

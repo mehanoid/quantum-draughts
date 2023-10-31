@@ -25,7 +25,7 @@
           MatchesList#sometab(:matches="allMatches")
         v-tab-item(
         )
-          MatchesList(:matches="currentUserMatches")
+          MatchesList(:matches="currentPlayerMatches")
 
 </template>
 
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       allMatches: null,
-      currentUserMatches: null,
+      currentPlayerMatches: null,
       showMatchForm: false,
       currentTab: TABS.indexOf('allMatches'),
     }
@@ -57,10 +57,10 @@ export default {
     await this.withPageLoader(async () => {
       const response = await serverApi.matchesGet()
       this.allMatches = response.data.all_matches
-      this.currentUserMatches = response.data.current_user_matches
+      this.currentPlayerMatches = response.data.current_player_matches
     })
 
-    if (this.currentUserMatches.length) {
+    if (this.currentPlayerMatches.length) {
       this.currentTab = TABS.indexOf('myMatches')
     }
   },

@@ -15,8 +15,8 @@
           lazy-validation
           @submit.prevent="submit"
         )
-          UserFormInputs(
-            v-model="user"
+          PlayerFormInputs(
+            v-model="player"
           )
       v-card-actions
         v-spacer
@@ -32,26 +32,26 @@
 
 <script>
 import {mapActions, mapState} from 'vuex'
-import UserFormInputs from './UserFormInputs'
+import PlayerFormInputs from './PlayerFormInputs'
 import serverApi from '@application/serverApi'
 
 export default {
-  components: {UserFormInputs},
+  components: {PlayerFormInputs},
   props: {
     value: {type: Boolean, required: true},
   },
   data: () => ({
     valid: true,
-    user: {
+    player: {
       displaying_name: null,
     },
     progress: false,
   }),
   computed: {
-    ...mapState(['currentUser']),
+    ...mapState(['currentPlayer']),
   },
   methods: {
-    ...mapActions(['updateCurrentUser']),
+    ...mapActions(['updateCurrentPlayer']),
 
     close() {
       this.$emit('close')
@@ -62,8 +62,8 @@ export default {
         return
       }
 
-      const user = await serverApi.profileUpdate(this.user)
-      this.$store.commit('setCurrentUser', user)
+      const player = await serverApi.currentPlayerUpdate(this.player)
+      this.$store.commit('setCurrentPlayer', player)
       this.$emit('success')
     },
   },

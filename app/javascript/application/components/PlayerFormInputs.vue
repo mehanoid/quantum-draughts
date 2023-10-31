@@ -1,9 +1,9 @@
 <template lang="pug">
   v-text-field(
-    v-if="!currentUser"
-    v-model="user.displaying_name"
+    v-if="!currentPlayer"
+    v-model="player.displaying_name"
     label="Ваше имя"
-    :rules="userValidations.displayingNameRules"
+    :rules="playerValidations.displayingNameRules"
     required
   )
 </template>
@@ -17,13 +17,13 @@ export default {
   },
   data() {
     return {
-      user: null,
+      player: null,
     }
   },
   computed: {
-    ...mapState(['currentUser']),
+    ...mapState(['currentPlayer']),
 
-    userValidations() {
+    playerValidations() {
       return {
         displayingNameRules: [
           v => !!(v && v.trim()) || this.$t('validation.errors.required'),
@@ -33,12 +33,12 @@ export default {
     },
   },
   watch: {
-    user() {
-      this.$emit('input', this.user)
+    player() {
+      this.$emit('input', this.player)
     },
   },
   created() {
-    this.user = this.value
+    this.player = this.value
   },
 }
 </script>

@@ -41,7 +41,7 @@
 <script>
 
 import {mapGetters, mapState, mapActions} from 'vuex'
-import userUtils from '@application/utils/user'
+import playerUtils from '@application/utils/player'
 import GameDraught from './GameDraught'
 import GuestWelcomeForm from './GuestWelcomeForm'
 
@@ -56,8 +56,8 @@ export default {
   },
   computed: {
     ...mapState('gameplay', ['match']),
-    ...mapGetters('gameplay', ['multiBoard', 'isCurrentUserParticipant', 'isCurrentUserTurn']),
-    ...mapState(['currentUser']),
+    ...mapGetters('gameplay', ['multiBoard', 'isCurrentPlayerParticipant', 'isCurrentPlayerTurn']),
+    ...mapState(['currentPlayer']),
 
     isNewMatch() {
       return this.match.state === 'new_match'
@@ -68,7 +68,7 @@ export default {
     },
 
     showJoinButton() {
-      return this.isNewMatch && !this.isCurrentUserParticipant
+      return this.isNewMatch && !this.isCurrentPlayerParticipant
     },
 
     highlightWhite() {
@@ -90,10 +90,10 @@ export default {
     },
 
     currentPlayerMessage() {
-      if (this.isCurrentUserTurn) {
+      if (this.isCurrentPlayerTurn) {
         return this.$t('matchesShow.yourTurn')
       }
-      else if (this.isCurrentUserParticipant) {
+      else if (this.isCurrentPlayerParticipant) {
         return this.$t('matchesShow.opponentTurn')
       }
       else if (this.match.current_player_color === 'white') {
@@ -105,10 +105,10 @@ export default {
     },
 
     matchFinishedMessage() {
-      if (this.isCurrentUserTurn) {
+      if (this.isCurrentPlayerTurn) {
         return this.$t('matchesShow.youLose')
       }
-      else if (this.isCurrentUserParticipant) {
+      else if (this.isCurrentPlayerParticipant) {
         return this.$t('matchesShow.youWon')
       }
       else if (this.match.current_player_color === 'white') {
@@ -123,7 +123,7 @@ export default {
     ...mapActions('gameplay', ['join']),
 
     joinToMatch() {
-      if (this.currentUser) {
+      if (this.currentPlayer) {
         this.join()
       }
       else {
@@ -132,7 +132,7 @@ export default {
     },
 
     playerName(player) {
-      return player && userUtils.displayingName(player) || this.$t('matchesShow.noPlayer')
+      return player && playerUtils.displayingName(player) || this.$t('matchesShow.noPlayer')
     },
   },
 }

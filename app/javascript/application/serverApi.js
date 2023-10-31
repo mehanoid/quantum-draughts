@@ -45,10 +45,10 @@ export default {
     })
   },
 
-  currentUserGet: () =>
-    axios.get('/users/current'),
-  profileUpdate: (user) =>
-    axios.patch('/profile', {user}),
+  currentPlayerGet: () =>
+    axios.get('/game/current_player'),
+  currentPlayerUpdate: (player) =>
+    axios.patch('/game/current_player', {player}),
   matchCreate: (params) =>
     axios.post('/game/matches', params),
   matchMove: (matchId, moves) =>
