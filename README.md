@@ -49,6 +49,9 @@ bin/rake db:migrate
 Запуск сервера и webpacker: `yarn start`.
 Запуск тестов: `bin/rspec`
 Запуск тестов с анализом покрытия: `DISABLE_SPRING=1 bin/rspec`
+Запуск rubocop: `bin/rubocop`
+Запуск eslint: `yarn run eslint app/javascript`
+Запуск stylelint: `yarn run eslint app/stylelint`
 Запуск бенчмарков: `RUBY_YJIT_ENABLE=true bin/rake performance_test:bench`
 Запуск профайлера: `bin/rake performance_test:profile`
 

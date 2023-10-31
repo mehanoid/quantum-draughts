@@ -36,5 +36,5 @@ rules:
 globals:
   module: false
   process: false
-  gon: false
+  _: false
   ActionCable: false

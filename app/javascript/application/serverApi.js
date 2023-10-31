@@ -7,7 +7,7 @@ export default {
   init(options) {
     store = options.store
 
-    axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector("meta[name=csrf-token]").content
+    axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name=csrf-token]').content
     axios.defaults.headers.common['Accept'] = 'application/json'
 
     // Add a request interceptor

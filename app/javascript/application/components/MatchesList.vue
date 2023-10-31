@@ -61,10 +61,6 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
-
-.matches-list {
-}
-
 .players {
   text-align: center;
 }
