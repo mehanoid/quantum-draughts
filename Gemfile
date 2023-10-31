@@ -45,7 +45,6 @@ gem 'slim-rails'
 
 # auth
 gem 'devise'
-gem 'devise-guests', github: 'mehanoid/devise-guests', branch: 'customized'
 # state
 gem 'aasm'
 # utils
@@ -53,7 +52,6 @@ gem 'active_model_serializers'
 gem 'dry-equalizer'
 gem 'dry-initializer'
 gem 'dry-monads'
-gem 'gon'
 gem 'memery'
 # Выбор случайного элемента с учётом его вероятности. Для коллапса суперпозиции
 gem 'pickup'

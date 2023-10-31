@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   root to: 'pages#index'
 
   devise_for :users
-  get 'users/current'
 
   get 'about' => 'pages#front'
 

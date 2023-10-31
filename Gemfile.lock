@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/mehanoid/devise-guests.git
-  revision: ce42c57ccd8e5f29c5b2c4413944b61d82fac1b6
-  branch: customized
-  specs:
-    devise-guests (0.7.0)
-      devise
-
-GIT
   remote: https://github.com/mehanoid/switch_user_page.git
   revision: a8bd65e02985f9a573730f3dce6425095b23d4ce
   specs:
@@ -148,11 +140,6 @@ GEM
     ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    gon (6.4.0)
-      actionpack (>= 3.0.20)
-      i18n (>= 0.7)
-      multi_json
-      request_store (>= 1.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     jquery-rails (4.6.0)
@@ -182,7 +169,6 @@ GEM
     mini_portile2 (2.8.5)
     minitest (5.20.0)
     msgpack (1.7.2)
-    multi_json (1.15.0)
     net-imap (0.4.3)
       date
       net-protocol
@@ -250,8 +236,6 @@ GEM
     redis-client (0.18.0)
       connection_pool
     regexp_parser (2.8.2)
-    request_store (1.5.1)
-      rack (>= 1.4)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -375,13 +359,11 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15, < 4.0)
   devise
-  devise-guests!
   dotenv-rails
   dry-equalizer
   dry-initializer
   dry-monads
   factory_bot_rails
-  gon
   jquery-rails
   listen
   memery

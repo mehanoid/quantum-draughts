@@ -2,8 +2,6 @@
 
 module Gameplay
   class BoardMovesCalculator
-    include Memery
-
     attr_reader :board, :current_player, :ruleset
 
     # @param board [Gameplay::Types::Board]

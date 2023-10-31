@@ -53,15 +53,13 @@ module Gameplay
     private
 
     # @return [Gameplay::Types::Board, nil] transformed board
-    def result
-      @result ||= begin
-        move_steps.each { validate_step!(_1) }
-        validate_final_state!
-        last_step&.perform
-      rescue InvalidMove => e
-        @error = e
-        nil
-      end
+    memoize def result
+      move_steps.each { validate_step!(_1) }
+      validate_final_state!
+      last_step&.perform
+    rescue InvalidMove => e
+      @error = e
+      nil
     end
 
     def validate_final_state!
