@@ -41,12 +41,12 @@ module Game
     end
 
     def create
-      Game::Match.order(:id).offset(30).destroy_all
-      match = Match.create_initial_match match_params.merge(white_player: current_player)
-
-      current_player.update!(player_params) if player_params[:displaying_name]
-
-      render json: { id: match.id }
+      case Matches::Create.call(player: current_player, params:)
+      in Success(match)
+        render json: { id: match.id }
+      in Failure(code, detail)
+        render json: { errors: [{ code:, detail: }] }
+      end
     end
 
     def move
@@ -56,7 +56,7 @@ module Game
           raise ActiveRecord::Rollback
         end
 
-        case Game::Matches::MakeMove.call(current_user: current_player, match:, moves: params[:moves])
+        case Matches::MakeMove.call(current_user: current_player, match:, moves: params[:moves])
         in Success()
           render json: { status: :ok }
         in Failure(message)
@@ -78,15 +78,6 @@ module Game
 
     helper_method def match
       @match ||= Match.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def match_params
-      params.require(:game_match).permit(:ruleset)
-    end
-
-    def player_params
-      params.fetch(:player, {}).permit(:displaying_name)
     end
   end
 end

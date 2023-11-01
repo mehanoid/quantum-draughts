@@ -43,9 +43,9 @@ module Game
     scope :by_player, ->(player) { where(white_player: player).or(where(black_player: player)) }
 
     def self.create_initial_match(params = {})
-      match = create! params
-      match.match_turns.build.init_boards
-      match
+      create(params).tap do |match|
+        match.match_turns.build.init_boards
+      end
     end
 
     def current_turn
