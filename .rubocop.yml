@@ -10,8 +10,13 @@ AllCops:
   Exclude:
     - bin/*
     - db/schema.rb
-    - db/migrate/*
+#    - db/migrate/*
+    - coverage/**/*
     - node_modules/**/*
+    - log/**/*
+    - reports/**/*
+    - public/**/*
+    - tmp/**/*
 
 Style/BlockDelimiters:
   Exclude:

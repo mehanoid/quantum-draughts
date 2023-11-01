@@ -1,11 +1,10 @@
-class RemoveBoardsAndCurrentPlayerFromMatch < ActiveRecord::Migration[5.2]
-  def up
-    remove_column :game_matches, :current_player
-    remove_column :game_matches, :boards
-  end
+# frozen_string_literal: true
 
-  def down
-    add_column :game_matches, :boards, :jsonb
-    add_column :game_matches, :turn_number, :integer, default: 1, null: false
+class RemoveBoardsAndCurrentPlayerFromMatch < ActiveRecord::Migration[5.2]
+  def change
+    change_table :game_matches, bulk: true do |t|
+      t.remove :current_player, type: :integer, default: 1, null: false
+      t.remove :boards, type: :jsonb
+    end
   end
 end

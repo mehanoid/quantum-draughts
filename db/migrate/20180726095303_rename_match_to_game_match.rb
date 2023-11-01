@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameMatchToGameMatch < ActiveRecord::Migration[5.2]
   def up
     rename_table :matches, :game_matches

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddWinnerToGameMatch < ActiveRecord::Migration[5.2]
   def change
     add_column :game_matches, :finished_at, :datetime

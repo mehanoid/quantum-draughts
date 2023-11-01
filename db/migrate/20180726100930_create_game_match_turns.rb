@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGameMatchTurns < ActiveRecord::Migration[5.2]
   def change
     create_table :game_match_turns do |t|
