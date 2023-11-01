@@ -46,13 +46,14 @@ bin/rake db:create
 bin/rake db:migrate
 ```
 
-Запуск сервера и webpacker: `yarn start`.
-Запуск тестов: `bin/rspec`
-Запуск тестов с анализом покрытия: `DISABLE_SPRING=1 bin/rspec`
-Запуск rubocop: `bin/rubocop`
-Запуск eslint: `yarn run eslint app/javascript`
-Запуск stylelint: `yarn run eslint app/stylelint`
-Запуск бенчмарков: `RUBY_YJIT_ENABLE=true bin/rake performance_test:bench`
-Запуск профайлера: `bin/rake performance_test:profile`
+- Запуск сервера и webpacker: `yarn start`.
+- Запуск тестов: `bin/rspec`
+- Запуск тестов с анализом покрытия: `DISABLE_SPRING=1 bin/rspec`
+- Запуск rubocop: `bin/rubocop`
+- Запуск eslint: `yarn run eslint app/javascript`
+- Запуск stylelint: `yarn run eslint app/stylelint`
+- Запуск бенчмарков: `RUBY_YJIT_ENABLE=true bin/rake performance_test:bench`
+- Запуск профайлера: `bin/rake performance_test:profile`
 
-Бенчмарки измеряют производительность вычисления квантовых ходов. Эти вычисления достаточно ресурсоёмки и являются узким местом, поэтому бенчмарки важны для выполнения их оптимизации.
+Бенчмарки измеряют производительность вычисления квантовых ходов. Эти вычисления достаточно ресурсоёмки и являются узким
+местом, поэтому бенчмарки важны для выполнения их оптимизации.
