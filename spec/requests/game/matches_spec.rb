@@ -15,7 +15,7 @@ RSpec.describe 'Matches' do
 
     it 'returns JSON with matches list' do
       get game_matches_path, as: :json
-      expect(response.parsed_body).to include 'all_matches' => [a_hash_including('id' => match.id)]
+      expect(response.parsed_body).to include 'current_matches' => [a_hash_including('id' => match.id)]
     end
   end
 
@@ -131,7 +131,8 @@ RSpec.describe 'Matches' do
           post move_game_match_path(match), params:, as: :json
         }.not_to change { match.current_turn.reload.boards }
 
-        expect(response.parsed_body).to include('error' => 'Invalid move: one of the moves is invalid')
+        expect(response.parsed_body)
+          .to include('errors' => ['code' => 'invalid_move', 'detail' => 'one of the moves is invalid'])
       end
     end
   end

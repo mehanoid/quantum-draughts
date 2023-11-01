@@ -8,24 +8,13 @@ module Game
       respond_to do |format|
         format.html { redirect_to root_path }
         format.json do
-          matches = Match.active
-                         .where(updated_at: 1.day.ago..)
-                         .order(:state, updated_at: :desc)
-                         .includes(:white_player, :black_player)
-
-          player = current_player
-          current_user_matches =
-            if player
-              Match.by_player(player)
-                   .order(:state, updated_at: :desc)
-                   .includes(:white_player, :black_player)
-            else
-              []
-            end
+          matches = Match.order(:state, updated_at: :desc).includes(:white_player, :black_player)
+          current_matches = matches.current
+          current_player_matches = current_player ? matches.by_player(current_player) : []
 
           render json: {
-            all_matches:            serialize(matches),
-            current_player_matches: serialize(current_user_matches),
+            current_matches:        serialize(current_matches),
+            current_player_matches: serialize(current_player_matches),
           }
         end
       end
@@ -45,33 +34,28 @@ module Game
       in Success(match)
         render json: { id: match.id }
       in Failure(code, detail)
-        render json: { errors: [{ code:, detail: }] }
+        render_json_error(code:, detail:)
       end
     end
 
     def move
-      match.with_lock do
-        unless current_player == match.current_player
-          render json: { status: :error }, status: :forbidden
-          raise ActiveRecord::Rollback
-        end
-
-        case Matches::MakeMove.call(current_user: current_player, match:, moves: params[:moves])
-        in Success()
-          render json: { status: :ok }
-        in Failure(message)
-          render json: { status: :error, error: "Invalid move: #{message}" }
-        end
+      case Matches::MakeMove.call(current_player:, match:, moves: params[:moves])
+      in Success()
+        head :ok
+      in Failure(:out_of_turn)
+        head :forbidden
+      in Failure(code, detail)
+        render_json_error(code:, detail:)
       end
     end
 
     def join
-      raise 'Already participates' if current_player.in?(match.players)
-
-      match.update black_player: current_player
-      match.start!
-      MatchChannel.broadcast_with(match)
-      render json: { status: :ok }
+      case Game::Matches::Join.call(match:, player: current_player)
+      in Success
+        head :ok
+      in Failure(code, detail)
+        render_json_error(code:, detail:)
+      end
     end
 
     private

@@ -68,11 +68,7 @@ export default {
       commit('setMatchProgress', true)
       const promise = serverApi.matchMove(state.match.id, state.selectedMoves)
       commit('cleanSelections')
-      const {data: response} = await promise
-
-      if (response.error) {
-        commit('snackbars/push', {text: response.error, color: 'error'}, {root: true})
-      }
+      await promise
     }
     finally {
       commit('setMatchProgress', false)

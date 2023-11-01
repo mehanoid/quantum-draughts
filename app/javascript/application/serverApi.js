@@ -33,6 +33,11 @@ export default {
         if (status === 500) {
           store.commit('snackbars/push', {text: i18n.t('errors.internalServerError'), color: 'error'})
         }
+        else if (error.response.data.errors) {
+          error.response.data.errors.forEach(error => {
+            store.commit('snackbars/push', {text: error.detail, color: 'error'}, {root: true})
+          })
+        }
         else {
           store.commit('snackbars/push', {text: i18n.t('errors.requestError'), color: 'error'})
         }

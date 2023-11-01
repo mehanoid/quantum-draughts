@@ -40,6 +40,7 @@ module Game
     end
 
     scope :active, -> { where(state: %i[new_match ready started]) }
+    scope :current, -> { active.where(updated_at: 1.day.ago..) }
     scope :by_player, ->(player) { where(white_player: player).or(where(black_player: player)) }
 
     def self.create_initial_match(params = {})

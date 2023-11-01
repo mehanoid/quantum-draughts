@@ -22,7 +22,7 @@ module Game
 
         return Success() if player.update(player_params)
 
-        Failure(:invalid_player, player.errors.full_messages.to_sentence)
+        Failure([:invalid_player, player.errors.full_messages.to_sentence])
       end
 
       def create_match
@@ -30,7 +30,7 @@ module Game
         if match.valid?
           Success(match)
         else
-          Failure(:invalid_match, match.errors.full_messages.to_sentence)
+          Failure([:invalid_match, match.errors.full_messages.to_sentence])
         end
       end
 

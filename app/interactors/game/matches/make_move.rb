@@ -3,19 +3,28 @@
 module Game
   module Matches
     class MakeMove < ApplicationInteractor
-      option :current_user
+      option :current_player
       option :match
       option :moves
 
       def call
-        measure
-        move
-        win_condition_check
-        MatchChannel.broadcast_with(match)
+        match.with_lock do
+          yield check_current_player
+          measure
+          move
+          win_condition_check
+          MatchChannel.broadcast_with(match)
+        end
 
         Success()
       rescue Gameplay::InvalidMove => e
-        Failure(e.message)
+        Failure([:invalid_move, e.message])
+      end
+
+      def check_current_player
+        return Failure(:out_of_turn) unless current_player == match.current_player
+
+        Success()
       end
 
       def measure

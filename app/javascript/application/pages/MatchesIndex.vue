@@ -13,16 +13,16 @@
           @close="showMatchForm = false"
         )
       v-tabs(
-        v-if="allMatches !== null"
+        v-if="currentMatches !== null"
         v-model="currentTab"
       )
         v-tab(
-        ) {{ $t('matchesIndex.tabs.allMatches') }}
+        ) {{ $t('matchesIndex.tabs.currentMatches') }}
         v-tab(
         )  {{ $t('matchesIndex.tabs.myMatches') }}
         v-tab-item(
         )
-          MatchesList#sometab(:matches="allMatches")
+          MatchesList#sometab(:matches="currentMatches")
         v-tab-item(
         )
           MatchesList(:matches="currentPlayerMatches")
@@ -35,7 +35,7 @@ import MatchForm from '../components/MatchForm'
 import MatchesList from '../components/MatchesList'
 import serverApi from '../serverApi'
 
-const TABS = ['allMatches', 'myMatches']
+const TABS = ['currentMatches', 'myMatches']
 
 export default {
   components: {
@@ -44,10 +44,10 @@ export default {
   },
   data() {
     return {
-      allMatches: null,
+      currentMatches: null,
       currentPlayerMatches: null,
       showMatchForm: false,
-      currentTab: TABS.indexOf('allMatches'),
+      currentTab: TABS.indexOf('currentMatches'),
     }
   },
 
@@ -56,7 +56,7 @@ export default {
   async created() {
     await this.withPageLoader(async () => {
       const response = await serverApi.matchesGet()
-      this.allMatches = response.data.all_matches
+      this.currentMatches = response.data.current_matches
       this.currentPlayerMatches = response.data.current_player_matches
     })
 

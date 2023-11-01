@@ -38,7 +38,7 @@ export default {
   matchesIndex: {
     startGame: 'Новая игра',
     tabs: {
-      allMatches: 'Текущие партии',
+      currentMatches: 'Текущие партии',
       myMatches: 'Мои партии',
     },
   },
