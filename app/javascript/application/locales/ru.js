@@ -28,7 +28,7 @@ export default {
     },
   },
   rulesets: {
-    english: 'Английские',
+    english: 'Английские (рекомендуется)',
     russian: 'Русские',
   },
   rulesetsFull: {
