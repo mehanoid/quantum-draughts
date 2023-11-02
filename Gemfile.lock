@@ -317,6 +317,13 @@ GEM
     spring-watcher-listen (2.1.0)
       listen (>= 2.7, < 4.0)
       spring (>= 4)
+    sprockets (4.2.0)
+      concurrent-ruby (~> 1.0)
+      rack (>= 2.2.4, < 4)
+    sprockets-rails (3.4.2)
+      actionpack (>= 5.2)
+      activesupport (>= 5.2)
+      sprockets (>= 3.0.0)
     switch_user (1.5.4)
     temple (0.10.3)
     thor (1.3.0)
@@ -386,6 +393,7 @@ DEPENDENCIES
   spring-commands-rspec
   spring-commands-rubocop
   spring-watcher-listen (~> 2.1.0)
+  sprockets-rails
   switch_user
   switch_user_page!
   tzinfo-data
