@@ -6,17 +6,17 @@ module Gameplay
       move = Gameplay::QuantumMove.new(
         match_turn.board_instances,
         moves_params,
-        match_turn.player.to_sym,
+        match_turn.player_color.to_sym,
         ruleset:,
       )
 
-      player = next_player(match_turn)
+      player_color = next_player(match_turn)
 
       {
         next_turn: {
-          boards:      Gameplay::Serialization::JsonExport.new(move.perform).as_json,
-          player:,
-          turn_number: next_turn(match_turn),
+          boards:       Gameplay::Serialization::JsonExport.new(move.perform).as_json,
+          player_color:,
+          turn_number:  next_turn(match_turn),
         },
         move:      last_move(move, moves_params),
       }
@@ -25,7 +25,7 @@ module Gameplay
     private
 
     def next_turn(match_turn)
-      match_turn.player == 'white' ? match_turn.turn_number : match_turn.turn_number + 1
+      match_turn.player_color == 'white' ? match_turn.turn_number : match_turn.turn_number + 1
     end
 
     def next_player(match_turn)

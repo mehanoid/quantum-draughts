@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_31_185703) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_05_102044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "game_match_turns", force: :cascade do |t|
     t.bigint "match_id"
     t.integer "turn_number", default: 1, null: false
-    t.integer "player", default: 0, null: false
+    t.integer "player_color", default: 0, null: false
     t.jsonb "move"
     t.jsonb "boards", null: false
     t.datetime "created_at", precision: nil, null: false

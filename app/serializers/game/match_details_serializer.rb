@@ -11,7 +11,7 @@ module Game
     end
 
     def match_turns
-      object.match_turns.order(:id).select(:id, :turn_number, :player, :move)
+      object.match_turns.order(:id).select(:id, :turn_number, :player_color, :move)
     end
 
     def possible_moves

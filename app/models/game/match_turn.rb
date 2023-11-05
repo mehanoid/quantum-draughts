@@ -2,7 +2,7 @@
 
 module Game
   class MatchTurn < ApplicationRecord
-    enum player: { white: 0, black: 1 }
+    enum player_color: { white: 0, black: 1 }
 
     belongs_to :match
 

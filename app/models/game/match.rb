@@ -54,7 +54,7 @@ module Game
     end
 
     def current_player_color
-      current_turn.player.to_sym
+      current_turn.player_color.to_sym
     end
 
     def current_player

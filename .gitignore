@@ -32,3 +32,4 @@ yarn-debug.log*
 
 /reports
 /coverage
+/spec/examples.txt

@@ -12,7 +12,7 @@ RSpec.describe Gameplay do
     let(:move_result) { described_class.move(match_turn, moves_params, ruleset) }
 
     it 'returns :black as the next turn player' do
-      expect(move_result[:next_turn][:player]).to eq :black
+      expect(move_result[:next_turn][:player_color]).to eq :black
     end
 
     it 'returns the performed move' do
