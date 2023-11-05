@@ -4,19 +4,6 @@ module Gameplay
   class MoveStep
     attr_reader :from_cell, :to_cell, :prev_beaten_cells, :current_player, :board
 
-    class << self
-      def build(*)
-        from_cell = board.cell_at(move_cells.first)
-        klass     =
-          if from_cell.draught&.king?
-            Gameplay::KingMoveStep
-          else
-            Gameplay::ManMoveStep
-          end
-        klass.new(*)
-      end
-    end
-
     # @param board [Types::Board]
     # @param move_cells [Array<String>]
     def initialize(board, move_cells, current_player = nil, prev_beaten_cells: [])
