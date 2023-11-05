@@ -54,8 +54,8 @@ export default {
   computed: {
     rulesets() {
       return [
-        {value: 'english', label: this.$t('rulesets.english')},
-        {value: 'russian', label: this.$t('rulesets.russian')},
+        {value: 'english', label: this.$t('matchForm.rulesets.english')},
+        {value: 'russian', label: this.$t('matchForm.rulesets.russian')},
       ]
     },
   },

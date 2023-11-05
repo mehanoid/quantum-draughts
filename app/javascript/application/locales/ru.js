@@ -28,7 +28,7 @@ export default {
     },
   },
   rulesets: {
-    english: 'Английские (рекомендуется)',
+    english: 'Английские',
     russian: 'Русские',
   },
   rulesetsFull: {
@@ -72,6 +72,10 @@ export default {
   matchForm: {
     newMatch: 'Новая игра',
     start: 'Начать',
+    rulesets: {
+      english: 'Английские (рекомендуется)',
+      russian: 'Русские',
+    },
   },
   buttons: {
     cancel: 'Отмена',
