@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 require Rails.root.join('lib/performance_test/move.rb')
 
 namespace :performance_test do
@@ -32,3 +33,4 @@ namespace :performance_test do
     end
   end
 end
+# :nocov:

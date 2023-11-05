@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 module Profiler
   def self.profile(name = 'profile')
     profile = RubyProf::Profile.new
@@ -10,3 +11,4 @@ module Profiler
     RubyProf::CallTreePrinter.new(result).print(path: Rails.root.join('reports'), profile: name)
   end
 end
+# :nocov:

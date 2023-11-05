@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 module PerformanceTest
   class Move
     attr_reader :boards
@@ -31,3 +32,4 @@ module PerformanceTest
     end
   end
 end
+# :nocov:

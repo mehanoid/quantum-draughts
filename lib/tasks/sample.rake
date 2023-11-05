@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 namespace :sample do
   task boards: :environment do
     boards = [Gameplay::Board.from_s(<<~BOARD)]
@@ -24,3 +25,4 @@ namespace :sample do
     )
   end
 end
+# :nocov:
