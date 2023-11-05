@@ -180,5 +180,28 @@ RSpec.describe 'Matches' do
         }.to change { match.reload.black_player }.from(nil).to player
       end
     end
+
+    context 'with player already participating' do
+      before do
+        match.update(black_player: player)
+        sign_in user
+      end
+
+      it 'returns a response indicating failure' do
+        post join_game_match_path(match), as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'does not let the player join the match again' do
+        expect {
+          post join_game_match_path(match), as: :json
+        }.not_to change { match.reload.black_player }
+      end
+
+      it 'returns an error message indicating the player already participates' do
+        post join_game_match_path(match), as: :json
+        expect(response.parsed_body['errors']).to contain_exactly(a_hash_including('code' => 'already_participates'))
+      end
+    end
   end
 end
